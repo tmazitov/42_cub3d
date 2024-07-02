@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:14:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 14:11:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:17:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_image	*make_image(void *mlx)
 	image->line_bytes = 0;
 	image->pixel_bits = 0;
 	image->content = NULL;
+	image->buffer = NULL;
 	return (image);
 }
 
@@ -35,8 +36,6 @@ void	*free_image(t_image *image)
 		return (NULL);
 	if (image->content)
 		mlx_destroy_image(image->mlx, image->content);
-	if (image->buffer)
-		free(image->buffer);
 	free(image);
 	return (NULL);
 }

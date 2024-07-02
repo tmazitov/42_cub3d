@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/07/03 13:03:00 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/06 21:21:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+int	ft_isalnum(int ch)
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
-
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+	return (ft_isdigit(ch) || ft_isalpha(ch));
+}

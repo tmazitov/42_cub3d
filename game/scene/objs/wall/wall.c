@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/06/30 22:41:40 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/06/30 22:42:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#include "wall.h"
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+t_wall	*make_wall(int x, int y, t_wall_type type, \
+					t_wall_direction direction)
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+	t_wall	*wall;
 
+	wall = malloc(sizeof(t_wall));
+	if (!wall)
+		return (NULL);
+	wall->x = x;
+	wall->y = y;
+	wall->type = type;
+	wall->direction = direction;
+	return (wall);
+}
 
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+void	*free_wall(t_wall *wall)
+{
+	free(wall);
+	return (NULL);
+}

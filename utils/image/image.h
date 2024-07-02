@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:15:08 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 14:54:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:27:41 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_image	*make_image(void *mlx);
 void	*free_image(t_image *image);
 
 int		img_create(t_image *img, int width, int height);
-int		img_open_file(t_image *img, char *path);
+int		img_load(t_image *img, char *path);
 
 int		*img_buffer(t_image *image);
 void	img_draw(void *win, t_image *img, int x, int y);

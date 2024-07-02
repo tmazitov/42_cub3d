@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:17:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 14:55:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:49:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_game
 // GAME
 
 void			*free_game(t_game *game);
-t_game			*make_game(int width, int height, char *title);
+t_game			*make_game(char *scene_path, int width, int height, char *title);
 // int				feed_game_writer(t_writer *writer);
 
 // void			player_exit_handler(t_game *game);

@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/07/03 13:23:25 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/14 14:59:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+size_t	ft_strlen(const char *str)
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+	size_t	counter;
 
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+	counter = 0;
+	while (str[counter])
+		counter++;
+	return (counter);
+}

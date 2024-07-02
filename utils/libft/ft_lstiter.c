@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/07/12 17:15:34 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/12 17:17:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+void	ft_lstiter(t_list *list, void (*f)(void *))
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
-
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+	if (!list || !f)
+		return ;
+	f(list->content);
+	if (list->next)
+		ft_lstiter(list->next, f);
+}

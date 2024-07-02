@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/07/12 14:33:51 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/12 19:08:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+void	ft_lstadd_front(t_list **list, t_list *new)
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
-
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+	if (!list)
+		return ;
+	if (*list)
+		new->next = *list;
+	*list = new;
+}

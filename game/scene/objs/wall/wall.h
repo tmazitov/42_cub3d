@@ -1,30 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/06/30 22:36:42 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/06/30 22:42:34 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef WALL_H
+# define WALL_H
 
 # include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
 
-typedef struct s_scene
+typedef enum e_wall_type
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+	WALL,
+	DOOR,
+	SECRET_DOOR
+}			t_wall_type;
+
+typedef enum e_wall_direction
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST
+}			t_wall_direction;
+
+typedef struct s_wall
+{
+	int					x;
+	int					y;
+	t_wall_type 		type;
+	t_wall_direction	direction;
+}			t_wall;
 
 
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+t_wall	*make_wall(int x, int y, t_wall_type type, \
+					t_wall_direction direction);
+void	*free_wall(t_wall *wall);
+#endif

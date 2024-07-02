@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/07/05 17:22:16 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/14 15:41:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+void	*ft_memchr(const void *src, int c, size_t n)
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+	size_t			counter;
+	unsigned char	*src_str;
 
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+	if (n == 0)
+		return (NULL);
+	counter = 0;
+	src_str = (unsigned char *)src;
+	while (counter < n)
+	{
+		if (src_str[counter] == (unsigned char)c)
+			return (&src_str[counter]);
+		counter++;
+	}
+	return (NULL);
+}

@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   rgb.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/02 18:42:22 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/02 19:19:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef RGB_H
+# define RGB_H
 
 # include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
+# include "../libft/libft.h"
+# include "../error/error.h"
 
-typedef struct s_scene
+typedef struct s_rgb
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+	int		r;
+	int		g;
+	int		b;
+}			t_rgb;
 
+t_rgb	*make_rgb(int r, int g, int b);
+t_rgb	*make_rgb_by_string(char *rgb_string);
+void	*free_rgb(t_rgb *rgb);
 
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+#endif // !RGB_H

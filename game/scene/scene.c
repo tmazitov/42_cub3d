@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 15:20:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:48:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 static void	init_scene(t_scene *scene)
 {
 	scene->minimap = NULL;
+	scene->map = NULL;
 }
 
-t_scene	*make_scene(void *mlx)
+t_scene	*make_scene(void *mlx, char *path)
 {
 	t_scene	*scene;
 
@@ -28,6 +29,9 @@ t_scene	*make_scene(void *mlx)
 	scene->minimap = make_minimap(mlx, 200, 200);
 	if (!scene->minimap)
 		return (free_scene(scene));
+	scene->map = make_map(mlx, path);
+	if (!scene->map)
+		return (free_scene(scene));
 	return (scene);
 }
 
@@ -37,6 +41,8 @@ void	*free_scene(t_scene *scene)
 		return (NULL);
 	if (scene->minimap)
 		free_minimap(scene->minimap);
+	if (scene->map)
+		free_map(scene->map);
 	free(scene);
 	return (NULL);
 }

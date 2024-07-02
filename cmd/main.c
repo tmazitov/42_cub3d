@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 14:52:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:50:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 #include <stdio.h>
 #include "main.h" 
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_game	*game;
 	void	*mlx;
 	void	*mlx_win;
 	
-
-	game = make_game(1920, 1080, "Hello world!");
+	if (argc != 2)
+		return (print_error("invalid count of args"), 1);
+	game = make_game(argv[1], 1920, 1080, "Hello world!");
 	if (!game)
 		return (1);
 	printf("mlx: %p\n",mlx);

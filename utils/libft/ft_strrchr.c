@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/07/05 15:46:19 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/06 21:33:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
-
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
-
-typedef struct s_scene
+char	*ft_strrchr(const char *str, int ch)
 {
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+	int		counter;
+	char	*result;
 
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+	result = 0;
+	counter = 0;
+	while (str[counter])
+	{
+		if (str[counter] == ch)
+			result = (char *)str + counter;
+		counter++;
+	}
+	if (str[counter] == ch)
+		result = (char *)str + counter;
+	return (result);
+}

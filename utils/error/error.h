@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.h                                            :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:27 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/06/30 17:25:09 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/02 19:38:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_H
-# define SCENE_H
+#ifndef ERROR_H
+# define ERROR_H
 
-# include <stdlib.h>
-# include "map/map.h"
-# include "../minimap/minimap.h"
+# include <unistd.h>
 
-typedef struct s_scene
-{
-	t_map		*map;
-	t_minimap	*minimap;
-}			t_scene;
+void	print_error(char *support_message);
 
-
-t_scene	*make_scene(void *mlx, char *path);
-void	*free_scene(t_scene *scene);
-
-#endif // SCENE_H
+#endif

@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"image.h": "c"
+		"image.h": "c",
+		"unistd.h": "c",
+		"fcntl.h": "c"
 	}
 }
