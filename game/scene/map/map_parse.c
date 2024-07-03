@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 21:39:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:13:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		parse_sprites(void *mlx, t_map *map, int fd)
 			free(line);
 			continue;
 		}
+		line[ft_strlen(line) - 1] = '\0';
 		line_parts = ft_split(line, ' ');
 		free(line);
 		if (!line_parts)

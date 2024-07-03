@@ -6,24 +6,25 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 21:13:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:14:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
+#include <stdio.h>
 
 int	img_load(t_image *img, char *path)
 {
 	int	*w;
 	int	*h;
 
-	if (!img || access(path, R_OK))
-		return (0);
+	if (!img || access(path, R_OK) == -1)
+		return (print_error("invalid texture file"), 0);
 	w = &img->width;
 	h = &img->height;
 	img->content = mlx_xpm_file_to_image(img->mlx, path, w, h);
 	if (!img->content)
-		return (0);
+		return (print_error("invalid xpm structure"), 0);
 	return (1);
 }
 
