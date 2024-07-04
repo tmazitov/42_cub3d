@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 15:33:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:14:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static char	get_raw_value(t_map *map, int x, int y)
 
 	node = map->raw;
 	i = 0;
+	if (y >= map->height)
+		return ('\0');
 	while (i < y && y < map->height)
 	{
 		if (!node)
@@ -55,11 +57,28 @@ static char	get_raw_value(t_map *map, int x, int y)
 		node = node->next;
 		i++;
 	}
-	if (!node)
-		return (0);
-	if (x < 0)
-		return (node->value[0]);
+	if (!node || i != y || y < 0 || x < 0)
+		return ('\0');
 	return (node->value[x]);
+}
+
+static int	check_neighbors(t_map *map, int x, int y)
+{
+	char	top;
+	char	bot;
+	char	left;
+	char	right;	
+
+	top = get_raw_value(map, x, y - 1);
+	bot = get_raw_value(map, x, y + 1);
+	left = get_raw_value(map, x - 1, y); 
+	right = get_raw_value(map, x + 1, y);
+	if (!top || !bot || !right || !left)
+		return (0);
+	return (top != ' ' \
+			&& bot != ' ' \
+			&& left != ' ' \
+			&& right != ' ');
 }
 
 int convert_raw_to_objs(t_map *map)
@@ -82,6 +101,9 @@ int convert_raw_to_objs(t_map *map)
 			return (0);
 		while (node->value[x])
 		{
+			if (node->value[x] != '1' && node->value[x] != ' ' 
+				&& !check_neighbors(map, x, y))
+				return (print_error("invalid map"), 0);
 			if (node->value[x] == '1' && get_raw_value(map, x, y + 1) == '0')
 				status = add_wall((x)*64, (y + 1)*64, WALL, NORTH, map->walls);
 			if (!status)

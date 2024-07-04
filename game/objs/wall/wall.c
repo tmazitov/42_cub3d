@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:41:40 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 22:24:38 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:03:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*free_wall(t_wall *wall)
 	if (wall->start)
 		free_point(wall->start);
 	if (wall->end)
-		free_point(wall->start);
+		free_point(wall->end);
 	free(wall);
 	return (NULL);
 }

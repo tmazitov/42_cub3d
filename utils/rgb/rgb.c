@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:42:03 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 14:18:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:15:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_rgb	*make_rgb_by_string(char *rgb_string)
 	int	b;
 	char	**color_parts;
 
-	printf("color : %s\n", rgb_string);
 	if(!rgb_string)
 		return (NULL);
 	color_parts = ft_split(rgb_string, ',');
