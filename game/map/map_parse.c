@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 14:13:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/03 20:04:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
-int		check_sprite_line(char	**line_parts)
+int	check_sprite_line(char	**line_parts)
 {
 	int	count;
 
@@ -24,7 +24,7 @@ int		check_sprite_line(char	**line_parts)
 	return (1);
 }
 
-int		parse_sprites(void *mlx, t_map *map, int fd)
+int	parse_sprites(void *mlx, t_map *map, int fd)
 {
 	char	*line;
 	char	**line_parts;
@@ -61,7 +61,37 @@ int		parse_sprites(void *mlx, t_map *map, int fd)
 	return (1);
 }
 
-int		parse_map(void *mlx, t_map *map, char *path)
+
+int	parse_walls_raw(t_map *map, int fd)
+{
+	char	*line;
+
+
+	line = get_next_line(fd);
+	while (!ft_strchr(line, '1'))
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+
+	if (!line)
+		return (print_error("invalid map file"), 0);
+	while (line)
+	{
+		if (!ft_strchr(line, '1'))
+			return (free(line), print_error("invalid map file"), 0);
+		map->height += 1;
+		line[ft_strlen(line) - 1] = '\0';
+		if (!add_map_raw_item(map, line))
+			return (free(line), 0);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (1);
+}
+
+
+int	parse_map(void *mlx, t_map *map, char *path)
 {
 	int		fd;
 
@@ -71,6 +101,10 @@ int		parse_map(void *mlx, t_map *map, char *path)
 	if (fd < 0)
 		return (print_error("file does not exist"), 1);
 	if (!parse_sprites(mlx, map, fd))
+		return (0);
+	if (!parse_walls_raw(map, fd))
+		return (0);
+	if (!convert_raw_to_objs(map))
 		return (0);
 	return (1);
 }

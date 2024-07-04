@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_fill.c                                       :+:      :+:    :+:   */
+/*   point.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 16:46:01 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/03 20:12:32 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/04 10:04:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
+#include "geometry.h"
 
-void img_put_pixel(t_image *img, int color, int x, int y)
+t_point	*make_point(float x, float y)
 {
-	int	rel_pixel_index;
+	t_point	*point;
 
-	if (!img)
-		return ;
-	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
-		return ;
-	rel_pixel_index =  (y * img->line_bytes) + x;
-	img->buffer[rel_pixel_index] = color;
+	point = malloc(sizeof(t_point));
+	if (!point)
+		return (NULL);
+	point->x = x;
+	point->y = y;
+	return (point);
 }
 
+void	*free_point(t_point	*point)
+{
+	free(point);
+	return (NULL);
+}

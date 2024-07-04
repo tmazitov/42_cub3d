@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 14:14:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:38:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,24 @@ int	img_create(t_image *img, int width, int height)
 	if (!img->buffer)
 		return (0);
 	return (1);
+}
+
+void	img_clear(t_image *img)
+{
+	int	x;	
+	int	y;	
+	
+	if (!img || !img->buffer)
+		return ;
+	y = 0;
+	while (y < img->height)
+	{
+		x = 0;
+		while(x < img->width)
+		{
+			img_put_pixel(img, 0x00000000, x, y);			
+			x++;
+		}
+		y++;
+	}
 }

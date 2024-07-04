@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/02 20:30:32 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/04 10:22:05 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,18 +21,20 @@ SRCS =	cmd/main.c \
 		game/render/render.c \
 		game/render/render_minimap.c \
 		game/scene/scene.c \
-		game/scene/objs/wall/wall.c \
-		game/scene/map/map.c \
-		game/scene/map/map_parse.c \
-		game/scene/map/map_textures.c \
-		game/scene/map/map_textures_utils.c \
-		game/scene/map/map_walls.c \
+		game/objs/wall/wall.c \
+		game/map/map.c \
+		game/map/map_raw.c \
+		game/map/map_parse.c \
+		game/map/map_textures.c \
+		game/map/map_textures_utils.c \
+		game/map/map_walls.c \
 		utils/image/image.c \
 		utils/image/image_buffer.c \
 		utils/image/image_content.c \
 		utils/image/image_draw.c \
-		utils/image/image_fill.c \
+		utils/image/image_put.c \
 		utils/error/error.c \
+		utils/geometry/point.c \
 		utils/rgb/rgb.c \
 		utils/gnl/get_next_line.c \
 		utils/gnl/get_next_line_utils.c \

@@ -2,6 +2,7 @@
 	"files.associations": {
 		"image.h": "c",
 		"unistd.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"map.h": "c"
 	}
 }

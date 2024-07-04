@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 15:09:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:39:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	minimap_update(t_minimap *minimap)
 	// minimap->player->x = game->player->x;
 	// minimap->player->y = game->player->y;
 	// minimap->player->angle = game->player->angle;
-	minimap_update_image(minimap);
+	img_clear(minimap->image);
 }
 

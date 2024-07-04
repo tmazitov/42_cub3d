@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:36:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/03 20:51:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,22 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "../../../utils/error/error.h"
-# include "../../../utils/libft/libft.h"
-# include "../../../utils/image/image.h"
-# include "../../../utils/rgb/rgb.h"
-# include "../../../utils/gnl/get_next_line.h"
+# include "../../utils/error/error.h"
+# include "../../utils/libft/libft.h"
+# include "../../utils/image/image.h"
+# include "../../utils/rgb/rgb.h"
+# include "../../utils/gnl/get_next_line.h"
 # include "../objs/wall/wall.h"
 
 # define SPRITES_COUNT 6
+
+typedef struct s_map_raw_list
+{
+	char				*value;
+	struct s_map_raw 	*next;
+	struct s_map_raw	*prev;	
+}		t_map_raw_list;
+
 
 typedef struct s_wall_node
 {
@@ -32,6 +40,7 @@ typedef struct s_wall_node
 	t_wall		*wall;
 }			t_wall_node;
 
+// Contain all walls in the map
 typedef	struct s_wall_storage
 {
 	t_wall_node	*start;
@@ -46,6 +55,7 @@ typedef struct s_sprite_node
 }		t_sprite_node;
 
 
+// Contain all sprites for the map
 typedef struct s_sprite_storage
 {
 	t_sprite_node	*start;
@@ -58,6 +68,7 @@ typedef struct s_map
 	t_sprite_storage	*sprites;
 	int					height;
 	int					width;
+	t_map_raw_list		*raw;
 }			t_map;
 
 t_map				*make_map(void *mlx, char *path);
@@ -91,5 +102,13 @@ t_sprite_node		*get_sprite_by_name(t_sprite_storage *storage, \
 						char *name);
 t_sprite_node		*get_last_sprite(t_sprite_storage *storage);
 int					sprite_storage_length(t_sprite_storage *storage);
-					
+
+
+/* RAW CONTENT */
+
+int					add_map_raw_item(t_map *map, char *value);
+void				*free_map_raw_item(t_map_raw_list *item);
+int					convert_raw_to_objs(t_map *map);
+
+
 #endif

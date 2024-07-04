@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 21:39:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:27:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_map(t_map *map)
 {
 	map->walls = NULL;
 	map->sprites = NULL;
+	map->raw = NULL;
 	map->height = 0;
 	map->width = 0;
 }
@@ -49,6 +50,8 @@ void	*free_map(t_map *map)
 		free_wall_storage(map->walls);
 	if (map->sprites)
 		free_sprite_storage(map->sprites);
+	if (map->raw)
+		free_map_raw_item(map->raw);
 	free(map);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:04:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/30 17:09:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:43:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void round_corners(t_minimap *minimap)
     }
 }
 
-static void	minimap_border(t_minimap *minimap)
+void	minimap_draw_border(t_minimap *minimap)	
 {
 	int		x;
 	int		y;
@@ -83,10 +83,39 @@ static void	minimap_border(t_minimap *minimap)
 	round_corners(minimap);
 }
 
-void	minimap_update_image(t_minimap *minimap)
+void	minimap_draw_background(t_minimap *minimap)
 {
-	if (!minimap)
-		return ;
-	minimap_border(minimap);
+	t_rectangle	rect;
+
+	rect.start.x = MINIMAP_BORDER_SIZE;
+	rect.start.y = MINIMAP_BORDER_SIZE;
+	rect.width = minimap->width - MINIMAP_BORDER_SIZE * 2;
+	rect.height = minimap->height - MINIMAP_BORDER_SIZE * 2;
+	img_put_rectangle(minimap->image, rect, MINIMAP_BACKGROUND_COLOR);
+}
+
+void	minimap_draw_rect(t_minimap *minimap, t_rectangle rect, \
+							int color)
+{
+	t_rectangle	rel_rect;
+
+	rel_rect.start.x = rect.start.x / 4 + MINIMAP_BORDER_SIZE;
+	rel_rect.start.y = rect.start.y / 4 + MINIMAP_BORDER_SIZE;
+	rel_rect.height = rect.height / 4;
+	rel_rect.width = rect.width / 4;
+	img_put_rectangle(minimap->image, rel_rect, color);
+}
+
+void	minimap_draw_wall(t_minimap *minimap, t_wall *wall)
+{
+	t_point rel_p1;
+	t_point	rel_p2;
+	
+	rel_p1.x = wall->start->x / 4 + MINIMAP_BORDER_SIZE;
+	rel_p1.y = wall->start->y / 4 + MINIMAP_BORDER_SIZE;
+	rel_p2.x = wall->end->x / 4 + MINIMAP_BORDER_SIZE;
+	rel_p2.y = wall->end->y / 4 + MINIMAP_BORDER_SIZE;
+
+	img_put_line(minimap->image, MINIMAP_WALLS_COLOR, rel_p1, rel_p2);
 }
 

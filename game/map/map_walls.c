@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 23:15:11 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:37:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/03 22:11:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,17 @@ int add_wall(int x, int y, t_wall_type type, \
 
 	node = malloc(sizeof(t_wall_node));
 	if (!node)
-		return (1);
+		return (0);
 	node->next = NULL;
 	node->wall = make_wall(x, y, type, direction);
 	if (!node->wall)
-		return (1);
+		return (0);
+	printf("\t# add wall %d from %f %f to %f %f\n", direction, node->wall->start->x, node->wall->start->y, node->wall->end->x, node->wall->end->y);
 	if (storage->start == NULL)
 		storage->start = node;
 	else
 		get_last_wall(storage)->next = node;
-	return (0);
+	return (1);
 }
 
 void	*free_wall_node(t_wall_node *node)
