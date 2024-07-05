@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 23:48:08 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 00:50:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_player *make_player(void *mlx, t_point start_pos, t_direction direction)
 	if (!player->pos)
 		return (free_player(player));
 	if (direction == NORTH)
-		player->rotation = PI / 2;
+		player->rotation = 90;
 	else if (direction == SOUTH)
-		player->rotation = 3 * PI /2;
+		player->rotation = -90;
 	else if (direction == WEST)
-		player->rotation = PI;
+		player->rotation = 180;
 	else if (direction == EAST)
 		player->rotation = 0;
 	player->icon = load_icon(mlx);

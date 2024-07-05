@@ -6,11 +6,12 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 00:03:55 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:14:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
+
 
 void img_put_pixel(t_image *img, int color, int x, int y)
 {
@@ -65,29 +66,44 @@ void	img_put_rectangle(t_image* img, t_rectangle rect, int color)
 	}
 }
 
-void	img_put_img(t_image *dest, t_image *src, t_point pos)
+void img_put_img(t_image *dest, t_image *src, t_point pos, double angle)
 {
-	int	x;
-	int	y;
-	int	dest_x;
-	int	dest_y;
-	int color;
+    int x, y;
+    int dest_x, dest_y;
+    int color;
+    int new_x, new_y;
 
-	y = 0;
-	dest_y = pos.y;
-	while (y < src->height)
-	{
-		x = 0;
-		dest_x = pos.x;
-		while (x < src->width)
-		{
-			color = img_get_pixel(src, x, y);
-			if (color != 0xff000000)
-				img_put_pixel(dest, color, dest_x, dest_y);
-			x++;
-			dest_x++;
-		}
-		y++;
-		dest_y++;
-	}
+    double rad = angle * PI / 180.0;
+    
+    int cx = src->width / 2;
+    int cy = src->height / 2;
+
+    int src_x, src_y;
+
+    for (y = 0; y < src->height; y++)
+    {
+        for (x = 0; x < src->width; x++)
+        {
+            src_x = x - cx;
+            src_y = y - cy;
+            
+            // Rotate the pixel
+            new_x = (int)(src_x * cos(rad) - src_y * sin(rad)) + cx;
+            new_y = (int)(src_x * sin(rad) + src_y * cos(rad)) + cy;
+
+            // Calculate the destination position
+            dest_x = new_x + pos.x;
+            dest_y = new_y + pos.y;
+
+            // Ensure the new coordinates are within the destination image bounds
+            if (new_x >= 0 && new_x < src->width && new_y >= 0 && new_y < src->height)
+            {
+                color = img_get_pixel(src, x, y);
+                if (color != 0xff000000)  // Assuming 0xff000000 is the transparent color
+                {
+                    img_put_pixel(dest, color, dest_x, dest_y);
+                }
+            }
+        }
+    }
 }

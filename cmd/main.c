@@ -6,19 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:52:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:01:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdio.h>
 #include "main.h" 
-
-int	key_hook(int keycode, t_game *game)
-{
-	printf("Hello from key_hook! %p\n", game);
-	return (0);
-}
 
 static void setup_game_hooks(t_game *game)
 {

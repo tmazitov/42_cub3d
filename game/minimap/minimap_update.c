@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:40:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 00:50:00 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"
 
-void	minimap_update(t_minimap *minimap, float player_rotation, t_point player_position)
+void	minimap_update(t_minimap *minimap, double player_rotation, t_point player_position)
 {
 	if (!minimap)
 		return ;

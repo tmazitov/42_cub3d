@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 23:52:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 00:50:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_minimap
 {
 	t_image		*image;
 	t_point		player_pos;
-	float		player_rotation;
+	double		player_rotation;
 	int			height;
 	int			width;
 }			t_minimap;
@@ -42,12 +42,12 @@ typedef struct s_minimap
 t_minimap	*make_minimap(void *mlx, int width, int height);
 void		*free_minimap(t_minimap *map);
 
-void		minimap_update(t_minimap *minimap, float player_rotation, t_point player_position);
+void		minimap_update(t_minimap *minimap, double player_rotation, t_point player_position);
 void		minimap_draw_border(t_minimap *minimap);
 void		minimap_draw_background(t_minimap *minimap);
 void		minimap_draw_wall(t_minimap *minimap, t_wall *wall);
 void		minimap_draw_rect(t_minimap *minimap, t_rectangle rect, \
 								int color);
-void		minimap_draw_image(t_minimap *minimap, t_image *image, t_point pos);
+void	minimap_draw_image(t_minimap *minimap, t_image *image, t_point pos, double angle);
 
 # endif
