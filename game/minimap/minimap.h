@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 16:31:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:40:52 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../../utils/image/image.h"
+# include "../../utils/geometry/geometry.h"
 # include "../objs/wall/wall.h"
 
 # define MINIMAP_BORDER_RADIUS 10
@@ -32,7 +33,7 @@
 typedef struct s_minimap
 {
 	t_image		*image;
-	t_point		*player_pos;
+	t_point		player_pos;
 	float		player_rotation;
 	int			height;
 	int			width;
@@ -41,7 +42,7 @@ typedef struct s_minimap
 t_minimap	*make_minimap(void *mlx, int width, int height);
 void		*free_minimap(t_minimap *map);
 
-void		minimap_update(t_minimap *minimap, float minimap_update);
+void		minimap_update(t_minimap *minimap, float player_rotation, t_point player_position);
 void		minimap_draw_border(t_minimap *minimap);
 void		minimap_draw_background(t_minimap *minimap);
 void		minimap_draw_wall(t_minimap *minimap, t_wall *wall);

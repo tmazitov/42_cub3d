@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_update.c                                   :+:      :+:    :+:   */
+/*   game_control.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:40:44 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/05 17:19:10 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/05 19:42:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"
+#include "game.h"
 
-void	minimap_update(t_minimap *minimap, float player_rotation, t_point player_position)
+static int	player_can_move(t_game *game)
 {
-	if (!minimap)
-		return ;
-	// minimap->player->x = game->player->x;
-	// minimap->player->y = game->player->y;
-	// minimap->player->angle = game->player->angle;
-	minimap->player_pos = player_position;
-	minimap->player_rotation = player_rotation;
-	img_clear(minimap->image);
+	return (1);
 }
 
+static int	action_is_movement(int keycode)
+{
+	return (keycode == A_BUTTON || keycode == S_BUTTON || keycode == D_BUTTON || keycode == W_BUTTON);
+}
+
+int	player_control_hook(int keycode, t_game *game)
+{
+	if (action_is_movement(keycode) && player_can_move(game))
+		player_move(game->scene->player, keycode);
+	return (0);
+}

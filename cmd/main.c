@@ -6,13 +6,34 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:50:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:52:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdio.h>
 #include "main.h" 
+
+int	key_hook(int keycode, t_game *game)
+{
+	printf("Hello from key_hook! %p\n", game);
+	return (0);
+}
+
+static void setup_game_hooks(t_game *game)
+{
+	mlx_loop_hook(game->mlx, render_hook, game);
+	// mlx_key_hook(game->window, key_hook, game);	
+	// mlx_key_hook(game->window, player_control_hook, game);	
+	mlx_hook(game->window, 2, 1L << 0, player_control_hook, game);	
+	// mlx_hook(game->window, 17, 1L << 17, close_game, game);
+}
+
+static void run(t_game *game)
+{
+	setup_game_hooks(game);
+	mlx_loop(game->mlx);
+}
 
 int	main(int argc, char **argv)
 {
@@ -25,9 +46,5 @@ int	main(int argc, char **argv)
 	game = make_game(argv[1], 1920, 1080, "Hello world!");
 	if (!game)
 		return (1);
-	printf("mlx: %p\n",mlx);
-	printf("win: %p\n",mlx_win);
-	img_put_pixel(game->scene->minimap->image, 0x00FF0000, 10, 10);
-	mlx_loop_hook(game->mlx, render_hook, game);
-	mlx_loop(game->mlx);
+	run(game);
 }

@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_update.c                                   :+:      :+:    :+:   */
+/*   player_behavior.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:40:44 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/05 20:07:00 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"
+#include "player.h"
+#include <stdio.h>
 
-void	minimap_update(t_minimap *minimap, float player_rotation, t_point player_position)
+int	player_move(t_player *player, int keycode)
 {
-	if (!minimap)
-		return ;
-	// minimap->player->x = game->player->x;
-	// minimap->player->y = game->player->y;
-	// minimap->player->angle = game->player->angle;
-	minimap->player_pos = player_position;
-	minimap->player_rotation = player_rotation;
-	img_clear(minimap->image);
+	if (keycode == W_BUTTON)
+		player->pos->y += PLAYER_SPEED;
+	else if (keycode == S_BUTTON)
+		player->pos->y -= PLAYER_SPEED;
+	else if (keycode == A_BUTTON)
+		player->pos->x -= PLAYER_SPEED;
+	else if (keycode == D_BUTTON)
+		player->pos->x += PLAYER_SPEED;
+	return (0);
 }
-
