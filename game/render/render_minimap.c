@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 15:34:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:06:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,34 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
+static void minimap_draw_player(t_minimap *minimap)
+{
+	t_rectangle rect;
+
+	rect.start.x = minimap->player_pos.x + (64-PLAYER_ICON_SIZE)/2;
+	rect.start.y = minimap->player_pos.y + (64-PLAYER_ICON_SIZE)/2;
+	rect.width = PLAYER_ICON_SIZE;
+	rect.height = PLAYER_ICON_SIZE;
+	// printf("player pos %f %f\n", minimap->player_pos.x, minimap->player_pos.y);
+
+	minimap_draw_rect(minimap, rect, MINIMAP_PLAYER_COLOR);
+}
+
 void	render_minimap(t_game *game)
 {
 	void	*win;
 	void	*img;
+	t_point	player_position;
+	float	player_rotation;
 
-	minimap_update(game->scene->minimap);
+	player_position.x = game->scene->player->pos->x;
+	player_position.y = game->scene->player->pos->y;
+	player_rotation = game->scene->player->rotation;
+	minimap_update(game->scene->minimap, player_rotation, player_position);
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
+	minimap_draw_player(game->scene->minimap);
 	minimap_draw_border(game->scene->minimap);
 	win = game->window;
 	img = game->scene->minimap->image;

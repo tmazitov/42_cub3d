@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:04:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 10:43:42 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:05:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	minimap_draw_rect(t_minimap *minimap, t_rectangle rect, \
 {
 	t_rectangle	rel_rect;
 
-	rel_rect.start.x = rect.start.x / 4 + MINIMAP_BORDER_SIZE;
-	rel_rect.start.y = rect.start.y / 4 + MINIMAP_BORDER_SIZE;
+	rel_rect.start.x = round(rect.start.x / 4) + MINIMAP_BORDER_SIZE;
+	rel_rect.start.y = round(rect.start.y / 4) + MINIMAP_BORDER_SIZE;
 	rel_rect.height = rect.height / 4;
 	rel_rect.width = rect.width / 4;
 	img_put_rectangle(minimap->image, rel_rect, color);

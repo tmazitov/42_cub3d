@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:48:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:33:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	init_game(t_game *game)
 	game->mlx = NULL;
 	game->window = NULL;
 	game->scene = NULL;
-	// game->player = NULL;
-	// game->writer = NULL;
 }
 
 t_game	*make_game(char *scene_path, int width, int height, char *title)
@@ -38,16 +36,12 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 	game->scene = make_scene(game->mlx, scene_path);
 	if (!game->scene)
 		return (free_game(game));
-	// game->writer = make_writer(game->mlx, game->window, 10);
-	// if (!game->writer)
-	// 	return (free_game(game));
-	// if (feed_game_writer(game->writer) != 0)
-	// 	return (free_game(game));
 	game->height = height;
 	game->width = width;
 	game->blocker = 0;
 	return (game);
 }
+
 
 void	*free_game(t_game *game)
 {

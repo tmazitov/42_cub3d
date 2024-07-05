@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 10:07:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 00:07:52 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define POINT_H
 
 # include <stdlib.h>
+
+# define PI 3.14159265359
 
 typedef struct s_point
 {
@@ -27,6 +29,14 @@ typedef struct s_rectangle
 	float	width;
 	float	height;
 }		t_rectangle;
+
+typedef enum e_direction
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST
+}			t_direction;
 
 
 t_point	*make_point(float x, float y);

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:15:08 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 15:38:42 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:39:30 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 
 # include "../geometry/geometry.h"
+# include "../error/error.h"
 
 typedef struct s_image
 {

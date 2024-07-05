@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 23:15:11 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 22:11:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:52:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_wall_storage	*make_wall_storage(void)
 }
 
 int add_wall(int x, int y, t_wall_type type, \
-					t_wall_direction direction, \
+					t_direction direction, \
 					t_wall_storage *storage)
 {
 	t_wall_node	*node;
