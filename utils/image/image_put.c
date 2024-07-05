@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 10:10:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 00:03:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,32 @@ void	img_put_rectangle(t_image* img, t_rectangle rect, int color)
 			x++;
 		}
 		y++;
+	}
+}
+
+void	img_put_img(t_image *dest, t_image *src, t_point pos)
+{
+	int	x;
+	int	y;
+	int	dest_x;
+	int	dest_y;
+	int color;
+
+	y = 0;
+	dest_y = pos.y;
+	while (y < src->height)
+	{
+		x = 0;
+		dest_x = pos.x;
+		while (x < src->width)
+		{
+			color = img_get_pixel(src, x, y);
+			if (color != 0xff000000)
+				img_put_pixel(dest, color, dest_x, dest_y);
+			x++;
+			dest_x++;
+		}
+		y++;
+		dest_y++;
 	}
 }

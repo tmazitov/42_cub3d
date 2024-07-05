@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:40:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:52:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void		minimap_draw_background(t_minimap *minimap);
 void		minimap_draw_wall(t_minimap *minimap, t_wall *wall);
 void		minimap_draw_rect(t_minimap *minimap, t_rectangle rect, \
 								int color);
+void		minimap_draw_image(t_minimap *minimap, t_image *image, t_point pos);
 
 # endif

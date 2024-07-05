@@ -5,6 +5,7 @@
 		"fcntl.h": "c",
 		"map.h": "c",
 		"math.h": "c",
-		"wall.h": "c"
+		"wall.h": "c",
+		"stdlib.h": "c"
 	}
 }

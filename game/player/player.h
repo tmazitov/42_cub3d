@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 20:03:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:41:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../../utils/geometry/geometry.h"
+# include "../../utils/image/image.h"
 
 # define W_BUTTON 115
 # define A_BUTTON 97
@@ -31,11 +32,13 @@
 typedef struct s_player
 {
 	t_point	*pos;
+	t_image *icon;
 	float	rotation;
 }		t_player;
 
-t_player	*make_player(t_point start_pos, t_direction direction);
+t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
 void 		*free_player(t_player *player);
+t_image		*load_icon(void *mlx);
 
 
 // BEHAVIOR

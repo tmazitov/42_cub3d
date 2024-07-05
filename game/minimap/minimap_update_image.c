@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 15:04:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 20:05:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:53:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,16 @@ void	minimap_draw_rect(t_minimap *minimap, t_rectangle rect, \
 	rel_rect.height = rect.height / 4;
 	rel_rect.width = rect.width / 4;
 	img_put_rectangle(minimap->image, rel_rect, color);
+}
+
+void	minimap_draw_image(t_minimap *minimap, t_image *image, t_point pos)
+{
+	t_point	rel_pos;
+
+	rel_pos.x = pos.x / 4 + MINIMAP_BORDER_SIZE;
+	rel_pos.y = pos.y / 4 + MINIMAP_BORDER_SIZE;
+	printf("pos : %f %f\n", rel_pos.x, rel_pos.y);
+	img_put_img(minimap->image, image, rel_pos);
 }
 
 void	minimap_draw_wall(t_minimap *minimap, t_wall *wall)
