@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall.h                                             :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 22:36:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 21:53:34 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/04 23:54:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WALL_H
-# define WALL_H
+#ifndef PLAYER_H
+# define PLAYER_H
 
 # include <stdlib.h>
-# include "../../../utils/geometry/geometry.h"
+# include <math.h>
+# include "../../utils/geometry/geometry.h"
 
-typedef enum e_wall_type
+typedef struct s_player
 {
-	WALL,
-	DOOR,
-	SECRET_DOOR
-}			t_wall_type;
+	t_point	*pos;
+	float	rotation;
+}		t_player;
 
-typedef struct s_wall
-{
-	t_wall_type 		type;
-	t_direction			direction;
-	t_point				*start;
-	t_point				*end;
-}			t_wall;
+t_player	*make_player(t_point start_pos, t_direction direction);
+void 		*free_player(t_player *player);
 
-# define WALL_HEIGHT = 64
-
-t_wall	*make_wall(int x, int y, t_wall_type type, \
-					t_direction direction);
-void	*free_wall(t_wall *wall);
 #endif

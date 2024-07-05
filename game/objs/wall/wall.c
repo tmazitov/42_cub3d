@@ -6,14 +6,14 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:41:40 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 19:03:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:52:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wall.h"
 
 t_wall	*make_wall(int x, int y, t_wall_type type, \
-					t_wall_direction direction)
+					t_direction direction)
 {
 	t_wall	*wall;
 

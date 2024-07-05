@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 18:27:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 01:24:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_map(t_map *map)
 	map->raw = NULL;
 	map->height = 0;
 	map->width = 0;
+	map->player_start = 0;
 }
 
 t_map	*make_map(void *mlx,char *path)
@@ -35,8 +36,6 @@ t_map	*make_map(void *mlx,char *path)
 	map->sprites = make_sprite_storage();
 	if (!map->sprites)
 		return (free_map(map));
-	map->height = 0;
-	map->width = 0;
 	if (!parse_map(mlx, map, path))
 		return (free_map(map));
 	return (map);

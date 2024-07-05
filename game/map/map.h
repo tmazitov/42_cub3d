@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 20:51:55 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:38:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 typedef struct s_map_raw_list
 {
 	char				*value;
-	struct s_map_raw 	*next;
-	struct s_map_raw	*prev;	
+	struct s_map_raw_list 	*next;
+	struct s_map_raw_list	*prev;	
 }		t_map_raw_list;
 
 
@@ -69,6 +69,8 @@ typedef struct s_map
 	int					height;
 	int					width;
 	t_map_raw_list		*raw;
+	t_point				*player_start;
+	t_direction			player_direction;
 }			t_map;
 
 t_map				*make_map(void *mlx, char *path);
@@ -82,7 +84,7 @@ int					parse_map(void *mlx, t_map *map, char *path);
 t_wall_node			*get_last_wall(t_wall_storage *storage);
 t_wall_storage		*make_wall_storage(void);
 int					add_wall(int x, int y, t_wall_type type, \
-						t_wall_direction direction, \
+						t_direction direction, \
 						t_wall_storage *storage);
 void				*free_wall_node(t_wall_node *node);
 void				*free_wall_storage(t_wall_storage *storage);

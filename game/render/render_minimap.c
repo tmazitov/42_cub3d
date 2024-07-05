@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 15:34:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:30:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,29 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
+static void minimap_draw_player(t_minimap *minimap)
+{
+	t_rectangle rect;
+
+	rect.start.x = minimap->player_pos->x;
+	rect.start.y = minimap->player_pos->y;
+	rect.width = 48;
+	rect.height = 48;
+	// printf("player pos %f %f\n", minimap->player_pos->x, minimap->player_pos->y);
+
+	minimap_draw_rect(minimap, rect, MINIMAP_PLAYER_COLOR);
+}
+
 void	render_minimap(t_game *game)
 {
 	void	*win;
 	void	*img;
 
-	minimap_update(game->scene->minimap);
+	minimap_update(game->scene->minimap, game->scene->player->rotation);
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
+	minimap_draw_player(game->scene->minimap);
 	minimap_draw_border(game->scene->minimap);
 	win = game->window;
 	img = game->scene->minimap->image;

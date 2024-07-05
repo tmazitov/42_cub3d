@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/04 10:22:05 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/04 23:53:12 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	cmd/main.c \
 		game/render/render_minimap.c \
 		game/scene/scene.c \
 		game/objs/wall/wall.c \
+		game/player/player.c \
 		game/map/map.c \
 		game/map/map_raw.c \
 		game/map/map_parse.c \

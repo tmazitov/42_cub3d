@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 19:14:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/05 01:31:30 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,28 @@ static int	check_neighbors(t_map *map, int x, int y)
 			&& right != ' ');
 }
 
+static int	save_player_position(t_map *map, char ch, int x, int y)
+{	
+	t_direction	direction;
+
+	if (ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
+		return (1);
+	if (map->player_start)
+		return (print_error("dup player position"), 1);
+	map->player_start = make_point(x*64, y*64);	
+	if (!map->player_start)
+		return (1);
+	if (ch == 'N')
+		map->player_direction = NORTH;
+	else if (ch == 'S')
+		map->player_direction = SOUTH;
+	else if (ch == 'W')
+		map->player_direction = WEST;
+	else
+	 	map->player_direction = EAST;
+	return (1);
+}
+
 int convert_raw_to_objs(t_map *map)
 {
 	int		y;
@@ -101,6 +123,8 @@ int convert_raw_to_objs(t_map *map)
 			return (0);
 		while (node->value[x])
 		{
+			if (!save_player_position(map, node->value[x], x, y))
+				return (0);	
 			if (node->value[x] != '1' && node->value[x] != ' ' 
 				&& !check_neighbors(map, x, y))
 				return (print_error("invalid map"), 0);
