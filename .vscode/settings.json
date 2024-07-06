@@ -6,6 +6,7 @@
 		"map.h": "c",
 		"math.h": "c",
 		"wall.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"geometry.h": "c"
 	}
 }

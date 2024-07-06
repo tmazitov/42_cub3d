@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 17:19:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:11:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 
 # define W_BUTTON 115
 # define A_BUTTON 97
-# define S_BUTTON 119
+# define S_BUTTON 119	
 # define D_BUTTON 100
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 
 # define PLAYER_SIZE 24
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 2
 # define PLAYER_ROTATION_SPEED 1
 
 # define PLAYER_ICON_SIZE 48
@@ -50,6 +50,9 @@ t_image		*load_icon(void *mlx);
 
 int		player_control_set(int keycode, t_player *player);
 int		player_control_unset(int keycode, t_player *player);
-int		player_move(t_player *player);
+t_vector	*player_move_vector(t_player *player);
+void		player_move_update(t_player *player, t_vector *move_vector);
+
+void	player_rotate(t_player *player);
 
 #endif

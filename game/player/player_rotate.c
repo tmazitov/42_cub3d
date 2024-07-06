@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_player.c                                    :+:      :+:    :+:   */
+/*   player_rotate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 22:12:59 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/06 20:27:15 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/06 20:27:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "update.h"
+#include "player.h"
 
-static int	player_can_move(t_game *game, t_vector *move_vector)
+void	player_rotate(t_player *player)
 {
-	return (1);
-}
-
-void	update_player(t_game *game)
-{
-	t_vector	*move_vector;
-	
-	player_rotate(game->scene->player);
-	move_vector = player_move_vector(game->scene->player);
-	if (player_can_move(game, move_vector))
-		player_move_update(game->scene->player, move_vector);
-	free_vector(move_vector);
+	if (player->pressed_buttons[4]) // pressed Left Arrow
+		player->rotation -= PLAYER_ROTATION_SPEED;
+	if (player->pressed_buttons[5]) // pressed Right Arrow
+		player->rotation += PLAYER_ROTATION_SPEED;
 }

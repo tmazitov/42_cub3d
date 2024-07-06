@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/06 17:04:01 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/06 22:13:09 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,10 @@ SRCS =	cmd/main.c \
 		game/scene/scene.c \
 		game/objs/wall/wall.c \
 		game/player/player.c \
+		game/player/player_move.c \
+		game/player/player_rotate.c \
 		game/player/player_icon.c \
 		game/player/player_control.c \
-		game/player/player_behavior.c \
 		game/map/map.c \
 		game/map/map_raw.c \
 		game/map/map_parse.c \
@@ -43,6 +44,7 @@ SRCS =	cmd/main.c \
 		utils/image/image_put.c \
 		utils/error/error.c \
 		utils/geometry/point.c \
+		utils/geometry/vector.c \
 		utils/rgb/rgb.c \
 		utils/gnl/get_next_line.c \
 		utils/gnl/get_next_line_utils.c \
