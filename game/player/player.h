@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 01:23:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:19:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <math.h>
 # include "../../utils/geometry/geometry.h"
 # include "../../utils/image/image.h"
+# include "../../utils/libft/libft.h"
 
-# define W_BUTTON 119
+# define W_BUTTON 115
 # define A_BUTTON 97
-# define S_BUTTON 115
+# define S_BUTTON 119
 # define D_BUTTON 100
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
@@ -36,6 +37,7 @@ typedef struct s_player
 	t_point	*pos;
 	t_image *icon;
 	double	rotation;
+	int		*pressed_buttons;
 }		t_player;
 
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
@@ -43,9 +45,11 @@ void 		*free_player(t_player *player);
 t_image		*load_icon(void *mlx);
 
 
-// BEHAVIOR
+// CONTROL
 
 
-int			player_move(t_player *player, int keycode);
+int		player_control_set(int keycode, t_player *player);
+int		player_control_unset(int keycode, t_player *player);
+int		player_move(t_player *player);
 
 #endif

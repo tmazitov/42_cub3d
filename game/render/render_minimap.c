@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 01:16:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:30:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,7 @@ void	render_minimap(t_game *game)
 {
 	void	*win;
 	void	*img;
-	t_point	player_position;
-	double	player_rotation;
 
-	player_position.x = game->scene->player->pos->x;
-	player_position.y = game->scene->player->pos->y;
-	player_rotation = game->scene->player->rotation;
-	minimap_update(game->scene->minimap, player_rotation, player_position);
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
