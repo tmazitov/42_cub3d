@@ -6,13 +6,10 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 17:16:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:44:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <stdio.h>
-#include <X11/X.h>
 #include "main.h" 
 
 int merge_hook(void *game)
