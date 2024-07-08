@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/05 17:43:12 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/08 15:35:10 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,27 +55,39 @@ SRCS =	cmd/main.c \
 		utils/libft/ft_substr.c \
 		utils/libft/ft_strjoin.c \
 		utils/libft/ft_split.c \
-		utils/libft/ft_itoa.c \
+		utils/libft/ft_itoa.c
 
 OBJS = $(SRCS:.c=.o)
 
 NAME = cub3d
+OS = $(shell uname)
 
-.PHONY: all clean
+.PHONY: all clean fclean re
+
+ifeq ($(OS), Linux)
+    %.o: %.c
+	    $(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+
+    $(NAME): $(OBJS)
+	    $(CC) $(CFLAGS) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
+
+else ifeq ($(OS), Darwin)
+    %.o: %.c
+	    $(CC) -Imlx -I./mlx_mac -c $< -o $@
+
+    $(NAME): $(OBJS)
+	    $(CC) $(CFLAGS) $(OBJS) -L./mlx_mac -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+else
+    $(error Unsupported operating system: $(OS))
+endif
 
 all: $(NAME)
 
-%.o: %.c
-	$(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
-
-$(NAME): $(OBJS)
-	$(CC)  $(CFLAGS) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
-
-re: fclean all
-
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
-	
+	rm -f $(NAME)
+
+re: fclean all
