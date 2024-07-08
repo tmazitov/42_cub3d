@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 17:25:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:29:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../../utils/libft/libft.h"
 
 # ifndef W_BUTTON
-#  define W_BUTTON 119
+#  define W_BUTTON 115
 # endif
 
 # ifndef A_BUTTON
@@ -28,7 +28,7 @@
 # endif
 
 # ifndef S_BUTTON
-#  define S_BUTTON 115
+#  define S_BUTTON 119
 # endif
 
 # ifndef D_BUTTON
