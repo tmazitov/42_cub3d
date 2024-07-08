@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 20:04:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:01:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	parse_walls_raw(t_map *map, int fd)
 			return (free(line), print_error("invalid map file"), 0);
 		map->height += 1;
 		line[ft_strlen(line) - 1] = '\0';
+		map->width = max(map->width, ft_strlen(line));
 		if (!add_map_raw_item(map, line))
 			return (free(line), 0);
 		free(line);

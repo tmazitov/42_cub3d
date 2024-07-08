@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 17:16:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:24:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ static int key_is_active(t_player *player, int keycode)
 		return (player->pressed_buttons[4]);
 	if (keycode == RIGHT_ARROW)
 		return (player->pressed_buttons[5]);
+	return (0);
 }
 
 int	player_control_set(int keycode, t_player *player)
 {
-	printf("pressed: %d\n", keycode);
+	// printf("w: %d\n", W_BUTTON);
+	// printf("pressed: %d\n", keycode);
 	if (!key_is_active(player, keycode))
 		player_control_update(player, keycode, 1);
 	return (0);
@@ -54,7 +56,7 @@ int	player_control_set(int keycode, t_player *player)
 
 int	player_control_unset(int keycode, t_player *player)
 {
-	printf("unpressed: %d\n", keycode);
+	// printf("unpressed: %d\n", keycode);
 	if (key_is_active(player, keycode))
 		player_control_update(player, keycode, 0);
 	return (0);

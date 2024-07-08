@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 22:11:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:25:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,28 @@
 # include "../../utils/image/image.h"
 # include "../../utils/libft/libft.h"
 
-# define W_BUTTON 115
-# define A_BUTTON 97
-# define S_BUTTON 119	
-# define D_BUTTON 100
-# define LEFT_ARROW 65361
-# define RIGHT_ARROW 65363
+# ifndef W_BUTTON
+#  define W_BUTTON 119
+# endif
+
+# ifndef A_BUTTON
+#  define A_BUTTON 97
+# endif
+
+# ifndef S_BUTTON
+#  define S_BUTTON 115
+# endif
+
+# ifndef D_BUTTON
+#  define D_BUTTON 100
+# endif
+
+# ifndef LEFT_ARROW
+#  define LEFT_ARROW 65361
+# endif
+# ifndef RIGHT_ARROW
+#  define RIGHT_ARROW 65363
+# endif
 
 # define PLAYER_SIZE 24
 # define PLAYER_SPEED 2

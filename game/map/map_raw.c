@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 01:31:30 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:13:04 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ static char	get_raw_value(t_map *map, int x, int y)
 		node = node->next;
 		i++;
 	}
-	if (!node || i != y || y < 0 || x < 0)
+	if (node && x >= (int)ft_strlen(node->value))
+		return ('\0');
+	if (!node || i != y || y < 0 || x < 0 )
 		return ('\0');
 	return (node->value[x]);
 }
@@ -73,7 +75,7 @@ static int	check_neighbors(t_map *map, int x, int y)
 	bot = get_raw_value(map, x, y + 1);
 	left = get_raw_value(map, x - 1, y); 
 	right = get_raw_value(map, x + 1, y);
-	if (!top || !bot || !right || !left)
+	if (!top && !bot && !right && !left)
 		return (0);
 	return (top != ' ' \
 			&& bot != ' ' \
@@ -83,8 +85,6 @@ static int	check_neighbors(t_map *map, int x, int y)
 
 static int	save_player_position(t_map *map, char ch, int x, int y)
 {	
-	t_direction	direction;
-
 	if (ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
 		return (1);
 	if (map->player_start)

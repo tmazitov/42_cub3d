@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 15:44:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:55:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int merge_hook(void *game)
 	return (0);
 }
 
-int test_hook(int keycode, t_game *game)
-{
-	printf("release! %d\n", keycode);
-	return (0);
-}
+// int test_hook(int keycode, t_game *game)
+// {
+// 	printf("release! %d\n", keycode);
+// 	return (0);
+// }
 
 static void setup_game_hooks(t_game *game)
 {
@@ -47,8 +47,6 @@ static void run(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	void	*mlx;
-	void	*mlx_win;
 	
 	if (argc != 2)
 		return (print_error("invalid count of args"), 1);

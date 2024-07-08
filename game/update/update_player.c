@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 22:12:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:55:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	player_can_move(t_game *game, t_vector *move_vector)
 {
+	(void)game;
+	(void)move_vector;
 	return (1);
 }
 

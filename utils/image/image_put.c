@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 15:04:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:57:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void img_put_img(t_image *dest, t_image *src, t_point pos, double angle)
             if (new_x >= 0 && new_x < src->width && new_y >= 0 && new_y < src->height)
             {
                 color = img_get_pixel(src, x, y);
-                if (color != 0xff000000)  // Assuming 0xff000000 is the transparent color
+                if ((unsigned int)color != 0xff000000)  // Assuming 0xff000000 is the transparent color
                 {
                     img_put_pixel(dest, color, dest_x, dest_y);
                 }
