@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 22:22:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:29:43 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_diagonal_move(t_player *player)
 {
 	return (player->pressed_buttons[0] \
 			&& player->pressed_buttons[1] && !player->pressed_buttons[3]) || \
-			(player->pressed_buttons[0] \ 
+			(player->pressed_buttons[0] \
 			&& player->pressed_buttons[3] && !player->pressed_buttons[1]) || \
 			(player->pressed_buttons[2] \
 			&& player->pressed_buttons[1] && !player->pressed_buttons[3]) || \

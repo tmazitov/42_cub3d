@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 20:34:48 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 21:49:39 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:29:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*free_vector(t_vector *vector)
 void	vector_add(t_vector *vector, float x, float y)
 {
 	if (!vector)
-		return (NULL);
+		return ;
 	vector->x += x;
 	vector->y += y;
 }

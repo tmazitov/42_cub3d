@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 16:30:39 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:04:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ static void minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 	pos.x = minimap->player_pos.x + (64-PLAYER_ICON_SIZE)/2;
 	pos.y = minimap->player_pos.y + (64-PLAYER_ICON_SIZE)/2;
 	angle = minimap->player_rotation;
-	// rect.width = PLAYER_ICON_SIZE;
-	// rect.height = PLAYER_ICON_SIZE;
-	// printf("player pos %f %f\n", minimap->player_pos.x, minimap->player_pos.y);
-
-	// minimap_draw_rect(minimap, rect, MINIMAP_PLAYER_COLOR);
 	minimap_draw_image(minimap, player_icon, pos, angle - 90);
 }
 
@@ -73,13 +68,21 @@ void	render_minimap(t_game *game)
 {
 	void	*win;
 	void	*img;
+	// t_point	start;
+	// t_point	end;
 
+	win = game->window;
+	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
+
+	// t_point p1 = {0, 0};
+	// t_point p2 = {64, 48};
+	// int color = 0xFFFFFF; // Белый цвет
+
+	// img_put_line(game->scene->minimap->image, color, p1, p2);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
-	win = game->window;
-	img = game->scene->minimap->image;
 	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
 }
