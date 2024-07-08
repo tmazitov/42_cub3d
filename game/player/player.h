@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 17:25:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:56:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@
 # endif
 
 # define PLAYER_SIZE 24
-# define PLAYER_SPEED 2
-# define PLAYER_ROTATION_SPEED 1
+# define PLAYER_SPEED 4
+# define PLAYER_ROTATION_SPEED 4
 
 # define PLAYER_ICON_SIZE 48
 
