@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/08 15:35:10 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/08 15:38:41 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,21 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 SRCS =	cmd/main.c \
 		game/game.c \
-		game/game_control.c \
 		game/minimap/minimap.c \
 		game/minimap/minimap_update.c \
 		game/minimap/minimap_update_image.c \
+		game/update/update.c \
+		game/update/update_player.c \
+		game/update/update_minimap.c \
 		game/render/render.c \
 		game/render/render_minimap.c \
 		game/scene/scene.c \
 		game/objs/wall/wall.c \
 		game/player/player.c \
-		game/player/player_behavior.c \
+		game/player/player_move.c \
+		game/player/player_rotate.c \
+		game/player/player_icon.c \
+		game/player/player_control.c \
 		game/map/map.c \
 		game/map/map_raw.c \
 		game/map/map_parse.c \
@@ -35,9 +40,11 @@ SRCS =	cmd/main.c \
 		utils/image/image_buffer.c \
 		utils/image/image_content.c \
 		utils/image/image_draw.c \
+		utils/image/image_get.c \
 		utils/image/image_put.c \
 		utils/error/error.c \
 		utils/geometry/point.c \
+		utils/geometry/vector.c \
 		utils/rgb/rgb.c \
 		utils/gnl/get_next_line.c \
 		utils/gnl/get_next_line_utils.c \
@@ -54,6 +61,9 @@ SRCS =	cmd/main.c \
 		utils/libft/ft_atoi.c \
 		utils/libft/ft_substr.c \
 		utils/libft/ft_strjoin.c \
+		utils/libft/ft_memset.c \
+		utils/libft/ft_bzero.c \
+		utils/libft/ft_calloc.c \
 		utils/libft/ft_split.c \
 		utils/libft/ft_itoa.c
 

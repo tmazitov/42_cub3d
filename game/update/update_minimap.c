@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_update.c                                   :+:      :+:    :+:   */
+/*   update_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 00:50:00 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/06 16:30:59 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/06 16:31:28 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"
+#include "update.h"
 
-void	minimap_update(t_minimap *minimap, double player_rotation, t_point player_position)
+void	update_minimap(t_game *game)
 {
-	if (!minimap)
-		return ;
-	// minimap->player->x = game->player->x;
-	// minimap->player->y = game->player->y;
-	// minimap->player->angle = game->player->angle;
-	minimap->player_pos = player_position;
-	minimap->player_rotation = player_rotation;
-	img_clear(minimap->image);
-}
+	t_point	player_position;
+	double	player_rotation;
 
+	player_position.x = game->scene->player->pos->x;
+	player_position.y = game->scene->player->pos->y;
+	player_rotation = game->scene->player->rotation;
+	minimap_update(game->scene->minimap, player_rotation, player_position);
+}

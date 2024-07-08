@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 17:33:01 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:37:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	*free_game(t_game *game)
 	game->blocker = 1;
 	if (game->scene)
 		free_scene(game->scene);
-	// if (game->player)
-	// 	free_player(game->player);
 	if (game->window)
 		mlx_destroy_window(game->mlx, game->window);
 	if (game->mlx)

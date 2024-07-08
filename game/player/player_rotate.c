@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_control.c                                     :+:      :+:    :+:   */
+/*   player_rotate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 17:19:10 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:42:07 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/06 20:27:15 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/06 20:27:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
+#include "player.h"
 
-static int	player_can_move(t_game *game)
+void	player_rotate(t_player *player)
 {
-	return (1);
-}
-
-static int	action_is_movement(int keycode)
-{
-	return (keycode == A_BUTTON || keycode == S_BUTTON || keycode == D_BUTTON || keycode == W_BUTTON);
-}
-
-int	player_control_hook(int keycode, t_game *game)
-{
-	if (action_is_movement(keycode) && player_can_move(game))
-		player_move(game->scene->player, keycode);
-	return (0);
+	if (player->pressed_buttons[4]) // pressed Left Arrow
+		player->rotation -= PLAYER_ROTATION_SPEED;
+	if (player->pressed_buttons[5]) // pressed Right Arrow
+		player->rotation += PLAYER_ROTATION_SPEED;
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:15:08 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 16:39:30 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 00:39:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <mlx.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <math.h>
 
 # include "../geometry/geometry.h"
 # include "../error/error.h"
@@ -41,8 +43,12 @@ void	img_clear(t_image *img);
 
 int		*img_buffer(t_image *image);
 void	img_draw(void *win, t_image *img, int x, int y);
-void 	img_put_pixel(t_image *img, int color, int x, int y);
+
+int		img_get_pixel(t_image *img, int x, int y);
+
+void	img_put_img(t_image *dest, t_image *src, t_point pos, double angle);
 void	img_put_line(t_image *img, int color, t_point p1, t_point p2);
+void 	img_put_pixel(t_image *img, int color, int x, int y);
 void	img_put_rectangle(t_image* img, t_rectangle rect, int color);
 
 #endif // !IMAGE_H

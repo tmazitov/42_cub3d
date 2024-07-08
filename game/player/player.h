@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 20:03:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 22:11:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,43 @@
 # include <stdlib.h>
 # include <math.h>
 # include "../../utils/geometry/geometry.h"
+# include "../../utils/image/image.h"
+# include "../../utils/libft/libft.h"
 
 # define W_BUTTON 115
 # define A_BUTTON 97
-# define S_BUTTON 119
+# define S_BUTTON 119	
 # define D_BUTTON 100
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 # define PLAYER_SIZE 24
-# define PLAYER_SPEED 5
-# define PLAYER_ROTATION_SPEED 0.1
+# define PLAYER_SPEED 2
+# define PLAYER_ROTATION_SPEED 1
 
 # define PLAYER_ICON_SIZE 48
 
 typedef struct s_player
 {
 	t_point	*pos;
-	float	rotation;
+	t_image *icon;
+	double	rotation;
+	int		*pressed_buttons;
 }		t_player;
 
-t_player	*make_player(t_point start_pos, t_direction direction);
+t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
 void 		*free_player(t_player *player);
+t_image		*load_icon(void *mlx);
 
 
-// BEHAVIOR
+// CONTROL
 
 
-int			player_move(t_player *player, int keycode);
+int		player_control_set(int keycode, t_player *player);
+int		player_control_unset(int keycode, t_player *player);
+t_vector	*player_move_vector(t_player *player);
+void		player_move_update(t_player *player, t_vector *move_vector);
+
+void	player_rotate(t_player *player);
 
 #endif

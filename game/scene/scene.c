@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:50:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:45:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_scene	*make_scene(void *mlx, char *path)
 		return (free_scene(scene));
 	if (!scene->map->player_start)
 		return (print_error("undefined player position"), free_scene(scene));
-	scene->player = make_player(*scene->map->player_start, scene->map->player_direction);
+	scene->player = make_player(mlx, *scene->map->player_start, scene->map->player_direction);
 	scene->map->player_start = free_point(scene->map->player_start);
 	if (!scene->player)
 		return (free_scene(scene));

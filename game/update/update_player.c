@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_update.c                                   :+:      :+:    :+:   */
+/*   update_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 00:50:00 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/06 22:12:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minimap.h"
+#include "update.h"
 
-void	minimap_update(t_minimap *minimap, double player_rotation, t_point player_position)
+static int	player_can_move(t_game *game, t_vector *move_vector)
 {
-	if (!minimap)
-		return ;
-	// minimap->player->x = game->player->x;
-	// minimap->player->y = game->player->y;
-	// minimap->player->angle = game->player->angle;
-	minimap->player_pos = player_position;
-	minimap->player_rotation = player_rotation;
-	img_clear(minimap->image);
+	return (1);
 }
 
+void	update_player(t_game *game)
+{
+	t_vector	*move_vector;
+	
+	player_rotate(game->scene->player);
+	move_vector = player_move_vector(game->scene->player);
+	if (player_can_move(game, move_vector))
+		player_move_update(game->scene->player, move_vector);
+	free_vector(move_vector);
+}
