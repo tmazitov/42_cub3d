@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 16:57:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:03:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,41 +144,36 @@ void	img_put_rectangle(t_image* img, t_rectangle rect, int color)
 	}
 }
 
-void img_put_img(t_image *dest, t_image *src, t_point pos, double angle)
-{
-    int x, y;
+void img_put_img(t_image *dest, t_image *src, t_point pos, double angle) {
     int dest_x, dest_y;
-    int color;
-    int new_x, new_y;
-
-    double rad = angle * PI / 180.0;
-    
-    int cx = src->width / 2;
-    int cy = src->height / 2;
-
     int src_x, src_y;
+    int color;
 
-    for (y = 0; y < src->height; y++)
-    {
-        for (x = 0; x < src->width; x++)
-        {
-            src_x = x - cx;
-            src_y = y - cy;
-            
-            // Rotate the pixel
-            new_x = (int)(src_x * cos(rad) - src_y * sin(rad)) + cx;
-            new_y = (int)(src_x * sin(rad) + src_y * cos(rad)) + cy;
+    double rad = -angle * PI / 180.0; // Обратный угол для обратного вращения
+    double cos_rad = cos(rad);
+    double sin_rad = sin(rad);
+	t_point	center;
 
-            // Calculate the destination position
-            dest_x = new_x + pos.x;
-            dest_y = new_y + pos.y;
+	center.x = src->width / 2;
+    center.y = src->height / 2;
 
-            // Ensure the new coordinates are within the destination image bounds
-            if (new_x >= 0 && new_x < src->width && new_y >= 0 && new_y < src->height)
-            {
-                color = img_get_pixel(src, x, y);
-                if ((unsigned int)color != 0xff000000)  // Assuming 0xff000000 is the transparent color
-                {
+    int dest_center_x = pos.x + center.x;
+    int dest_center_y = pos.y + center.y;
+
+    for (dest_y = 0; dest_y < dest->height; dest_y++) {
+        for (dest_x = 0; dest_x < dest->width; dest_x++) {
+            // Перевод координат в систему координат исходного изображения
+            double src_x_f = (dest_x - dest_center_x) * cos_rad - (dest_y - dest_center_y) * sin_rad + center.x;
+            double src_y_f = (dest_x - dest_center_x) * sin_rad + (dest_y - dest_center_y) * cos_rad + center.y;
+
+            // Округление до ближайшего целого
+            src_x = (int)round(src_x_f);
+            src_y = (int)round(src_y_f);
+
+            // Проверка, что координаты находятся в пределах исходного изображения
+            if (src_x >= 0 && src_x < src->width && src_y >= 0 && src_y < src->height) {
+                color = img_get_pixel(src, src_x, src_y);
+                if ((unsigned int)color != 0xff000000) { // Предполагается, что 0xff000000 - это прозрачный цвет
                     img_put_pixel(dest, color, dest_x, dest_y);
                 }
             }
