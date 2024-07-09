@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 16:55:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:14:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	update_player(t_game *game)
 	
 	player_rotate(game->scene->player);
 	move_vector = player_move_vector(game->scene->player);
-	if (player_can_move(game, move_vector))
+	if (move_vector && player_can_move(game, move_vector))
 		player_move_update(game->scene->player, move_vector);
-	free_vector(move_vector);
+	if (move_vector)
+		free_vector(move_vector);
 }

@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/08 17:26:20 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/09 17:42:21 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS =  cmd/main.c \
         game/player/player_rotate.c \
         game/player/player_icon.c \
         game/player/player_control.c \
+        game/player/player_acceleration.c \
         game/map/map.c \
         game/map/map_raw.c \
         game/map/map_parse.c \

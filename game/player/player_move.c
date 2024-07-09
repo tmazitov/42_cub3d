@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 16:56:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:13:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ static int	is_diagonal_move(t_player *player)
 			&& player->pressed_buttons[3] && !player->pressed_buttons[1]);
 }
 
+int	is_player_move(t_player *player)
+{
+	return (player->pressed_buttons[0] || player->pressed_buttons[1] || \
+			player->pressed_buttons[2] || player->pressed_buttons[3]);
+}
+
 t_vector	*player_move_vector(t_player *player)
 {
 	float		modificator;
@@ -46,11 +52,27 @@ t_vector	*player_move_vector(t_player *player)
 	float		x;
 	float		y;
 	int			counter;
+	float		speed;
 
+
+	// print_state(player);
+
+	speed = player_speed(player);
+	if (speed == 0)
+		return (NULL);
+	printf("speed: %f\n", speed);
 	modificator = 1;
+
 	move_vector = make_vector(0, 0);
 	if (!move_vector)
 		return (NULL);
+	if (!is_player_move(player) && speed != 0)
+	{
+		move_vector->x = (player->move_vector->x / player->move_speed) * speed;
+		move_vector->y = (player->move_vector->y / player->move_speed) * speed;
+		player->move_speed = speed;
+		return (move_vector);
+	}
 	if (is_diagonal_move(player))
 		modificator = sqrt(2) / 2;
 	counter = 0;
@@ -67,12 +89,13 @@ t_vector	*player_move_vector(t_player *player)
 			angle += 3*PI/2;
 		if (player->pressed_buttons[counter])
 		{
-			x = modificator * (PLAYER_SPEED) * cos(angle);
-			y = modificator * (PLAYER_SPEED) * sin(angle);	
+			x = modificator * (speed) * cos(angle);
+			y = modificator * (speed) * sin(angle);	
 			vector_add(move_vector, x, y);
 		}
 		counter++;
 	}
+	player->move_speed = speed;
 	return (move_vector);
 }
 
@@ -82,4 +105,6 @@ void		player_move_update(t_player *player, t_vector *move_vector)
 		return ;
 	player->pos->x += move_vector->x;
 	player->pos->y += move_vector->y;
+	player->move_vector->x = move_vector->x;
+	player->move_vector->y = move_vector->y;
 }
