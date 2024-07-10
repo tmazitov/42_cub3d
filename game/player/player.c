@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/09 18:49:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:20:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_player *make_player(void *mlx, t_point start_pos, t_direction direction)
 	if (!player)
 		return (NULL);
 	init_player(player, direction);	
-	player->pos = make_point(start_pos.x, start_pos.y);
+	player->pos = make_point(start_pos.x+32, start_pos.y+32);
 	if (!player->pos)
 		return (free_player(player));
 	player->move_vector = make_vector(0, 0);

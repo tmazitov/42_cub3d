@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 17:02:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:07:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define POINT_H
 
 # include <stdlib.h>
+# include <math.h>
 
 # define PI 3.14159265359
 #define fpart(x) (x - floor(x))
@@ -24,6 +25,15 @@ typedef struct s_point
 	float	y;
 }		t_point;
 
+typedef struct s_line
+{
+	t_point	start;
+	t_point	end;
+	float	A;
+	float	B;
+	float	D;
+	float	length;
+}		t_line;
 typedef struct s_vector
 {
 	float	x;
@@ -48,13 +58,33 @@ typedef enum e_direction
 }			t_direction;
 
 
-t_point		*make_point(float x, float y);
-void		*free_point(t_point *point);
+
+/*POINT*/
+
+
+t_point				*make_point(float x, float y);
+void				*free_point(t_point *point);
+
+
+/*LINE*/
+
+t_line				*make_line(float x1, float y1, float x2, float y2);
+void				*free_line(t_line *line);
+
+
+/*VECTOR*/
+
 
 t_vector	*make_vector(int x, int y);
 void		*free_vector(t_vector *vector);
 void		vector_add(t_vector *vector, float x, float y);
 
 
-int	max(int a, int b);
+/*COLLIDER*/
+
+
+/*UTILS*/
+
+int			check_intersection(t_line *line1, t_line *line2);
+int			max(int a, int b);
 #endif

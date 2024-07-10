@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/09 17:42:21 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/10 14:22:59 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ SRCS =  cmd/main.c \
         utils/error/error.c \
         utils/geometry/point.c \
         utils/geometry/vector.c \
+        utils/geometry/line.c \
+        utils/geometry/line_intersection.c \
         utils/geometry/utils.c \
         utils/rgb/rgb.c \
         utils/gnl/get_next_line.c \

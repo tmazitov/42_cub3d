@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 01:44:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/09 19:15:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:05:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ float	player_speed(t_player *player)
 			counter = 0;
 		speed = speed_decrease(counter) - 0.1;
 	}	
-	else if (counter != 0 && speed <= 0)
+	if (counter != 0 && speed <= 0)
 	{
 		counter = 0;
 		speed = 0;	
