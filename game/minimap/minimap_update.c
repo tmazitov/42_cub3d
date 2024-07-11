@@ -6,21 +6,26 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 00:50:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 23:56:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minimap.h"
 
-void	minimap_update(t_minimap *minimap, double player_rotation, t_point player_position)
+
+
+void	minimap_update(t_minimap *minimap, double player_rotation, t_point player_position, t_vector *player_move)
 {
 	if (!minimap)
 		return ;
-	// minimap->player->x = game->player->x;
-	// minimap->player->y = game->player->y;
-	// minimap->player->angle = game->player->angle;
 	minimap->player_pos = player_position;
 	minimap->player_rotation = player_rotation;
+
+	if (player_move)
+		minimap_camera_move(minimap, player_position, *player_move);
+		
+	printf("minimap pos: %f %f\n", minimap->camera->x, minimap->camera->y);
+
 	img_clear(minimap->image);
 }
 

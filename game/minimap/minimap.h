@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 13:31:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 23:56:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define MINIMAP_BORDER_SIZE 8
 # define MINIMAP_POS_X 10
 # define MINIMAP_POS_Y 10
+# define MINIMAP_MOVE_AREA_SIZE 32
 
 // # define MINIMAP_WALLS_COLOR 0x003d3d3d
 # define MINIMAP_WALLS_COLOR 0x0042c79a
@@ -38,12 +39,15 @@ typedef struct s_minimap
 	double		player_rotation;
 	int			height;
 	int			width;
+	t_point		*camera;
 }			t_minimap;
 
 t_minimap	*make_minimap(void *mlx, int width, int height);
 void		*free_minimap(t_minimap *map);
 
-void		minimap_update(t_minimap *minimap, double player_rotation, t_point player_position);
+void		minimap_update(t_minimap *minimap, double player_rotation, t_point player_position, t_vector *player_move);
+void		minimap_camera_move(t_minimap *map, t_point player_pos, t_vector player_move);
+
 void		minimap_draw_border(t_minimap *minimap);
 void		minimap_draw_background(t_minimap *minimap);
 void		minimap_draw_wall(t_minimap *minimap, t_wall *wall);

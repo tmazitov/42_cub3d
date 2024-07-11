@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/10 16:45:42 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 23:23:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ static void minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 	pos.y = minimap->player_pos.y - (64)/2;
 	angle = minimap->player_rotation;
 	minimap_draw_image(minimap, player_icon, pos, angle - 90);
-	img_put_pixel(minimap->image, 0xe7f218, minimap->player_pos.x / 4 + MINIMAP_BORDER_SIZE,  minimap->player_pos.y / 4 + MINIMAP_BORDER_SIZE);
+	img_put_pixel(minimap->image, 0xe7f218, \
+		minimap->player_pos.x / 4 + MINIMAP_BORDER_SIZE - minimap->camera->x, \
+		minimap->player_pos.y / 4 + MINIMAP_BORDER_SIZE - minimap->camera->y);
 }
 
 void	render_minimap(t_game *game)

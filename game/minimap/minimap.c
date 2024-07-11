@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 19:41:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 22:19:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init_minimap(t_minimap *map)
 {
 	map->image = NULL;
+	map->camera = NULL;
 	map->player_pos.x = 0;
 	map->player_pos.y = 0;
 	map->player_rotation = 0;
@@ -34,6 +35,9 @@ t_minimap	*make_minimap(void *mlx, int width, int height)
 	if (!map->image)
 		return (free_minimap(map));
 	if (!img_create(map->image, map->width, map->height))
+		return (free_minimap(map));
+	map->camera = make_point(0,0);
+	if (!map->camera)
 		return (free_minimap(map));
 	return (map);
 }

@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/10 14:22:59 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/11 23:57:02 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 SRCS =  cmd/main.c \
         game/game.c \
         game/minimap/minimap.c \
+        game/minimap/minimap_camera.c \
         game/minimap/minimap_update.c \
         game/minimap/minimap_update_image.c \
         game/update/update.c \

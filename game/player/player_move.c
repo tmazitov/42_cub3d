@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/09 19:13:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 23:34:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_vector	*player_move_vector(t_player *player)
 	speed = player_speed(player);
 	if (speed == 0)
 		return (NULL);
-	printf("speed: %f\n", speed);
 	modificator = 1;
 
 	move_vector = make_vector(0, 0);
