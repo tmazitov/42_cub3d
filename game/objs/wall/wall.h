@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:36:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/10 14:38:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:53:54 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_wall
 	t_point				*start;
 	t_point				*end;
 }			t_wall;
-
 
 t_wall	*make_wall(int x, int y, t_wall_type type, \
 					t_direction direction);

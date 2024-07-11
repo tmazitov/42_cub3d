@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/10 14:22:59 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/11 18:35:54 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ ifeq ($(OS), Linux)
 else ifeq ($(OS), Darwin)
     CFLAGS += -Imlx -I./mlx_mac
     LDFLAGS += -L./mlx_mac -lmlx -framework OpenGL -framework AppKit
-    
+	
     # Modify B_BUTTON for macOS
     CFLAGS += -DW_BUTTON=1  # Assuming B_BUTTON should be 1 on macOS
     CFLAGS += -DA_BUTTON=0  # Assuming B_BUTTON should be 1 on macOS
@@ -93,6 +93,7 @@ else ifeq ($(OS), Darwin)
     CFLAGS += -DD_BUTTON=2  # Assuming B_BUTTON should be 1 on macOS
     CFLAGS += -DLEFT_ARROW=123
     CFLAGS += -DRIGHT_ARROW=124
+
 else
     $(error Unsupported operating system: $(OS))
 endif

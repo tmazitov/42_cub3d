@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/10 14:23:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:53:32 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@
 # ifndef LEFT_ARROW
 #  define LEFT_ARROW 65361
 # endif
+
+# ifndef RIGHT_ARROW
+#  define RIGHT_ARROW 65363
+# endif
+
 # ifndef RIGHT_ARROW
 #  define RIGHT_ARROW 65363
 # endif
