@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 23:23:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:03:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,25 @@ static void minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 		minimap->player_pos.y / 4 + MINIMAP_BORDER_SIZE - minimap->camera->y);
 }
 
+void	minimap_draw_treasure_boxes(t_minimap *minimap, t_image *treasure_icon, t_treasure_storage *storage)
+{
+	int			counter;
+	t_treasure	*treasure;
+
+	counter = 0;
+	while (storage->boxes[counter])
+	{
+		treasure = storage->boxes[counter];
+		minimap_draw_image(minimap, treasure_icon, *treasure->pos, 0);
+		counter++;
+	}
+}
+
 void	render_minimap(t_game *game)
 {
-	void	*win;
-	void	*img;
+	void			*win;
+	void			*img;
+	t_sprite_node	*treasure_sprite;
 
 	win = game->window;
 	img = game->scene->minimap->image;
@@ -78,6 +93,15 @@ void	render_minimap(t_game *game)
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
+
+	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB");
+	if (treasure_sprite && treasure_sprite->image)
+	{
+		minimap_draw_treasure_boxes(game->scene->minimap, \
+			treasure_sprite->image, 
+			game->scene->treasures);
+	}
+
 	minimap_draw_border(game->scene->minimap);
 	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
 }

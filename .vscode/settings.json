@@ -14,7 +14,14 @@
 	"functional": "c",
 	"tuple": "c",
 	"type_traits": "c",
-	"utility": "c"
+	"utility": "c",
+	"map": "c",
+	"*.tcc": "c",
+	"chrono": "c",
+	"algorithm": "c",
+	"iterator": "c",
+	"memory": "c",
+	"random": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

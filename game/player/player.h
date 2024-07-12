@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/10 14:23:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:50:45 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 #  define D_BUTTON 100
 # endif
 
+# ifndef F_BUTTON
+#  define F_BUTTON 102
+# endif
+
 # ifndef LEFT_ARROW
 #  define LEFT_ARROW 65361
 # endif
@@ -47,6 +51,8 @@
 # define PLAYER_ACCELERATION_ITERS 10
 # define PLAYER_ROTATION_SPEED 4
 
+# define PLAYER_DEFAULT_BULLETS_COUNT 42
+
 # define PLAYER_ICON_SIZE 48
 
 typedef struct s_player
@@ -57,6 +63,7 @@ typedef struct s_player
 	int			*pressed_buttons;
 	t_vector	*move_vector;
 	float		move_speed;
+	int			bullets;
 }		t_player;
 
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
@@ -74,5 +81,7 @@ void		player_move_update(t_player *player, t_vector *move_vector);
 void		player_rotate(t_player *player);
 int			is_player_move(t_player *player);
 float		player_speed(t_player *player);
+
+void		player_add_bullets(t_player *player, int amount);
 
 #endif

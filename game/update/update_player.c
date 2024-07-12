@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 00:00:50 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:23:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,35 @@ static int	player_can_move(t_game *game, t_vector *move_vector)
 	return (!is_wall_intersect);
 }
 
+static void	player_collect(t_game *game, t_player *player)
+{
+	t_treasure_storage	*storage;
+	int					counter;
+	t_point				*player_pos;
+	t_point				*treasure_center;
+
+	if (!player->pressed_buttons[6])
+		return ;
+	player_pos = game->scene->player->pos;
+	storage = game->scene->treasures;
+	counter = 0;
+	while(storage->boxes[counter])
+	{
+		treasure_center = storage->boxes[counter]->center;
+		if (point_distance(*player_pos, *treasure_center) <= TREASURE_COLLECT_DISTANCE \
+			&& treasure_collect(storage, storage->boxes[counter], player))
+			break ;
+		counter++;
+	}
+}
+
 // Update player data
 void	update_player(t_game *game)
 {
 	t_vector	*move_vector;
 	int			is_player_can_move;
 
+	player_collect(game, game->scene->player);
 	player_rotate(game->scene->player);
 	move_vector = player_move_vector(game->scene->player);
 	if (!move_vector)

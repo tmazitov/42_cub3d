@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/10 15:22:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:27:28 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	render_hook(t_game *game)
 	}
 	mlx_clear_window(game->mlx, game->window);
 	render_minimap(game);
+	mlx_string_put(game->mlx, game->window, 10 + 200 + 10, 10, MINIMAP_BORDER_COLOR, ft_strjoin("bullets: ", ft_itoa(game->scene->player->bullets)));
 	// render_scene(game);
 	// render_player_road(game);
 	// render_exit(game);

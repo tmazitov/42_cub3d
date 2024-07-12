@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 17:13:04 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:08:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,15 @@ static int	save_player_position(t_map *map, char ch, int x, int y)
 	return (1);
 }
 
+int	is_moveable_area(t_map *map, int x, int y)
+{
+	char	symbol;
+
+	symbol = get_raw_value(map, x, y);
+	return (symbol == '0' \
+			|| symbol == 'B');
+}
+
 int convert_raw_to_objs(t_map *map)
 {
 	int		y;
@@ -128,19 +137,19 @@ int convert_raw_to_objs(t_map *map)
 			if (node->value[x] != '1' && node->value[x] != ' ' 
 				&& !check_neighbors(map, x, y))
 				return (print_error("invalid map"), 0);
-			if (node->value[x] == '1' && get_raw_value(map, x, y + 1) == '0')
+			if (node->value[x] == '1' && is_moveable_area(map, x, y + 1))
 				status = add_wall((x)*64, (y + 1)*64, WALL, NORTH, map->walls);
 			if (!status)
 				return (0);
-			if (node->value[x] == '1' && get_raw_value(map, x, y - 1) == '0')
+			if (node->value[x] == '1' && is_moveable_area(map, x, y - 1))
 				status = add_wall((x)*64, (y)*64, WALL, SOUTH, map->walls);
 			if (!status)
 				return (0);
-			if (node->value[x] == '1' && get_raw_value(map, x + 1, y) == '0')
+			if (node->value[x] == '1' && is_moveable_area(map, x + 1, y))
 				status = add_wall((x + 1)*64, (y)*64, WALL, WEST, map->walls);
 			if (!status)
 				return (0);
-			if (node->value[x] == '1' && get_raw_value(map, x - 1, y) == '0')
+			if (node->value[x] == '1' && is_moveable_area(map, x - 1, y))
 				status = add_wall((x)*64 , (y)*64, WALL, EAST, map->walls);
 			if (!status)
 				return (0);

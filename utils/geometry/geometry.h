@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/10 15:07:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:20:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef enum e_direction
 
 t_point				*make_point(float x, float y);
 void				*free_point(t_point *point);
-
+float				point_distance(t_point p1, t_point p2);
 
 /*LINE*/
 
@@ -85,6 +85,8 @@ void		vector_add(t_vector *vector, float x, float y);
 
 /*UTILS*/
 
+float		distance(float x1, float y1, float x2, float y2);
 int			check_intersection(t_line *line1, t_line *line2);
 int			max(int a, int b);
+int			random_int(int min, int max);
 #endif

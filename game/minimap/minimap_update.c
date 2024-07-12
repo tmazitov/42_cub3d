@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:56:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 23:56:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:50:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	minimap_update(t_minimap *minimap, double player_rotation, t_point player_p
 	if (player_move)
 		minimap_camera_move(minimap, player_position, *player_move);
 		
-	printf("minimap pos: %f %f\n", minimap->camera->x, minimap->camera->y);
+	// printf("minimap pos: %f %f\n", minimap->camera->x, minimap->camera->y);
 
 	img_clear(minimap->image);
 }

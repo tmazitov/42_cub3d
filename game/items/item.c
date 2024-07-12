@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   items.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 20:12:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 18:20:41 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/12 14:08:48 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/12 14:09:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry.h"
+#include "items.h"
 
-t_point	*make_point(float x, float y)
+t_item	*make_item(t_item_type type, int amount)
 {
-	t_point	*point;
+	t_item	*item;
 
-	point = malloc(sizeof(t_point));
-	if (!point)
+	item = (t_item *)malloc(sizeof(t_item));
+	if (!item)
 		return (NULL);
-	point->x = x;
-	point->y = y;
-	return (point);
+	item->type = type;
+	item->amount = amount;
+	return (item);
 }
 
-float	point_distance(t_point p1, t_point p2)
+void	*free_item(t_item *item)
 {
-	return (sqrt(pow(p1.x - p2.x, 2) + (pow(p1.y - p2.y, 2))));
-}
-
-void	*free_point(t_point	*point)
-{
-	free(point);
+	if (!item)
+		return (NULL);
+	free(item);
 	return (NULL);
 }

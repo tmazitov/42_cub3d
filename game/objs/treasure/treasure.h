@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   treasure.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 20:12:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 18:20:41 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/12 02:29:48 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/12 18:06:43 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry.h"
+#ifndef TREASURE_H
+# define TREASURE_H
 
-t_point	*make_point(float x, float y)
+# include "../../../utils/geometry/geometry.h"
+
+typedef struct s_treasure
 {
-	t_point	*point;
+	t_point	*pos;
+	t_point	*center;
+}		t_treasure;
 
-	point = malloc(sizeof(t_point));
-	if (!point)
-		return (NULL);
-	point->x = x;
-	point->y = y;
-	return (point);
-}
-
-float	point_distance(t_point p1, t_point p2)
-{
-	return (sqrt(pow(p1.x - p2.x, 2) + (pow(p1.y - p2.y, 2))));
-}
-
-void	*free_point(t_point	*point)
-{
-	free(point);
-	return (NULL);
-}
+t_treasure	*make_treasure(float x, float y);
+void		*free_treasure(t_treasure *treasure);
+#endif
