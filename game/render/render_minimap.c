@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:58:18 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:59:15 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,48 @@ void	render_minimap(t_game *game)
 	minimap_draw_walls(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
-	ray = ray_line_getter(game, game->scene->minimap->player_rotation);
-	ray.start.x /= 4;
-	ray.start.y /= 4;
-	ray.start.x += MINIMAP_BORDER_SIZE;
-	ray.start.y += MINIMAP_BORDER_SIZE;
-	ray.end.x /= 4;
-	ray.end.y /= 4;
-	ray.end.x += MINIMAP_BORDER_SIZE;
-	ray.end.y += MINIMAP_BORDER_SIZE;
 	
-	// printf("ray start %f %f\n", ray.start.x, ray.start.y);
-	// printf("ray end %f %f\n", ray.end.x, ray.end.y);
-	img_put_line(game->scene->minimap->image, 0xea4335, ray.start, ray.end);
+	int temp_to_rotate = -30;
+	while (temp_to_rotate < 30)
+	{
+		ray = ray_line_getter(game, game->scene->minimap->player_rotation);
+		ray.start.x /= 4;
+		ray.start.y /= 4;
+		ray.start.x += MINIMAP_BORDER_SIZE;
+		ray.start.y += MINIMAP_BORDER_SIZE;
+		ray.end.x /= 4;
+		ray.end.y /= 4;
+		ray.end.x += MINIMAP_BORDER_SIZE;
+		ray.end.y += MINIMAP_BORDER_SIZE;
+		
+		// printf("ray start %f %f\n", ray.start.x, ray.start.y);
+		// printf("ray end %f %f\n", ray.end.x, ray.end.y);
+		img_put_line(game->scene->minimap->image, 0xea4335, ray.start, ray.end);
+		temp_to_rotate += 1;
+		printf("temp_to_rotate %d\n", temp_to_rotate);
+	}
+	/*--------------------
+	int temp_to_rotate = -30;
+	while (temp_to_rotate < 30)
+	{
+		ray = ray_line_getter(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		ray.start.x /= 4;
+		ray.start.y /= 4;
+		ray.start.x += MINIMAP_BORDER_SIZE;
+		ray.start.y += MINIMAP_BORDER_SIZE;
+		ray.end.x /= 4;
+		ray.end.y /= 4;
+		ray.end.x += MINIMAP_BORDER_SIZE;
+		ray.end.y += MINIMAP_BORDER_SIZE;
+		
+		// printf("ray start %f %f\n", ray.start.x, ray.start.y);
+		// printf("ray end %f %f\n", ray.end.x, ray.end.y);
+		img_put_line(game->scene->minimap->image, 0xea4335, ray.start, ray.end);
+		temp_to_rotate += 1;
+		printf("temp_to_rotate %d\n", temp_to_rotate);
+	}
+	*/
+	
 
 
 	// Drawing Fixed lines for testing purposes

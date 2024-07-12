@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/12 22:09:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:41:20 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ static float find_dx(float dy, float degree, t_game *game)
 	float deg_to_pie;
 	float temp;
 
-	if (degree == 0 || degree == 180)
-		return (0);
-	else if (degree == 90 || degree == 270)
-		return (64);
 	deg_to_pie = degree * PI / 180.0;
 	temp = dy/tan(deg_to_pie);
+	// printf("game->scene->minimap->player_pos.x %f\n", game->scene->minimap->player_pos.x);
+	//print player rotation
+	// printf("player rotation %f\n", game->scene->minimap->player_rotation);
 	if (game->scene->minimap->player_pos.x - temp < 0)
 		return (game->scene->minimap->player_pos.x);
 	else if (game->scene->minimap->player_pos.x + temp > 1920)
@@ -72,59 +71,106 @@ static float find_dx(float dy, float degree, t_game *game)
 	// return ((dy * sin(deg_to_pie))/ cos(deg_to_pie));
 }
 
-// void	render_scene(t_game *game)
+// static float find_dy(float dy, float degree, t_game *game)
+// {
+// 	float deg_to_pie;
+// 	float temp;
+
+// 	if (degree == 0 || degree == 180)
+// 		return (0);
+// 	else if (degree == 90 || degree == 270)
+// 		return (64);
+// 	deg_to_pie = degree * PI / 180.0;
+// 	temp = dy/tan(deg_to_pie);
+// 	if (game->scene->minimap->player_pos.x - temp < 0)
+// 		return (game->scene->minimap->player_pos.x);
+// 	else if (game->scene->minimap->player_pos.x + temp > 1920)
+// 		return (1920 - game->scene->minimap->player_pos.x);
+// 	else
+// 		return (temp);
+// 	// return ((dy * sin(deg_to_pie))/ cos(deg_to_pie));
+// }
+
+float distance_between_points(t_point point)
+{
+    return sqrt(point.x * point.x + point.y * point.y);
+}
+
 t_line	ray_line_getter(t_game *game, float chosen_rotation)
 {
-	float	distance_to_itersec_y;
-	float	dx_value;
-	float	iteration_distance;
-	t_line	player_path;
-
-	player_path.start = game->scene->minimap->player_pos;
-	player_path.end = game->scene->minimap->player_pos;
-	distance_to_itersec_y = fmod(player_path.end.y, 64.0);
-	iteration_distance = 64;
-	// printf("distance to intersection mini_DY = %f\n", distance_to_itersec_y);
-	dx_value = find_dx(distance_to_itersec_y, chosen_rotation, game);
-	iteration_distance = find_dx((float)64, chosen_rotation, game);
-	// printf("iteration distance of DX %f\n", iteration_distance);
-	player_path.end.x -= dx_value;
-	player_path.end.y -= distance_to_itersec_y;
-
-	if (player_path.start.y < player_path.end.y)
-		player_path.end.y += 1;
-	else if (player_path.start.y > player_path.end.y)
-		player_path.end.y -= 1;
-
-	while (check_wall_intersection(&player_path, game) != 0 && player_path.end.x > 0 && player_path.end.y > 0)
+	t_point	ray_position;
+	float	ray_y;
+	float	ray_x;
+	float	arctan;
+	float	y_iteration;
+	float	x_iteration;
+	
+	t_line	ray;
+	arctan = atan(chosen_rotation);
+	ray_position = game->scene->minimap->player_pos;
+	if (chosen_rotation > 180)
 	{
-		printf("---------\n");
-		printf("---------\n");
-		printf("---------\n");
-		printf("---------\n");
-		printf("---------\n");
-		printf("---------\n");
-		player_path.end.x -= iteration_distance;
-		player_path.end.y -= 64;
+		ray_y = fmod(ray_position.y, 64.0) - 0.00001;
+		ray_x = (game->scene->minimap->player_pos.y - ray_y) * tan(arctan) + game->scene->minimap->player_pos.x;
+		y_iteration = -64;
+		x_iteration = y_iteration / tan(arctan);
 	}
-	return (player_path);
-	//Deviding values to on TEMP to print on minimap;
-	// player_path.end.x /= 4;
-	// player_path.end.y /= 4;
-	// player_path.start.x /= 4;
-	// player_path.start.y /= 4;
-	// printf("player path %f %f %f %f\n", player_path.start.x, player_path.start.y, player_path.end.x, player_path.end.y);
-	// img_put_line(game->scene->minimap->image, 0x00FF00, player_path.start, player_path.end);
-
-	// //Line print test with FIXED values.
-	// t_point print_test;
-	// print_test.x = 0;
-	// print_test.y = 0;
-	// t_point print_test_1;
-	// print_test_1.x = 100;
-	// print_test_1.y = 100;
-	// img_put_line(game->scene->minimap->image, 0x0F0F0F, print_test, print_test_1);
+	if (chosen_rotation < 180)
+	{
+		ray_y = fmod(ray_position.y, 64.0) + 64;
+		ray_x = (game->scene->minimap->player_pos.y - ray_y) * tan(arctan) + game->scene->minimap->player_pos.x;
+		y_iteration = 64;
+		x_iteration = y_iteration / tan(arctan);
+	}
+	//FIXING CODE BELOW IN IF 
+	if (chosen_rotation == 0 || chosen_rotation == 180)
+	{
+		ray_y = game->scene->minimap->player_pos.y;
+		ray_x = game->scene->minimap->player_pos.x;
+		y_iteration = 0;
+		x_iteration = 64;
+	}
+	ray.start = game->scene->minimap->player_pos;
+	ray.end = ray_position;
+	return ()
 }
+
+// void	render_scene(t_game *game)
+//----------------------------------
+// t_line	ray_line_getter(t_game *game, float chosen_rotation)
+// {
+// 	float	distance_to_itersec_y;
+// 	float	dx_value;
+// 	float	iteration_distance;
+// 	t_line	player_path;
+// 	float	arctan;
+
+// 	arctan = atan(chosen_rotation);
+// 	//Init path
+// 	player_path.start = game->scene->minimap->player_pos;
+// 	player_path.end = game->scene->minimap->player_pos;
+// 	distance_to_itersec_y = fmod(player_path.end.y, 64.0);
+// 	else if (game->scene->minimap->player_rotation > 180 && game->scene->minimap->player_rotation < 360)
+// 		distance_to_itersec_y = 64 - fmod(player_path.end.y, 64.0);
+// 	iteration_distance = 64;
+// 	// printf("distance to intersection mini_DY = %f\n", distance_to_itersec_y);
+// 	dx_value = find_dx(distance_to_itersec_y, chosen_rotation, game);
+// 	// iteration_distance = find_dx((float)64, chosen_rotation, game);
+// 	// printf("iteration distance of DX %f\n", iteration_distance);
+// 	player_path.end.x -= dx_value;
+// 	player_path.end.y -= distance_to_itersec_y;
+// 	// if (game->scene->minimap->player_rotation > 0 && game->scene->minimap->player_rotation < 180)
+// 	// 	player_path.end.y += 64;
+// 	// else if (game->scene->minimap->player_rotation > 180 && game->scene->minimap->player_rotation < 360)
+// 	// 	player_path.end.y -= 64;
+// 	while (check_wall_intersection(&player_path, game) != 0 && player_path.end.x > 0 && player_path.end.y > 0)
+// 	{
+// 		player_path.end.x -= iteration_distance;
+// 		player_path.end.y -= 64;
+// 	}
+// 	return (player_path);
+// }
+//----------------------------------
 
 	//Calculate distance to Cross Section.
 
@@ -137,13 +183,6 @@ t_line	ray_line_getter(t_game *game, float chosen_rotation)
 	// render_minimap(game);
 	// render_3d(game);
 
-/*
-Get distance to the wall to the player
-*/
-// void	calculate_distance()
-// {
-
-// }
 
 // int get_next_vertical_pixel()
 // {
