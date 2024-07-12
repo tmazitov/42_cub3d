@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 16:30:56 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/12 21:58:18 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	render_minimap(t_game *game)
 {
 	void	*win;
 	void	*img;
-
+	t_line	ray;
 	win = game->window;
 	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
@@ -77,26 +77,38 @@ void	render_minimap(t_game *game)
 	minimap_draw_walls(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
-
+	ray = ray_line_getter(game, game->scene->minimap->player_rotation);
+	ray.start.x /= 4;
+	ray.start.y /= 4;
+	ray.start.x += MINIMAP_BORDER_SIZE;
+	ray.start.y += MINIMAP_BORDER_SIZE;
+	ray.end.x /= 4;
+	ray.end.y /= 4;
+	ray.end.x += MINIMAP_BORDER_SIZE;
+	ray.end.y += MINIMAP_BORDER_SIZE;
+	
+	// printf("ray start %f %f\n", ray.start.x, ray.start.y);
+	// printf("ray end %f %f\n", ray.end.x, ray.end.y);
+	img_put_line(game->scene->minimap->image, 0xea4335, ray.start, ray.end);
 
 
 	// Drawing Fixed lines for testing purposes
 	// Values printed.
-	// t_point start;
-	// t_point str_finish;
+	t_point start;
+	t_point str_finish;
 
 	// // t_point end;
 
-	// // start.x = 436;
-	// // start.y = 426;
-	// // str_finish.x = 100;
-	// // str_finish.y = 100;
+	start.x = 436;
+	start.y = 426;
+	str_finish.x = 100;
+	str_finish.y = 100;
 
 	// end.x = game->scene->minimap->player_pos.x + 50;
 	// end.y = game->scene->minimap->player_pos.y + 50;
 
-	// printf("start pos %f %f\n", start.x, start.y);
-	// printf("str_finish pos %f %f\n", str_finish.x, str_finish.y);
+	printf("start pos %f %f\n", start.x, start.y);
+	printf("str_finish pos %f %f\n", str_finish.x, str_finish.y);
 	// img_put_line(game->scene->minimap->image, 0xea4335, start, str_finish);
 
 	// //how to round the values of game->scene->minimap->player_pos. to be integers

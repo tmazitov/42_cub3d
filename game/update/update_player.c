@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 16:26:45 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:02:29 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	check_wall_intersection(t_line *player_path, t_game *game)
 	t_wall_node		*node;
 	int				is_intersect;
 
-	printf("\t player path %f %f %f %f\n", player_path->start.x, player_path->start.y, player_path->end.x, player_path->end.y),
 	node = game->scene->map->walls->start;
 	while(node)
 	{
@@ -30,7 +29,7 @@ static int	check_wall_intersection(t_line *player_path, t_game *game)
 		if (is_intersect == -1)
 			return (-1);
 		if (is_intersect)
-			return (printf("\t intersect with wall %f %f %f %f\n", wall_line->start.x, wall_line->start.y, wall_line->end.x, wall_line->end.y),1);
+			return (1);
 		node = node->next;
 	}
 	return (0);
