@@ -3,7 +3,8 @@ SO textures/south_wall.xpm
 WE textures/west_wall.xpm
 EA textures/east_wall.xpm
 
-TB textures/treasure_box_3.xpm
+TB       textures/treasure_box_3.xpm
+TB_EMPTY textures/treasure_box_empty.xpm
 
 F 220,100,0
 C 225,30,0

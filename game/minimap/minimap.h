@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 23:56:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:02:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define MINIMAP_POS_X 10
 # define MINIMAP_POS_Y 10
 # define MINIMAP_MOVE_AREA_SIZE 32
+# define MINIMAP_SIZE 256
+# define MINIMAP_SCALE 4
 
 // # define MINIMAP_WALLS_COLOR 0x003d3d3d
 # define MINIMAP_WALLS_COLOR 0x0042c79a

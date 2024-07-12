@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:48:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 23:57:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:00:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,23 @@ void	minimap_camera_move(t_minimap *map, t_point player_pos, t_vector player_mov
 	float	relX;
 	float	relY;
 
-	relX = player_pos.x / 4 + MINIMAP_BORDER_SIZE - map->camera->x;
-	relY = player_pos.y / 4 + MINIMAP_BORDER_SIZE - map->camera->y;
+	relX = player_pos.x / MINIMAP_SCALE + MINIMAP_BORDER_SIZE - map->camera->x;
+	relY = player_pos.y / MINIMAP_SCALE + MINIMAP_BORDER_SIZE - map->camera->y;
 	if (player_move.x > 0 && is_right_move_area(map, relX))
 	{
-		map->camera->x += fmax(player_move.x / 4, 1);
+		map->camera->x += fmax(player_move.x / MINIMAP_SCALE, 1);
 	}
 	if (player_move.x < 0 && is_left_move_area(relX))
 	{
-		map->camera->x += fmin(player_move.x / 4, -1);
+		map->camera->x += fmin(player_move.x / MINIMAP_SCALE, -1);
 	}
 	if (player_move.y > 0 && is_top_move_area(map, relY))
 	{
-		map->camera->y += fmax(player_move.y / 4, 1);
+		map->camera->y += fmax(player_move.y / MINIMAP_SCALE, 1);
 	}
 	if (player_move.y < 0 && is_bop_move_area(relY))
 	{
-		map->camera->y += fmin(player_move.y / 4, -1);
+		map->camera->y += fmin(player_move.y / MINIMAP_SCALE, -1);
 	}
 	map->camera->x = max(map->camera->x, 0);
 }
