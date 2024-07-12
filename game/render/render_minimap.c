@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 22:07:12 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:30:56 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,36 @@ void	render_minimap(t_game *game)
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
 
-	t_point start;
-	t_point str_finish;
 
-	t_point end;
 
-	start.x = 436;
-	start.y = 426;
-	str_finish.x = 100;
-	str_finish.y = 100;
+	// Drawing Fixed lines for testing purposes
+	// Values printed.
+	// t_point start;
+	// t_point str_finish;
 
-	end.x = game->scene->minimap->player_pos.x + 416;
-	end.y = game->scene->minimap->player_pos.y + 416;
+	// // t_point end;
 
-	printf("start pos %f %f\n", start.x, start.y);
-	printf("str_finish pos %f %f\n", str_finish.x, str_finish.y);
-	img_put_line(game->scene->minimap->image, 0xf00ed5, start, str_finish);
+	// // start.x = 436;
+	// // start.y = 426;
+	// // str_finish.x = 100;
+	// // str_finish.y = 100;
 
-	printf("player pos %f %f\n", game->scene->minimap->player_pos.x, game->scene->minimap->player_pos.y);
-	printf("end pos %f %f\n", end.x, end.y);
-	img_put_line(game->scene->minimap->image, 0xf00ed5, game->scene->minimap->player_pos, end);
-	printf("---------------\n");
+	// end.x = game->scene->minimap->player_pos.x + 50;
+	// end.y = game->scene->minimap->player_pos.y + 50;
+
+	// printf("start pos %f %f\n", start.x, start.y);
+	// printf("str_finish pos %f %f\n", str_finish.x, str_finish.y);
+	// img_put_line(game->scene->minimap->image, 0xea4335, start, str_finish);
+
+	// //how to round the values of game->scene->minimap->player_pos. to be integers
+	// // game->scene->minimap->player_pos.x = round(game->scene->minimap->player_pos.x);
+	// // game->scene->minimap->player_pos.y = round(game->scene->minimap->player_pos.y);
+	// end.x = game->scene->minimap->player_pos.x + 50;
+	// end.y = game->scene->minimap->player_pos.y + 50;
+
+	// printf("player pos %f %f\n", game->scene->minimap->player_pos.x/4, game->scene->minimap->player_pos.y/4);
+	// printf("end pos %f %f\n", end.x, end.y);
+	// img_put_line(game->scene->minimap->image, 0xea4335, game->scene->minimap->player_pos, end);
+	// printf("---------------\n");
 	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
 }

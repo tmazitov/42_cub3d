@@ -6,7 +6,7 @@
 #    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/11 18:35:54 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/07/12 16:32:43 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS =  cmd/main.c \
         game/update/update_minimap.c \
         game/render/render.c \
         game/render/render_minimap.c \
+		game/render/render_scene.c \
         game/scene/scene.c \
         game/objs/wall/wall.c \
         game/player/player.c \
@@ -69,7 +70,8 @@ SRCS =  cmd/main.c \
         utils/libft/ft_bzero.c \
         utils/libft/ft_calloc.c \
         utils/libft/ft_split.c \
-        utils/libft/ft_itoa.c
+        utils/libft/ft_itoa.c \
+		
 
 OBJS = $(SRCS:.c=.o)
 
