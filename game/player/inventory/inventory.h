@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_player.c                                    :+:      :+:    :+:   */
+/*   player_inventory.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/13 21:23:44 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/13 21:01:51 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/13 21:21:04 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "render.h"
+#ifndef PLAYER_INVENTORY_H
+# define PLAYER_INVENTORY_H
 
-void	render_player_bullets(t_game *game)
+# include "../../../utils/image/image.h"
+# include "../../items/items.h"
+
+
+typedef struct s_inventory
 {
-	char	*str_value;
-	char	*total_string;
+	t_point				*pos;
+	int					size;
+	int					bullets;
+	t_item				*active_item;
+	t_item_collection	*slots;
+}	t_inventory;
 
-	if (!game->writer)
-		return ;
-	str_value = ft_itoa(game->scene->player->inventory->bullets);
-	if (!str_value)
-		return ;
-	total_string = ft_strjoin("bullets ", str_value);
-	free(str_value);
-	if (!total_string)
-		return ;
-	mlx_print(game->writer, total_string, 280, 20);
-	free(total_string);
-}	
+t_inventory	*make_inventory(int x, int y, int size);
+void		*free_inventory(t_inventory *inventory);
+
+#endif

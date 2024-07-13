@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 17:50:45 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:23:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../../utils/geometry/geometry.h"
 # include "../../utils/image/image.h"
 # include "../../utils/libft/libft.h"
+# include "inventory/inventory.h"
 
 # ifndef W_BUTTON
 #  define W_BUTTON 115
@@ -53,6 +54,10 @@
 
 # define PLAYER_DEFAULT_BULLETS_COUNT 42
 
+# define PLAYER_INV_CELL_AMOUNT 5
+# define PLAYER_INV_CELL_SIZE 64
+# define PLAYER_INV_CELL_PADDING 8
+
 # define PLAYER_ICON_SIZE 48
 
 typedef struct s_player
@@ -63,7 +68,7 @@ typedef struct s_player
 	int			*pressed_buttons;
 	t_vector	*move_vector;
 	float		move_speed;
-	int			bullets;
+	t_inventory	*inventory;
 }		t_player;
 
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
