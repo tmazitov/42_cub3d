@@ -6,12 +6,12 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/12 17:49:43 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/12 20:38:39 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 SRCS =  cmd/main.c \
         game/game.c \
@@ -23,6 +23,7 @@ SRCS =  cmd/main.c \
         game/update/update_player.c \
         game/update/update_minimap.c \
         game/render/render.c \
+        game/render/render_player.c \
         game/render/render_minimap.c \
         game/scene/scene.c \
         game/scene/scene_treasures.c \
@@ -57,6 +58,9 @@ SRCS =  cmd/main.c \
         utils/geometry/line_intersection.c \
         utils/geometry/utils.c \
         utils/rgb/rgb.c \
+		utils/mlx_font_print/writer.c \
+		utils/mlx_font_print/writer_symbol.c \
+		utils/mlx_font_print/writer_handler.c \
         utils/gnl/get_next_line.c \
         utils/gnl/get_next_line_utils.c \
         utils/libft/ft_memcpy.c \

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 14:52:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 21:07:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,17 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 	treasure_count = count_of_treasures(raw_map);
 	if (treasure_count == 0)
 		return (1);
-	storage->boxes = malloc(sizeof(t_treasure *) * (treasure_count+1));
-	storage->items = malloc(sizeof(t_item_collection *) * (treasure_count+1));
+	storage->boxes = ft_calloc(treasure_count+1, sizeof(t_treasure *));
+	storage->items = ft_calloc(treasure_count+1, sizeof(t_item_collection *));
 	if (!storage->items || !storage->boxes)
 		return (0);
+	int counter = 0;
+	while(counter <= treasure_count)
+	{
+		storage->items[counter] = NULL;
+		storage->boxes[counter] = NULL;
+		counter++;
+	}
 	y = 0;
 	treasure_created = 0;
 	while (raw_map && treasure_created < treasure_count)
@@ -106,7 +113,7 @@ void	*free_treasure_storage(t_treasure_storage *storage)
 	if (storage->boxes)
 	{
 		counter = 0;
-		while (storage->boxes)
+		while (storage->boxes[counter])
 		{
 			if (storage->boxes[counter])
 				free_treasure(storage->boxes[counter]);

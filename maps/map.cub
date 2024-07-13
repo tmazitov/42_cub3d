@@ -6,6 +6,44 @@ EA textures/east_wall.xpm
 TB       textures/treasure_box_3.xpm
 TB_EMPTY textures/treasure_box_empty.xpm
 
+CH_0     textures/font/0.xpm
+CH_1     textures/font/1.xpm
+CH_2     textures/font/2.xpm
+CH_3     textures/font/3.xpm
+CH_4     textures/font/4.xpm
+CH_5     textures/font/5.xpm
+CH_6     textures/font/6.xpm
+CH_7     textures/font/7.xpm
+CH_8     textures/font/8.xpm
+CH_9     textures/font/9.xpm
+CH_A     textures/font/a.xpm
+CH_B     textures/font/b.xpm
+CH_C     textures/font/c.xpm
+CH_D     textures/font/d.xpm
+CH_E     textures/font/e.xpm
+CH_F     textures/font/f.xpm
+CH_G     textures/font/g.xpm
+CH_H     textures/font/h.xpm
+CH_I     textures/font/i.xpm
+CH_J     textures/font/j.xpm
+CH_K     textures/font/k.xpm
+CH_L     textures/font/l.xpm
+CH_M     textures/font/m.xpm
+CH_N     textures/font/n.xpm
+CH_O     textures/font/o.xpm
+CH_P     textures/font/p.xpm
+CH_Q     textures/font/q.xpm
+CH_R     textures/font/r.xpm
+CH_S     textures/font/s.xpm
+CH_T     textures/font/t.xpm
+CH_U     textures/font/u.xpm
+CH_V     textures/font/v.xpm
+CH_W     textures/font/w.xpm
+CH_X     textures/font/x.xpm
+CH_Y     textures/font/y.xpm
+CH_Z     textures/font/z.xpm
+
+
 F 220,100,0
 C 225,30,0
 

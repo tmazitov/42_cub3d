@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   render_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 20:38:04 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/12 21:22:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#include "render.h"
 
-# include "../game.h"
-# include "../../utils/image/image.h"
+void	render_player_bullets(t_game *game)
+{
+	char	*str_value;
+	char	*total_string;
 
-int		render_hook(t_game *game);
-void	render_minimap(t_game *game);
-void	render_player_bullets(t_game *game);
-
-#endif // RENDER_H
+	if (!game->writer)
+		return ;
+	str_value = ft_itoa(game->scene->player->bullets);
+	if (!str_value)
+		return ;
+	total_string = ft_strjoin("bullets ", str_value);
+	free(str_value);
+	if (!total_string)
+		return ;
+	mlx_print(game->writer, total_string, 280, 20);
+	free(total_string);
+}	

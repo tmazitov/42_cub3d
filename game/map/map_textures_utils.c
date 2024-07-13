@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:32:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:31:55 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 21:13:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_sprite_node	*get_sprite_by_name(t_sprite_storage *storage, char *name)
 {
 	t_sprite_node	*node;
 
+	if (!name)
+		return (NULL);
 	node = storage->start;
 	while (node)
 	{

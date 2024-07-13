@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 22:19:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:15:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	*free_minimap(t_minimap *map)
 		return (NULL);
 	if (map->image)
 		free_image(map->image);
+	if (map->camera)
+		free_point(map->camera);
 	free(map);
 	return (NULL);
 }

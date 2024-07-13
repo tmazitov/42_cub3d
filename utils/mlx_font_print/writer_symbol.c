@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   writer_symbol.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 20:38:04 by tmazitov         ###   ########.fr       */
+/*   Created: 2023/12/08 20:48:28 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/07/12 21:07:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#include "mlx_font_print.h"
 
-# include "../game.h"
-# include "../../utils/image/image.h"
+t_symbol	*make_symbol(char ch, t_image *image)
+{
+	t_symbol	*symbol;
 
-int		render_hook(t_game *game);
-void	render_minimap(t_game *game);
-void	render_player_bullets(t_game *game);
+	symbol = malloc(sizeof(t_symbol));
+	if (!symbol)
+		return (NULL);
+	symbol->symbol = ch;
+	symbol->image = image;
+	symbol->next = NULL;
+	return (symbol);
+}
 
-#endif // RENDER_H
+void	*free_symbol(t_symbol *symbol)
+{
+	if (!symbol)
+		return (NULL);
+	if (symbol->next)
+		free_symbol(symbol->next);
+	free(symbol);
+	return (NULL);
+}

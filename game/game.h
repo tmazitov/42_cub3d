@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:17:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 17:34:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:50:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include "scene/scene.h"
+# include "../utils/mlx_font_print/mlx_font_print.h"
 
 typedef struct s_game
 {
@@ -24,6 +25,7 @@ typedef struct s_game
 	int			height;
 	int			width;
 	t_scene		*scene;
+	t_writer	*writer;
 	int			blocker;
 }				t_game;
 
