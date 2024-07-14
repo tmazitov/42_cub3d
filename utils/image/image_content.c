@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 14:29:45 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:16:08 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	img_load(t_image *img, char *path)
 
 	if (!img || access(path, R_OK) == -1)
 		return (print_error("invalid texture file"), 0);
-	w = &img->height; // mlx bug
-	h = &img->width;
+	w = &img->width; // mlx bug
+	h = &img->height;
 	img->content = mlx_xpm_file_to_image(img->mlx, path, w, h);
 	printf("\t\twidth : %d height : %d \n", *w, *h);
 	if (!img->content)

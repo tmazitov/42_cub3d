@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:15:08 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 14:32:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:32:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct s_image
 	void	*mlx;
 }			t_image;
 
+typedef struct s_image_border
+{
+	int	size;
+	int color;
+	int radius;
+}		t_image_border;
+
 t_image	*make_image(void *mlx);
 void	*free_image(t_image *image);
 
@@ -50,5 +57,7 @@ void	img_put_img(t_image *dest, t_image *src, t_point pos, double angle);
 void	img_put_line(t_image *img, int color, t_point p1, t_point p2);
 void 	img_put_pixel(t_image *img, int color, int x, int y);
 void	img_put_rectangle(t_image* img, t_rectangle rect, int color);
+
+void	img_paint_border(t_image *image, t_image_border border);
 
 #endif // !IMAGE_H

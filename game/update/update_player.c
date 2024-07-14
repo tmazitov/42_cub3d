@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 18:23:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:00:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	player_collect(t_game *game, t_player *player)
 
 	if (!player->pressed_buttons[6])
 		return ;
-	player_pos = game->scene->player->pos;
+	player_pos = player->pos;
 	storage = game->scene->treasures;
 	counter = 0;
 	while(storage->boxes[counter])
@@ -84,17 +84,29 @@ void	update_player(t_game *game)
 {
 	t_vector	*move_vector;
 	int			is_player_can_move;
+	t_player	*player;
+	t_sprite_node	*bullet_sprite;
+	t_sprite_node	*slot_sprite;
 
-	player_collect(game, game->scene->player);
-	player_rotate(game->scene->player);
-	move_vector = player_move_vector(game->scene->player);
+	player = game->scene->player;
+	player_collect(game, player);
+	player_rotate(player);
+
+	slot_sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT");
+	bullet_sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
+	if (slot_sprite && slot_sprite->image && bullet_sprite && bullet_sprite->image)
+		inv_update_image(player->inventory, player->update_count, \
+						bullet_sprite->image, 
+						slot_sprite->image, 
+						game->writer);
+	move_vector = player_move_vector(player);
 	if (!move_vector)
 		return ;
 	is_player_can_move = player_can_move(game, move_vector);
 	if (is_player_can_move == -1)
 		return (print_error("mem allocation error"));
 	if (move_vector && is_player_can_move)
-		player_move_update(game->scene->player, move_vector);
+		player_move_update(player, move_vector);
 	if (move_vector)
 		free_vector(move_vector);
 }

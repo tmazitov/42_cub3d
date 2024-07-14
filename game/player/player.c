@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 13:59:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:21:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void init_player(t_player *player, t_direction direction)
 	player->move_vector = NULL;
 	player->move_speed = 0;
 	player->inventory = NULL;
+	player->update_count = 0;
 	if (direction == NORTH)
 		player->rotation = 90;
 	else if (direction == SOUTH)

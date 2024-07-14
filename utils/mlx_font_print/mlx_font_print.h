@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 20:39:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 20:53:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 17:34:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void				*free_symbol(t_symbol *symbol);
 t_writer			*make_writer(void *mlx, void *win, int space);
 void				*free_writer(t_writer *writer);
 int					writer_add_symbol(t_writer *writer, char ch, t_image *image);
-int					mlx_print_char(t_writer *w, char ch, int x, int y);
-int					mlx_print(t_writer *w, char *str, int x, int y);
+int					mlx_print(t_writer *w, void *win, char *str, t_point pos);
+int					mlx_print_to_image(t_writer *w, t_image *image, char *str, t_point pos);
+int					mlx_print_char(t_writer *w, void *win, char ch, t_point pos);
+int					mlx_print_char_to_image(t_writer *w, t_image *image, char ch, t_point pos);
 
 #endif

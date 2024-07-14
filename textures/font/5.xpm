@@ -1,5 +1,5 @@
 static char * letter_5[] = {
-"18 16 3 1",
+"16 18 3 1",
 "  c None",
 "1 c #000000",
 ". c #ffffff",

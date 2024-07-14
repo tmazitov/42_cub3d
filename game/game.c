@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 14:35:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 18:17:41 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,26 @@ static void	init_game(t_game *game)
 	game->window = NULL;
 	game->writer = NULL;
 	game->scene = NULL;
+	game->blocker = 0;
 }
 
-int	setup_writer(t_writer *writer, t_sprite_storage *storage, char from, char to)
+static int	set_inv_position(t_game *game, t_player *player)
 {
-	char	ch;
-	char	ch_big;
-	char	*ch_str;
-	char	*name;
-	t_image	*image;
-	t_sprite_node	*node;
+	t_rectangle rect;
+	t_inventory	*inv;
 
-	if (!writer || !storage)
-		return (0);
-	ch = from;
-	
-	while (ch <= to)
-	{
-		if (ch >= 'a' && ch <= 'z')
-			ch_big = ch - 32;
-		else
-			ch_big = ch;
-		ch_str = ft_strdup(" ");
-		if (!ch_str)
-			return (0);
-		ch_str[0] = ch_big;
-		name = ft_strjoin("CH_", ch_str);
-		free(ch_str);
-		if (!name)
-			return (0);
-		node = get_sprite_by_name(storage, name);
-		free(name); 
-		if (!node || !node->image)
-			return (0);
-		if (!img_scale(&node->image, 3))
-			return (0);
-		image = node->image;
-		if (!writer_add_symbol(writer, ch, image))
-			return (0);
-		ch++;
-	}
-	return (1);
+	inv = player->inventory;
+	if (inv->image)
+		return (1);
+	rect.width = INV_CELL_SIZE * inv->size + INV_CELL_PADDING * (inv->size - 1) \
+				+ (INV_BORDER_SIZE + INV_PADDING) * 2;
+	rect.height = INV_CELL_SIZE * 2 + INV_CELL_PADDING \
+				+ (INV_BORDER_SIZE + INV_PADDING) * 2;
+	rect.start.x = game->width / 2 - (rect.width) / 2;
+	rect.start.y = game->height - rect.height - 24;
+	printf("rect : %f %f %f %f\n", rect.start.x, rect.start.y, rect.width, rect.height);
+	return (inv_set_sizes(game->mlx, inv, rect)); 
 }
-
 
 t_game	*make_game(char *scene_path, int width, int height, char *title)
 {
@@ -70,6 +47,8 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 	if (!game)
 		return (NULL);
 	init_game(game);
+	game->height = height;
+	game->width = width;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (free_game(game));
@@ -79,16 +58,15 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 	game->scene = make_scene(game->mlx, scene_path);
 	if (!game->scene)
 		return (free_game(game));
-	game->writer = make_writer(game->mlx, game->window, 10);
+	game->writer = make_writer(game->mlx, game->window, 6);
 	if (!game->writer)
 		return (free_game(game));
 	if (!setup_writer(game->writer, game->scene->map->sprites, 'a', 'z'))
 		return (free_game(game));
 	if (!setup_writer(game->writer, game->scene->map->sprites, '0', '9'))
 		return (free_game(game));
-	game->height = height;
-	game->width = width;
-	game->blocker = 0;
+	if (!set_inv_position(game, game->scene->player))
+		return (free_game(game));
 	return (game);
 }
 

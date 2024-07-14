@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 14:01:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:36:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@
 # define PLAYER_ROTATION_SPEED 4
 
 # define PLAYER_DEFAULT_BULLETS_COUNT 42
-
 # define PLAYER_INV_CELL_AMOUNT 6
-# define PLAYER_INV_CELL_SIZE 64
-# define PLAYER_INV_CELL_PADDING 8
 
 # define PLAYER_ICON_SIZE 48
 
@@ -69,6 +66,7 @@ typedef struct s_player
 	t_vector	*move_vector;
 	float		move_speed;
 	t_inventory	*inventory;
+	int			update_count;
 }		t_player;
 
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);

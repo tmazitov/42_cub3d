@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/13 21:22:23 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/14 18:02:10 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 SRCS =  cmd/main.c \
         game/game.c \
+        game/game_writer.c \
         game/minimap/minimap.c \
         game/minimap/minimap_camera.c \
         game/minimap/minimap_update.c \
@@ -40,6 +41,7 @@ SRCS =  cmd/main.c \
         game/player/player_bullets.c \
         game/player/player_acceleration.c \
         game/player/inventory/inventory.c \
+        game/player/inventory/inventory_update_image.c \
         game/map/map.c \
         game/map/map_raw.c \
         game/map/map_parse.c \
@@ -52,6 +54,7 @@ SRCS =  cmd/main.c \
         utils/image/image_draw.c \
         utils/image/image_get.c \
         utils/image/image_put.c \
+		utils/image/image_paint_border.c \
         utils/error/error.c \
         utils/geometry/point.c \
         utils/geometry/vector.c \
