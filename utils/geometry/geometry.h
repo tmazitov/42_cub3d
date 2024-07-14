@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 18:20:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 01:18:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void		vector_add(t_vector *vector, float x, float y);
 float		distance(float x1, float y1, float x2, float y2);
 int			check_intersection(t_line *line1, t_line *line2);
 int			max(int a, int b);
+int			max_delimeter(int value);
 int			random_int(int min, int max);
 #endif

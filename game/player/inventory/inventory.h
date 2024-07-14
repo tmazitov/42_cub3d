@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 18:47:48 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 01:01:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@
 # define INV_BACKGROUND_COLOR 0xdbc88c
 # define INV_PADDING 10
 
+typedef	struct s_health_bar
+{
+	int 	max;
+	int		current;
+	t_image	*image;
+}		t_health_bar;
+
+
 typedef struct s_inventory
 {
 	t_point				*pos;
@@ -35,6 +43,7 @@ typedef struct s_inventory
 	t_item_collection	*slots;
 	t_image				*image;
 	int					update_count;
+	t_health_bar		*health_bar;
 }	t_inventory;
 
 t_inventory	*make_inventory(int size);
@@ -44,5 +53,11 @@ void		inv_update_image(t_inventory *inv, int player_update_count, \
 							t_image	*slot_image, \
 							t_writer *writer);
 void		*free_inventory(t_inventory *inventory);
+
+int				bullets_message_size(t_inventory *inventory);
+
+t_health_bar	*make_health_bar(int max);
+int				hb_new_image(void *mlx, t_health_bar *bar, int width, int height);
+void			*free_health_bar(t_health_bar *bar);
 
 #endif
