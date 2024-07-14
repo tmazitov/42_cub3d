@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 13:59:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:06:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,25 @@ void	render_player_inventory(t_game *game)
 void	render_player_bullets(t_game *game)
 {
 	char	*str_value;
-	char	*total_string;
+	int		x;
+	int		y;
+	t_sprite_node	*bullet;
 
+	x = 280;
+	y = 20;
 	if (!game->writer)
 		return ;
 	str_value = ft_itoa(game->scene->player->inventory->bullets);
 	if (!str_value)
 		return ;
-	total_string = ft_strjoin("bullets ", str_value);
+	bullet = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
+	if (!bullet || !bullet->image)
+		return (free(str_value));
+	img_draw(game->window, bullet->image, x, y);
+	x += bullet->image->height + 10;
+	y = y + bullet->image->height / 2 + 5;
+	mlx_print(game->writer, str_value, x, y);
 	free(str_value);
-	if (!total_string)
-		return ;
-	mlx_print(game->writer, total_string, 280, 20);
-	free(total_string);
 }
 
 void	render_player(t_game *game)

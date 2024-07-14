@@ -6,6 +6,7 @@ EA textures/east_wall.xpm
 TB       textures/treasure_box_3.xpm
 TB_EMPTY textures/treasure_box_empty.xpm
 
+
 CH_0     textures/font/0.xpm
 CH_1     textures/font/1.xpm
 CH_2     textures/font/2.xpm
@@ -44,6 +45,7 @@ CH_Y     textures/font/y.xpm
 CH_Z     textures/font/z.xpm
 
 INV_SLOT textures/inventory_slot.xpm
+INV_BULLET textures/bullet.xpm
 
 F 220,100,0
 C 225,30,0
