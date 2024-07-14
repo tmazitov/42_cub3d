@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:38:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:29:45 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,33 @@ int	img_create(t_image *img, int width, int height)
 	img->buffer = img_buffer(img);
 	if (!img->buffer)
 		return (0);
+	return (1);
+}
+
+int img_scale(t_image **img, int scale)
+{
+	t_image	*new_img;
+	int		x;
+	int		y;
+
+	new_img = make_image((*img)->mlx);
+	if (!new_img)
+		return (0);
+	if (!img_create(new_img, (*img)->width * scale, (*img)->height * scale))
+		return (0);
+	y = 0;
+	while (y < new_img->height)
+	{
+		x = 0;
+		while (x < new_img->width)
+		{
+			img_put_pixel(new_img, img_get_pixel(*img, x / scale, y / scale), x, y);
+			x++;
+		}
+		y++;
+	}
+	free_image(*img);
+	*img = new_img;
 	return (1);
 }
 

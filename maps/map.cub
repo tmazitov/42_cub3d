@@ -43,6 +43,7 @@ CH_X     textures/font/x.xpm
 CH_Y     textures/font/y.xpm
 CH_Z     textures/font/z.xpm
 
+INV_SLOT textures/inventory_slot.xpm
 
 F 220,100,0
 C 225,30,0

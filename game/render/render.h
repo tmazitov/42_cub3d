@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 20:38:04 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:48:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,5 @@
 
 int		render_hook(t_game *game);
 void	render_minimap(t_game *game);
-void	render_player_bullets(t_game *game);
-
+void	render_player(t_game *game);
 #endif // RENDER_H

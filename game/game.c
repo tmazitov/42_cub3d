@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:19:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:35:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	setup_writer(t_writer *writer, t_sprite_storage *storage, char from, char to
 			return (0);
 		node = get_sprite_by_name(storage, name);
 		free(name); 
-		if (!node)
+		if (!node || !node->image)
+			return (0);
+		if (!img_scale(&node->image, 3))
 			return (0);
 		image = node->image;
 		if (!writer_add_symbol(writer, ch, image))

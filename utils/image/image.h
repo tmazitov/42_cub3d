@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:15:08 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 00:39:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:32:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	*free_image(t_image *image);
 int		img_create(t_image *img, int width, int height);
 int		img_load(t_image *img, char *path);
 void	img_clear(t_image *img);
+int		img_scale(t_image **img, int scale);
 
 int		*img_buffer(t_image *image);
 void	img_draw(void *win, t_image *img, int x, int y);
-
 int		img_get_pixel(t_image *img, int x, int y);
 
 void	img_put_img(t_image *dest, t_image *src, t_point pos, double angle);

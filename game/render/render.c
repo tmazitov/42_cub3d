@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:15:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:48:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	render_hook(t_game *game)
 	}
 	mlx_clear_window(game->mlx, game->window);
 	render_minimap(game);
-	render_player_bullets(game);
+	render_player(game);
 
 	
 	// render_scene(game);

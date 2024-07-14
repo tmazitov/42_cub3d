@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:38 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/13 21:22:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:57:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ void	init_inventory(t_inventory *inventory)
 {
 	inventory->bullets = 0;
 	inventory->size = 0;
-	inventory->pos = NULL;
 	inventory->slots = NULL;
 }
 
-t_inventory	*make_inventory(int x, int y, int size)
+t_inventory	*make_inventory(int size)
 {
 	t_inventory	*inventory;
 
@@ -28,9 +27,6 @@ t_inventory	*make_inventory(int x, int y, int size)
 	if (!inventory)
 		return (NULL);
 	init_inventory(inventory);
-	inventory->pos = make_point(x, y);
-	if (!inventory->pos)
-		return (free_inventory(inventory));
 	inventory->size = size;
 	inventory->slots = make_item_collection(size);
 	if (!inventory->slots)
@@ -43,8 +39,6 @@ void	*free_inventory(t_inventory *inventory)
 {
 	if (!inventory)
 		return (NULL);
-	if (inventory->pos)
-		free(inventory->pos);
 	free(inventory);
 	return (NULL);
 }

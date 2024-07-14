@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/13 21:23:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:01:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 
 # define PLAYER_DEFAULT_BULLETS_COUNT 42
 
-# define PLAYER_INV_CELL_AMOUNT 5
+# define PLAYER_INV_CELL_AMOUNT 6
 # define PLAYER_INV_CELL_SIZE 64
 # define PLAYER_INV_CELL_PADDING 8
 

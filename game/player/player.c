@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/13 21:26:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:59:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,9 @@ static int	*make_pressed_buttons(int count)
 	return (result);
 }
 
-static t_inventory	*init_inventory(void *mlx)
+static t_inventory	*init_inventory()
 {
-	int	height;
-	int	width;
-	int inventory_x;
-	int inventory_y;
-
-	height = 0;
-	width = 0;
-	mlx_get_screen_size(mlx, &width, &height);
-	inventory_x = width / 2 - (PLAYER_INV_CELL_SIZE * PLAYER_INV_CELL_AMOUNT + PLAYER_INV_CELL_PADDING * (PLAYER_INV_CELL_AMOUNT - 1)) / 2;
-	inventory_y = height - PLAYER_INV_CELL_SIZE - 24;
-	return (make_inventory(inventory_x, inventory_y, PLAYER_INV_CELL_AMOUNT));
+	return (make_inventory(PLAYER_INV_CELL_AMOUNT));
 }
 
 static void init_player(t_player *player, t_direction direction)
@@ -81,7 +71,7 @@ t_player *make_player(void *mlx, t_point start_pos, t_direction direction)
 	player->icon = load_icon(mlx);
 	if (!player->icon)
 		return (free_player(player));
-	player->inventory = init_inventory(mlx);
+	player->inventory = init_inventory();
 	if (!player->inventory)
 		return (free_player(player));
 	player->inventory->bullets = PLAYER_DEFAULT_BULLETS_COUNT;
