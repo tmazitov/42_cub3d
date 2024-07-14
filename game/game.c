@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 18:17:41 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 00:03:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	set_inv_position(t_game *game, t_player *player)
 {
 	t_rectangle rect;
 	t_inventory	*inv;
+	t_sprite_node	*bullet;
 
 	inv = player->inventory;
 	if (inv->image)
@@ -35,8 +36,15 @@ static int	set_inv_position(t_game *game, t_player *player)
 				+ (INV_BORDER_SIZE + INV_PADDING) * 2;
 	rect.start.x = game->width / 2 - (rect.width) / 2;
 	rect.start.y = game->height - rect.height - 24;
+	if (!inv_set_sizes(game->mlx, inv, rect))
+		return (0);
+	bullet = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
+	if (!bullet || !bullet->image)
+		return (1);
+	if (!img_scale(&bullet->image, 2))
+		return (0);
 	printf("rect : %f %f %f %f\n", rect.start.x, rect.start.y, rect.width, rect.height);
-	return (inv_set_sizes(game->mlx, inv, rect)); 
+	return (1); 
 }
 
 t_game	*make_game(char *scene_path, int width, int height, char *title)

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 16:21:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/14 23:57:43 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void *free_player(t_player *player)
 		free_image(player->icon);
 	if (player->move_vector)
 		free_vector(player->move_vector);
+	if (player->inventory)
+		free_inventory(player->inventory);
 	free(player);
 	return (NULL);
 }

@@ -45,7 +45,7 @@ CH_Y     textures/font/y.xpm
 CH_Z     textures/font/z.xpm
 
 INV_SLOT textures/inventory_slot.xpm
-INV_BULLET textures/bullet.xpm
+INV_BULLET textures/bullet_v2.xpm
 
 F 220,100,0
 C 225,30,0

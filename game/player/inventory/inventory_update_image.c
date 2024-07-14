@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 16:07:41 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 18:15:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 00:14:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	inv_draw_bullets(t_inventory *inv, t_image	*bullet_image, t_writer *writer)
 	if (!str_value)
 		return ;
 	pos.x = INV_BORDER_SIZE + INV_PADDING;
-	pos.y = INV_BORDER_SIZE + INV_PADDING;
+	pos.y = INV_BORDER_SIZE + INV_PADDING + 8;
 	pos.x += mlx_print_to_image(writer, inv->image, str_value, pos) + INV_CELL_PADDING;
+	pos.y -= 8;
 	img_put_img(inv->image, bullet_image, pos, 0);
-	printf("bullet width: %d %d\n", bullet_image->width, bullet_image->height);
 	free(str_value);
 }
 
