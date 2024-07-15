@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/15 19:13:30 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:07:34 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,14 @@ t_line	ray_line_getter_x(t_game *game, float angle_in_degrees)
 		ray.end.y = ray.start.y - fmod(ray.end.y, 64.0) /*- 0.01*/;//-----------------------
 		ray.end.x = ray.start.x - (fmod(ray.start.y, 64.0) / tan(angle_in_pie));
 		y_iteration = -64;
-		// if (angle_in_degrees > 0 && angle_in_degrees < 90)
-		// 	x_iteration = y_iteration / tan(angle_in_pie);
-		// else
-			x_iteration = -y_iteration / tan(angle_in_pie);
+		x_iteration = -y_iteration / tan(angle_in_pie);
 	}
 	if (angle_in_degrees > 180 && angle_in_degrees < 360)
 	{
 		ray.end.y = ray.start.y - fmod(ray.end.y, 64.0) + 64/*- 0.01*/;//-----------------------
 		ray.end.x = ray.start.x + ((64 -fmod(ray.start.y, 64.0)) / tan(angle_in_pie));
 		y_iteration = 64;
-		if (angle_in_degrees > 180 && angle_in_degrees < 270)
-			x_iteration = -y_iteration / tan(angle_in_pie);
-		else
-			x_iteration = y_iteration / tan(angle_in_pie);
+		x_iteration = y_iteration / tan(angle_in_pie);
 	}
 	if (angle_in_degrees == 0 || angle_in_degrees == 180)
 	{
@@ -107,7 +101,6 @@ t_line	ray_line_getter_x(t_game *game, float angle_in_degrees)
 		&& ray.end.y > 0 && iterations < 10)
 	{
 		ray.end.x += x_iteration;
-		printf("ray.end.y (%f) + y_iteration = (%f)\n", ray.end.y ,y_iteration);
 		ray.end.y += y_iteration;
 		iterations++;
 	}
@@ -133,15 +126,10 @@ t_line	ray_line_getter_y(t_game *game, float angle_in_degrees)
 	if ((angle_in_degrees > 270 && angle_in_degrees <= 360)
 		|| (angle_in_degrees >= 0 && angle_in_degrees < 90))//LOOKING LEFT
 	{
-		printf("\t\t [[ray_end_x = %f]]\n", ray.end.x);
 		ray.end.x = ray.start.x - fmod(ray.end.x, 64.0) /*- 0.01*/;//-----------------------
 		ray.end.y = ray.start.y - (fmod(ray.start.x, 64.0) * tan(angle_in_pie));
-		// ray.end.y = ray.start.y;
 		x_iteration = -64;
-		// if (angle_in_degrees > 270 && angle_in_degrees < 360)
-		// 	y_iteration = x_iteration * tan(angle_in_pie);
-		// else
-			y_iteration = -x_iteration * tan(angle_in_pie);
+		y_iteration = -x_iteration * tan(angle_in_pie);
 	}
 	if (angle_in_degrees > 90 && angle_in_degrees < 270)//LOOKING RIGHT
 	{
@@ -186,105 +174,6 @@ t_line	ray_line_shortest_xy(t_game *game, float angle_in_degrees)
 	else
 		return (intersect_vertical);
 }
-
-// t_line ray_line_getter(t_game *game, float chosen_rotation)
-// {
-//     float distance_to_intersec_y;
-//     float dx_value;
-//     float iteration_distance;
-//     t_line player_path;
-//     float arctan;
-
-//     // Convert the chosen_rotation to radians for trigonometric functions
-//     float rotation_radians = chosen_rotation * M_PI / 180.0;
-
-//     arctan = tan(rotation_radians);
-
-//     // Init path
-//     player_path.start = game->scene->minimap->player_pos;
-//     player_path.end = game->scene->minimap->player_pos;
-
-//     distance_to_intersec_y = fmod(player_path.end.y, 64.0);
-//     if (chosen_rotation > 180 && chosen_rotation < 360)
-//         distance_to_intersec_y = 64 - fmod(player_path.end.y, 64.0);
-
-//     dx_value = distance_to_intersec_y / arctan;
-
-//     player_path.end.x += dx_value;
-//     player_path.end.y -= distance_to_intersec_y;
-
-//     if (chosen_rotation > 0 && chosen_rotation < 180)
-//         iteration_distance = 64 / arctan;
-//     else
-//         iteration_distance = -64 / arctan;
-
-//     // Adjust iteration_distance for vertical and horizontal steps
-//     // float x_step = 64 / arctan;
-//     float y_step = 64;
-
-// 	int iterations = 0;
-//     // if (chosen_rotation > 0 && chosen_rotation < 180)
-//     //     player_path.end.y += 64;
-//     // else
-//     //     player_path.end.y -= 64;
-//     while (check_wall_intersection(&player_path, game) == 0 && player_path.end.x > 0 && player_path.end.y > 0 && iterations < 20)
-//     {
-//         player_path.end.x += iteration_distance;
-//         if (chosen_rotation > 0 && chosen_rotation < 180)
-//             player_path.end.y += y_step;
-//         else
-//             player_path.end.y -= y_step;
-// 		iterations++;
-//     }
-
-//     return player_path;
-// }
-
-
-// void	render_scene(t_game *game)
-// ----------------------------------
-// t_line	ray_line_getter(t_game *game, float chosen_rotation)
-// {
-// 	float	distance_to_itersec_y;
-// 	float	dx_value;
-// 	float	iteration_distance;
-// 	t_line	player_path;
-// 	float	arctan;
-
-// 	arctan = atan(chosen_rotation);
-// 	//Init path
-// 	player_path.start = game->scene->minimap->player_pos;
-// 	player_path.end = game->scene->minimap->player_pos;
-// 	distance_to_itersec_y = fmod(player_path.end.y, 64.0);
-// 	if (game->scene->minimap->player_rotation > 180 && game->scene->minimap->player_rotation < 360)
-// 		distance_to_itersec_y = 64 - fmod(player_path.end.y, 64.0);
-// 	iteration_distance = 64;
-// 	// printf("distance to intersection mini_DY = %f\n", distance_to_itersec_y);
-// 	dx_value = find_dx(distance_to_itersec_y, chosen_rotation, game);
-// 	// iteration_distance = find_dx((float)64, chosen_rotation, game);
-// 	// printf("iteration distance of DX %f\n", iteration_distance);
-// 	player_path.end.x -= dx_value;
-// 	player_path.end.y -= distance_to_itersec_y;
-// 	float	y_iter = 64;
-// 	if (game->scene->minimap->player_rotation > 180 && game->scene->minimap->player_rotation < 360)
-// 		y_iter = -64;
-
-// 	// if (game->scene->minimap->player_rotation > 0 && game->scene->minimap->player_rotation < 180)
-// 	// 	player_path.end.y += 64;
-// 	// else if (game->scene->minimap->player_rotation > 180 && game->scene->minimap->player_rotation < 360)
-// 	// 	player_path.end.y -= 64;
-// 	while (check_wall_intersection(&player_path, game) != 0 && player_path.end.x > 0 && player_path.end.y > 0)
-// 	{
-// 		player_path.end.x -= iteration_distance;
-// 		printf("1value before y_iter %f\n", player_path.end.y);
-		
-// 		player_path.end.y -= y_iter;
-// 		printf("2value after y_iter %f\n", player_path.end.y);
-// 	}
-// 	return (player_path);
-// }
-//----------------------------------
-
 	//Calculate distance to Cross Section.
 
 	//Put line according to distance

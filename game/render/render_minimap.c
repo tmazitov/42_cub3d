@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 20:46:51 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:22:40 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,19 @@ uint32_t get_gradual_hue_color(float length) {
     return hue_to_hex(hue);
 }
 
+t_line	line_shortener_for_minimap(t_line ray)
+{
+	ray.start.x /= 4;
+	ray.start.y /= 4;
+	ray.start.x += MINIMAP_BORDER_SIZE;
+	ray.start.y += MINIMAP_BORDER_SIZE;
+	ray.end.x /= 4;
+	ray.end.y /= 4;
+	ray.end.x += MINIMAP_BORDER_SIZE;
+	ray.end.y += MINIMAP_BORDER_SIZE;
+	return (ray);
+}
+
 void	render_minimap(t_game *game)
 {
 	void	*win;
@@ -116,14 +129,7 @@ void	render_minimap(t_game *game)
 		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		ray.start.x /= 4;
-		ray.start.y /= 4;
-		ray.start.x += MINIMAP_BORDER_SIZE;
-		ray.start.y += MINIMAP_BORDER_SIZE;
-		ray.end.x /= 4;
-		ray.end.y /= 4;
-		ray.end.x += MINIMAP_BORDER_SIZE;
-		ray.end.y += MINIMAP_BORDER_SIZE;
+		ray = line_shortener_for_minimap(ray);
 		
 		// printf("\t\t\t\t\t\tMinimap ray start %f %f\n", ray.start.x, ray.start.y);
 		// printf("\t\t\t\t\t\tMinimap ray end %f %f\n", ray.end.x, ray.end.y);
