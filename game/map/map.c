@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 01:24:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:13:09 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,31 @@ t_map	*make_map(void *mlx,char *path)
 		return (free_map(map));
 	if (!parse_map(mlx, map, path))
 		return (free_map(map));
+
+	// temporatu prints to make a map with 2d array and save it.
+	t_map_raw_list *temp = map->raw;
+	while (temp)
+	{
+		printf("[%s]\n", temp->value);
+		temp = temp->next;
+	}
+	printf("height = [%d]\n", map->height);
+	printf("width = [%d]\n", map->width);
+	exit(1);
 	return (map);
+}
+
+void	free_2d_array(char **array, int height)
+{
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
 
 void	*free_map(t_map *map)

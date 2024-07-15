@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 16:55:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:02:02 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void run(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	
+
 	if (argc != 2)
 		return (print_error("invalid count of args"), 1);
 	game = make_game(argv[1], 1920, 1080, "Hello world!");

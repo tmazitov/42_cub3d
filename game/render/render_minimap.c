@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 19:14:17 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:46:51 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,36 @@ static void minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 	img_put_pixel(minimap->image, 0xe7f218, minimap->player_pos.x / 4 + MINIMAP_BORDER_SIZE,  minimap->player_pos.y / 4 + MINIMAP_BORDER_SIZE);
 }
 
+#include <math.h>
+#include <stdint.h>
+
+uint32_t hue_to_rgb(float p, float q, float t) {
+    if(t < 0.0f) t += 1.0f;
+    if(t > 1.0f) t -= 1.0f;
+    if(t < 1.0f / 6.0f) return (p + (q - p) * 6.0f * t) * 255.0f;
+    if(t < 1.0f / 2.0f) return q * 255.0f;
+    if(t < 2.0f / 3.0f) return (p + (q - p) * (2.0f / 3.0f - t) * 6.0f) * 255.0f;
+    return p * 255.0f;
+}
+
+uint32_t hue_to_hex(float hue) {
+    float s = 1.0f, l = 0.5f;
+
+    float q = l < 0.5f ? l * (1.0f + s) : l + s - l * s;
+    float p = 2.0f * l - q;
+
+    uint32_t r = hue_to_rgb(p, q, hue + 1.0f / 3.0f);
+    uint32_t g = hue_to_rgb(p, q, hue);
+    uint32_t b = hue_to_rgb(p, q, hue - 1.0f / 3.0f);
+
+    return (r << 16) | (g << 8) | b;
+}
+
+uint32_t get_gradual_hue_color(float length) {
+    float hue = fmod(length / 64.0f, 1.0f); // Change length to length / 12.0f
+    return hue_to_hex(hue);
+}
+
 void	render_minimap(t_game *game)
 {
 	void	*win;
@@ -97,7 +127,10 @@ void	render_minimap(t_game *game)
 		
 		// printf("\t\t\t\t\t\tMinimap ray start %f %f\n", ray.start.x, ray.start.y);
 		// printf("\t\t\t\t\t\tMinimap ray end %f %f\n", ray.end.x, ray.end.y);
-		img_put_line(game->scene->minimap->image, 0x00FFFF, ray.start, ray.end);
+
+		img_put_line(game->scene->minimap->image, get_gradual_hue_color(ray.length), ray.start, ray.end);
+
+		// img_put_line(game->scene->minimap->image, 0x00FFFF, ray.start, ray.end);
 		temp_to_rotate += 0.25;
 	}
 	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
