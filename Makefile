@@ -6,7 +6,7 @@
 #    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/12 16:32:43 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/07/15 21:50:24 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS =  cmd/main.c \
         game/map/map_textures.c \
         game/map/map_textures_utils.c \
         game/map/map_walls.c \
+		game/map/map_double_array_create.c \
         utils/image/image.c \
         utils/image/image_buffer.c \
         utils/image/image_content.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 16:38:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:49:35 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ typedef struct s_map
 	t_map_raw_list		*raw;
 	t_point				*player_start;
 	t_direction			player_direction;
+	char				**map_double_array;
 }			t_map;
+
+
 
 t_map				*make_map(void *mlx, char *path);
 void				*free_map(t_map *map);
@@ -111,6 +114,12 @@ int					sprite_storage_length(t_sprite_storage *storage);
 int					add_map_raw_item(t_map *map, char *value);
 void				*free_map_raw_item(t_map_raw_list *item);
 int					convert_raw_to_objs(t_map *map);
+
+/* MAP Double Array */
+
+char				**map_double_array_create(t_map *map);
+char				**allocate_2d_array(int width, int height);
+void				free_2d_array(char **array, int height);
 
 
 #endif
