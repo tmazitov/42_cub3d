@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/14 23:13:04 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:48:34 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,60 +49,36 @@ void	print_time_since_last_call()
 	last_time = current_time;
 }
 
-
-//Using the angle of the player, calculates the delta X
-//Delta Y is always 64.
-// static float find_dx(float dy, float degree, t_game *game)
-// {
-// 	float deg_to_pie;
-// 	float temp;
-
-// 	deg_to_pie = degree * PI / 180.0;
-// 	temp = dy/tan(deg_to_pie);
-// 	// printf("game->scene->minimap->player_pos.x %f\n", game->scene->minimap->player_pos.x);
-// 	//print player rotation
-// 	// printf("player rotation %f\n", game->scene->minimap->player_rotation);
-// 	if (game->scene->minimap->player_pos.x - temp < 0)
-// 		return (game->scene->minimap->player_pos.x);
-// 	else if (game->scene->minimap->player_pos.x + temp > 1920)
-// 		return (1920 - game->scene->minimap->player_pos.x);
-// 	else
-// 		return (temp);
-// 	// return ((dy * sin(deg_to_pie))/ cos(deg_to_pie));
-// }
-// */
-
-float	distance_between_points(t_point point)
+float	distance_between_points(t_point start, t_point end)
 {
-    return sqrt(point.x * point.x + point.y * point.y);
+	float	dx;
+	float	dy;
+
+	dx = end.x - start.x;
+	dy = end.y - start.y;
+	return (sqrt(dx * dx + dy * dy));
 }
 
-
-
 //CAT VIDEO TRY
-t_line	ray_line_getter(t_game *game, float angle_in_degrees)
+t_line	ray_line_getter_x(t_game *game, float angle_in_degrees)
 {
-	// float	arctan;
 	float	y_iteration;	//y_iteration in while loop
 	float	x_iteration;	//x_iteration in while loop
 	int		iterations;	//Like a Counter for block iterations to find the wall.
 	float	angle_in_pie;	//angle in radians.
 	t_line	ray;	//final struct to return.
 
-	printf("player ANGLE DEGREES (ray_line_getter) = %f\n", angle_in_degrees);
-	// if (angle_in_degrees < 0)
-	// 	angle_in_degrees += 360;
+	if (angle_in_degrees < 0)
+		angle_in_degrees += 360;
+	if (angle_in_degrees > 360)
+		angle_in_degrees -= 360;
 	angle_in_pie = angle_in_degrees * PI / 180.0;
 	ray.start = game->scene->minimap->player_pos;
 	ray.end = game->scene->minimap->player_pos;
 	if (angle_in_degrees > 0 && angle_in_degrees < 180)
 	{
 		ray.end.y = ray.start.y - fmod(ray.end.y, 64.0) /*- 0.01*/;//-----------------------
-		printf("ray.end.x before = %f\n", ray.end.x);
 		ray.end.x = ray.start.x - (fmod(ray.start.y, 64.0) / tan(angle_in_pie));
-		printf("ray.end.x after = %f\n", ray.end.x);
-		printf("REMAINDER Y fmod = %f\n", fmod(ray.start.y, 64.0));
-		printf("dx = fmod(ray.end.y, 64.0) / tan(angle_in_pie) = [[[ %f ]]]\n", fmod(ray.end.y, 64.0) / tan(angle_in_pie));
 		y_iteration = -64;
 		if (angle_in_degrees > 0 && angle_in_degrees < 90)
 			x_iteration = y_iteration / tan(angle_in_pie);
@@ -135,8 +111,81 @@ t_line	ray_line_getter(t_game *game, float angle_in_degrees)
 		ray.end.y += y_iteration;
 		iterations++;
 	}
-	// ray.start = game->scene->minimap->player_pos;
+	ray.length = distance_between_points(ray.start, ray.end);
 	return (ray);
+}
+
+t_line	ray_line_getter_y(t_game *game, float angle_in_degrees)
+{
+	float	y_iteration;	//y_iteration in while loop
+	float	x_iteration;	//x_iteration in while loop
+	int		iterations;	//Like a Counter for block iterations to find the wall.
+	float	angle_in_pie;	//angle in radians.
+	t_line	ray;	//final struct to return.
+
+	printf("player ANGLE DEGREES (ray_line_getter) = %f\n", angle_in_degrees);
+	if (angle_in_degrees < 0)
+		angle_in_degrees += 360;
+	if (angle_in_degrees > 360)
+		angle_in_degrees -= 360;
+	angle_in_pie = angle_in_degrees * PI / 180.0;
+	ray.start = game->scene->minimap->player_pos;
+	ray.end = game->scene->minimap->player_pos;
+	if ((angle_in_degrees > 270 && angle_in_degrees <= 360)
+		|| (angle_in_degrees >= 0 && angle_in_degrees < 90))//LOOKING LEFT
+	{
+		printf("\t\t [[ray_end_x = %f]]\n", ray.end.x);
+		ray.end.x = ray.start.x - fmod(ray.end.x, 64.0) /*- 0.01*/;//-----------------------
+		ray.end.y = ray.start.y - (fmod(ray.start.x, 64.0) * tan(angle_in_pie));
+		// ray.end.y = ray.start.y;
+		x_iteration = -64;
+		if (angle_in_degrees > 270 && angle_in_degrees < 360)
+			y_iteration = x_iteration * tan(angle_in_pie);
+		else
+			y_iteration = -x_iteration * tan(angle_in_pie);
+	}
+	if (angle_in_degrees > 90 && angle_in_degrees < 270)//LOOKING RIGHT
+	{
+		ray.end.x = ray.start.x - fmod(ray.end.x, 64.0) + 64/*- 0.01*/;//-----------------------
+		ray.end.y = ray.start.y + (fmod(ray.start.x, 64.0) * tan(angle_in_pie));
+		x_iteration = 64;
+		if (angle_in_degrees > 90 && angle_in_degrees < 270)
+			y_iteration = -x_iteration * tan(angle_in_pie);
+		else
+			y_iteration = x_iteration * tan(angle_in_pie);
+	}
+	if (angle_in_degrees == 90 || angle_in_degrees == 270)
+	{
+		ray.end.x = ray.start.y;
+		ray.end.y = ray.start.x;
+		y_iteration = 0;
+		x_iteration = 0;
+	}
+	iterations = 0;
+	while (check_wall_intersection(&ray, game) != 0 && ray.end.x > 0
+		&& ray.end.y > 0 && iterations < 10)
+	{
+		ray.end.x += x_iteration;
+		printf("ray.end.y (%f) + y_iteration = (%f)\n", ray.end.y ,y_iteration);
+		ray.end.y += y_iteration;
+		iterations++;
+	}
+	ray.length = distance_between_points(ray.start, ray.end);
+	return (ray);
+}
+
+t_line	ray_line_shortest_xy(t_game *game, float angle_in_degrees)
+{
+	t_line	intersect_horizontal;
+	t_line	intersect_vertical;
+
+	intersect_horizontal = ray_line_getter_x(game, angle_in_degrees);
+	intersect_vertical = ray_line_getter_y(game, angle_in_degrees);
+	if (distance_between_points(intersect_horizontal.start, intersect_horizontal.end) 
+		< distance_between_points(intersect_vertical.start, intersect_vertical.end))
+		return (intersect_horizontal);
+	else
+		return (intersect_vertical);
 }
 
 // t_line ray_line_getter(t_game *game, float chosen_rotation)
