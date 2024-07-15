@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/15 18:48:34 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:13:30 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ t_line	ray_line_getter_x(t_game *game, float angle_in_degrees)
 		ray.end.y = ray.start.y - fmod(ray.end.y, 64.0) /*- 0.01*/;//-----------------------
 		ray.end.x = ray.start.x - (fmod(ray.start.y, 64.0) / tan(angle_in_pie));
 		y_iteration = -64;
-		if (angle_in_degrees > 0 && angle_in_degrees < 90)
-			x_iteration = y_iteration / tan(angle_in_pie);
-		else
+		// if (angle_in_degrees > 0 && angle_in_degrees < 90)
+		// 	x_iteration = y_iteration / tan(angle_in_pie);
+		// else
 			x_iteration = -y_iteration / tan(angle_in_pie);
 	}
 	if (angle_in_degrees > 180 && angle_in_degrees < 360)
 	{
 		ray.end.y = ray.start.y - fmod(ray.end.y, 64.0) + 64/*- 0.01*/;//-----------------------
-		ray.end.x = ray.start.x + (fmod(ray.start.y, 64.0) / tan(angle_in_pie));
+		ray.end.x = ray.start.x + ((64 -fmod(ray.start.y, 64.0)) / tan(angle_in_pie));
 		y_iteration = 64;
 		if (angle_in_degrees > 180 && angle_in_degrees < 270)
 			x_iteration = -y_iteration / tan(angle_in_pie);
@@ -123,7 +123,6 @@ t_line	ray_line_getter_y(t_game *game, float angle_in_degrees)
 	float	angle_in_pie;	//angle in radians.
 	t_line	ray;	//final struct to return.
 
-	printf("player ANGLE DEGREES (ray_line_getter) = %f\n", angle_in_degrees);
 	if (angle_in_degrees < 0)
 		angle_in_degrees += 360;
 	if (angle_in_degrees > 360)
@@ -139,15 +138,15 @@ t_line	ray_line_getter_y(t_game *game, float angle_in_degrees)
 		ray.end.y = ray.start.y - (fmod(ray.start.x, 64.0) * tan(angle_in_pie));
 		// ray.end.y = ray.start.y;
 		x_iteration = -64;
-		if (angle_in_degrees > 270 && angle_in_degrees < 360)
-			y_iteration = x_iteration * tan(angle_in_pie);
-		else
+		// if (angle_in_degrees > 270 && angle_in_degrees < 360)
+		// 	y_iteration = x_iteration * tan(angle_in_pie);
+		// else
 			y_iteration = -x_iteration * tan(angle_in_pie);
 	}
 	if (angle_in_degrees > 90 && angle_in_degrees < 270)//LOOKING RIGHT
 	{
 		ray.end.x = ray.start.x - fmod(ray.end.x, 64.0) + 64/*- 0.01*/;//-----------------------
-		ray.end.y = ray.start.y + (fmod(ray.start.x, 64.0) * tan(angle_in_pie));
+		ray.end.y = ray.start.y + ((64 - fmod(ray.start.x, 64.0)) * tan(angle_in_pie));
 		x_iteration = 64;
 		if (angle_in_degrees > 90 && angle_in_degrees < 270)
 			y_iteration = -x_iteration * tan(angle_in_pie);

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 18:47:58 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:14:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ void	render_minimap(t_game *game)
 	{
 		// printf("\t\t\t\t\t\t\t\t\t\tMinimap player ROT IN DEG %f\n", game->scene->minimap->player_rotation);
 		// ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		ray = ray_line_getter_x(game, game->scene->minimap->player_rotation);
+		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		ray.start.x /= 4;
 		ray.start.y /= 4;
 		ray.start.x += MINIMAP_BORDER_SIZE;
@@ -95,7 +97,7 @@ void	render_minimap(t_game *game)
 		
 		// printf("\t\t\t\t\t\tMinimap ray start %f %f\n", ray.start.x, ray.start.y);
 		// printf("\t\t\t\t\t\tMinimap ray end %f %f\n", ray.end.x, ray.end.y);
-		img_put_line(game->scene->minimap->image, 0xee4335, ray.start, ray.end);
+		img_put_line(game->scene->minimap->image, 0x00FFFF, ray.start, ray.end);
 		temp_to_rotate += 0.25;
 	}
 	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
