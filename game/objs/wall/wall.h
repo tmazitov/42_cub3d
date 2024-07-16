@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:36:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 19:53:54 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:01:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ typedef struct s_wall
 t_wall	*make_wall(int x, int y, t_wall_type type, \
 					t_direction direction);
 void	*free_wall(t_wall *wall);
+t_line	*wall_to_direction_line(t_wall *wall, t_direction direction);
 t_line	*wall_to_line(t_wall *wall);
 #endif

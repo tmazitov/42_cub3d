@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/06 16:37:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:23:44 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 		return (free_game(game));
 	game->scene = make_scene(game->mlx, scene_path);
 	if (!game->scene)
+		return (free_game(game));
+	if (!img_create(game->scene->image, width, height))
 		return (free_game(game));
 	game->height = height;
 	game->width = width;

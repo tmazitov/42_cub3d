@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 20:15:53 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/16 23:03:33 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	render_hook(t_game *game)
 	{
 		return (1);
 	}
-	printf("FRAME BEING MADE-----------------------------------------------\n");
+	// printf("FRAME BEING MADE-----------------------------------------------\n");
 	// print_time_since_last_call();
 	mlx_clear_window(game->mlx, game->window);
+	render_window_scene(game);
 	// render_scene(game); //Calling render scene before minimap for now,
 							// Need separate minimap_ray_render and scene render later;
 	render_minimap(game);

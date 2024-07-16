@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/16 18:40:21 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/16 23:26:56 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,23 @@
 
 //create me a function to convert
 
+static void draw_all_line(t_game *game, t_line *line, int color)
+{
+	t_point rel_p1;
+	t_point	rel_p2;
+	t_image	*minimap;
 
-static int	check_wall_intersection(t_line *player_path, t_game *game)
+	minimap = game->scene->minimap->image;
+	
+	rel_p1.x = line->start.x / 4 + MINIMAP_BORDER_SIZE;
+	rel_p1.y = line->start.y / 4 + MINIMAP_BORDER_SIZE;
+	rel_p2.x = line->end.x / 4 + MINIMAP_BORDER_SIZE;
+	rel_p2.y = line->end.y / 4 + MINIMAP_BORDER_SIZE;
+
+	img_put_line(minimap, color, rel_p1, rel_p2);
+}
+
+static int	check_wall_intersection(t_line *player_path, t_game *game, t_direction direction)
 {
 	t_line			*wall_line;
 	t_wall_node		*node;
@@ -25,12 +40,23 @@ static int	check_wall_intersection(t_line *player_path, t_game *game)
 	node = game->scene->map->walls->start;
 	while(node)
 	{
-		wall_line = wall_to_line(node->wall);
+		if (node->wall->direction == direction)
+			wall_line = wall_to_line(node->wall);
+		else
+			wall_line = wall_to_direction_line(node->wall, direction);
 		if (!wall_line)
-			return (-1);
+		{
+			node = node->next;
+			continue ;
+		}
 		is_intersect = check_intersection(player_path, wall_line);
 		if (is_intersect)
-			return (printf("\t intersect with wall %f %f %f %f\n", wall_line->start.x, wall_line->start.y, wall_line->end.x, wall_line->end.y),1);
+		{
+			// draw_all_line(game, wall_line, 0x860e99);
+			return (1);
+		}
+		else if (0)
+			draw_all_line(game, wall_line, 0xf1f516);
 		node = node->next;
 	}
 	// printf("\t no intersect\n");
@@ -134,6 +160,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	float	x_iteration;	//x_iteration in while loop
 	int		iterations;	//Like a Counter for block iterations to find the wall.
 	float	angle_in_pie;	//angle in radians.
+	t_direction direction;
 	t_line	*ray;	//final struct to return.
 
 	if (angle_in_degrees < 0)
@@ -154,6 +181,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 			ray->start.y - fmod(ray->end.y, 64.0));
 		y_iteration = -64;
 		x_iteration = y_iteration / tan(angle_in_pie);
+		direction = NORTH;
 	}
 	else if (angle_in_degrees > 180 && angle_in_degrees < 360) // Looking DOWNN
 	{
@@ -166,6 +194,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		// 	y_iteration = y_iteration * tan(angle_in_pie);
 		// else
 			x_iteration = y_iteration / tan(angle_in_pie);
+		direction = SOUTH;
 	}
 	if (angle_in_degrees == 0 || angle_in_degrees == 180)
 	{
@@ -175,15 +204,20 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	t_point save;
 	iterations = 0;
 	while (
-		// get_array_map_value(ray, game) != '1' &&
+		// get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 100)
+		&& ray->end.y > 0 && iterations < 10)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
 			ray->end.x + x_iteration, \
 			ray->end.y + y_iteration);
-		if (check_wall_intersection(ray, game) != 0)
+		// if (get_array_map_value(*ray, game) == '1')
+		// {
+		// 	printf("Wall was HIT\n");
+		// 	break ;
+		// }
+		if (check_wall_intersection(ray, game, direction) != 0)
 		{
 			line_update(ray, \
 				ray->start.x, ray->start.y, \
@@ -195,7 +229,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		save = ray->end;
 	}
 	// ray->end = save;
-	printf("player ANGLE  = %f\n", angle_in_degrees);
+	// printf("player ANGLE  = %f\n", angle_in_degrees);
 	// if (angle_in_degrees > 0 && angle_in_degrees < 180)
 	// {
 	// 	if (angle_in_degrees > 180 &&  angle_in_degrees < 360)
@@ -223,6 +257,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	int		iterations;	//Like a Counter for block iterations to find the wall.
 	float	angle_in_pie;	//angle in radians.
 	t_line	*ray;	//final struct to return.
+	t_direction	direction;
 
 	if (angle_in_degrees < 0)
 		angle_in_degrees += 360;
@@ -243,6 +278,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 			ray->start.y - (fmod(ray->start.x, 64.0) * tan(angle_in_pie)));
 		x_iteration = -64;
 		y_iteration = x_iteration * tan(angle_in_pie);
+		direction = WEST;
 	}
 	else if (angle_in_degrees > 90 && angle_in_degrees < 270)//LOOKING RIGHT
 	{
@@ -251,6 +287,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 			ray->start.x - fmod(ray->end.x, 64.0) + 64, \
 			ray->start.y + ((64 - fmod(ray->start.x, 64.0)) * tan(angle_in_pie)));
 		x_iteration = 64;
+		direction = EAST;
 		// if (angle_in_degrees > 90 && angle_in_degrees < 180)
 		// 	y_iteration = x_iteration * tan(angle_in_pie);
 		// else
@@ -264,15 +301,20 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	t_point save;
 	iterations = 0;
 	while (
-		// get_array_map_value(ray, game) != '1' &&
+		// get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 7)
+		&& ray->end.y > 0 && iterations < 10)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
 			ray->end.x + x_iteration, \
 			ray->end.y + y_iteration);
-		if (check_wall_intersection(ray, game) != 0)
+		// if (get_array_map_value(*ray, game) == '1')
+		// {
+		// 	printf("Wall was HIT\n");
+		// 	break ;
+		// }
+		if (check_wall_intersection(ray, game, direction) != 0)
 		{
 			line_update(ray, \
 				ray->start.x, ray->start.y, \
@@ -284,7 +326,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 		save = ray->end;
 	}
 	// ray->end = save;
-	printf("player ANGLE  = %f\n", angle_in_degrees);
+	// printf("player ANGLE  = %f\n", angle_in_degrees);
 	// if (angle_in_degrees > 0 && angle_in_degrees < 180)
 	// {
 	// 	if (angle_in_degrees > 180 &&  angle_in_degrees < 360)
@@ -304,18 +346,24 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	return (ray);
 }
 
-t_line	ray_line_shortest_xy(t_game *game, float angle_in_degrees)
+t_line	*ray_line_shortest_xy(t_game *game, float angle_in_degrees)
 {
 	t_line	*intersect_horizontal;
 	t_line	*intersect_vertical;
 
 	intersect_horizontal = ray_line_getter_x(game, angle_in_degrees);
 	intersect_vertical = ray_line_getter_y(game, angle_in_degrees);
-	if (distance_between_points(intersect_horizontal->start, intersect_horizontal->end) 
-		< distance_between_points(intersect_vertical->start, intersect_vertical->end))
-		return (*intersect_horizontal);
+	if (!intersect_horizontal && !intersect_vertical)
+		return (NULL);
+	if (!intersect_horizontal)
+		return (intersect_vertical);
+	if (!intersect_vertical)
+		return (intersect_horizontal);
+	if (intersect_horizontal->length 
+		< intersect_vertical->length)
+		return (free_line(intersect_vertical), intersect_horizontal); // added free
 	else
-		return (*intersect_vertical);
+		return (free_line(intersect_horizontal), intersect_vertical); // added free
 }
 	//Calculate distance to Cross Section.
 
