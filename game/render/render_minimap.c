@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 23:21:42 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:23:50 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,23 @@ uint32_t get_gradual_hue_color(float length) {
 	return hue_to_hex(hue);
 }
 
-t_line	line_shortener_for_minimap(t_line ray)
+void	line_shortener_for_minimap(t_line *ray)
 {
-	ray.start.x /= 4;
-	ray.start.y /= 4;
-	ray.start.x += MINIMAP_BORDER_SIZE;
-	ray.start.y += MINIMAP_BORDER_SIZE;
-	ray.end.x /= 4;
-	ray.end.y /= 4;
-	ray.end.x += MINIMAP_BORDER_SIZE;
-	ray.end.y += MINIMAP_BORDER_SIZE;
-	return (ray);
+	ray->start.x /= 4;
+	ray->start.y /= 4;
+	ray->start.x += MINIMAP_BORDER_SIZE;
+	ray->start.y += MINIMAP_BORDER_SIZE;
+	ray->end.x /= 4;
+	ray->end.y /= 4;
+	ray->end.x += MINIMAP_BORDER_SIZE;
+	ray->end.y += MINIMAP_BORDER_SIZE;
 }
 
 void	render_minimap(t_game *game)
 {
 	void	*win;
 	void	*img;
-	t_line	ray;
+	t_line	*ray;
 	win = game->window;
 	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
@@ -121,21 +120,30 @@ void	render_minimap(t_game *game)
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
 
-	float temp_to_rotate = -0.25;
-	while (temp_to_rotate < 0)
+	float temp_to_rotate = 0;
+	while (temp_to_rotate < 0.25)
 	{
 		// printf("\t\t\t\t\t\t\t\t\t\tMinimap player ROT IN DEG %f\n", game->scene->minimap->player_rotation);
 		// ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		// ray = ray_line_getter_y(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
+
+		if (!ray)
+		{
+			temp_to_rotate += 0.25;
+			continue ;
+		}
+		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		// ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		ray = line_shortener_for_minimap(ray);
+		line_shortener_for_minimap(ray);
 		
+	
 		// printf("\t\t\t\t\t\tMinimap ray start %f %f\n", ray.start.x, ray.start.y);
 		// printf("\t\t\t\t\t\tMinimap ray end %f %f\n", ray.end.x, ray.end.y);
 
-		img_put_line(game->scene->minimap->image, get_gradual_hue_color(ray.length), ray.start, ray.end);
-		printf("LINEPUTTTTT------=======\n");
+		img_put_line(game->scene->minimap->image, get_gradual_hue_color(ray->length), ray->start, ray->end);
+		free_line(ray);
+		// printf("LINEPUTTTTT------=======\n");
 		// img_put_line(game->scene->minimap->image, 0x00FFFF, ray.start, ray.end);
 		temp_to_rotate += 0.25;
 	}

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 16:00:24 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:10:09 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ void				*free_point(t_point *point);
 /*LINE*/
 
 t_line				*make_line(float x1, float y1, float x2, float y2);
+t_line				*make_line_by_points(t_point p1, t_point p2);
 void				*free_line(t_line *line);
+void				line_update(t_line *line, float x1, float y1, float x2, float y2);
+void				line_update_by_points(t_line *line, t_point p1, t_point p2);
 
 
 /*VECTOR*/
