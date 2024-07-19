@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/15 01:05:02 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/20 01:53:14 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS =  cmd/main.c \
         game/player/player_move.c \
         game/player/player_rotate.c \
         game/player/player_icon.c \
-        game/player/player_control.c \
+        game/player/player_control_keyboard.c \
+        game/player/player_control_mouse.c \
         game/player/player_bullets.c \
         game/player/player_acceleration.c \
         game/player/inventory/inventory.c \

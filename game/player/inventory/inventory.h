@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 00:51:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 01:16:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_inv_images
 {
 	t_image	*bullet_image;
 	t_image	*slot_image;
+	t_image	*active_slot_image;
 	t_image	*pistol_image;
 }		t_inv_images;
 
@@ -47,7 +48,7 @@ typedef struct s_inventory
 	t_point				*pos;
 	int					size;
 	int					bullets;
-	t_item				*active_item;
+	int					active_item;
 	t_item_collection	*slots;
 	t_image				*image;
 	int					update_count;

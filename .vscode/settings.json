@@ -22,7 +22,9 @@
 	"iterator": "c",
 	"memory": "c",
 	"random": "c",
-	"items.h": "c"
+	"items.h": "c",
+	"inventory.h": "c",
+	"xlib.h": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

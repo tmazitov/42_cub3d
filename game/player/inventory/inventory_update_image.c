@@ -6,11 +6,12 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 16:07:41 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 00:41:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 01:31:16 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inventory.h"
+#include <X11/Xlib.h>
 
 void	inv_draw_border(t_inventory *inv)
 {
@@ -71,7 +72,10 @@ void	inv_draw_slots(t_inventory *inv, t_inv_images images)
 	counter = 0;
 	while (counter < inv->size)
 	{
-		img_put_img(inv->image, images.slot_image, pos, 0);
+		if (counter == inv->active_item)
+			img_put_img(inv->image, images.active_slot_image, pos, 0);
+		else
+			img_put_img(inv->image, images.slot_image, pos, 0);
 		if (inv->slots->items[counter] && inv->slots->items[counter]->type == PISTOL)
 			img_put_img(inv->image, images.pistol_image, pos, 0);
 		pos.x += INV_CELL_SIZE + INV_CELL_PADDING;

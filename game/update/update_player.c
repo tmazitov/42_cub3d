@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 00:55:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 01:18:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,14 @@ static void	player_inventory_update(t_game *game)
 
 	images.bullet_image = NULL;
 	images.slot_image = NULL;
+	images.active_slot_image = NULL;
 	images.pistol_image = NULL;
 	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT");
 	if (sprite && sprite->image)
 		images.slot_image = sprite->image;
+	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT_ACTIVE");
+	if (sprite && sprite->image)
+		images.active_slot_image = sprite->image;
 	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
 	if (sprite && sprite->image)
 		images.bullet_image = sprite->image;
@@ -98,9 +102,8 @@ static void	player_inventory_update(t_game *game)
 	if (sprite && sprite->image)
 		images.pistol_image = sprite->image;
 	player = game->scene->player;
-	if (images.pistol_image && images.bullet_image && images.slot_image)
-		inv_update_image(player->inventory, \
-						player->update_count, \
+	if (images.pistol_image && images.bullet_image && images.slot_image && images.active_slot_image)
+		inv_update_image(player->inventory, player->update_count, \
 						images, game->writer);
 }
 

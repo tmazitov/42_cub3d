@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/19 23:39:34 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 02:10:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,21 @@
 #  define RIGHT_ARROW 65363
 # endif
 
+# define N1_BUTTON 49
+# define N2_BUTTON 50
+# define N3_BUTTON 51
+# define N4_BUTTON 52
+# define N5_BUTTON 53
+# define N6_BUTTON 54
+
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
+
+
 # define PLAYER_SIZE 24
 # define PLAYER_MAX_SPEED 4
 # define PLAYER_ACCELERATION_ITERS 10
-# define PLAYER_ROTATION_SPEED 4
+# define PLAYER_ROTATION_SPEED 0.3
 
 # define PLAYER_DEFAULT_BULLETS_COUNT 42
 # define PLAYER_INV_CELL_AMOUNT 6
@@ -74,7 +85,7 @@ void 		*free_player(t_player *player);
 t_image		*load_icon(void *mlx);
 
 
-// CONTROL
+// CONTROL (KEYBOARD)
 
 
 int			player_control_set(int keycode, t_player *player);
@@ -84,6 +95,17 @@ void		player_move_update(t_player *player, t_vector *move_vector);
 void		player_rotate(t_player *player);
 int			is_player_move(t_player *player);
 float		player_speed(t_player *player);
+
+
+// CONTROL (MOUSE)
+
+
+int			player_mouse_scroll(int button, int x, int y, t_player *player);
+int			player_mouse_move(int x, int y, t_player *player);
+
+
+// INVENTORY
+
 
 int			player_add_bullets(t_player *player, int amount);
 int			player_add_weapon(t_player *player, t_item_type type);

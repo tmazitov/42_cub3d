@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:38:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/19 23:06:04 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 01:46:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # define KeyPress 2
 # define KeyRelease 3
+# define MouseMove 6
 # define KeyPressMask 1L<<0
 # define KeyReleaseMask 1L<<1
+# define MouseMoveMask 1L<<6
 #endif

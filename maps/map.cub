@@ -44,8 +44,9 @@ CH_X     textures/font/x.xpm
 CH_Y     textures/font/y.xpm
 CH_Z     textures/font/z.xpm
 
-INV_SLOT textures/inventory_slot.xpm
-INV_BULLET textures/bullet_v2.xpm
+INV_SLOT        textures/inventory_slot.xpm
+INV_SLOT_ACTIVE textures/inventory_slot_active.xpm
+INV_BULLET      textures/bullet_v2.xpm
 
 PISTOL_ICON textures/pistol/icon.xpm
 
