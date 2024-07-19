@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 22:02:29 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:16:34 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	player_can_move(t_game *game, t_vector *move_vector)
 	// 	posY += 32;
 	// else if (move_vector->y < 0)
 	// 	posY -= 32;
-	printf("move vector : %f %f\n", move_vector->x, move_vector->y);
+	// printf("move vector : %f %f\n", move_vector->x, move_vector->y);
 	player_path = make_line(posX, posY, posX + move_vector->x, posY + move_vector->y);
 	if (!player_path)
 		return (-1);
@@ -77,7 +77,7 @@ void	update_player(t_game *game)
 	if (!move_vector)
 		return ;
 	is_player_can_move = player_can_move(game, move_vector);
-	printf("player can move: %d\n", is_player_can_move);
+	// printf("player can move: %d\n", is_player_can_move);
 	if (is_player_can_move == -1)
 		return (print_error("mem allocation error"));
 	if (move_vector && is_player_can_move)

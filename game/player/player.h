@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/11 19:53:32 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:22:36 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # endif
 
 # define PLAYER_SIZE 24
-# define PLAYER_MAX_SPEED 4
+# define PLAYER_MAX_SPEED 8
 # define PLAYER_ACCELERATION_ITERS 10
 # define PLAYER_ROTATION_SPEED 4
 

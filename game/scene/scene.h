@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/16 22:56:11 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:05:23 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../map/map.h"
 # include "../player/player.h"
 # include "../minimap/minimap.h"
-# include "../game.h"
+// # include "../game.h"
 
 typedef struct s_scene
 {

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/16 23:26:56 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:31:28 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,54 @@
 
 //create me a function to convert
 
-static void draw_all_line(t_game *game, t_line *line, int color)
-{
-	t_point rel_p1;
-	t_point	rel_p2;
-	t_image	*minimap;
+// static void draw_all_line(t_game *game, t_line *line, int color)
+// {
+// 	t_point rel_p1;
+// 	t_point	rel_p2;
+// 	t_image	*minimap;
 
-	minimap = game->scene->minimap->image;
+// 	minimap = game->scene->minimap->image;
 	
-	rel_p1.x = line->start.x / 4 + MINIMAP_BORDER_SIZE;
-	rel_p1.y = line->start.y / 4 + MINIMAP_BORDER_SIZE;
-	rel_p2.x = line->end.x / 4 + MINIMAP_BORDER_SIZE;
-	rel_p2.y = line->end.y / 4 + MINIMAP_BORDER_SIZE;
+// 	rel_p1.x = line->start.x / 4 + MINIMAP_BORDER_SIZE;
+// 	rel_p1.y = line->start.y / 4 + MINIMAP_BORDER_SIZE;
+// 	rel_p2.x = line->end.x / 4 + MINIMAP_BORDER_SIZE;
+// 	rel_p2.y = line->end.y / 4 + MINIMAP_BORDER_SIZE;
 
-	img_put_line(minimap, color, rel_p1, rel_p2);
-}
+// 	img_put_line(minimap, color, rel_p1, rel_p2);
+// }
 
-static int	check_wall_intersection(t_line *player_path, t_game *game, t_direction direction)
-{
-	t_line			*wall_line;
-	t_wall_node		*node;
-	int				is_intersect;
+// static int	check_wall_intersection(t_line *player_path, t_game *game, t_direction direction)
+// {
+// 	t_line			*wall_line;
+// 	t_wall_node		*node;
+// 	int				is_intersect;
 
-	// printf("\t player path %f %f %f %f\n", player_path->start.x, player_path->start.y, player_path->end.x, player_path->end.y),
-	node = game->scene->map->walls->start;
-	while(node)
-	{
-		if (node->wall->direction == direction)
-			wall_line = wall_to_line(node->wall);
-		else
-			wall_line = wall_to_direction_line(node->wall, direction);
-		if (!wall_line)
-		{
-			node = node->next;
-			continue ;
-		}
-		is_intersect = check_intersection(player_path, wall_line);
-		if (is_intersect)
-		{
-			// draw_all_line(game, wall_line, 0x860e99);
-			return (1);
-		}
-		else if (0)
-			draw_all_line(game, wall_line, 0xf1f516);
-		node = node->next;
-	}
-	// printf("\t no intersect\n");
-	return (0);
-}
+// 	// printf("\t player path %f %f %f %f\n", player_path->start.x, player_path->start.y, player_path->end.x, player_path->end.y),
+// 	node = game->scene->map->walls->start;
+// 	while(node)
+// 	{
+// 		if (node->wall->direction == direction)
+// 			wall_line = wall_to_line(node->wall);
+// 		else
+// 			wall_line = wall_to_direction_line(node->wall, direction);
+// 		if (!wall_line)
+// 		{
+// 			node = node->next;
+// 			continue ;
+// 		}
+// 		is_intersect = check_intersection(player_path, wall_line);
+// 		if (is_intersect)
+// 		{
+// 			// draw_all_line(game, wall_line, 0x860e99);
+// 			return (1);
+// 		}
+// 		else if (0)
+// 			draw_all_line(game, wall_line, 0xf1f516);
+// 		node = node->next;
+// 	}
+// 	// printf("\t no intersect\n");
+// 	return (0);
+// }
 
 
 #include <sys/time.h>
@@ -198,36 +198,45 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	}
 	if (angle_in_degrees == 0 || angle_in_degrees == 180)
 	{
-		printf("0 or 180 ERROR CASE, freeing");
+		// printf("0 or 180 ERROR CASE, freeing");
 		return (free_line(ray));
 	}
 	t_point save;
 	iterations = 0;
 	while (
-		// get_array_map_value(*ray, game) != '1' &&
+		get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 10)
+		&& ray->end.y > 0 && iterations < 15)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
 			ray->end.x + x_iteration, \
 			ray->end.y + y_iteration);
-		// if (get_array_map_value(*ray, game) == '1')
+		// if (get_array_map_value(*ray, game) == '1' ||
+		// 	ray->end.x < 0 || ray->end.y < 0)
 		// {
-		// 	printf("Wall was HIT\n");
-		// 	break ;
+		// 			line_update(ray, \
+		// 	ray->start.x, ray->start.y, \
+		// 	ray->end.x - x_iteration, \
+		// 	ray->end.y - y_iteration);
+		// 	return (free_line(ray), NULL);
 		// }
-		if (check_wall_intersection(ray, game, direction) != 0)
-		{
-			line_update(ray, \
-				ray->start.x, ray->start.y, \
-				ray->end.x - x_iteration, \
-				ray->end.y - y_iteration);
-			break ;
-		}
+		// if (check_wall_intersection(ray, game, direction) != 0)
+		// {
+		// 	line_update(ray, \
+		// 		ray->start.x, ray->start.y, \
+		// 		ray->end.x - x_iteration, \
+		// 		ray->end.y - y_iteration);
+		// 	return (ray); 
+		// }
 		iterations++;
 		save = ray->end;
 	}
+	// if (iterations == 3)
+	// {
+	// 	printf("ERROR: 3 iterations reached\n");
+	// 	return (free_line(ray));
+	// }
 	// ray->end = save;
 	// printf("player ANGLE  = %f\n", angle_in_degrees);
 	// if (angle_in_degrees > 0 && angle_in_degrees < 180)
@@ -295,33 +304,37 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	}
 	else if (angle_in_degrees == 90 || angle_in_degrees == 270)
 	{
-		printf("90 or 270 ERROR CASE, freeing");
+		// printf("90 or 270 ERROR CASE, freeing");
 		return (free_line(ray));
 	}
 	t_point save;
 	iterations = 0;
 	while (
-		// get_array_map_value(*ray, game) != '1' &&
+		get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 10)
+		&& ray->end.y > 0 && iterations < 15)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
 			ray->end.x + x_iteration, \
 			ray->end.y + y_iteration);
-		// if (get_array_map_value(*ray, game) == '1')
+		// if (get_array_map_value(*ray, game) == '1' ||
+		// 	ray->end.x < 0 || ray->end.y < 0)
 		// {
-		// 	printf("Wall was HIT\n");
+		// 			line_update(ray, \
+		// 	ray->start.x, ray->start.y, \
+		// 	ray->end.x - x_iteration, \
+		// 	ray->end.y - y_iteration);
+		// 	return (free_line(ray), NULL);
+		// }
+		// if (check_wall_intersection(ray, game, direction) != 0)
+		// {
+		// 	line_update(ray, \
+		// 		ray->start.x, ray->start.y, \
+		// 		ray->end.x - x_iteration, \
+		// 		ray->end.y - y_iteration);
 		// 	break ;
 		// }
-		if (check_wall_intersection(ray, game, direction) != 0)
-		{
-			line_update(ray, \
-				ray->start.x, ray->start.y, \
-				ray->end.x - x_iteration, \
-				ray->end.y - y_iteration);
-			break ;
-		}
 		iterations++;
 		save = ray->end;
 	}

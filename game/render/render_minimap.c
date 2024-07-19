@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/16 22:29:36 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:35:56 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,11 @@ void	render_minimap(t_game *game)
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
 
-	float temp_to_rotate = -0.25;
-	while (temp_to_rotate < 0)
+	float temp_to_rotate = -45;
+	while (temp_to_rotate < 45)
 	{
 		// printf("\t\t\t\t\t\t\t\t\t\tMinimap player ROT IN DEG %f\n", game->scene->minimap->player_rotation);
-		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + 45);
+		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		// ray = ray_line_getter_y(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		if (ray)
 		{
@@ -133,44 +133,21 @@ void	render_minimap(t_game *game)
 			free_line(ray);
 		}
 
-				ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation - 45);
-		// ray = ray_line_getter_y(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		if (ray)
-		{
-			line_shortener_for_minimap(ray);
-			img_put_line(game->scene->minimap->image, 0xe62e31, ray->start, ray->end);
-			free_line(ray);
-		}
-
-		//0x0722f0
-		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		// 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation - 45);
 		// // ray = ray_line_getter_y(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		// // ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		// if (ray)
 		// {
-		// 	// ray->start.x += 5;
-		// 	// ray->start.y += 5;
 		// 	line_shortener_for_minimap(ray);
-		// 	img_put_line(game->scene->minimap->image, 0x0722f0, ray->start, ray->end);
+		// 	img_put_line(game->scene->minimap->image, 0xe62e31, ray->start, ray->end);
 		// 	free_line(ray);
 		// }
 
-		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
-
-		// ray = ray_line_getter_x(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		// ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		// line_shortener_for_minimap(ray);
-		
-	
-		// printf("\t\t\t\t\t\tMinimap ray start %f %f\n", ray.start.x, ray.start.y);
-		// printf("\t\t\t\t\t\tMinimap ray end %f %f\n", ray.end.x, ray.end.y);
-
 		// img_put_line(game->scene->minimap->image, get_gradual_hue_color(ray->length), ray->start, ray->end);
-		// free_line(ray);
 		
-		// printf("LINEPUTTTTT------=======\n");
 		// img_put_line(game->scene->minimap->image, 0x00FFFF, ray.start, ray.end);
+		// temp_to_rotate += (90 / 1920);
 		temp_to_rotate += 1;
+
 	}
 	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
 }

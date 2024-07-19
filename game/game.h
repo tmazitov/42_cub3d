@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:17:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/05 17:34:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:02:46 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include "scene/scene.h"
+
+struct s_scene;
 
 typedef struct s_game
 {
