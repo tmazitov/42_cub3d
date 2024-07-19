@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:38 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 01:29:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/19 23:26:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_inventory	*make_inventory(int size)
 	inventory->health_bar = make_health_bar(100);
 	if (!inventory->health_bar)
 		return (free_inventory(inventory));
-	inventory->active_item = NULL;
+	inventory->active_item = inventory->slots->items[0];
 	return (inventory);
 }
 

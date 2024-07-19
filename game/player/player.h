@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 16:36:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/19 23:39:34 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		player_rotate(t_player *player);
 int			is_player_move(t_player *player);
 float		player_speed(t_player *player);
 
-void		player_add_bullets(t_player *player, int amount);
+int			player_add_bullets(t_player *player, int amount);
+int			player_add_weapon(t_player *player, t_item_type type);
 
 #endif

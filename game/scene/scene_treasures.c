@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:07:31 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/19 23:29:00 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 	int	y;
 	int treasure_count;
 	int treasure_created;
+	int	pistol_count;
+	int	bullets_count;
+	int	total_items_count;
 	
+
 	treasure_count = count_of_treasures(raw_map);
 	if (treasure_count == 0)
 		return (1);
@@ -71,13 +75,18 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 			if (raw_map->value[x] == 'B')
 			{
 				storage->boxes[treasure_created] = make_treasure(x*64, y*64);
-				storage->items[treasure_created] = make_item_collection(1);
+				pistol_count = random_int(-5, 1);
+				bullets_count = random_int(7, 19);
+				total_items_count = !!pistol_count + !!bullets_count;
+				storage->items[treasure_created] = make_item_collection(total_items_count);
 				if (!storage->boxes[treasure_created] || !storage->items[treasure_created])
+					return (0);
+				if (pistol_count > 0 && !item_collection_add_item(storage->items[treasure_created], PISTOL, 1))
 					return (0);
 				if (!item_collection_add_item(storage->items[treasure_created], BULLET, random_int(7, 19)))
 					return (0);
-				printf("\t|__| Treasure with bullets added at (%d, %d)\n", x*64, y*64);
-				printf("\t\t--> contain %d bullets\n", storage->items[treasure_created]->items[0]->amount);
+				printf("\t|__| Treasure box added at (%d, %d)\n", x*64, y*64);
+				item_collection_print(storage->items[treasure_created]);
 				treasure_created++;
 			}
 			x++;
