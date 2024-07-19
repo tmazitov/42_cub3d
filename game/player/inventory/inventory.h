@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 01:01:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 00:51:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef	struct s_health_bar
 }		t_health_bar;
 
 
+typedef struct s_inv_images
+{
+	t_image	*bullet_image;
+	t_image	*slot_image;
+	t_image	*pistol_image;
+}		t_inv_images;
+
+
 typedef struct s_inventory
 {
 	t_point				*pos;
@@ -48,10 +56,7 @@ typedef struct s_inventory
 
 t_inventory	*make_inventory(int size);
 int			inv_set_sizes(void *mlx, t_inventory *inventory, t_rectangle rect);
-void		inv_update_image(t_inventory *inv, int player_update_count, \
-							t_image	*bullet_image, \
-							t_image	*slot_image, \
-							t_writer *writer);
+void		inv_update_image(t_inventory *inv, int player_update_count, t_inv_images images, t_writer *writer);
 void		*free_inventory(t_inventory *inventory);
 
 int				bullets_message_size(t_inventory *inventory);

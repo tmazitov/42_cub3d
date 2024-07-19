@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 18:00:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 00:55:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,43 @@ static void	player_collect(t_game *game, t_player *player)
 	}
 }
 
+static void	player_inventory_update(t_game *game)
+{
+	t_inv_images	images;
+	t_sprite_node	*sprite;
+	t_player		*player;
+
+	images.bullet_image = NULL;
+	images.slot_image = NULL;
+	images.pistol_image = NULL;
+	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT");
+	if (sprite && sprite->image)
+		images.slot_image = sprite->image;
+	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
+	if (sprite && sprite->image)
+		images.bullet_image = sprite->image;
+	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_ICON");
+	if (sprite && sprite->image)
+		images.pistol_image = sprite->image;
+	player = game->scene->player;
+	if (images.pistol_image && images.bullet_image && images.slot_image)
+		inv_update_image(player->inventory, \
+						player->update_count, \
+						images, game->writer);
+}
+
 // Update player data
 void	update_player(t_game *game)
 {
 	t_vector	*move_vector;
 	int			is_player_can_move;
 	t_player	*player;
-	t_sprite_node	*bullet_sprite;
-	t_sprite_node	*slot_sprite;
+
 
 	player = game->scene->player;
 	player_collect(game, player);
 	player_rotate(player);
-
-	slot_sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT");
-	bullet_sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
-	if (slot_sprite && slot_sprite->image && bullet_sprite && bullet_sprite->image)
-		inv_update_image(player->inventory, player->update_count, \
-						bullet_sprite->image, 
-						slot_sprite->image, 
-						game->writer);
+	player_inventory_update(game);
 	move_vector = player_move_vector(player);
 	if (!move_vector)
 		return ;

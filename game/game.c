@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 00:03:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 00:45:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	set_inv_position(t_game *game, t_player *player)
 {
 	t_rectangle rect;
 	t_inventory	*inv;
-	t_sprite_node	*bullet;
 
 	inv = player->inventory;
 	if (inv->image)
@@ -38,12 +37,23 @@ static int	set_inv_position(t_game *game, t_player *player)
 	rect.start.y = game->height - rect.height - 24;
 	if (!inv_set_sizes(game->mlx, inv, rect))
 		return (0);
-	bullet = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
-	if (!bullet || !bullet->image)
+	return (1);
+}
+
+static int	set_images_scale(t_game *game)
+{
+	t_sprite_node	*sprite;
+
+	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
+	if (!sprite || !sprite->image)
 		return (1);
-	if (!img_scale(&bullet->image, 2))
+	if (!img_scale(&sprite->image, 2))
 		return (0);
-	printf("rect : %f %f %f %f\n", rect.start.x, rect.start.y, rect.width, rect.height);
+	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_ICON");
+	if (!sprite || !sprite->image)
+		return (1);
+	if (!img_scale(&sprite->image, 2))
+		return (0);
 	return (1); 
 }
 
@@ -67,13 +77,11 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 	if (!game->scene)
 		return (free_game(game));
 	game->writer = make_writer(game->mlx, game->window, 6);
-	if (!game->writer)
-		return (free_game(game));
-	if (!setup_writer(game->writer, game->scene->map->sprites, 'a', 'z'))
-		return (free_game(game));
-	if (!setup_writer(game->writer, game->scene->map->sprites, '0', '9'))
-		return (free_game(game));
-	if (!set_inv_position(game, game->scene->player))
+	if (!game->writer \
+		|| !setup_writer(game->writer, game->scene->map->sprites, 'a', 'z') \
+		|| !setup_writer(game->writer, game->scene->map->sprites, '0', '9') \
+		|| !set_inv_position(game, game->scene->player) \
+		|| !set_images_scale(game))
 		return (free_game(game));
 	return (game);
 }
