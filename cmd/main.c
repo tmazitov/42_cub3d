@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 16:55:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/19 23:06:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 	
 	if (argc != 2)
 		return (print_error("invalid count of args"), 1);
+	srand(time(NULL)); 
 	game = make_game(argv[1], 1920, 1080, "Hello world!");
 	if (!game)
 		return (1);
