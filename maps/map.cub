@@ -49,6 +49,10 @@ INV_SLOT_ACTIVE textures/inventory_slot_active.xpm
 INV_BULLET      textures/bullet_v2.xpm
 
 PISTOL_ICON textures/pistol/icon.xpm
+PISTOL_SHOT_1 textures/pistol/pistol_shot_2.xpm
+PISTOL_SHOT_2 textures/pistol/pistol_shot_3.xpm
+PISTOL_SHOT_3 textures/pistol/pistol_shot_4.xpm
+PISTOL_SHOT_4 textures/pistol/pistol_shot_5.xpm
 
 F 220,100,0
 C 225,30,0

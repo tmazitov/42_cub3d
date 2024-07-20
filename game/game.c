@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 00:45:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:02:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,26 @@ static int	set_images_scale(t_game *game)
 	if (!sprite || !sprite->image)
 		return (1);
 	if (!img_scale(&sprite->image, 2))
+		return (0);
+	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_1");
+	if (!sprite || !sprite->image)
+		return (1);
+	if (!img_scale(&sprite->image, 10))
+		return (0);
+	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_2");
+	if (!sprite || !sprite->image)
+		return (1);
+	if (!img_scale(&sprite->image, 10))
+		return (0);
+	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_3");
+	if (!sprite || !sprite->image)
+		return (1);
+	if (!img_scale(&sprite->image, 10))
+		return (0);
+	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_4");
+	if (!sprite || !sprite->image)
+		return (1);
+	if (!img_scale(&sprite->image, 10))
 		return (0);
 	return (1); 
 }
