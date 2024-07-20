@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometry.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 01:18:03 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:29:55 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_line
 	float	D;
 	float	length;
 }		t_line;
+
 typedef struct s_vector
 {
 	float	x;
@@ -69,7 +70,10 @@ float				point_distance(t_point p1, t_point p2);
 /*LINE*/
 
 t_line				*make_line(float x1, float y1, float x2, float y2);
+t_line				*make_line_by_points(t_point p1, t_point p2);
 void				*free_line(t_line *line);
+void				line_update(t_line *line, float x1, float y1, float x2, float y2);
+void				line_update_by_points(t_line *line, t_point p1, t_point p2);
 
 
 /*VECTOR*/

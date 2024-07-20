@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 19:02:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:35:26 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include "../../utils/geometry/geometry.h"
 # include "../objs/wall/wall.h"
 
-# define MINIMAP_BORDER_RADIUS 10
-# define MINIMAP_BORDER_SIZE 8
-# define MINIMAP_POS_X 10
+# define MINIMAP_BORDER_RADIUS 20
+# define MINIMAP_BORDER_SIZE 16
+# define MINIMAP_POS_X 20
 # define MINIMAP_POS_Y 10
 # define MINIMAP_MOVE_AREA_SIZE 32
 # define MINIMAP_SIZE 256

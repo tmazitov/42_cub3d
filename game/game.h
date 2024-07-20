@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:17:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 17:14:18 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:35:39 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <mlx.h>
 # include "scene/scene.h"
 # include "../utils/mlx_font_print/mlx_font_print.h"
+
+struct s_scene;
 
 typedef struct s_game
 {

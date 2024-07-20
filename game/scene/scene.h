@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 18:16:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:31:45 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_scene
 	t_player			*player;
 	t_minimap			*minimap;
 	t_treasure_storage 	*treasures;
+	t_image		*image;
 }			t_scene;
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 16:02:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:36:25 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 		|| !setup_writer(game->writer, game->scene->map->sprites, '0', '9') \
 		|| !set_inv_position(game, game->scene->player) \
 		|| !set_images_scale(game))
+		return (free_game(game));
+	if (!img_create(game->scene->image, width, height))
 		return (free_game(game));
 	return (game);
 }

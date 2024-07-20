@@ -1,7 +1,7 @@
-NO textures/north_wall.xpm
-SO textures/south_wall.xpm
-WE textures/west_wall.xpm
-EA textures/east_wall.xpm
+NO textures/wolfenstein_textures/wall_1.xpm
+SO textures/wolfenstein_textures/wall_2.xpm
+WE textures/wolfenstein_textures/wall_3.xpm
+EA textures/wolfenstein_textures/wall_4.xpm
 
 TB       textures/treasure_box_3.xpm
 TB_EMPTY textures/treasure_box_empty.xpm

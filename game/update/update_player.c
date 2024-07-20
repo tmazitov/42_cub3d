@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/20 01:18:46 by tmazitov         ###   ########.fr       */
+=======
+/*   Updated: 2024/07/19 16:16:34 by kshamsid         ###   ########.fr       */
+>>>>>>> hooks_and_features
 /*                                                                            */
 /* ************************************************************************** */
 

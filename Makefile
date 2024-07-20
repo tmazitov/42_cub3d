@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/20 17:13:47 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/20 20:36:54 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRCS =  cmd/main.c \
         game/render/render.c \
         game/render/render_player.c \
         game/render/render_minimap.c \
+		game/render/ray_line_funcs.c \
+		game/render/render_scene_3d.c \
         game/scene/scene.c \
         game/scene/scene_treasures.c \
         game/scene/scene_treasures_collect.c \
@@ -50,6 +52,7 @@ SRCS =  cmd/main.c \
         game/map/map_textures.c \
         game/map/map_textures_utils.c \
         game/map/map_walls.c \
+		game/map/map_double_array_create.c \
         utils/image/image.c \
         utils/image/image_buffer.c \
         utils/image/image_content.c \
@@ -86,7 +89,8 @@ SRCS =  cmd/main.c \
         utils/libft/ft_bzero.c \
         utils/libft/ft_calloc.c \
         utils/libft/ft_split.c \
-        utils/libft/ft_itoa.c
+        utils/libft/ft_itoa.c \
+		
 
 OBJS = $(SRCS:.c=.o)
 
@@ -102,7 +106,7 @@ ifeq ($(OS), Linux)
 else ifeq ($(OS), Darwin)
     CFLAGS += -Imlx -I./mlx_mac
     LDFLAGS += -L./mlx_mac -lmlx -framework OpenGL -framework AppKit
-    
+	
     # Modify B_BUTTON for macOS
     CFLAGS += -DW_BUTTON=1  # Assuming B_BUTTON should be 1 on macOS
     CFLAGS += -DA_BUTTON=0  # Assuming B_BUTTON should be 1 on macOS
