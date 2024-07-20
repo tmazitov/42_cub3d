@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/19 22:12:34 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:27:33 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,37 +95,37 @@ void	render_window_scene(t_game *game)
 	// exit(1);
 
 	//TESTING Time it takes 1920*1080 SINGLE pixel puts-------------Test [2]
-	int temp_num;
-	print_time_since_last_call();
-	temp_num = 1920 * 1080;
-	int temp_x = 0;
-	int temp_y = 0;
-	printf("temp_num %d\n", temp_num);
+	// int temp_num;
+	// print_time_since_last_call();
+	// temp_num = 1920 * 1080;
+	// int temp_x = 0;
+	// int temp_y = 0;
+	// printf("temp_num %d\n", temp_num);
 
-	while (temp_num > 0)
-	{
-		img_put_pixel(game->scene->image, 0xcbf7f7, 1080, 1080);
-		temp_num--;
-		temp_x++;
-		if (temp_x == 1920)
-		{
-			temp_x = 0;
-			temp_y++;
-		}
-	}
-	img_draw(game->window, game->scene->image, 0, 0);
-	print_time_since_last_call();
-	exit(1);
+	// while (temp_num > 0)
+	// {
+	// 	img_put_pixel(game->scene->image, 0xcbf7f7, 1080, 1080);
+	// 	temp_num--;
+	// 	temp_x++;
+	// 	if (temp_x == 1920)
+	// 	{
+	// 		temp_x = 0;
+	// 		temp_y++;
+	// 	}
+	// }
+	// img_draw(game->window, game->scene->image, 0, 0);
+	// print_time_since_last_call();
+	// exit(1);
 
 	while (temp_to_rotate < 45)
 	{
-		printf("starting render\n");
+		// printf("starting render\n");
 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		if (ray)
 		{
 			distance_from_wall = distance_between_points(ray->start, ray->end);
 
-			printf("all values %f %f %f %f\n", display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
+			// printf("all values %f %f %f %f\n", display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
 			fflush(stdout);
 			// Correct the fisheye effect by multiplying with the cosine of the angle difference
 			distance_from_wall *= cos(temp_to_rotate * M_PI / 180);
@@ -145,23 +145,39 @@ void	render_window_scene(t_game *game)
 			display_coordinates.start.y = (game->height / 2.5) - (render_y / 2);
 			display_coordinates.end.x = render_x;
 			display_coordinates.end.y = (game->height / 2) + (render_y / 2);
-			if (display_coordinates.start.y > 1000 || display_coordinates.start.y < -1000 ||
-				display_coordinates.end.y > 1000 || display_coordinates.end.y < -1000)
-			{
+			
+			// float dy = display_coordinates.end.y - display_coordinates.start.y;
+			// // if (dy)
+			// while (dy > 0)
+			// {
+			// 	img_put_pixel(game->scene->image, /*img_get_pixel()*/ 0x860e99 , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
+			// 	display_coordinates.start.y++;
+			// 	dy--;
+			// }
+
+			// printf("start x %f start y %f end x %f end y %f\n", display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
+			if (display_coordinates.start.x < 0)
+				display_coordinates.start.x = 0;
+			if (display_coordinates.start.x > 1920)
+				display_coordinates.start.x = 1920;
+			if (display_coordinates.start.y < 0)
 				display_coordinates.start.y = 0;
+			if (display_coordinates.start.y > 1080)
+				display_coordinates.start.y = 1080;
+
+			if (display_coordinates.end.x < 0)
+				display_coordinates.end.x = 0;
+			if (display_coordinates.end.x > 1920)
+				display_coordinates.end.x = 1920;
+			if (display_coordinates.end.y < 0)
 				display_coordinates.end.y = 0;
-			}
+			if (display_coordinates.end.y > 1080)
+				display_coordinates.end.y = 1080;
+
 			// printf("game->height %d\n", game->height);
 			// printf("render_y %d\n", render_y);
-
-			// Draw the wall slice
-			if (display_coordinates.start.x <= 1080 ||
-				display_coordinates.start.y <= 1920 ||
-				display_coordinates.end.x <= 1920 ||
-				display_coordinates.end.y <= 1080)
-			{
 				img_put_line(game->scene->image, 0x9c254f, display_coordinates.start, display_coordinates.end);
-			}
+
 			// printf("after check\n");
 			// Optionally draw a floor and ceiling
 			// Draw ceiling
@@ -177,7 +193,7 @@ void	render_window_scene(t_game *game)
 		temp_to_rotate += (90.0 / (1920.0));  // Adjust the angle increment to cover the FOV properly
 		// temp_to_rotate += (90.0 / 485.0);  // Adjust the angle increment to cover the FOV properly
 		render_x += 1;
-		if (render_x == 1920 || render_y == 0)
+		if (render_x == 1920 || render_y == 0 /*|| render_y > game->height*/)
 			break;
 	}
 	print_time_since_last_call();
@@ -254,6 +270,7 @@ char	get_array_map_value(t_line ray, t_game *game)
 // 	ray.end.x = fmod(ray.end.x, 32.0)
 // 	if (game->player->angle > 180 && game->p   layer->angle < 360)
 // 		ray.end.x += 32;
+
 	ray.start.x /= 64;
 	ray.start.y /= 64;
 	ray.end.x /= 64;
@@ -265,6 +282,8 @@ char	get_array_map_value(t_line ray, t_game *game)
 		|| ray.end.y >= game->scene->map->height)
 		return (/*printf("ERROR SOETHING RONG"),*/ '1');
 	
+	// printf("checking %d %d\n", index_y, index_x);
+	// printf("value is %c\n", game->scene->map->map_double_array[index_y][index_x]);
 	// return (game->scene->map->map_double_array[(int)round(ray.end.y)][(int)round(ray.end.x)]);
 	return (game->scene->map->map_double_array[index_y][index_x]);
 }

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/19 16:35:56 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/20 19:59:49 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,13 @@ void	render_minimap(t_game *game)
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	minimap_draw_border(game->scene->minimap);
 
-	float temp_to_rotate = -45;
-	while (temp_to_rotate < 45)
+	float temp_to_rotate = -1;
+	while (temp_to_rotate < 0)
 	{
 		// printf("\t\t\t\t\t\t\t\t\t\tMinimap player ROT IN DEG %f\n", game->scene->minimap->player_rotation);
-		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
-		// ray = ray_line_getter_y(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		// ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		ray = ray_line_getter_y(game, game->scene->minimap->player_rotation + temp_to_rotate);
+		//Adjusting checks using the rays to use get_array_map_value need to check 1 by 1 .
 		if (ray)
 		{
 			line_shortener_for_minimap(ray);
