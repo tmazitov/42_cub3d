@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_camera.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:48:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 17:12:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:54:29 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ void	minimap_camera_move(t_minimap *map, t_point player_pos, t_vector player_mov
 	}
 	map->camera->x = max(map->camera->x, 0);
 	map->camera->y = max(map->camera->y, 0);
-	printf("x : %f y : %f \n", map->camera->x, map->camera->y);
+	// printf("x : %f y : %f \n", map->camera->x, map->camera->y);
 }

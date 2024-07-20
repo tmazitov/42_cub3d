@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/20 20:27:56 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:39:19 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
 			ray->start.x - (fmod(ray->start.y, 64.0) / tan(angle_in_pie)), \
-			ray->start.y - fmod(ray->end.y, 64.0));
+			(ray->start.y - fmod(ray->end.y, 64.0) - 0.001));
 		y_iteration = -64;
 		x_iteration = y_iteration / tan(angle_in_pie);
 		direction = NORTH;
@@ -141,7 +141,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	while (
 		get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 10)
+		&& ray->end.y > 0 && iterations < 30)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
@@ -220,7 +220,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
-			ray->start.x - fmod(ray->end.x, 64.0), \
+			ray->start.x - fmod(ray->end.x, 64.0) - 0.001, \
 			ray->start.y - (fmod(ray->start.x, 64.0) * tan(angle_in_pie)));
 		x_iteration = -64;
 		y_iteration = x_iteration * tan(angle_in_pie);
@@ -249,7 +249,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	while (
 		get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 10)
+		&& ray->end.y > 0 && iterations < 30)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
