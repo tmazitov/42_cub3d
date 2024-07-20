@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 23:48:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 19:00:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:12:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int is_top_move_area(t_minimap *map, float relY)
 
 static int is_bop_move_area(float relY)
 {
-	return (relY > MINIMAP_BORDER_SIZE && relY < MINIMAP_BORDER_SIZE + MINIMAP_MOVE_AREA_SIZE);	
+	relY -= MINIMAP_BORDER_SIZE;
+	return (relY > 0 && relY < MINIMAP_MOVE_AREA_SIZE);	
 }
 
 
@@ -58,4 +59,6 @@ void	minimap_camera_move(t_minimap *map, t_point player_pos, t_vector player_mov
 		map->camera->y += fmin(player_move.y / MINIMAP_SCALE, -1);
 	}
 	map->camera->x = max(map->camera->x, 0);
+	map->camera->y = max(map->camera->y, 0);
+	printf("x : %f y : %f \n", map->camera->x, map->camera->y);
 }

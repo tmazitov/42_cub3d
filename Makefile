@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/20 15:33:24 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/20 17:13:47 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,7 +117,7 @@ else ifeq ($(OS), Darwin)
     CFLAGS += -DN4_BUTTON=21
     CFLAGS += -DN5_BUTTON=23
     CFLAGS += -DN6_BUTTON=22
-    CFLAGS += -DPLAYER_MAX_SPEED=8
+    CFLAGS += -DPLAYER_MAX_SPEED=6
 else
     $(error Unsupported operating system: $(OS))
 endif
