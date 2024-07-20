@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 02:10:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:33:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,47 +19,15 @@
 # include "../../utils/image/image.h"
 # include "../../utils/libft/libft.h"
 # include "inventory/inventory.h"
-
-# ifndef W_BUTTON
-#  define W_BUTTON 115
-# endif
-
-# ifndef A_BUTTON
-#  define A_BUTTON 97
-# endif
-
-# ifndef S_BUTTON
-#  define S_BUTTON 119
-# endif
-
-# ifndef D_BUTTON
-#  define D_BUTTON 100
-# endif
-
-# ifndef F_BUTTON
-#  define F_BUTTON 102
-# endif
-
-# ifndef LEFT_ARROW
-#  define LEFT_ARROW 65361
-# endif
-# ifndef RIGHT_ARROW
-#  define RIGHT_ARROW 65363
-# endif
-
-# define N1_BUTTON 49
-# define N2_BUTTON 50
-# define N3_BUTTON 51
-# define N4_BUTTON 52
-# define N5_BUTTON 53
-# define N6_BUTTON 54
-
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
-
+# include "../../utils/keyboard.h"
+# include "../../utils/mouse.h"
 
 # define PLAYER_SIZE 24
-# define PLAYER_MAX_SPEED 4
+
+# ifndef PLAYER_MAX_SPEED
+	# define PLAYER_MAX_SPEED 4
+# endif 
+
 # define PLAYER_ACCELERATION_ITERS 10
 # define PLAYER_ROTATION_SPEED 0.3
 

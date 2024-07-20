@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/20 01:53:14 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/20 15:33:24 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,8 +108,16 @@ else ifeq ($(OS), Darwin)
     CFLAGS += -DA_BUTTON=0  # Assuming B_BUTTON should be 1 on macOS
     CFLAGS += -DS_BUTTON=13  # Assuming B_BUTTON should be 1 on macOS
     CFLAGS += -DD_BUTTON=2  # Assuming B_BUTTON should be 1 on macOS
+    CFLAGS += -DF_BUTTON=3
     CFLAGS += -DLEFT_ARROW=123
     CFLAGS += -DRIGHT_ARROW=124
+    CFLAGS += -DN1_BUTTON=18
+    CFLAGS += -DN2_BUTTON=19
+    CFLAGS += -DN3_BUTTON=20
+    CFLAGS += -DN4_BUTTON=21
+    CFLAGS += -DN5_BUTTON=23
+    CFLAGS += -DN6_BUTTON=22
+    CFLAGS += -DPLAYER_MAX_SPEED=8
 else
     $(error Unsupported operating system: $(OS))
 endif

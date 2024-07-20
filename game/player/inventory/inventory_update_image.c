@@ -6,12 +6,11 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 16:07:41 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 01:31:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:20:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inventory.h"
-#include <X11/Xlib.h>
 
 void	inv_draw_border(t_inventory *inv)
 {

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 02:17:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:30:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ static int player_inv_active_item(t_player *player, int keycode)
 		new_active = 4;
 	else if (keycode == N6_BUTTON)
 		new_active = 5;
-	printf("new_active %d\n", new_active);
 	if (keycode >= N1_BUTTON && keycode <= N6_BUTTON && new_active != player->inventory->active_item)
 	{
-		printf("update\n");
 		player->update_count += 1;
 		player->inventory->active_item = new_active;
 	}	
@@ -80,6 +78,7 @@ static int player_inv_active_item(t_player *player, int keycode)
 int	player_control_set(int keycode, t_player *player)
 {
 	// printf("w: %d\n", W_BUTTON);
+	// printf("pressed %d\n", keycode);
 	player_inv_active_item(player, keycode);
 	if (!key_is_active(player, keycode))
 		player_control_update(player, keycode, 1);
