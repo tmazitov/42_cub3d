@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometry.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:29:55 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:49:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_line				*make_line_by_points(t_point p1, t_point p2);
 void				*free_line(t_line *line);
 void				line_update(t_line *line, float x1, float y1, float x2, float y2);
 void				line_update_by_points(t_line *line, t_point p1, t_point p2);
+t_line				*line_perpendicular(t_line *line, t_point point);
 
 
 /*VECTOR*/
@@ -90,7 +91,7 @@ void		vector_add(t_vector *vector, float x, float y);
 /*UTILS*/
 
 float		distance(float x1, float y1, float x2, float y2);
-int			check_intersection(t_line *line1, t_line *line2);
+int			check_intersection(t_line *line1, t_line *line2, t_point *inter_point);
 int			max(int a, int b);
 int			max_delimeter(int value);
 int			random_int(int min, int max);

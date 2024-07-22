@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_line_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/20 21:39:19 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:58:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@
 #include <sys/time.h>
 void	print_time_since_last_call()
 {
-	static struct	timeval last_time;
-	struct timeval			current_time;
-	long int				elapsed_time;
+	// static struct	timeval last_time;
+	// struct timeval			current_time;
+	// long int				elapsed_time;
 
-	gettimeofday(&current_time, NULL);
-	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
+	// gettimeofday(&current_time, NULL);
+	// elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
 	// printf("Elapsed time: %ld ms\n", elapsed_time);
-	last_time = current_time;
+	// last_time = current_time;
 }
 
 float	distance_between_points(t_point start, t_point end)
@@ -94,7 +94,6 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	float	x_iteration;	//x_iteration in while loop
 	int		iterations;	//Like a Counter for block iterations to find the wall.
 	float	angle_in_pie;	//angle in radians.
-	t_direction direction;
 	t_line	*ray;	//final struct to return.
 
 	if (angle_in_degrees < 0)
@@ -115,7 +114,6 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 			(ray->start.y - fmod(ray->end.y, 64.0) - 0.001));
 		y_iteration = -64;
 		x_iteration = y_iteration / tan(angle_in_pie);
-		direction = NORTH;
 	}
 	else if (angle_in_degrees > 180 && angle_in_degrees < 360) // Looking DOWNN
 	{
@@ -128,14 +126,12 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		// 	y_iteration = y_iteration * tan(angle_in_pie);
 		// else
 			x_iteration = y_iteration / tan(angle_in_pie);
-		direction = SOUTH;
 	}
 	if (angle_in_degrees == 0 || angle_in_degrees == 180)
 	{
 		// printf("0 or 180 ERROR CASE, freeing");
 		return (free_line(ray));
 	}
-	t_point save;
 	iterations = 0;
 
 	while (
@@ -151,23 +147,22 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		// 	(angle_in_degrees > 0 && angle_in_degrees < 180)) ||
 		// 	(ray->end.x < 0 || ray->end.y < 0))
 		// {
-		// 			line_update(ray, \
-		// 	ray->start.x, ray->start.y, \
-		// 	ray->end.x - x_iteration, \
+		// 			line_update(ray, 
+		// 	ray->start.x, ray->start.y, 
+		// 	ray->end.x - x_iteration, 
 		// 	ray->end.y - y_iteration);
 		// 	// return (free_line(ray), NULL);
 		// 	return (ray);
 		// }
 		// if (check_wall_intersection(ray, game, direction) != 0)
 		// {
-		// 	line_update(ray, \
-		// 		ray->start.x, ray->start.y, \
-		// 		ray->end.x - x_iteration, \
+		// 	line_update(ray, 
+		// 		ray->start.x, ray->start.y, 
+		// 		ray->end.x - x_iteration, 
 		// 		ray->end.y - y_iteration);
 		// 	return (ray); 
 		// }
 		iterations++;
-		save = ray->end;
 	}
 	// if (iterations == 3)
 	// {
@@ -203,7 +198,6 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	int		iterations;	//Like a Counter for block iterations to find the wall.
 	float	angle_in_pie;	//angle in radians.
 	t_line	*ray;	//final struct to return.
-	t_direction	direction;
 
 	if (angle_in_degrees < 0)
 		angle_in_degrees += 360;
@@ -224,7 +218,6 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 			ray->start.y - (fmod(ray->start.x, 64.0) * tan(angle_in_pie)));
 		x_iteration = -64;
 		y_iteration = x_iteration * tan(angle_in_pie);
-		direction = WEST;
 	}
 	else if (angle_in_degrees > 90 && angle_in_degrees < 270)//LOOKING RIGHT
 	{
@@ -233,7 +226,6 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 			ray->start.x - fmod(ray->end.x, 64.0) + 64, \
 			ray->start.y + ((64 - fmod(ray->start.x, 64.0)) * tan(angle_in_pie)));
 		x_iteration = 64;
-		direction = EAST;
 		// if (angle_in_degrees > 90 && angle_in_degrees < 180)
 		// 	y_iteration = x_iteration * tan(angle_in_pie);
 		// else
@@ -244,7 +236,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 		// printf("90 or 270 ERROR CASE, freeing");
 		return (free_line(ray));
 	}
-	t_point save;
+	// t_point save;
 	iterations = 0;
 	while (
 		get_array_map_value(*ray, game) != '1' &&
@@ -260,23 +252,22 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 		// && (get_array_map_value(*ray, game) == '1')) ||
 		// 	(ray->end.x < 0 || ray->end.y < 0))
 		// {
-		// 			line_update(ray, \
-		// 	ray->start.x, ray->start.y, \
-		// 	ray->end.x - x_iteration, \
+		// 			line_update(ray, 
+		// 	ray->start.x, ray->start.y, 
+		// 	ray->end.x - x_iteration, 
 		// 	ray->end.y - y_iteration);
 		// 	// return (free_line(ray), NULL);
 		// 	return (ray);
 		// }
 		// if (check_wall_intersection(ray, game, direction) != 0)
 		// {
-		// 	line_update(ray, \
-		// 		ray->start.x, ray->start.y, \
-		// 		ray->end.x - x_iteration, \
+		// 	line_update(ray, 
+		// 		ray->start.x, ray->start.y, 
+		// 		ray->end.x - x_iteration, 
 		// 		ray->end.y - y_iteration);
 		// 	break ;
 		// }
 		iterations++;
-		save = ray->end;
 	}
 	// ray->end = save;
 	// printf("player ANGLE  = %f\n", angle_in_degrees);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/20 21:33:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/20 22:02:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ void	render_window_scene(t_game *game)
 
 	img_clear(game->scene->image);
 	render_x = 0;
+	render_y = 0;
 	// printf("STARTING RENDER\n");
 
-	t_line	temp;
-	temp.start.x = 0;
-	temp.start.y = 0;
-	temp.end.x = 1920;
-	temp.end.y = 0;
+	// t_line	temp;
+	// temp.start.x = 0;
+	// temp.start.y = 0;
+	// temp.end.x = 1920;
+	// temp.end.y = 0;
 	
 	//puts sky and floor color
 	// while (temp.end.y < game->height)

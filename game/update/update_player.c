@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   update_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:38:47 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:32:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "update.h"
 
-static int	check_wall_intersection(t_line *player_path, t_game *game)
+static t_line	*check_wall_intersection(t_line *player_path, t_game *game)
 {
 	t_line			*wall_line;
 	t_wall_node		*node;
+	t_point			intersect_point;
 	int				is_intersect;
 
 	node = game->scene->map->walls->start;
@@ -23,38 +24,54 @@ static int	check_wall_intersection(t_line *player_path, t_game *game)
 	{
 		wall_line = wall_to_line(node->wall);
 		if (!wall_line)
-			return (-1);
-		is_intersect = check_intersection(player_path, wall_line);
-	 	// free_line(wall_line);
-		if (is_intersect == -1)
-			return (-1);
+			return (NULL);
+		is_intersect = check_intersection(player_path, wall_line, &intersect_point);
 		if (is_intersect)
-			return (1);
+		{
+			line_update_by_points(player_path, player_path->start, intersect_point);
+			return (wall_line);
+		}
+	 	free_line(wall_line);
 		node = node->next;
 	}
-	return (0);
+	return (NULL);
+}
+
+static void	update_player_vector(t_vector *move_vector, t_line *player_path, t_line *wall_line)
+{
+	t_line	*wall_perpendicular;
+
+	wall_perpendicular = line_perpendicular(wall_line, player_path->start);
+	if (!wall_perpendicular)
+		return ;
+	move_vector->x = - (wall_perpendicular->B + player_path->B) * -1;
+	move_vector->y = (wall_perpendicular->A + player_path->A) * -1;
 }
 
 // Check if player can move in the direction of move_vector
-static int	player_can_move(t_game *game, t_vector *move_vector)
+static void	player_intersect_handler(t_game *game, t_vector *move_vector)
 {
 	t_line			*player_path;
-	int				is_wall_intersect;
+	t_line			*inter_wall;
 	float			posX;
 	float			posY;
 
 	if (!move_vector)
-		return (0);
+		return ;
 	posX = game->scene->player->pos->x;
 	posY = game->scene->player->pos->y;
 	player_path = make_line(posX, posY, posX + move_vector->x, posY + move_vector->y);
 	if (!player_path)
-		return (-1);
-	is_wall_intersect = check_wall_intersection(player_path, game);
+		return ;
+	inter_wall = check_wall_intersection(player_path, game);
+	if (!inter_wall)
+	{
+		free_line(player_path);
+		return ;
+	}
+	update_player_vector(move_vector, player_path, inter_wall);
 	free_line(player_path);
-	if (is_wall_intersect == -1)
-		return (-1);
-	return (!is_wall_intersect);
+	free_line(inter_wall);
 }
 
 static void	player_collect(t_game *game, t_player *player)
@@ -111,7 +128,6 @@ static void	player_inventory_update(t_game *game)
 void	update_player(t_game *game)
 {
 	t_vector	*move_vector;
-	int			is_player_can_move;
 	t_player	*player;
 
 
@@ -122,11 +138,7 @@ void	update_player(t_game *game)
 	move_vector = player_move_vector(player);
 	if (!move_vector)
 		return ;
-	is_player_can_move = player_can_move(game, move_vector);
-	if (is_player_can_move == -1)
-		return (print_error("mem allocation error"));
-	if (move_vector && is_player_can_move)
-		player_move_update(player, move_vector);
-	if (move_vector)
-		free_vector(move_vector);
+	player_intersect_handler(game, move_vector);
+	player_move_update(player, move_vector);
+	free_vector(move_vector);
 }

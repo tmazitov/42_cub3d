@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:01:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/16 16:30:25 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:07:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,26 @@ void	line_update_by_points(t_line *line, t_point p1, t_point p2)
 	line->A = -dir.y;
 	line->B = dir.x;
 	line->D = -line->A * p1.x - line->B * p1.y;
+}
+
+
+t_line	*line_perpendicular(t_line *line, t_point point)
+{
+	t_point	perpPoint;
+
+    float	d;
+    float	denominator;
+
+	if (!line)
+		return (NULL);
+	
+	d = line->A * point.x + line->B * point.y + line->D;
+	denominator = pow(line->A, 2) + pow(line->B, 2);
+
+    perpPoint.x = point.x - line->A * d / denominator;
+    perpPoint.y = point.y - line->B * d / denominator;
+
+    return (make_line_by_points(perpPoint, point));
 }
 
 void	*free_line(t_line *line)
