@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/20 21:33:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:32:42 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,86 @@ void	print_time_since_last_call();
 // 	last_time = current_time;
 // }
 
+// Function to clamp the value between 0 and 255
+uint8_t clamp(int value) {
+    if (value < 0) return 0;
+    if (value > 255) return 255;
+    return value;
+}
+
+// Function to calculate a darker color based on distance
+uint32_t calculateDarkerColor(uint32_t color, int min, int max, float current_distance) {
+    // Extract the red, green, and blue components
+    uint8_t red   = (color >> 16) & 0xFF;
+    uint8_t green = (color >> 8) & 0xFF;
+    uint8_t blue  = color & 0xFF;
+
+    // Calculate the darkening factor based on the distance
+    float factor = 1.0 - (current_distance - min) / (float)(max - min);
+    if (factor < 0) factor = 0; // Clamp factor to 0
+    if (factor > 1) factor = 1; // Clamp factor to 1
+
+    // Calculate the new darker color components
+    int new_red   = clamp((int)(red * factor));
+    int new_green = clamp((int)(green * factor));
+    int new_blue  = clamp((int)(blue * factor));
+
+    // Combine the new color components back into a single uint32_t color
+    uint32_t new_color = (new_red << 16) | (new_green << 8) | new_blue;
+
+    return new_color;
+}
+
+static void	correct_if_more_than_screen_res(t_line *display_coordinates, t_game game)
+{
+	if (display_coordinates->start.x < 0)
+		display_coordinates->start.x = 0;
+	if (display_coordinates->start.x > (float)game.width)
+		display_coordinates->start.x = (float)game.width;
+	if (display_coordinates->start.y < 0)
+		display_coordinates->start.y = 0;
+	if (display_coordinates->start.y > (float)game.height)
+		display_coordinates->start.y = (float)game.height;
+
+	if (display_coordinates->end.x < 0)
+		display_coordinates->end.x = 0;
+	if (display_coordinates->end.x > (float)game.width)
+		display_coordinates->end.x = (float)game.width;
+	if (display_coordinates->end.y < 0)
+		display_coordinates->end.y = 0;
+	if (display_coordinates->end.y > (float)game.height)
+		display_coordinates->end.y = (float)game.height;
+}
+
+// void	correct_if_more_than_screen_res(t_line display_coordinates)
+// {
+// 	if (display_coordinates.start.x < 0)
+// 		display_coordinates.start.x = 0;
+// 	if (display_coordinates.start.x > 1920)
+// 		display_coordinates.start.x = 1920;
+// 	if (display_coordinates.start.y < 0)
+// 		display_coordinates.start.y = 0;
+// 	if (display_coordinates.start.y > 1080)
+// 		display_coordinates.start.y = 1080;
+
+// 	if (display_coordinates.end.x < 0)
+// 		display_coordinates.end.x = 0;
+// 	if (display_coordinates.end.x > 1920)
+// 		display_coordinates.end.x = 1920;
+// 	if (display_coordinates.end.y < 0)
+// 		display_coordinates.end.y = 0;
+// 	if (display_coordinates.end.y > 1080)
+// 		display_coordinates.end.y = 1080;
+// }
+
+// float	get_texture_pixel(t_game * game, t_point end)
+// {
+// 	if (end.x < 0 || end.y < 0 || end.x >= game->scene->map->width || end.y >= game->scene->map->height)
+// 		return (write(1, "Error value received by: get_texture_pixel\n", 43), 0);
+// 	//creating pixel color getting func , maybe depending on angle of ray (where it hit from) and values of block?
+	
+// }
+
 void	render_window_scene(t_game *game)
 {
 	float	temp_to_rotate = -45;
@@ -66,7 +146,7 @@ void	render_window_scene(t_game *game)
 	temp.end.x = 1920;
 	temp.end.y = 0;
 	
-	//puts sky and floor color
+	// puts sky and floor color
 	// while (temp.end.y < game->height)
 	// {
 	// 	if (temp.end.y < game->height / 2)
@@ -117,9 +197,11 @@ void	render_window_scene(t_game *game)
 	// print_time_since_last_call();
 	// exit(1);
 
+	// t_sprite_node *texture = get_sprite_by_name(game->scene->map->sprites, "NO");
+	// t_image *sprite_image = texture->image;
+	// print_time_since_last_call();
 	while (temp_to_rotate < 45)
 	{
-		// printf("starting render\n");
 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		if (ray)
 		{
@@ -145,38 +227,31 @@ void	render_window_scene(t_game *game)
 			display_coordinates.start.y = (game->height / 2.5) - (render_y / 2);
 			display_coordinates.end.x = render_x;
 			display_coordinates.end.y = (game->height / 2) + (render_y / 2);
-			
-			// float dy = display_coordinates.end.y - display_coordinates.start.y;
-			// // if (dy)
-			// while (dy > 0)
-			// {
-			// 	img_put_pixel(game->scene->image, /*img_get_pixel()*/ 0x860e99 , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
-			// 	display_coordinates.start.y++;
-			// 	dy--;
-			// }
 
-			// printf("start x %f start y %f end x %f end y %f\n", display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
-			if (display_coordinates.start.x < 0)
-				display_coordinates.start.x = 0;
-			if (display_coordinates.start.x > 1920)
-				display_coordinates.start.x = 1920;
-			if (display_coordinates.start.y < 0)
-				display_coordinates.start.y = 0;
-			if (display_coordinates.start.y > 1080)
-				display_coordinates.start.y = 1080;
+			float dy = display_coordinates.end.y - display_coordinates.start.y;
+			float dy_iter = 0;
 
-			if (display_coordinates.end.x < 0)
-				display_coordinates.end.x = 0;
-			if (display_coordinates.end.x > 1920)
-				display_coordinates.end.x = 1920;
-			if (display_coordinates.end.y < 0)
-				display_coordinates.end.y = 0;
-			if (display_coordinates.end.y > 1080)
-				display_coordinates.end.y = 1080;
+			// if (dy)
+			// printf("dy %f\n", dy);
+			while (dy_iter < dy)
+			{
+				if (dy_iter > dy/2)
+					img_put_pixel(game->scene->image, /*img_get_pixel(sprite_image,0, dy/64)*/ 0x200e99 /*calculateDarkerColor(0xd4c226, 0, 640, distance_from_wall)*/ , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
+				else
+					img_put_pixel(game->scene->image, /*img_get_pixel(sprite_image,0, dy/64)*/ 0x860e99 /*calculateDarkerColor(0xd4c226, 0, 640, distance_from_wall)*/ , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
+				display_coordinates.start.y += 1;
+				dy_iter++;
+			}
+			// printf("all variables")
+
+			// printf("player angle %f, start x %f start y %f end x %f end y %f\n", game->scene->minimap->player_rotation, display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
+			correct_if_more_than_screen_res(&display_coordinates, *game);
 
 			// printf("game->height %d\n", game->height);
 			// printf("render_y %d\n", render_y);
-				img_put_line(game->scene->image, 0x9c254f, display_coordinates.start, display_coordinates.end);
+			
+				// img_put_line(game->scene->image, calculateDarkerColor(0x9c254f, 0, 640, distance_from_wall),
+				// 	display_coordinates.start, display_coordinates.end);
 
 			// printf("after check\n");
 			// Optionally draw a floor and ceiling
@@ -196,9 +271,8 @@ void	render_window_scene(t_game *game)
 		if (render_x == 1920 || render_y == 0 /*|| render_y > game->height*/)
 			break;
 	}
-	print_time_since_last_call();
-	// printf("ENDING RENDER\n");
 	
+	// print_time_since_last_call();	
 	img_draw(game->window, game->scene->image, 0, 0);
 }
 

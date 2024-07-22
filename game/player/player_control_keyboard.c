@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_keyboard.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 15:30:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:16:23 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int key_is_active(t_player *player, int keycode)
 	// 	return (player->pressed_buttons[5]);
 	if (keycode == F_BUTTON)
 		return (player->pressed_buttons[6]);
+	// if (keycode == ESC_BUTTON)
+		// return (player->pressed_buttons[/*7*/]);
 	return (0);
 }
 

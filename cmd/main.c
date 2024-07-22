@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:36:37 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:34:27 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int merge_hook(void *game)
 {
 	update_hook(game);
 	render_hook(game);
+
 	return (0);
 }
 
