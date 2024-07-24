@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:32:04 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:50:29 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ t_scene	*make_scene(void *mlx, char *path)
 	scene->minimap->player_pos.y = scene->player->pos->y;
 	scene->treasures = make_treasure_storage(scene->map->raw);
 	if (!scene->treasures)
+		return (free_scene(scene));
+	scene->enemies = make_enemy_storage(mlx, scene->map->raw);
+	if (!scene->enemies)
 		return (free_scene(scene));
 	return (scene);
 }

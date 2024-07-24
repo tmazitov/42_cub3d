@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/24 15:57:20 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/24 16:47:42 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS =  cmd/main.c \
 		game/render/ray_line_funcs.c \
 		game/render/render_scene_3d.c \
         game/scene/scene.c \
+		game/scene/scene_enemies.c \
         game/scene/scene_treasures.c \
         game/scene/scene_treasures_collect.c \
         game/objs/wall/wall.c \

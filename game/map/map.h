@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:35:35 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:54:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # include "../../utils/gnl/get_next_line.h"
 # include "../objs/wall/wall.h"
 
-# define SPRITES_COUNT 52
-
+# define SPRITES_COUNT 53
 typedef struct s_map_raw_list
 {
 	char				*value;
@@ -114,6 +113,7 @@ int					sprite_storage_length(t_sprite_storage *storage);
 int					add_map_raw_item(t_map *map, char *value);
 void				*free_map_raw_item(t_map_raw_list *item);
 int					convert_raw_to_objs(t_map *map);
+int					count_of_objs(t_map_raw_list *item, char obj_char);
 
 /* MAP Double Array */
 

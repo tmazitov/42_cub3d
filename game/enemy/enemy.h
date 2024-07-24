@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 15:57:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:57:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_enemy
 {
 	int					health;
 	int					damage;
+	int					alive;
 	t_point				*pos;
 	t_enemy_health_bar	*hb;
 	t_enemy_images		*images;

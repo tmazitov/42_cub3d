@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 17:08:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:34:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,4 +173,24 @@ void *free_map_raw_item(t_map_raw_list *item)
 		free(item->value);
 	free(item);
 	return (NULL);
+}
+
+int	count_of_objs(t_map_raw_list *item, char obj_char)
+{
+	int	counter;
+	int	count;
+	
+	count = 0;
+	while (item)
+	{
+		counter = 0;
+		while (item->value[counter])
+		{
+			if (item->value[counter] == obj_char)
+				count++;
+			counter++;
+		}
+		item = item->next;
+	}
+	return (count);	
 }

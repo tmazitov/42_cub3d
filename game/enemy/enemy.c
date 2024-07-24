@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:12:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 15:54:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:57:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	init_enemy(t_enemy *enemy)
 	enemy->images = NULL;
 	enemy->pos = NULL;
 	enemy->hb = NULL;
+	enemy->alive = 1;
 }
 
 t_enemy	*make_enemy(void *mlx, t_point pos, int health)
