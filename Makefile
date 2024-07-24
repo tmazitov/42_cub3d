@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
+#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/20 20:36:54 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/07/24 15:57:20 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,10 @@ SRCS =  cmd/main.c \
         game/objs/treasure/treasure.c \
 		game/items/item.c \
 		game/items/item_collection.c \
+		game/enemy/enemy.c \
+		game/enemy/enemy_images.c \
+		game/enemy/enemy_image_update.c \
+		game/enemy/enemy_health_bar.c \
         game/player/player.c \
         game/player/player_move.c \
         game/player/player_rotate.c \
