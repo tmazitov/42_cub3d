@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 17:07:28 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/24 22:34:51 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # define PLAYER_FOV 75
 # define AIM_SIZE 15
+# define SHADE_MIN_DISTANCE 0
+# define SHADE_MAX_DISTANCE 450
 
 void	render_scene(t_game *game);
 int		render_hook(t_game *game);
