@@ -54,7 +54,7 @@ PISTOL_SHOT_2 textures/pistol/pistol_shot_3.xpm
 PISTOL_SHOT_3 textures/pistol/pistol_shot_4.xpm
 PISTOL_SHOT_4 textures/pistol/pistol_shot_5.xpm
 
-ENEMY_ICON    textures/enemy/enemy_icon.xpm
+ENEMY_ICON    textures/enemy/enemy_icon_v3.xpm
 
 
 F 220,100,0
