@@ -6,7 +6,7 @@
 #    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/20 20:36:54 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/07/24 17:08:46 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS =  cmd/main.c \
         game/render/render.c \
         game/render/render_player.c \
         game/render/render_minimap.c \
+		game/render/render_minimap_rays.c \
 		game/render/ray_line_funcs.c \
 		game/render/render_scene_3d.c \
         game/scene/scene.c \

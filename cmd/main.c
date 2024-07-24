@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:36:37 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:27:37 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (print_error("invalid count of args"), 1);
 	srand(time(NULL)); 
+	// game = make_game(argv[1], 1024, 600, "Hello world!");
+	// game = make_game(argv[1], 720, 480, "Hello world!");
 	game = make_game(argv[1], 1920, 1080, "Hello world!");
+
 	if (!game)
 		return (1);
 	run(game);

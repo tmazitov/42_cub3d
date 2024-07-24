@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:33:49 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:07:28 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@
 # include "../../utils/image/image.h"
 # include "../scene/scene.h"
 
+# define PLAYER_FOV 75
+# define AIM_SIZE 15
+
 void	render_scene(t_game *game);
 int		render_hook(t_game *game);
 void	render_minimap(t_game *game);
 void	render_player(t_game *game);
 void	render_window_scene(t_game *game);
+
+void	render_minimap_rays(t_game *game);
 
 t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees);
 t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees);
