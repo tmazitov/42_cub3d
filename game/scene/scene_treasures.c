@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/19 23:29:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:35:41 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,6 @@ void	init_treasure_storage(t_treasure_storage *storage)
 	storage->boxes = NULL;
 	storage->items = NULL;
 	storage->size = 0;
-}
-
-static int	count_of_treasures(t_map_raw_list *raw_map_item)
-{
-	int	counter;
-	int	count;
-	
-	count = 0;
-	while (raw_map_item)
-	{
-		counter = 0;
-		while (raw_map_item->value[counter])
-		{
-			if (raw_map_item->value[counter] == 'B')
-				count++;
-			counter++;
-		}
-		raw_map_item = raw_map_item->next;
-	}
-	return (count);	
 }
 
 
@@ -51,7 +31,7 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 	int	total_items_count;
 	
 
-	treasure_count = count_of_treasures(raw_map);
+	treasure_count = count_of_objs(raw_map, 'B');
 	if (treasure_count == 0)
 		return (1);
 	storage->boxes = ft_calloc(treasure_count+1, sizeof(t_treasure *));

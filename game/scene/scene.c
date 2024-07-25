@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:32:04 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 03:05:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,25 @@ static void	init_scene(t_scene *scene)
 	scene->map = NULL;
 	scene->treasures = NULL;
 	scene->image = NULL;
+	scene->objs_points = NULL;
 }
+
+static int	setup_scene_objs(void *mlx, t_scene *scene)
+{
+	scene->treasures = make_treasure_storage(scene->map->raw);
+	if (!scene->treasures)
+		return (0);
+	scene->enemies = make_enemy_storage(mlx, scene->map->raw);
+	if (!scene->enemies)
+		return (0);
+	scene->objs_points = make_point_list();
+	if (!scene->objs_points)
+		return (0);
+	if (!feel_objs_points(scene->objs_points, scene->map->raw))
+		return (0);
+	return (1);
+}
+
 
 t_scene	*make_scene(void *mlx, char *path)
 {
@@ -44,13 +62,11 @@ t_scene	*make_scene(void *mlx, char *path)
 	scene->image = make_image(mlx);
 	if (!scene->image)
 		return (free_scene(scene));
-	scene->minimap->player_pos.x = scene->player->pos->x;
-	scene->minimap->player_pos.y = scene->player->pos->y;
-	scene->treasures = make_treasure_storage(scene->map->raw);
-	if (!scene->treasures)
+	if (!setup_scene_objs(mlx, scene))
 		return (free_scene(scene));
 	return (scene);
 }
+
 
 void	*free_scene(t_scene *scene)
 {
@@ -64,6 +80,8 @@ void	*free_scene(t_scene *scene)
 		free_player(scene->player);
 	if (scene->treasures)
 		free_treasure_storage(scene->treasures);
+	if (scene->objs_points)
+		free_point_list(scene->objs_points);
 	free(scene);
 	return (NULL);
 }

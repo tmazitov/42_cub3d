@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 16:08:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 04:51:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	render_player_inventory(t_game *game)
 	inv = game->scene->player->inventory;
 	if (!inv || !inv->image)
 		return ;
-	img_draw(game->window, inv->image, inv->pos->x, inv->pos->y);
+	img_put_img(game->scene->image, inv->image, *inv->pos, 0);	
 }
 
 void	render_player_weapon(t_game *game)
@@ -40,8 +40,7 @@ void	render_player_weapon(t_game *game)
 		{
 			pos.y = game->height - sprite->image->height;
 			pos.x = (game->width - sprite->image->width) / 2 + 300 ;
-			img_draw(game->window, sprite->image, pos.x, pos.y);
-			printf("active item %p %d\n", active_item,  sprite->image->height);
+			img_put_img(game->scene->image, sprite->image, pos, 0);
 		}
 	}
 }

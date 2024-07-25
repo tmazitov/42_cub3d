@@ -6,7 +6,7 @@
 #    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/21 17:09:52 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/07/25 19:14:39 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =  cmd/main.c \
         game/minimap/minimap_update_image.c \
         game/update/update.c \
         game/update/update_player.c \
+        game/update/update_enemies.c \
         game/update/update_minimap.c \
         game/render/render.c \
         game/render/render_player.c \
@@ -29,12 +30,19 @@ SRCS =  cmd/main.c \
 		game/render/ray_line_funcs.c \
 		game/render/render_scene_3d.c \
         game/scene/scene.c \
+        game/scene/scene_objs_points.c \
+		game/scene/scene_enemies.c \
         game/scene/scene_treasures.c \
         game/scene/scene_treasures_collect.c \
         game/objs/wall/wall.c \
         game/objs/treasure/treasure.c \
 		game/items/item.c \
 		game/items/item_collection.c \
+		game/enemy/enemy.c \
+		game/enemy/enemy_move.c \
+		game/enemy/enemy_images.c \
+		game/enemy/enemy_image_update.c \
+		game/enemy/enemy_health_bar.c \
         game/player/player.c \
         game/player/player_move.c \
         game/player/player_rotate.c \
@@ -53,6 +61,15 @@ SRCS =  cmd/main.c \
         game/map/map_textures_utils.c \
         game/map/map_walls.c \
 		game/map/map_double_array_create.c \
+		utils/path/path.c \
+		utils/path/a_star.c \
+		utils/path/a_star_check.c \
+		utils/path/point.c \
+		utils/path/point_path.c \
+		utils/path/point_node.c \
+		utils/path/point_list.c \
+		utils/path/point_list_check.c \
+		utils/path/point_list_utils.c \
         utils/image/image.c \
         utils/image/image_buffer.c \
         utils/image/image_content.c \

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/22 22:32:42 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:12:56 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,14 @@ void	render_window_scene(t_game *game)
 
 	img_clear(game->scene->image);
 	render_x = 0;
+	render_y = 0;
 	// printf("STARTING RENDER\n");
 
-	t_line	temp;
-	temp.start.x = 0;
-	temp.start.y = 0;
-	temp.end.x = 1920;
-	temp.end.y = 0;
+	// t_line	temp;
+	// temp.start.x = 0;
+	// temp.start.y = 0;
+	// temp.end.x = 1920;
+	// temp.end.y = 0;
 	
 	// puts sky and floor color
 	// while (temp.end.y < game->height)
@@ -210,7 +211,7 @@ void	render_window_scene(t_game *game)
 			// printf("all values %f %f %f %f\n", display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
 			fflush(stdout);
 			// Correct the fisheye effect by multiplying with the cosine of the angle difference
-			distance_from_wall *= cos(temp_to_rotate * M_PI / 180);
+			distance_from_wall *= cos(temp_to_rotate * PI / 180);
 
 			// Calculate wall height based on distance
 			// printf("render y components HEIGHT = %d DIS FROM WALL = %f\n", game->height, distance_from_wall);
@@ -231,37 +232,37 @@ void	render_window_scene(t_game *game)
 			float dy = display_coordinates.end.y - display_coordinates.start.y;
 			float dy_iter = 0;
 
-			// if (dy)
-			// printf("dy %f\n", dy);
-			while (dy_iter < dy)
-			{
-				if (dy_iter > dy/2)
-					img_put_pixel(game->scene->image, /*img_get_pixel(sprite_image,0, dy/64)*/ 0x200e99 /*calculateDarkerColor(0xd4c226, 0, 640, distance_from_wall)*/ , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
-				else
-					img_put_pixel(game->scene->image, /*img_get_pixel(sprite_image,0, dy/64)*/ 0x860e99 /*calculateDarkerColor(0xd4c226, 0, 640, distance_from_wall)*/ , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
-				display_coordinates.start.y += 1;
-				dy_iter++;
-			}
-			// printf("all variables")
+				// if (dy)
+				// printf("dy %f\n", dy);
+				while (dy_iter < dy)
+				{
+					if (dy_iter > dy/2)
+						img_put_pixel(game->scene->image, /*img_get_pixel(sprite_image,0, dy/64)*/ 0x200e99 /*calculateDarkerColor(0xd4c226, 0, 640, distance_from_wall)*/ , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
+					else
+						img_put_pixel(game->scene->image, /*img_get_pixel(sprite_image,0, dy/64)*/ 0x860e99 /*calculateDarkerColor(0xd4c226, 0, 640, distance_from_wall)*/ , display_coordinates.start.x, display_coordinates.start.y); // need to add get_pixel func
+					display_coordinates.start.y += 1;
+					dy_iter++;
+				}
+				// printf("all variables")
 
-			// printf("player angle %f, start x %f start y %f end x %f end y %f\n", game->scene->minimap->player_rotation, display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
-			correct_if_more_than_screen_res(&display_coordinates, *game);
+				// printf("player angle %f, start x %f start y %f end x %f end y %f\n", game->scene->minimap->player_rotation, display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
+				correct_if_more_than_screen_res(&display_coordinates, *game);
 
-			// printf("game->height %d\n", game->height);
-			// printf("render_y %d\n", render_y);
-			
-				// img_put_line(game->scene->image, calculateDarkerColor(0x9c254f, 0, 640, distance_from_wall),
-				// 	display_coordinates.start, display_coordinates.end);
+				// printf("game->height %d\n", game->height);
+				// printf("render_y %d\n", render_y);
+				
+					// img_put_line(game->scene->image, calculateDarkerColor(0x9c254f, 0, 640, distance_from_wall),
+					// 	display_coordinates.start, display_coordinates.end);
 
-			// printf("after check\n");
-			// Optionally draw a floor and ceiling
-			// Draw ceiling
-			// if (display_coordinates.start.y > 0)
-			// 	img_fill_rectangle(game->scene->image, 0x87CEEB, render_x, 0, 1, display_coordinates.start.y);
+				// printf("after check\n");
+				// Optionally draw a floor and ceiling
+				// Draw ceiling
+				// if (display_coordinates.start.y > 0)
+				// 	img_fill_rectangle(game->scene->image, 0x87CEEB, render_x, 0, 1, display_coordinates.start.y);
 
-			// Draw floor
-			// if (display_coordinates.end.y < game->height)
-			// 	img_fill_rectangle(game->scene->image, 0x8B4513, render_x, display_coordinates.end.y, 1, game->height - display_coordinates.end.y);
+				// Draw floor
+				// if (display_coordinates.end.y < game->height)
+				// 	img_fill_rectangle(game->scene->image, 0x8B4513, render_x, display_coordinates.end.y, 1, game->height - display_coordinates.end.y);
 
 			free_line(ray);
 		}
@@ -271,9 +272,8 @@ void	render_window_scene(t_game *game)
 		if (render_x == 1920 || render_y == 0 /*|| render_y > game->height*/)
 			break;
 	}
-	
-	// print_time_since_last_call();	
-	img_draw(game->window, game->scene->image, 0, 0);
+	print_time_since_last_call();
+	// printf("ENDING RENDER\n");
 }
 
 

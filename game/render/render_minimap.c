@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 21:39:59 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:47:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,32 @@ static void	minimap_draw_walls(t_game *game)
 	{
 		minimap_draw_wall(game->scene->minimap, wall_node->wall);
 		wall_node = wall_node->next;
+	}
+}
+
+static void	minimap_draw_enemies(t_game *game)
+{
+	t_enemy			*enemy;
+	t_enemy_storage	*storage;
+	t_sprite_node	*enemy_icon;
+	int				counter;
+	t_point	pos;
+
+
+
+	storage = game->scene->enemies;
+	enemy_icon = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
+	if (!enemy_icon || !enemy_icon->image)
+		return ;
+	counter = 0;
+	while (counter < storage->size)
+	{
+		enemy = storage->enemies[counter];
+		pos.x = enemy->pos->x;
+		pos.y = enemy->pos->y;
+		if (enemy->alive)
+			minimap_draw_image(game->scene->minimap, enemy_icon->image, pos, 0);
+		counter++;
 	}
 }
 
@@ -50,6 +76,46 @@ static void	minimap_draw_free_space(t_game *game)
 		}
 		y++;
 		raw_item = raw_item->next;
+	}
+}
+
+static void	render_enemy_path(t_game *game)
+{
+	t_point_node	*node;
+	t_point			p1;
+	t_point			p2;
+	t_path			*path;
+	t_enemy_storage	*storage;
+	int				counter;
+
+	counter = 0;
+	storage = game->scene->enemies;
+	while (storage->enemies[counter])
+	{
+		path = storage->enemies[counter]->path;
+		if (path)
+		{
+			node = path->point_list->points;
+			while (node && node->next)
+			{
+				p1.x = node->point->x;
+				p1.y = node->point->y;
+				node = node->next;
+				p2.x = node->point->x;
+				p2.y = node->point->y;
+
+				p1.x /= 4;
+				p1.y /= 4;
+				p1.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
+				p1.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
+				p2.x /= 4;
+				p2.y /= 4;
+				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
+				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
+				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
+			}
+		}
+		counter++;
 	}
 }
 
@@ -131,18 +197,20 @@ void	line_shortener_for_minimap(t_line *ray)
 
 void	render_minimap(t_game *game)
 {
-	void			*win;
+	// void			*win;
 	void			*img;
 	t_sprite_node	*treasure_sprite;
 	t_sprite_node	*treasure_sprite_empty;
 	t_line	*ray;
 
-	win = game->window;
+	// win = game->window;
 	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
+	minimap_draw_enemies(game);
+	render_enemy_path(game);
 
 	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB");
 	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites, "TB_EMPTY");
@@ -186,5 +254,11 @@ void	render_minimap(t_game *game)
 		temp_to_rotate += 1;
 
 	}
-	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
+
+	t_point p;
+
+	p.x = MINIMAP_POS_X;
+	p.y = MINIMAP_POS_Y;
+	img_put_img(game->scene->image, img, p, 0);
+	// img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/09 15:03:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 04:47:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,17 +144,18 @@ void	img_put_rectangle(t_image* img, t_rectangle rect, int color)
 	}
 }
 
+// Modified img_put_img function
 void img_put_img(t_image *dest, t_image *src, t_point pos, double angle) {
     int dest_x, dest_y;
     int src_x, src_y;
     int color;
 
-    double rad = -angle * PI / 180.0; // Обратный угол для обратного вращения
+    double rad = -angle * PI / 180.0; // Convert angle to radians and invert for backward rotation
     double cos_rad = cos(rad);
     double sin_rad = sin(rad);
-	t_point	center;
+    t_point center;
 
-	center.x = src->width / 2;
+    center.x = src->width / 2;
     center.y = src->height / 2;
 
     int dest_center_x = pos.x + center.x;
@@ -162,20 +163,23 @@ void img_put_img(t_image *dest, t_image *src, t_point pos, double angle) {
 
     for (dest_y = 0; dest_y < dest->height; dest_y++) {
         for (dest_x = 0; dest_x < dest->width; dest_x++) {
-            // Перевод координат в систему координат исходного изображения
+            // Convert coordinates to the source image's coordinate system
             double src_x_f = (dest_x - dest_center_x) * cos_rad - (dest_y - dest_center_y) * sin_rad + center.x;
             double src_y_f = (dest_x - dest_center_x) * sin_rad + (dest_y - dest_center_y) * cos_rad + center.y;
 
-            // Округление до ближайшего целого
+            // Round to nearest integer
             src_x = (int)round(src_x_f);
             src_y = (int)round(src_y_f);
 
-            // Проверка, что координаты находятся в пределах исходного изображения
+            // Check that coordinates are within the bounds of the source image
             if (src_x >= 0 && src_x < src->width && src_y >= 0 && src_y < src->height) {
                 color = img_get_pixel(src, src_x, src_y);
-                if ((unsigned int)color != 0xff000000) { // Предполагается, что 0xff000000 - это прозрачный цвет
+                if ((unsigned int)color != 0xff000000 && (unsigned int)color != 0x0000000) { // Assuming 0xff000000 is the transparent color
                     img_put_pixel(dest, color, dest_x, dest_y);
-                }
+                } else if ((unsigned int)color == 0x00000000) {
+					color = img_get_pixel(dest, dest_x, dest_y);
+					img_put_pixel(dest, color, dest_x, dest_y);
+				}
             }
         }
     }

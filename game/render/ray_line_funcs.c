@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/22 22:38:13 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:14:21 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include <sys/time.h>
 void	print_time_since_last_call()
 {
-	static struct	timeval last_time;
-	struct timeval			current_time;
-	long int				elapsed_time;
+	// static struct	timeval last_time;
+	// struct timeval			current_time;
+	// long int				elapsed_time;
 
 	gettimeofday(&current_time, NULL);
 	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
@@ -42,7 +42,6 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	float	x_iteration;	//x_iteration in while loop
 	int		iterations;	//Like a Counter for block iterations to find the wall.
 	float	angle_in_pie;	//angle in radians.
-	t_direction direction;
 	t_line	*ray;	//final struct to return.
 
 	if (angle_in_degrees < 0)
@@ -63,7 +62,6 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 			(ray->start.y - fmod(ray->end.y, 64.0) - 0.001));
 		y_iteration = -64;
 		x_iteration = y_iteration / tan(angle_in_pie);
-		direction = NORTH;
 	}
 	else if (angle_in_degrees > 180 && angle_in_degrees < 360)
 	{
