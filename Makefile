@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/25 03:11:34 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/25 13:50:55 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =  cmd/main.c \
         game/minimap/minimap_update_image.c \
         game/update/update.c \
         game/update/update_player.c \
+        game/update/update_enemies.c \
         game/update/update_minimap.c \
         game/render/render.c \
         game/render/render_player.c \

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:59:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 03:19:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:13:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_path					*calc_path(t_a_point *src, t_a_point *dest,
 t_a_point				*make_a_point(int x, int y, t_a_point *origin);
 void					*free_a_point(t_a_point *point);
 void					pnt_calc_weight(t_a_point *point, t_a_point *dest);
+int						is_equal_point(t_a_point *a, t_a_point *b);
 
 // POINT NODE
 
@@ -81,7 +82,6 @@ t_a_point				*lst_check_by_coord(t_point_list *list, int x, int y);
 int						lst_length(t_point_list *list);
 t_point_list			*lst_reverse(t_point_list *list);
 void					*free_point_list(t_point_list *list);
-
 // A* ALG STORAGE
 
 t_a_store				*make_a_store(t_a_point *src, t_a_point *dest,

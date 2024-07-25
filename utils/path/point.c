@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:13:49 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/12/10 21:57:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:59:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,9 @@ void	*free_a_point(t_a_point *point)
 	if (point)
 		free(point);
 	return (NULL);
+}
+
+int	is_equal_point(t_a_point *a, t_a_point *b)
+{
+	return (a->x == b->x && a->y == b->y);
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/20 22:02:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:27:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	render_window_scene(t_game *game)
 			// printf("all values %f %f %f %f\n", display_coordinates.start.x, display_coordinates.start.y, display_coordinates.end.x, display_coordinates.end.y);
 			fflush(stdout);
 			// Correct the fisheye effect by multiplying with the cosine of the angle difference
-			distance_from_wall *= cos(temp_to_rotate * M_PI / 180);
+			distance_from_wall *= cos(temp_to_rotate * PI / 180);
 
 			// Calculate wall height based on distance
 			// printf("render y components HEIGHT = %d DIS FROM WALL = %f\n", game->height, distance_from_wall);
@@ -199,8 +199,6 @@ void	render_window_scene(t_game *game)
 	}
 	print_time_since_last_call();
 	// printf("ENDING RENDER\n");
-	
-	img_draw(game->window, game->scene->image, 0, 0);
 }
 
 

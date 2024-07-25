@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/22 14:49:39 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:47:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef enum e_direction
 t_point				*make_point(float x, float y);
 void				*free_point(t_point *point);
 float				point_distance(t_point p1, t_point p2);
+int					point_is_equal(t_point p1, t_point p2);
 
 /*LINE*/
 

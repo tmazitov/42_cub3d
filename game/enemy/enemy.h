@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 16:57:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:46:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include "../../utils/geometry/geometry.h"
 # include "../../utils/image/image.h"
+# include "../../utils/path/path.h"
 
 # define ENEMY_HEALTH_BAR_IMG_WIDTH 64
 # define ENEMY_HEALTH_BAR_IMG_HEIGHT 16
@@ -49,8 +50,10 @@ typedef struct s_enemy
 	int					damage;
 	int					alive;
 	t_point				*pos;
+	t_path				*path;
 	t_enemy_health_bar	*hb;
 	t_enemy_images		*images;
+t_point				*player_pos;
 }		t_enemy;
 
 t_enemy				*make_enemy(void *mlx, t_point pos, int health);
