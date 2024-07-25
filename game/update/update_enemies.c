@@ -6,44 +6,48 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 16:56:08 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:43:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "update.h"
 
+static void	remove_end(t_path *path)
+{
+	t_point_node	*node;
+	t_point_node	*prev;
+
+	if (!path)
+		return ;
+	prev = NULL;
+	node = path->point_list->points;
+	while (node && node->next)
+	{
+		prev = node;
+		node = node->next;	
+	}
+	if (node == path->point_list->points)
+		path->point_list->points = free_point_node(node);
+	else
+		prev->next = free_point_node(node);
+	path->length -= 1;
+}
+
 static void update_enemy_path(t_enemy *enemy, t_game *game)
 {
-	t_player	*pl;
-	t_a_point	*src;
-	t_a_point	*dest;
 	t_point		player_rel_pos;
-	
+	t_player	*pl;
+
 	pl = game->scene->player;
-	player_rel_pos.x = (int)(enemy->pos->x / 64) * 64;
-	player_rel_pos.y = (int)(enemy->pos->y / 64) * 64;
+	player_rel_pos.x = (int)(pl->pos->x / 64) * 64;
+	player_rel_pos.y = (int)(pl->pos->y / 64) * 64;
 	if (!point_is_equal(player_rel_pos, *enemy->player_pos))
 		enemy->path = free_path(enemy->path);
-	if (!enemy->path)
+	if (!enemy->path && !enemy->move_target)
 	{
-		
-		src = make_a_point(player_rel_pos.x, player_rel_pos.y, NULL);
-		if (!src)
-			return ;
-		
-		dest = make_a_point((int)(pl->pos->x / 64) * 64, (int)(pl->pos->y / 64) * 64, NULL);
-		if (!dest)
-		{
-			free_a_point(src);
-			return ;
-		}
-		printf("enemy->path : %d %d ----> %d %d \n", src->x, src->y, dest->x, dest->y);
-		enemy->path = calc_path(src, dest, game->scene->objs_points);
-		printf("\t new_path : %p\n", enemy->path);
-		enemy->player_pos->x = player_rel_pos.x;
-		enemy->player_pos->y = player_rel_pos.y;
-		free_a_point(src);
-		free_a_point(dest);
+		enemy_calc_path(enemy, player_rel_pos, game->scene->objs_points);
+		if (enemy->path)
+			remove_end(enemy->path);
 	}
 }
 

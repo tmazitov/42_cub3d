@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:28:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 17:01:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:41:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ int	enemy_calc_move_target(t_enemy *enemy)
 	if (!enemy->move_target && !enemy->path)
 		return (0);
 	return (1);
+}
+
+void	enemy_calc_path(t_enemy *enemy, t_point player_pos, t_point_list *objs_points)
+{
+	t_a_point	*src;
+	t_a_point	*dest;
+			
+	src = make_a_point((int)(enemy->pos->x / 64) * 64, (int)(enemy->pos->y / 64) * 64, NULL);
+	if (!src)
+		return ;
+	dest = make_a_point(player_pos.x, player_pos.y, NULL);
+	if (!dest)
+	{
+		free_a_point(src);
+		return ;
+	}
+	enemy->path = calc_path(src, dest, objs_points);
+	enemy->player_pos->x = player_pos.x;
+	enemy->player_pos->y = player_pos.y;
+	free_a_point(src);
+	free_a_point(dest);
 }
 
 t_vector	*enemy_calc_move_vector(t_enemy *enemy)

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 16:57:55 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:04:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				*free_enemy(t_enemy *enemy);
 int					enemy_calc_move_target(t_enemy *enemy);
 int					enemy_move(t_enemy *enemy, t_vector *vector);
 t_vector			*enemy_calc_move_vector(t_enemy *enemy);
-
+void				enemy_calc_path(t_enemy *enemy, t_point player_pos, t_point_list *objs_points);
 
 t_enemy_health_bar	*make_enemy_hb(void *mlx, int health);
 void				*free_enemy_hb(t_enemy_health_bar *hb);
