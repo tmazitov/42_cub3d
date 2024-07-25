@@ -6,28 +6,49 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 19:10:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 22:24:06 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
 #include <sys/time.h>
-void	print_time_since_last_call();
+void	print_time_since_last_call()
+{
+	static struct	timeval last_time;
+	struct timeval			current_time;
+	long int				elapsed_time;
 
+	gettimeofday(&current_time, NULL);
+	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
+	printf("Elapsed time: %ld ms\n", elapsed_time);
+	last_time = current_time;
+}
 
+// tried to recenter cursor
+// void recenter_cursor(t_game *game)
+// {
+//     int x;
+//     int y;
+
+// 	x = game->width / 2;
+// 	y = game->height / 2;
+//     mlx_mouse_hide(game->mlx);
+//     mlx_mouse_move(game->mlx, x, y);
+//     mlx_mouse_show(game->mlx);
+// }
 
 int	render_hook(t_game *game)
 {
 	// printf("FRAME BEING MADE-----------------------------------------------\n");
-	print_time_since_last_call();
+	// print_time_since_last_call();
+	// recenter_cursor(game);
 	mlx_clear_window(game->mlx, game->window);
-	// render_scene(game); //Calling render scene before minimap for now,
-							// Need separate minimap_ray_render and scene render later;
 	render_window_scene(game);
 	render_minimap(game);
-
 	render_player(game);
+
+	// recenter_cursor(game); // Tried to recenter cursor
 
 	// render_scene(game);
 	// render_player_road(game);

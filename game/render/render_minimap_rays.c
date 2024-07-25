@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:04:01 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/24 17:09:15 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:52:25 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,36 @@ uint32_t get_gradual_hue_color(float length) {
 	return hue_to_hex(hue);
 }
 
-void	line_shortener_for_minimap(t_line *ray)
+void	line_shortener_for_minimap(t_line *ray, t_game *game)
 {
 	ray->start.x /= 4;
 	ray->start.y /= 4;
-	ray->start.x += MINIMAP_BORDER_SIZE;
-	ray->start.y += MINIMAP_BORDER_SIZE;
+	ray->start.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
+	ray->start.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
 	ray->end.x /= 4;
 	ray->end.y /= 4;
-	ray->end.x += MINIMAP_BORDER_SIZE;
-	ray->end.y += MINIMAP_BORDER_SIZE;
+	ray->end.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
+	ray->end.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
 }
 
 void	render_minimap_rays(t_game *game)
 {
-	float temp_to_rotate;
-	t_line *ray;
+	float	temp_to_rotate;
+	t_line	*ray;
+	int		ray_count;
 
+	ray_count = 0;
 	temp_to_rotate = -PLAYER_FOV / 2;
-	while (temp_to_rotate < PLAYER_FOV / 2)
+	while (ray_count < 2)
 	{
 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		if (ray)
 		{
-			line_shortener_for_minimap(ray);
-			img_put_line(game->scene->minimap->image, 0xe62e31, ray->start, ray->end);
+			line_shortener_for_minimap(ray, game);
+			img_put_line(game->scene->minimap->image, MINIMAP_BORDER_COLOR, ray->start, ray->end);
 			free_line(ray);
 		}
-		temp_to_rotate += 1;
+		temp_to_rotate += PLAYER_FOV;
+		ray_count++;
 	}
 }

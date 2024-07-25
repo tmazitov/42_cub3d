@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 19:18:47 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:47:44 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,12 +178,12 @@ void	render_minimap(t_game *game)
 			treasure_sprite_empty->image,
 			game->scene->treasures);
 	}
+	render_minimap_rays(game);
 	minimap_draw_border(game->scene->minimap);
 
 	t_point p;
 
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;
-	render_minimap_rays(game);
 	img_put_img(game->scene->image, img, p, 0);
 }
