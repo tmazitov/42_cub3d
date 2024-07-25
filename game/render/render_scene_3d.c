@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/24 22:47:30 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:52:42 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,10 @@ static void adjust_disp_coords(t_line *disp_coords, t_game *game, int rend_x, in
 static int get_vert_of_texture(t_point ray_end, float angle_ray)
 {
 	// float player_angle = game->scene->minimap->player_rotation;
+	if (angle_ray < 0)
+		angle_ray += 360;
+	if (angle_ray > 360)
+		angle_ray -= 360;
 	ray_end.x = round(fmod(ray_end.x, 64));
 	ray_end.y = round(fmod(ray_end.y, 64));
 	if (ray_end.x == 64)
@@ -264,25 +268,30 @@ void	render_window_scene(t_game *game)
 					display_coordinates.start.x, display_coordinates.start.y);
 				display_coordinates.start.y++;
 				texture_y_pos += vert_iter;	
-			}		
-			while (display_coordinates.start.y < game->height) // PUTS FLOOR AND CEILING
-			{
-				img_put_pixel(game->scene->image, 0x5d615e, display_coordinates.start.x, display_coordinates.start.y);
-				display_coordinates.start.y++;
 			}
-			// Optionally draw a floor and ceiling
-			// Draw ceiling
-			// if (display_coordinates.start.y > 0)
-			// 	img_fill_rectangle(game->scene->image, 0x87CEEB, screen_render.x, 0, 1, display_coordinates.start.y);
-			// Draw floor
-			// if (display_coordinates.end.y < game->height)
-			// 	img_fill_rectangle(game->scene->image, 0x8B4513, screen_render.x, display_coordinates.end.y, 1, game->height - display_coordinates.end.y);
-			free_line(ray);
-		}
+			// while (display_coordinates.start.y < game->height) // PUTS FLOOR
+			// {
+			// 	img_put_pixel(game->scene->image, 0x000000, display_coordinates.start.x, display_coordinates.start.y);
+			// 	display_coordinates.start.y++;
+			// }
+			// while (display_coordinates.start.y < game->height) // PUTS FLOOR TEXTURES
+            // {
+            //     float row_distance = (game->height / (2.0 * display_coordinates.start.y - game->height));
+            //     float floor_x = game->scene->minimap->player_pos.x + row_distance * cos(temp_to_rotate * M_PI / 180);
+            //     float floor_y = game->scene->minimap->player_pos.y + row_distance * sin(temp_to_rotate * M_PI / 180);
+
+            //     int floor_tex_x = (int)(floor_x * 128) % 128;
+            //     int floor_tex_y = (int)(floor_y * 128) % 128;
+
+            //     uint32_t floor_color = img_get_pixel(temp_image, floor_tex_x, floor_tex_y);
+            //     img_put_pixel(game->scene->image, floor_color, display_coordinates.start.x, display_coordinates.start.y);
+            //     display_coordinates.start.y++;
+            // }
 		temp_to_rotate += (player_fov / (game->width));  // Adjust the angle increment to cover the FOV properly
 		screen_render.x += 1;
 		if (screen_render.x == game->width || screen_render.y == 0 /*|| screen_render.y > game->height*/)
 			break ;
+		}
 	}
 	draw__middle_aim(game);
 
