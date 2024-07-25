@@ -6,11 +6,12 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/25 19:19:51 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:57:16 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+
 
 #include <sys/time.h>
 void	print_time_since_last_call()
@@ -19,10 +20,10 @@ void	print_time_since_last_call()
 	// struct timeval			current_time;
 	// long int				elapsed_time;
 
-	gettimeofday(&current_time, NULL);
-	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
-	printf("Elapsed time: %ld ms\n", elapsed_time);
-	last_time = current_time;
+	// gettimeofday(&current_time, NULL);
+	// elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
+	// printf("Elapsed time: %ld ms\n", elapsed_time);
+	// last_time = current_time;
 }
 
 float	distance_between_points(t_point start, t_point end)
@@ -159,8 +160,8 @@ t_line	*ray_line_shortest_xy(t_game *game, float angle_in_degrees)
 		return (intersect_horizontal);
 	if (intersect_horizontal->length 
 		< intersect_vertical->length)
-		return (free_line(intersect_vertical), intersect_horizontal);
+		return (free_line(intersect_vertical), intersect_horizontal); // added free
 	else
-		return (free_line(intersect_horizontal), intersect_vertical);
+		return (free_line(intersect_horizontal), intersect_vertical); // added free
 }
 
