@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/25 23:10:58 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/25 23:14:02 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,7 +296,7 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
 				{
                     uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
 					if (color != (uint32_t)(-16777216))
-						img_put_pixel(game->scene->image, color, screen_x, screen_y);
+						img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, perpendicular_distance) , screen_x, screen_y);
                 }
             }
 		}
