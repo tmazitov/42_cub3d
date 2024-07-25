@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 15:16:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:47:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ static void	render_enemy_path(t_game *game)
 				p2.y /= 4;
 				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
 				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-				printf("\tline : %f %f %f %f\n", p1.x, p1.y, p2.x, p2.y);
 				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
 			}
 		}

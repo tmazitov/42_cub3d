@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:59:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 14:13:38 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:10:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 
 # ifndef NEIGHBOUR_DISTANCE
 #  define NEIGHBOUR_DISTANCE 64

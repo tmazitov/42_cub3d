@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:12:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 15:15:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:30:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_enemy(t_enemy *enemy)
 	enemy->alive = 1;
 	enemy->path = NULL;
 	enemy->player_pos = NULL;
+	enemy->move_target = NULL;
 }
 
 t_enemy	*make_enemy(void *mlx, t_point pos, int health)
@@ -56,6 +57,8 @@ void	*free_enemy(t_enemy *enemy)
 		free_path(enemy->path);
 	if (enemy->player_pos)
 		free_point(enemy->player_pos);
+	if (enemy->move_target)
+		free_point(enemy->move_target);
 	free(enemy);
 	return (NULL);
 }

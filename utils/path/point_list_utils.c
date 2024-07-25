@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 10:39:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 14:14:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:01:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ t_a_point	*lst_get_min_point(t_point_list *list)
 
 	if (!list || !list->points)
 		return (NULL);
-	min = 2147483647;
-	point = NULL;
 	node = list->points;
+	min = node->point->weight;
+	point = node->point;
 	while (node)
 	{
 		if (node->point->weight < min)

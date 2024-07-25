@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/25 13:50:55 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/07/25 15:45:40 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS =  cmd/main.c \
 		game/items/item.c \
 		game/items/item_collection.c \
 		game/enemy/enemy.c \
+		game/enemy/enemy_move.c \
 		game/enemy/enemy_images.c \
 		game/enemy/enemy_image_update.c \
 		game/enemy/enemy_health_bar.c \

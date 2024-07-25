@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:13:49 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/03/13 16:59:42 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:14:28 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,8 @@ t_a_point	*make_a_point(int x, int y, t_a_point *origin)
 
 static int	pnt_calc_distance(t_a_point *point, t_a_point *dest)
 {
-	int	distance;
-	int	x;
-	int	y;
-
-	x = point->x;
-	y = point->y;
-	distance = 0;
-	while (x < dest->x || x > dest->x)
-	{
-		if (x < dest->x)
-			x += NEIGHBOUR_DISTANCE;
-		else if (x > dest->x)
-			x -= NEIGHBOUR_DISTANCE;
-		distance++;
-	}
-	while (y < dest->y || y > dest->y)
-	{
-		if (y < dest->y)
-			y += NEIGHBOUR_DISTANCE;
-		else if (y > dest->y)
-			y -= NEIGHBOUR_DISTANCE;
-		distance++;
-	}
-	return (distance);
+	return (round(abs(point->x - dest->x) / NEIGHBOUR_DISTANCE) + \
+			round(abs(point->y - dest->y) / NEIGHBOUR_DISTANCE));
 }
 
 void	pnt_calc_weight(t_a_point *point, t_a_point *dest)
