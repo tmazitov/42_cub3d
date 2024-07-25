@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 17:01:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 04:40:16 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,13 @@ void	line_shortener_for_minimap(t_line *ray)
 
 void	render_minimap(t_game *game)
 {
-	void			*win;
+	// void			*win;
 	void			*img;
 	t_sprite_node	*treasure_sprite;
 	t_sprite_node	*treasure_sprite_empty;
 	t_line	*ray;
 
-	win = game->window;
+	// win = game->window;
 	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
@@ -208,5 +208,11 @@ void	render_minimap(t_game *game)
 		temp_to_rotate += 1;
 
 	}
-	img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
+
+	t_point p;
+
+	p.x = MINIMAP_POS_X;
+	p.y = MINIMAP_POS_Y;
+	img_put_img(game->scene->image, img, p, 0);
+	// img_draw(win, img, MINIMAP_POS_X, MINIMAP_POS_Y);
 }

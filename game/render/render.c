@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 03:52:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 04:52:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	render_hook(t_game *game)
 	if (!src || !dest )
 		return 0;
 	path = calc_path(src, dest, game->scene->objs_points);
-	printf("\t path from (%d, %d) to (%d, %d) is %p\n", src->x, src->y, dest->x, dest->y, path);
+	// printf("\t path from (%d, %d) to (%d, %d) is %p\n", src->x, src->y, dest->x, dest->y, path);
 	if (!path)
 		return 0;
 	node = path->point_list->points;
