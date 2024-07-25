@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 16:24:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:56:08 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,17 @@ static void update_enemy_path(t_enemy *enemy, t_game *game)
 	t_player	*pl;
 	t_a_point	*src;
 	t_a_point	*dest;
+	t_point		player_rel_pos;
 	
 	pl = game->scene->player;
-	if (!point_is_equal(*pl->pos, *enemy->player_pos))
+	player_rel_pos.x = (int)(enemy->pos->x / 64) * 64;
+	player_rel_pos.y = (int)(enemy->pos->y / 64) * 64;
+	if (!point_is_equal(player_rel_pos, *enemy->player_pos))
 		enemy->path = free_path(enemy->path);
 	if (!enemy->path)
 	{
-		src = make_a_point((int)(enemy->pos->x / 64) * 64, (int)(enemy->pos->y / 64) * 64, NULL);
+		
+		src = make_a_point(player_rel_pos.x, player_rel_pos.y, NULL);
 		if (!src)
 			return ;
 		
@@ -36,8 +40,8 @@ static void update_enemy_path(t_enemy *enemy, t_game *game)
 		printf("enemy->path : %d %d ----> %d %d \n", src->x, src->y, dest->x, dest->y);
 		enemy->path = calc_path(src, dest, game->scene->objs_points);
 		printf("\t new_path : %p\n", enemy->path);
-		enemy->player_pos->x = pl->pos->x;
-		enemy->player_pos->y = pl->pos->y;
+		enemy->player_pos->x = player_rel_pos.x;
+		enemy->player_pos->y = player_rel_pos.y;
 		free_a_point(src);
 		free_a_point(dest);
 	}

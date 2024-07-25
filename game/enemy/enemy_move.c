@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:28:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 16:25:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:01:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	enemy_calc_move_target(t_enemy *enemy)
 		return (0);
 	if (enemy->move_target && point_is_equal(*enemy->move_target, *enemy->pos))
 		enemy->move_target = free_point(enemy->move_target);
-	if (!enemy->move_target)
+	if (!enemy->move_target && enemy->path)
 	{
 		next = get_next_point(enemy->path);
 		if (!next)
@@ -29,6 +29,8 @@ int	enemy_calc_move_target(t_enemy *enemy)
 		if (!enemy->move_target)
 			return (0);
 	}
+	if (!enemy->move_target && !enemy->path)
+		return (0);
 	return (1);
 }
 

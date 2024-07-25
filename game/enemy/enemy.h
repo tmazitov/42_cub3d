@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 15:43:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:57:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define ENEMY_HEALTH_BAR_FILL_COLOR 2
 # define ENEMY_HEALTH_BAR_EMPTY_COLOR 2
 
-# define ENEMY_SPEED 2
+# define ENEMY_SPEED 4
 
 typedef	struct s_enemy_image_collection
 {
