@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 22:24:06 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/27 22:03:20 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	render_hook(t_game *game)
 	mlx_clear_window(game->mlx, game->window);
 	render_window_scene(game);
 	render_minimap(game);
-	render_player(game);
+	// render_player(game);
 
 	// recenter_cursor(game); // Tried to recenter cursor
 
