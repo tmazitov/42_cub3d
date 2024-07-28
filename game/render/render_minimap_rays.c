@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:04:01 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/25 19:52:25 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:18:38 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,12 @@ void	render_minimap_rays(t_game *game)
 		}
 		temp_to_rotate += PLAYER_FOV;
 		ray_count++;
+	}
+	ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation);
+	if (ray)
+	{
+		line_shortener_for_minimap(ray, game);
+		img_put_line(game->scene->minimap->image, MINIMAP_BORDER_COLOR, ray->start, ray->end);
+		free_line(ray);
 	}
 }
