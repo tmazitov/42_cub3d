@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 16:34:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:45:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,19 @@ static int	save_player_position(t_map *map, char ch, int x, int y)
 int	is_moveable_area(t_map *map, int x, int y)
 {
 	char	symbol;
+	char	*moveable_symbols;
+	int		counter;
 
+	moveable_symbols = "0BZNEWS";
 	symbol = get_raw_value(map, x, y);
-	return (symbol == '0' \
-			|| symbol == 'B');
+	counter = 0;
+	while (moveable_symbols[counter])
+	{
+		if (symbol == moveable_symbols[counter])
+			return (1);
+		counter++;
+	}
+	return (0);
 }
 
 int convert_raw_to_objs(t_map *map)

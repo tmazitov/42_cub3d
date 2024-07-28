@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
+#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/25 19:20:06 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/07/28 07:18:33 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 SRCS =  cmd/main.c \
         game/game.c \
         game/game_writer.c \
+        game/game_animations.c \
         game/minimap/minimap.c \
         game/minimap/minimap_camera.c \
         game/minimap/minimap_update.c \
@@ -41,7 +42,7 @@ SRCS =  cmd/main.c \
 		game/items/item_collection.c \
 		game/enemy/enemy.c \
 		game/enemy/enemy_move.c \
-		game/enemy/enemy_images.c \
+		game/enemy/enemy_anime.c \
 		game/enemy/enemy_image_update.c \
 		game/enemy/enemy_health_bar.c \
         game/player/player.c \
@@ -78,6 +79,8 @@ SRCS =  cmd/main.c \
         utils/image/image_get.c \
         utils/image/image_put.c \
 		utils/image/image_paint_border.c \
+		utils/image/image_anime.c \
+		utils/image/image_anime_frame.c \
         utils/error/error.c \
         utils/geometry/point.c \
         utils/geometry/vector.c \

@@ -6,50 +6,40 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/27 22:03:20 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:50:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-#include <sys/time.h>
-void	print_time_since_last_call()
+static void	render_test_animation(t_game *game)
 {
-	static struct	timeval last_time;
-	struct timeval			current_time;
-	long int				elapsed_time;
+	t_enemy	*enemy;
+	t_image	*anime_image;
+	t_point	pos;
 
-	gettimeofday(&current_time, NULL);
-	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
-	printf("Elapsed time: %ld ms\n", elapsed_time);
-	last_time = current_time;
+	if (!game->scene->enemies)
+		return ;
+	enemy = game->scene->enemies->enemies[0];
+	if (!enemy)
+		return ;
+	anime_image = anime_current_frame(enemy->move_anime);
+	if (!anime_image)
+		return ;
+	pos.x = game->width - anime_image->width;
+	pos.y = 0;
+	img_put_img(game->scene->image, anime_image, pos, 0);
 }
-
-// tried to recenter cursor
-// void recenter_cursor(t_game *game)
-// {
-//     int x;
-//     int y;
-
-// 	x = game->width / 2;
-// 	y = game->height / 2;
-//     mlx_mouse_hide(game->mlx);
-//     mlx_mouse_move(game->mlx, x, y);
-//     mlx_mouse_show(game->mlx);
-// }
 
 int	render_hook(t_game *game)
 {
 	// printf("FRAME BEING MADE-----------------------------------------------\n");
-	// print_time_since_last_call();
-	// recenter_cursor(game);
 	mlx_clear_window(game->mlx, game->window);
 	render_window_scene(game);
 	render_minimap(game);
-	// render_player(game);
-
-	// recenter_cursor(game); // Tried to recenter cursor
-
+	
+	render_player(game);
+	render_test_animation(game);
 	// render_scene(game);
 	// render_player_road(game);
 	// render_exit(game);

@@ -54,9 +54,15 @@ PISTOL_SHOT_2 textures/pistol/pistol_shot_3.xpm
 PISTOL_SHOT_3 textures/pistol/pistol_shot_4.xpm
 PISTOL_SHOT_4 textures/pistol/pistol_shot_5.xpm
 
-ZOMBIE_WALK_0 textures/enemy/zombie_walk0.xpm
-
 ENEMY_ICON    textures/enemy/enemy_icon_v3.xpm
+ENEMY_MOVE_0  textures/enemy/zombie_walk0.xpm
+ENEMY_MOVE_1  textures/enemy/zombie_walk1.xpm
+ENEMY_MOVE_2  textures/enemy/zombie_walk2.xpm
+ENEMY_MOVE_3  textures/enemy/zombie_walk3.xpm
+ENEMY_MOVE_4  textures/enemy/zombie_walk4.xpm
+ENEMY_MOVE_5  textures/enemy/zombie_walk5.xpm
+ENEMY_MOVE_6  textures/enemy/zombie_walk6.xpm
+ENEMY_MOVE_7  textures/enemy/zombie_walk7.xpm
 
 F 220,100,0
 C 225,30,0
