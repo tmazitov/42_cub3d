@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:15:08 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 00:06:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:38:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,27 @@ typedef struct s_image_border
 	int radius;
 }		t_image_border;
 
+
+typedef struct s_anime_frame
+{
+	t_image					*image;
+	int						duration;
+	struct s_anime_frame	*next;
+}			t_anime_frame;
+
+typedef struct s_anime
+{
+	t_anime_frame	*frames;
+	t_anime_frame	*current_frame;
+	int				frame_count;
+	int				iter;
+	int				duration;
+}			t_anime;
+
+
+/* IMAGE */
+
+
 t_image	*make_image(void *mlx);
 void	*free_image(t_image *image);
 
@@ -59,5 +80,28 @@ void 	img_put_pixel(t_image *img, int color, int x, int y);
 void	img_put_rectangle(t_image* img, t_rectangle rect, int color);
 
 void	img_paint_border(t_image *image, t_image_border border);
+
+
+/* ANIMATION PART */
+/* Provide you to create your own animation.
+-----------------------------------------------------------
+Using function `make_anime` you can create (with memory allocation) animation instance. 
+To add an animation frame you can use `anime_add_frame` with animation instance, image and 
+future frame duration. To free allocated memory of an animation instance you can use `free_anime`. 
+*/
+
+// IS_FREE_FRAME_IMAGE - if you want to free image when free frame
+# ifndef IS_FREE_FRAME_IMAGE
+	# define IS_FREE_FRAME_IMAGE 0
+# endif
+
+t_anime	*make_anime();
+void	*free_anime(t_anime *anime);
+
+t_anime	*anime_copy(t_anime *anime);
+int		anime_add_frame(t_anime *anime, t_image *image, int duration);
+t_image	*anime_current_frame(t_anime *anime);
+void	*free_frame(t_anime_frame *frame);
+
 
 #endif // !IMAGE_H

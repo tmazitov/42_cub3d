@@ -3,32 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 19:10:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:46:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-#include <sys/time.h>
-void	print_time_since_last_call();
+static void	render_test_animation(t_game *game)
+{
+	t_enemy	*enemy;
+	t_image	*anime_image;
+	t_point	pos;
 
-
+	if (!game->scene->enemies)
+		return ;
+	enemy = game->scene->enemies->enemies[0];
+	if (!enemy)
+		return ;
+	anime_image = anime_current_frame(enemy->move_anime);
+	if (!anime_image)
+		return ;
+	pos.x = game->width - anime_image->width;
+	pos.y = 0;
+	img_put_img(game->scene->image, anime_image, pos, 0);
+}
 
 int	render_hook(t_game *game)
 {
 	// printf("FRAME BEING MADE-----------------------------------------------\n");
-	print_time_since_last_call();
 	mlx_clear_window(game->mlx, game->window);
 	// render_scene(game); //Calling render scene before minimap for now,
 							// Need separate minimap_ray_render and scene render later;
 	render_window_scene(game);
 	render_minimap(game);
-
+	
 	render_player(game);
-
+	render_test_animation(game);
 	// render_scene(game);
 	// render_player_road(game);
 	// render_exit(game);

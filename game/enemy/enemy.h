@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 18:04:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/28 07:47:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@
 # define ENEMY_HEALTH_BAR_EMPTY_COLOR 2
 
 # define ENEMY_SPEED 4
-
-typedef	struct s_enemy_image_collection
-{
-	t_image	*icon;
-}		t_enemy_image_collection;
-
+# define ENEMY_FRAME_DURATION 4
 
 typedef	struct s_enemy_health_bar
 {
@@ -54,13 +49,15 @@ typedef struct s_enemy
 	t_point				*pos;
 	t_path				*path;
 	t_enemy_health_bar	*hb;
-	t_enemy_images		*images;
 	t_point				*move_target;
+	t_anime				*move_anime;
 t_point				*player_pos;
 }		t_enemy;
 
 t_enemy				*make_enemy(void *mlx, t_point pos, int health);
 void				*free_enemy(t_enemy *enemy);
+int					make_enemy_anime(t_enemy *enemy);
+void				*free_enemy_anime(t_enemy *enemy);
 
 int					enemy_calc_move_target(t_enemy *enemy);
 int					enemy_move(t_enemy *enemy, t_vector *vector);
@@ -69,9 +66,5 @@ void				enemy_calc_path(t_enemy *enemy, t_point player_pos, t_point_list *objs_p
 
 t_enemy_health_bar	*make_enemy_hb(void *mlx, int health);
 void				*free_enemy_hb(t_enemy_health_bar *hb);
-
-t_enemy_images		*make_enemy_images(t_enemy *enemy, t_enemy_image_collection coll);
-void				*free_enemy_images(t_enemy_images *images);
-
 
 #endif
