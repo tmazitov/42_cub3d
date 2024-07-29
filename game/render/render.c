@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 22:29:01 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:51:41 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	render_hook(t_game *game)
 	render_window_scene(game);
 	render_minimap(game);
 	
-	// render_player(game);
+	render_player(game);
 
 	// render_test_animation(game);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_textures_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:32:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:13:42 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:57:37 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_sprite_node	*get_sprite_by_name(t_sprite_storage *storage, char *name)
 	node = storage->start;
 	while (node)
 	{
-		if (ft_strncmp(node->name, name, ft_strlen(name)) == 0)
+		if (ft_strncmp(node->name, name, ft_strlen(name)) == 0
+			&& node->name[ft_strlen(name)] == '\0')
 			return (node);
 		node = node->next;
 	}

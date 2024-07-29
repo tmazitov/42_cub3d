@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/28 23:27:50 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 23:13:09 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,12 +322,13 @@ typedef struct s_window_walls
 /*
 	RENDER FUNC that had ISSUE with LOCATION and Angle_to_Sprite
 */
-void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, float sprite_distance) {
+void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, float sprite_distance, float *dist_to_wall_vert_line)
+{
     // Player and sprite position in the game world
     t_point player_pos = game->scene->minimap->player_pos;
 	
-	printf("ZOMBIE POS = %f, %f\n", sprite_pos.x, sprite_pos.y);
-	printf("PLAYER POS = %f, %f\n", player_pos.x, player_pos.y);
+	// printf("ZOMBIE POS = %f, %f\n", sprite_pos.x, sprite_pos.y);
+	// printf("PLAYER POS = %f, %f\n", player_pos.x, player_pos.y);
     // Calculate the angle to the sprite
 
 	float angle_to_sprite = 0;
@@ -335,7 +336,7 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
     angle_to_sprite -= game->scene->minimap->player_rotation;
 	angle_to_sprite += 180;
 	
-    printf("angle_to_sprite = %f\n", angle_to_sprite);
+    // printf("angle_to_sprite = %f\n", angle_to_sprite);
 
     // Normalize the angle
     if (angle_to_sprite < -180)
@@ -344,34 +345,40 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
 		angle_to_sprite -= 360;
 
     // If the sprite is within the player's field of view
-    if (fabs(angle_to_sprite) < PLAYER_FOV / 2)
+    if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
 	{
-        // Calculate the distance to the sprite
-        float perpendicular_distance = sprite_distance / cos(angle_to_sprite * M_PI / 180);
+        // float perpendicular_distance = sprite_distance / cos(angle_to_sprite * M_PI / 180);
+		// printf("perpendicular_distance  = %f \n", perpendicular_distance);
+		// printf("sprite_distance        =  %f \n", sprite_distance);
         // Calculate sprite screen size
-        float sprite_screen_size = (game->height * 64) / perpendicular_distance;
+        float sprite_screen_size = (game->height * 64) / sprite_distance;
         
         // Calculate sprite screen position
         int sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
         int sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
-        
-        // Render the sprite (small square for simplicity)
-        for (int y = 0; y < sprite_screen_size; y++)
-		{
-            for (int x = 0; x < sprite_screen_size; x++)
+
+			// Render the sprite (small square for simplicity)
+			for (int x = 0; x < sprite_screen_size; x++)
 			{
-			    int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-                int screen_y = sprite_screen_y + y;
-                if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
+				for (int y = 0; y < sprite_screen_size; y++)
 				{
-                    uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
-					if (color != (uint32_t)(-16777216))
-						img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, perpendicular_distance) , screen_x, screen_y);
-                }
-            }
-		}
-		printf("perpendicular_distance = %f\n", perpendicular_distance);
+					int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
+					int screen_y = sprite_screen_y + y;
+					if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
+					{
+						if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
+						{
+							uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
+							if (color != (uint32_t)(-16777216))
+								img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
+						}
+					}
+				}
+				
+			}
     }
+
+	angle_to_sprite = dist_to_wall_vert_line[0];
 }
 
 float	calc_dis_zomb_to_pl(t_point zombie_pos, t_point player_pos)
@@ -473,64 +480,48 @@ float calculate_angle(t_point player_pos, t_point zombie_pos) {
 /*
 	EXPERIMENT FUNC THAT CASTS ON CORRECT POSITION// CORRECT MATRIX
 */
-void	draw_sprite(t_game *game)
+void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 {
 	t_enemy_storage *zombz;
-
 	t_point sprite_position;
 	t_point player_pos;
-
 	t_point sprite_display_pos;
-
 	float	cos_value; 
 	float	sin_value;
-
 	float	z_height_value;
 
-	z_height_value = -10;
-	//z_height not affecting zombie but affecting the green dot ? 
-	
+	z_height_value = 100;
 	zombz = game->scene->enemies;
-	sprite_position = *zombz->enemies[0]->pos;
-	player_pos = game->scene->minimap->player_pos;
+	int zombie_iter = 0;	
 
-	sprite_position.x += 32;
-	sprite_position.y += 32;
+	// float dist_to_sprite[zombz->size];
 	
 
-	// float angle_to_sprite = 0;
-	// angle_to_sprite = 0;
-    // angle_to_sprite = atan2(sprite_position.y - player_pos.y, sprite_position.x - player_pos.x) * 180 / M_PI;
-    // angle_to_sprite -= game->scene->minimap->player_rotation;
-
-
-	cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
-	sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
-
-
-	// cos_value = cos(angle_to_sprite * M_PI / 180);
-	// sin_value = sin(angle_to_sprite * M_PI / 180);
-
-	sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
-	sprite_display_pos.y = (sprite_position.x - player_pos.x) * cos_value + (sprite_position.y - player_pos.y) * sin_value;
-
-	// zombie_pos.x = (zombz->enemies[iter_zombies]->pos->x - game->scene->minimap->player_pos.x) * cos(game->scene->minimap->player_rotation * M_PI / 180);
-	// zombie_pos.y = (zombz->enemies[iter_zombies]->pos->y - game->scene->minimap->player_pos.y) * sin(game->scene->minimap->player_rotation * M_PI / 180) ;
-	sprite_display_pos.x = sprite_display_pos.x*(108)/sprite_display_pos.y + 120 / 2;
-	sprite_display_pos.y = z_height_value*(108)/sprite_display_pos.y + 80 / 2;
-	//120 by 80 is the dam sky texture
-	//16.19
-	// sprite_display_pos.x *= 2;
-	// sprite_display_pos.y *= 2;
-
-	//vid stamp 16.33
-	// int iter = -10;
-						// 	anime_image = anime_current_frame(enemy->move_anime);
+	zombie_iter = 0;
+	while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1)
+	{
+		sprite_position = *zombz->enemies[zombie_iter]->pos;
+		player_pos = game->scene->minimap->player_pos;
+		sprite_position.x += 32;
+		sprite_position.y += 32;
+		cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
+		sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
+		sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
+		sprite_display_pos.y = (sprite_position.x - player_pos.x) * cos_value + (sprite_position.y - player_pos.y) * sin_value;
+		sprite_display_pos.x = sprite_display_pos.x*(108)/sprite_display_pos.y + 120 / 2;
+		sprite_display_pos.y = z_height_value*(108)/sprite_display_pos.y + 80 / 2;
+		t_point temp_multiplier;
+		temp_multiplier = sprite_display_pos;
+		temp_multiplier.x *= 8;
+		temp_multiplier.y *= 8;
+		t_anime *anime = zombz->enemies[zombie_iter]->move_anime;
+		t_image *anime_image = anime_current_frame(anime);
+		render_sprite(game, sprite_position, anime_image, calc_dis_zomb_to_pl(sprite_position, player_pos), dist_to_wall_vert_line);
+		zombie_iter++;
+	}
 	
-	t_point temp_multiplier;
-	temp_multiplier = sprite_display_pos;
-	temp_multiplier.x *= 8;
-	temp_multiplier.y *= 8;
+}
+
 
 /*---------------------------------------------------
 	Adjust Render_Test_Animation, with Zombie display
@@ -542,27 +533,62 @@ void	draw_sprite(t_game *game)
 
 
 
-/*-----------------------------------------------------------------------------------------------------------
-	Function that has correct distance adjsutment but wrong SPRITE LOCATION. Correct Angle to sprite minuses.
-*/
-	t_anime *anime = zombz->enemies[0]->move_anime;
-	t_image *anime_image = anime_current_frame(anime);
-	render_sprite(game, sprite_position, anime_image, calc_dis_zomb_to_pl(sprite_position, player_pos));
 	
-	int iter = 0;
-	//putting square for now
-	while (iter < 10)
-	{
-		// int iter2 = -10;
-		int iter2 = 0;
-		while (iter2 < 10)
-		{
-			img_put_pixel(game->scene->image, 0x00FF00, sprite_display_pos.x*8 + iter, sprite_display_pos.y*8 + iter2);
-			iter2++;
-		}
-		iter++;
-	}
+	// int iter = 0;
+	// //putting square for now
+	// while (iter < 10)
+	// {
+	// 	// int iter2 = -10;
+	// 	int iter2 = 0;
+	// 	while (iter2 < 10)
+	// 	{
+	// 		img_put_pixel(game->scene->image, 0x00FF00, sprite_display_pos.x*8 + iter, sprite_display_pos.y*8 + iter2);
+	// 		iter2++;
+	// 	}
+	// 	iter++;
+	// }
+
+//func to convert given params in CUB file to color.
+uint32_t rgb_to_color(t_rgb color) {
+    // Ensure the RGB values are within the valid range
+    if (color.r < 0) color.r = 0;
+    if (color.r > 255) color.r = 255;
+
+    if (color.g < 0) color.g = 0;
+    if (color.g > 255) color.g = 255;
+
+    if (color.b < 0) color.b = 0;
+    if (color.b > 255) color.b = 255;
+
+    // Combine the RGB values into a single 0xRRGGBB format
+    uint32_t result = (color.r << 16) | (color.g << 8) | color.b;
+
+    return result;
 }
+
+int	get_wall_side(float ray_angle, t_point ray_end)
+{
+	if (ray_angle < 0)
+		ray_angle += 360;
+	if (ray_angle > 360)
+		ray_angle -= 360;
+	ray_end.x = round(fmod(ray_end.x, 64));
+	ray_end.y = round(fmod(ray_end.y, 64));
+	if (ray_end.x == 64)
+		ray_end.x = 0;
+	if (ray_end.y == 64)
+		ray_end.y = 0;
+	if (ray_angle > 0 && ray_angle < 180 && ray_end.y == 0)
+		return (0);
+	else if (ray_angle > 180 && ray_angle < 360 && ray_end.y == 0)
+		return (1);
+	else if (ray_angle > 90 && ray_angle < 270 && ray_end.x == 0)
+		return (2);
+	else if ((ray_angle > 270 || ray_angle < 90) && ray_end.x == 0)
+		return (3);
+	return (0);
+}
+
 
 //ZOMBIE ADD TRYING, zombie func above.
 void render_window_scene(t_game *game)
@@ -574,25 +600,46 @@ void render_window_scene(t_game *game)
     t_line *ray;
     t_line display_coordinates;
 
+	float	dist_to_wall_vert_line[game->width];
+	int		vert_wall_iter = 0;
+	
     img_clear(game->scene->image);
     player_fov = PLAYER_FOV;
     screen_render.x = 0;
     screen_render.y = 0;
     temp_to_rotate = -player_fov / 2;
 
-    t_sprite_node *temp_sprite = get_sprite_by_name(game->scene->map->sprites, "NO");
-    t_image *temp_image = temp_sprite->image;
+    // t_sprite_node *temp_sprite = get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+    t_image temp_image[4];
+	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+	//Need a function and a int var to get the value of the sprite that we need to render 0-4
+	int wall_select = 0;
+
+	uint32_t ceiling_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites, "C")->color);
+	uint32_t floor_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites, "F")->color);
 	
-    // Render walls
     while (temp_to_rotate < player_fov / 2)
     {
         ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
-        if (ray)
+		printf("ray_end values = %f, %f\n", ray->end.x, ray->end.y);
+		wall_select = get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
+		dist_to_wall_vert_line[vert_wall_iter] = distance_between_points(ray->start, ray->end);
+		if (ray)
         {
             distance_from_wall = distance_between_points(ray->start, ray->end);
             distance_from_wall *= cos(temp_to_rotate * M_PI / 180);
             screen_render.y = (game->height * 64) / distance_from_wall;
             adjust_disp_coords(&display_coordinates, game, screen_render.x, screen_render.y);
+
+			int ceiling_iter = 0;
+			while (ceiling_iter < display_coordinates.start.y)
+			{
+				img_put_pixel(game->scene->image, ceiling_color, display_coordinates.start.x, ceiling_iter);
+				ceiling_iter++;
+			}
 
             float vert_height = display_coordinates.end.y - display_coordinates.start.y;
             float vert_iter = 64 / vert_height;
@@ -603,12 +650,12 @@ void render_window_scene(t_game *game)
                 vert_height = game->height;
             }
             line_value_adjust(game, &display_coordinates);
-
+			
             int texture_x_pos = get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate);
             float texture_y_pos = y_offsett * vert_iter;
             while (display_coordinates.start.y < display_coordinates.end.y)
             {
-                img_put_pixel(game->scene->image, darken_color(img_get_pixel(temp_image, texture_x_pos, texture_y_pos),
+                img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[wall_select], texture_x_pos, texture_y_pos),
                     SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
                     display_coordinates.start.x, display_coordinates.start.y);
                 display_coordinates.start.y++;
@@ -616,16 +663,19 @@ void render_window_scene(t_game *game)
             }
             while (display_coordinates.start.y < game->height)
             {
-                img_put_pixel(game->scene->image, 0x000000, display_coordinates.start.x, display_coordinates.start.y);
+                img_put_pixel(game->scene->image, floor_color, display_coordinates.start.x, display_coordinates.start.y);
                 display_coordinates.start.y++;
             }
         }
         temp_to_rotate += (player_fov / (game->width));
         screen_render.x += 1;
+		vert_wall_iter++;
         if (screen_render.x == game->width || screen_render.y == 0)
             break;
     }
-
+	draw_sprite(game, dist_to_wall_vert_line);
+    draw__middle_aim(game);
+}
 
     // t_sprite_node *temp_zombie = get_sprite_by_name(game->scene->map->sprites, "ZOMBIE_WALK_0");
     // t_image *temp_zombie_image = temp_zombie->image;
@@ -653,10 +703,6 @@ void render_window_scene(t_game *game)
 	// 	//temp zombie image is supposed to be changing later
 	// 	iter_zombies++;
 	// }
-
-	draw_sprite(game);
-    draw__middle_aim(game);
-}
 
  
 //Find end of line equivalent of CHAR in 2d array map

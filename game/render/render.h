@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 21:47:39 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:24:48 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 //guide using FOV60, need to find values to scale for 75 without issues
 # define AIM_SIZE 15
 # define AIM_COLOR 0x98b9ed
-# define SHADE_MIN_DISTANCE -100
-# define SHADE_MAX_DISTANCE 600
+# define SHADE_MIN_DISTANCE -200
+# define SHADE_MAX_DISTANCE 450
 
 // By setting SHADE_MIN to negative,
 // we start to shade blocks that are even

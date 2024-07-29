@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 15:22:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/21 19:28:14 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:19:28 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 # endif
 
 # ifndef ESC_BUTTON
-#  define ESC_BUTTON 27
+#  define ESC_BUTTON 9
 # endif
 
 #endif

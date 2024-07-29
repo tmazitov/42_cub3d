@@ -6,32 +6,34 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 20:44:43 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:14:32 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "update.h"
 
-// static void	remove_end(t_path *path)
-// {
-// 	t_point_node	*node;
-// 	t_point_node	*prev;
+// 
+static void	remove_end(t_path *path)
+{
+	t_point_node	*node;
+	t_point_node	*prev;
 
-// 	if (!path)
-// 		return ;
-// 	prev = NULL;
-// 	node = path->point_list->points;
-// 	while (node && node->next)
-// 	{
-// 		prev = node;
-// 		node = node->next;	
-// 	}
-// 	if (node == path->point_list->points)
-// 		path->point_list->points = free_point_node(node);
-// 	else
-// 		prev->next = free_point_node(node);
-// 	path->length -= 1;
-// }
+	if (!path)
+		return ;
+	prev = NULL;
+	node = path->point_list->points;
+	while (node && node->next)
+	{
+		prev = node;
+		node = node->next;	
+	}
+	if (node == path->point_list->points)
+		path->point_list->points = free_point_node(node);
+	else
+		prev->next = free_point_node(node);
+	path->length -= 1;
+}
+// 
 
 static void update_enemy_path(t_enemy *enemy, t_game *game)
 {
@@ -43,12 +45,14 @@ static void update_enemy_path(t_enemy *enemy, t_game *game)
 	player_rel_pos.y = (int)(pl->pos->y / 64) * 64;
 	if (!point_is_equal(player_rel_pos, *enemy->player_pos))
 		enemy->path = free_path(enemy->path);
-	// if (!enemy->path && !enemy->move_target)
-	// {
-	// 	enemy_calc_path(enemy, player_rel_pos, game->scene->objs_points);
-	// 	if (enemy->path)
-	// 		remove_end(enemy->path);
-	// }
+	// 
+	if (!enemy->path && !enemy->move_target)
+	{
+		enemy_calc_path(enemy, player_rel_pos, game->scene->objs_points);
+		if (enemy->path)
+			remove_end(enemy->path);
+	}
+	// 
 }
 
 static void	update_enemy_pos(t_enemy *enemy)

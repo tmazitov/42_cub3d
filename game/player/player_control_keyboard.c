@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/21 17:16:23 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:21:43 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,13 @@ static void	player_control_update(t_player *player, int keycode, int value)
 	// else if (keycode == RIGHT_ARROW)
 	// 	player->pressed_buttons[5] = value;
 	else if (keycode == F_BUTTON)
-		player->pressed_buttons[6] = value;
+		player->pressed_buttons[6] = value;\
+	if (keycode == ESC_BUTTON)
+	{
+		exit(1);
+		//create proper exiting and freeing.
+		// return (player->pressed_buttons[/*7*/]);
+	}
 }
 
 static int key_is_active(t_player *player, int keycode)
@@ -46,8 +52,6 @@ static int key_is_active(t_player *player, int keycode)
 	// 	return (player->pressed_buttons[5]);
 	if (keycode == F_BUTTON)
 		return (player->pressed_buttons[6]);
-	// if (keycode == ESC_BUTTON)
-		// return (player->pressed_buttons[/*7*/]);
 	return (0);
 }
 
