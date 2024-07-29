@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/29 23:13:09 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/29 23:34:38 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -609,12 +609,15 @@ void render_window_scene(t_game *game)
     screen_render.y = 0;
     temp_to_rotate = -player_fov / 2;
 
-    // t_sprite_node *temp_sprite = get_sprite_by_name(game->scene->map->sprites, "NO")->image;
     t_image temp_image[4];
-	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
-	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
-	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+    temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+
+	
+    // t_image temp_image[4];
+	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
 
@@ -623,9 +626,19 @@ void render_window_scene(t_game *game)
 	
     while (temp_to_rotate < player_fov / 2)
     {
+		// if (temp_to_rotate + game->scene->minimap->player_rotation == 360
+		// 	|| temp_to_rotate + game->scene->minimap->player_rotation == 0)
+		// 	continue ;
         ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		printf("ray_end values = %f, %f\n", ray->end.x, ray->end.y);
-		wall_select = get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
+		printf("player rotation = %f\n", game->scene->minimap->player_rotation);
+		printf("temp_to_rotate = %f\n", temp_to_rotate);
+		printf("RAY ANGLE total == %f\n", game->scene->minimap->player_rotation + temp_to_rotate);
+		printf("---------------------\n");
+		printf("ray_line_xy seems to be fine, since the freeze goes after the printfs, meaning )");
+		printf("the values below for some reason are causing a giant number or loop");
+		printf("check with the previous commit, Right after zombies, why it was fine at that time\n");
+		// wall_select = get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
 		dist_to_wall_vert_line[vert_wall_iter] = distance_between_points(ray->start, ray->end);
 		if (ray)
         {
