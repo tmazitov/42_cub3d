@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 23:57:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/07/30 22:57:52 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void init_player(t_player *player, t_direction direction)
 	else if (direction == SOUTH)
 		player->rotation = -90;
 	else if (direction == WEST)
-		player->rotation = 180;
-	else if (direction == EAST)
 		player->rotation = 0;
+	else if (direction == EAST)
+		player->rotation = 180;
 }
 
 t_player *make_player(void *mlx, t_point start_pos, t_direction direction)
