@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/29 23:29:42 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:13:57 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		y_iteration = 64;
 		x_iteration = y_iteration / tan(angle_in_pie);
 	}
-	if (angle_in_degrees == 0 || angle_in_degrees == 180)
+	if (angle_in_degrees == 0 || angle_in_degrees == 180 || angle_in_degrees == 360)
 		return (free_line(ray));
 	iterations = 0;
 	while (
 		get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 12)
+		&& ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
@@ -108,8 +108,9 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	ray = make_line_by_points(game->scene->minimap->player_pos, game->scene->minimap->player_pos);
 	if (!ray)
 		return (NULL);
-	if ((angle_in_degrees > 270 && angle_in_degrees <= 360)
-		|| (angle_in_degrees >= 0 && angle_in_degrees < 90))
+	// if ((angle_in_degrees > 270 && angle_in_degrees <= 360)
+	// 	|| (angle_in_degrees >= 0 && angle_in_degrees < 90))
+	if ((angle_in_degrees > 270 || angle_in_degrees < 90))
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
@@ -133,7 +134,7 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	while (
 		get_array_map_value(*ray, game) != '1' &&
 		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < 12)
+		&& ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \

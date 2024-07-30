@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/30 21:36:41 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:34:18 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ static int get_vert_of_texture(t_point ray_end, float angle_ray)
 			return (63 - ray_end.x);
 		return (ray_end.x);
 	}
-	return (-1);
+	return (0);
 }
 
 typedef struct s_window_walls
@@ -549,7 +549,8 @@ void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 	// }
 
 //func to convert given params in CUB file to color.
-uint32_t rgb_to_color(t_rgb color) {
+uint32_t rgb_to_color(t_rgb color)
+{
     // Ensure the RGB values are within the valid range
     if (color.r < 0) color.r = 0;
     if (color.r > 255) color.r = 255;
@@ -586,7 +587,7 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		return (2);
 	else if ((ray_angle > 270 || ray_angle < 90) && ray_end.x == 0)
 		return (3);
-	return (0);
+	return (printf("angle_indefined from above\n"), 0);
 }
 
 
@@ -609,26 +610,20 @@ void render_window_scene(t_game *game)
     screen_render.y = 0;
     temp_to_rotate = -player_fov / 2;
 
-    t_image temp_image[4];
-    temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-
-	
     // t_image temp_image[4];
-	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
-	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
-	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+    // temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+
+    t_image temp_image[4];
+	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
-
+	
 	uint32_t ceiling_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites, "C")->color);
 	uint32_t floor_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites, "F")->color);
-	
-	// printf("game->width = %d\n", game->width);
-	// printf("game->width/2 -5 = %d\n", game->width/2 - 5);
-	// printf("game->width/2 +5 = %d\n", game->width/2 + 5);
-	// exit(1);
-    while (temp_to_rotate < player_fov / 2)
+	while (temp_to_rotate < player_fov / 2)
     {
         ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		wall_select = get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
@@ -656,26 +651,16 @@ void render_window_scene(t_game *game)
             line_value_adjust(game, &display_coordinates);
 			
             int texture_x_pos = get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate);
-            float texture_y_pos = y_offsett * vert_iter;
-            while (display_coordinates.start.y < display_coordinates.end.y
-				&& (screen_render.x > game->width/2 - 5 && screen_render.x < game->width/2 + 5))
+            if (temp_to_rotate == 0)
+				printf("texture_x_pos = %d\n", texture_x_pos);
+			float texture_y_pos = y_offsett * vert_iter;
+            while (display_coordinates.start.y < display_coordinates.end.y)
             {
-				// printf("display_coordinates.start.y = %f\n", display_coordinates.start.y);
-				if (img_get_pixel(&temp_image[0], texture_x_pos, texture_y_pos) == 0)
-					printf("first color = %d\n", img_get_pixel(&temp_image[0], texture_x_pos, texture_y_pos));
-                // img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[0], texture_x_pos, texture_y_pos),
-                //     SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
-                //     display_coordinates.start.x, display_coordinates.start.y);
+// problem in the get_wall_side, which is returning a wrong value at certain angles at edges
 				
-				// trying to fill solid color to see if black line goes away
-                img_put_pixel(game->scene->image, darken_color(0xFF00FF,
+                img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[wall_select], texture_x_pos, texture_y_pos),
                     SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
-                    display_coordinates.start.x, display_coordinates.start.y);
-				// CONCLUSION THE error is in the ray cast (ray_line_funcs) which doesnt send a ray when
-				//			angle hits around 0.
-				//COMMIT NOTES, resolved freeze by changing ceiling iter to equal NOT 0, but dis_coords
-				//			also resolving black line by changing the color to a solid color.
-				
+                    display_coordinates.start.x, display_coordinates.start.y);				
                 display_coordinates.start.y++;
                 texture_y_pos += vert_iter;
             }

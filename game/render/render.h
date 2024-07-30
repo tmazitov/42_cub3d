@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 21:24:48 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:06:52 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "../scene/scene.h"
 
 # define PLAYER_FOV 60
+# define PLAYER_VIEW_DEPTH 12
 //guide using FOV60, need to find values to scale for 75 without issues
 # define AIM_SIZE 15
 # define AIM_COLOR 0x98b9ed
