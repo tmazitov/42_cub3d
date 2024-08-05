@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/07/28 07:18:33 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/05 21:54:23 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS =  cmd/main.c \
         game/render/render_minimap.c \
 		game/render/render_minimap_rays.c \
 		game/render/ray_line_funcs.c \
+		game/render/ray_shooting_funcs.c \
 		game/render/render_scene_3d.c \
         game/scene/scene.c \
         game/scene/scene_objs_points.c \

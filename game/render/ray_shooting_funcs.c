@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/05 20:55:39 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:55:53 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static void set_iterations(float player_angle, float* y_iteration, float* x_iter
     float angle_rad = player_angle * (M_PI / 180.0);
 
     // Calculate the iterations using cosine and sine functions
-    *x_iteration = MAX_ITERATION * cos(angle_rad);
-    *y_iteration = MAX_ITERATION * sin(angle_rad);
+    *x_iteration = BULLET_HIT_CHECK_ITERATION * cos(angle_rad);
+    *y_iteration = BULLET_HIT_CHECK_ITERATION * sin(angle_rad);
 }
 
-bool	zombie(t_game *game)
-{
+// bool	zombie(t_game *game)
+// {
 	
-}
+// }
 
 //NEW MODIFICATION
 t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
@@ -41,7 +41,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	if (angle_in_degrees > 360)
 		angle_in_degrees -= 360;
 	angle_in_pie = angle_in_degrees * PI / 180.0;
-	set_iterations(game->minimap->scene->player_rotation, &y_iteration, &x_iteration);
+	set_iterations(game->scene->minimap->player_rotation, &y_iteration, &x_iteration);
 	ray = make_line_by_points(game->scene->minimap->player_pos, game->scene->minimap->player_pos);
 	if (!ray)
 		return (NULL);
@@ -68,7 +68,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		get_array_map_value(*ray, game) != '1'
 		&& ray->end.x > 0
 		&& ray->end.y > 0
-		&& check_zombie_hit(game) != 1
+		&& zombie_hit_interaction(game) != 1
 		&& iterations < BULLET_MAX_ITERATIONS)
 	{
 		line_update(ray, \
