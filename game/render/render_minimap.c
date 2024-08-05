@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 19:47:44 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:04:51 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
+static void	ray_move_to_middle(t_point *start, t_point *end)
+{
+	start->x += (32/4);
+	start->y += (32/4);
+	end->x += (32/4);
+	end->y += (32/4);
+}
+
 static void	render_enemy_path(t_game *game)
 {
 	t_point_node	*node;
@@ -112,6 +120,7 @@ static void	render_enemy_path(t_game *game)
 				p2.y /= 4;
 				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
 				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
+				ray_move_to_middle(&p1, &p2);
 				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/30 23:34:18 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:54:14 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,9 @@ static void adjust_disp_coords(t_line *disp_coords, t_game *game, int rend_x, in
 
 static int get_vert_of_texture(t_point ray_end, float angle_ray)
 {
-	if (angle_ray < 0)
+	if (angle_ray <= 0)
 		angle_ray += 360;
-	if (angle_ray > 360)
+	if (angle_ray >= 360)
 		angle_ray -= 360;
 	ray_end.x = round(fmod(ray_end.x, 64));
 	ray_end.y = round(fmod(ray_end.y, 64));
@@ -146,6 +146,7 @@ static int get_vert_of_texture(t_point ray_end, float angle_ray)
 		ray_end.y = 0;
 	if (ray_end.x == 0)
 	{
+		// if (angle_ray > 270 || angle_ray < 90)
 		if ((angle_ray > 270 && angle_ray <= 360)
 			|| (angle_ray >= 0 && angle_ray < 90))
 			return (63 - ray_end.y);
@@ -158,7 +159,7 @@ static int get_vert_of_texture(t_point ray_end, float angle_ray)
 			return (63 - ray_end.x);
 		return (ray_end.x);
 	}
-	return (0);
+	return (printf("get_vert_error occured"), 0);
 }
 
 typedef struct s_window_walls
@@ -579,13 +580,13 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		ray_end.x = 0;
 	if (ray_end.y == 64)
 		ray_end.y = 0;
-	if (ray_angle > 0 && ray_angle < 180 && ray_end.y == 0)
+	if (ray_angle >= 0 && ray_angle < 180 && ray_end.y == 0)
 		return (0);
-	else if (ray_angle > 180 && ray_angle < 360 && ray_end.y == 0)
+	else if (ray_angle >= 180 && ray_angle < 360 && ray_end.y == 0)
 		return (1);
-	else if (ray_angle > 90 && ray_angle < 270 && ray_end.x == 0)
+	else if (ray_angle >= 90 && ray_angle < 270 && ray_end.x == 0)
 		return (2);
-	else if ((ray_angle > 270 || ray_angle < 90) && ray_end.x == 0)
+	else if ((ray_angle >= 270 || ray_angle < 90) && ray_end.x == 0)
 		return (3);
 	return (printf("angle_indefined from above\n"), 0);
 }
@@ -613,11 +614,26 @@ void render_window_scene(t_game *game)
     // t_image temp_image[4];
     // temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
 
+	//GOT TO CREATE THE func to take the zombie position, and return if the CURRENT
+	// position of the ray intersecsts with ZOMBIE_HITBOX size of range e.g -10 + 10 in both X and Y
+	//(square hitbox),        Need to look at the NOTESSSSS i have for vars to change
+
+	//check sound adding ONLY after things for MAND.
+	//Movement, not to come to oclose to wall.
+	// to have 2 EXTRA rays be checked -45 and +45 from the player angle
+	
+
     t_image temp_image[4];
+	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+
 	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
-	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
-	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
 	
@@ -652,7 +668,10 @@ void render_window_scene(t_game *game)
 			
             int texture_x_pos = get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate);
             if (temp_to_rotate == 0)
+			{
 				printf("texture_x_pos = %d\n", texture_x_pos);
+				printf("player angle = %f\n", game->scene->minimap->player_rotation + temp_to_rotate);
+			}
 			float texture_y_pos = y_offsett * vert_iter;
             while (display_coordinates.start.y < display_coordinates.end.y)
             {
@@ -677,7 +696,7 @@ void render_window_scene(t_game *game)
         if (screen_render.x == game->width || screen_render.y == 0)
             break;
     }
-	// draw_sprite(game, dist_to_wall_vert_line);
+	draw_sprite(game, dist_to_wall_vert_line);
     draw__middle_aim(game);
 }
 
