@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/05 21:15:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:48:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,9 +499,7 @@ void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 	
 
 	zombie_iter = 0;
-	printf("zombie ALIVE = %d\n", zombz->enemies[zombie_iter]->alive);
-	while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1
-		/*&& zombz->enemies[zombie_iter]->    */)
+	while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1)
 	{
 		sprite_position = *zombz->enemies[zombie_iter]->pos;
 		player_pos = game->scene->minimap->player_pos;
@@ -525,35 +523,10 @@ void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 	
 }
 
-
-/*---------------------------------------------------
-	Adjust Render_Test_Animation, with Zombie display
-*/
-	// float dist_to_sprite = calc_dis_zomb_to_pl(sprite_position, player_pos);
-    // float angle_to_sprite = atan2(sprite_position.y - player_pos.y, sprite_position.x - player_pos.x) * 180 / M_PI;
-	// float perpendicular_distance = dist_to_sprite / cos(angle_to_sprite * M_PI / 180);
-	// render_test_animation(game, temp_multiplier, 0, dist_to_sprite);
-
-
-
-	
-	// int iter = 0;
-	// //putting square for now
-	// while (iter < 10)
-	// {
-	// 	// int iter2 = -10;
-	// 	int iter2 = 0;
-	// 	while (iter2 < 10)
-	// 	{
-	// 		img_put_pixel(game->scene->image, 0x00FF00, sprite_display_pos.x*8 + iter, sprite_display_pos.y*8 + iter2);
-	// 		iter2++;
-	// 	}
-	// 	iter++;
-	// }
-
 //func to convert given params in CUB file to color.
 uint32_t rgb_to_color(t_rgb color)
 {
+	uint32_t result;
     // Ensure the RGB values are within the valid range
     if (color.r < 0) color.r = 0;
     if (color.r > 255) color.r = 255;
@@ -565,9 +538,9 @@ uint32_t rgb_to_color(t_rgb color)
     if (color.b > 255) color.b = 255;
 
     // Combine the RGB values into a single 0xRRGGBB format
-    uint32_t result = (color.r << 16) | (color.g << 8) | color.b;
+    result = (color.r << 16) | (color.g << 8) | color.b;
 
-    return result;
+    return (result);
 }
 
 int	get_wall_side(float ray_angle, t_point ray_end)
@@ -576,12 +549,12 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		ray_angle += 360;
 	if (ray_angle > 360)
 		ray_angle -= 360;
-	ray_end.x = round(fmod(ray_end.x, 64));
-	ray_end.y = round(fmod(ray_end.y, 64));
-	if (ray_end.x == 64)
-		ray_end.x = 0;
-	if (ray_end.y == 64)
-		ray_end.y = 0;
+	ray_end.x = (fmod(ray_end.x, 64));
+	ray_end.y = (fmod(ray_end.y, 64));
+	// if (ray_end.x == 64)
+	// 	ray_end.x = 0;
+	// if (ray_end.y == 64)
+	// 	ray_end.y = 0;
 	if (ray_angle >= 0 && ray_angle < 180 && ray_end.y == 0)
 		return (0);
 	else if (ray_angle >= 180 && ray_angle < 360 && ray_end.y == 0)
@@ -590,7 +563,7 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		return (2);
 	else if ((ray_angle >= 270 || ray_angle < 90) && ray_end.x == 0)
 		return (3);
-	return (printf("angle_indefined from above\n"), 0);
+	return (0);
 }
 
 
@@ -669,13 +642,6 @@ void render_window_scene(t_game *game)
             line_value_adjust(game, &display_coordinates);
 			
             int texture_x_pos = get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate);
-            if (temp_to_rotate == 0)
-			{
-				printf("texture_x_pos = %d\n", texture_x_pos);
-				printf("wall value $$ $$ $$ \n");
-				printf("wall_side = %d\n", get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end));
-				printf("player angle = %f\n", game->scene->minimap->player_rotation + temp_to_rotate);
-			}
 			float texture_y_pos = y_offsett * vert_iter;
             while (display_coordinates.start.y < display_coordinates.end.y)
             {
