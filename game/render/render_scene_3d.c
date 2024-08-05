@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/05 17:54:14 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/05 21:15:27 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,7 +499,9 @@ void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 	
 
 	zombie_iter = 0;
-	while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1)
+	printf("zombie ALIVE = %d\n", zombz->enemies[zombie_iter]->alive);
+	while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1
+		/*&& zombz->enemies[zombie_iter]->    */)
 	{
 		sprite_position = *zombz->enemies[zombie_iter]->pos;
 		player_pos = game->scene->minimap->player_pos;
@@ -624,15 +626,15 @@ void render_window_scene(t_game *game)
 	
 
     t_image temp_image[4];
-	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
-	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
-	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
-
 	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+
+	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
 
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
@@ -670,6 +672,8 @@ void render_window_scene(t_game *game)
             if (temp_to_rotate == 0)
 			{
 				printf("texture_x_pos = %d\n", texture_x_pos);
+				printf("wall value $$ $$ $$ \n");
+				printf("wall_side = %d\n", get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end));
 				printf("player angle = %f\n", game->scene->minimap->player_rotation + temp_to_rotate);
 			}
 			float texture_y_pos = y_offsett * vert_iter;
