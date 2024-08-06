@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/05 21:55:53 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/06 23:08:28 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,25 @@ static void set_iterations(float player_angle, float* y_iteration, float* x_iter
     *y_iteration = BULLET_HIT_CHECK_ITERATION * sin(angle_rad);
 }
 
-// bool	zombie(t_game *game)
-// {
+bool	check_if_bullet_in_zombie_hitbox(t_point bullet)
+{
 	
-// }
+}
+
+bool	zombie_hit_interaction(t_game *game, t_point bullet_iter)
+{
+	t_enemy_storage *zombz;
+	t_point sprite_position;
+	t_point player_pos;
+	t_point sprite_display_pos;
+	float	cos_value; 
+	float	sin_value;
+	float	z_height_value;
+
+	z_height_value = 100;
+	zombz = game->scene->enemies;
+	if (check_if_bullet_in_zombie_hitbox(bullet_iter))
+}
 
 //NEW MODIFICATION
 t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
@@ -45,6 +60,22 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	ray = make_line_by_points(game->scene->minimap->player_pos, game->scene->minimap->player_pos);
 	if (!ray)
 		return (NULL);
+	iterations = 0;
+	while (
+		get_array_map_value(*ray, game) != '1'
+		&& ray->end.x > 0
+		&& ray->end.y > 0
+		&& zombie_hit_interaction(game) != 1
+		&& iterations < BULLET_MAX_ITERATIONS)
+	{
+		line_update(ray, \
+			ray->start.x, ray->start.y, \
+			ray->end.x + x_iteration, \
+			ray->end.y + y_iteration);
+		iterations++;
+	}
+	return (ray);
+}
 	// if (angle_in_degrees > 0 && angle_in_degrees < 180)
 	// {
 	// 	line_update(ray, \
@@ -63,22 +94,8 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 	// 	y_iteration = 64;
 	// 	x_iteration = y_iteration / tan(angle_in_pie);
 	// }
-	iterations = 0;
-	while (
-		get_array_map_value(*ray, game) != '1'
-		&& ray->end.x > 0
-		&& ray->end.y > 0
-		&& zombie_hit_interaction(game) != 1
-		&& iterations < BULLET_MAX_ITERATIONS)
-	{
-		line_update(ray, \
-			ray->start.x, ray->start.y, \
-			ray->end.x + x_iteration, \
-			ray->end.y + y_iteration);
-		iterations++;
-	}
-	return (ray);
-}
+
+
 
 //WORKING MALLOCING VERSION
 t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/05 20:54:28 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/06 22:45:54 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 # define PLAYER_FOV 				60
 # define PLAYER_VIEW_DEPTH 			12
 //guide using FOV60, need to find values to scale for 75 without issues
+
 # define AIM_SIZE 					15
 # define AIM_COLOR 					0x98b9ed
 # define SHADE_MIN_DISTANCE			-200
 # define SHADE_MAX_DISTANCE			450
-# define BULLET_HIT_CHECK_ITERATION	8.0
-# define BULLET_MAX_ITERATIONS		80
-# define ZOMBIE_HITBOX_WIDTH		32
 // By setting SHADE_MIN to negative,
 // we start to shade blocks that are even
 // INFRONT of uf (MAKE EVERYTHING DARKER)
+
+
+# define BULLET_HIT_CHECK_ITERATION	8.0
+# define BULLET_MAX_ITERATIONS		80
+# define ZOMBIE_HITBOX_WIDTH		32
+//		Total bullet distance travel is (B_M_I * Z_H_W)
 
 int		render_hook(t_game *game);
 void	render_minimap(t_game *game);
