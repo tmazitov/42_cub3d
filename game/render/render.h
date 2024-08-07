@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/06 22:45:54 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/07 22:14:06 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,8 @@ t_line	*ray_line_shortest_xy(t_game *game, float angle_in_degrees);
 float	distance_between_points(t_point start, t_point end);
 char	get_array_map_value(t_line ray, t_game *game);
 void	line_shortener_for_minimap(t_line *ray, t_game *game);
+
+
+t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees);
 
 #endif // RENDER_H

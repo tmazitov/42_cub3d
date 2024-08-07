@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:35:19 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/07 22:27:40 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_player
 	int			update_count;
 }		t_player;
 
+// # include "../render/render.h"
+
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
 void 		*free_player(t_player *player);
 t_image		*load_icon(void *mlx);
@@ -66,7 +68,6 @@ float		player_speed(t_player *player);
 
 
 // CONTROL (MOUSE)
-
 
 int			player_mouse_scroll(int button, int x, int y, t_player *player);
 int			player_mouse_move(int x, int y, t_player *player);

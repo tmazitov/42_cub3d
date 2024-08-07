@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 21:21:43 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:48:40 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	player_control_update(t_player *player, int keycode, int value)
 	// 	player->pressed_buttons[5] = value;
 	else if (keycode == F_BUTTON)
 		player->pressed_buttons[6] = value;\
-	if (keycode == ESC_BUTTON)
+	else if (keycode == ESC_BUTTON)
 	{
 		exit(1);
 		//create proper exiting and freeing.
