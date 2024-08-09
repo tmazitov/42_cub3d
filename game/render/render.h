@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/07 22:14:06 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:11:42 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 // INFRONT of uf (MAKE EVERYTHING DARKER)
 
 
-# define BULLET_HIT_CHECK_ITERATION	8.0
-# define BULLET_MAX_ITERATIONS		80
+# define BULLET_HIT_CHECK_ITERATION	4.0
+# define BULLET_MAX_ITERATIONS		160
 # define ZOMBIE_HITBOX_WIDTH		32
 //		Total bullet distance travel is (B_M_I * Z_H_W)
 

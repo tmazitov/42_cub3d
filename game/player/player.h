@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/07 22:27:40 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:20:57 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "inventory/inventory.h"
 # include "../../utils/keyboard.h"
 # include "../../utils/mouse.h"
+
 
 # define PLAYER_SIZE 24
 
@@ -48,7 +49,12 @@ typedef struct s_player
 	int			update_count;
 }		t_player;
 
-// # include "../render/render.h"
+typedef struct s_scene t_scene;
+
+typedef struct s_game t_game;
+
+
+# include "../render/render.h"
 
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction);
 void 		*free_player(t_player *player);
@@ -69,7 +75,7 @@ float		player_speed(t_player *player);
 
 // CONTROL (MOUSE)
 
-int			player_mouse_scroll(int button, int x, int y, t_player *player);
+int			player_mouse_scroll(int button, int x, int y, t_game *player);
 int			player_mouse_move(int x, int y, t_player *player);
 
 

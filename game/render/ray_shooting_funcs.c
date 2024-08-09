@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/07 16:33:51 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:31:03 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,39 @@ static void set_iterations(float player_angle, float* y_iteration, float* x_iter
     *y_iteration = BULLET_HIT_CHECK_ITERATION * sin(angle_rad);
 }
 
+static int check_if_bullet_in_zombie_range(t_point zomb_pos, t_point bullet_pos)
+{
+	if (((zomb_pos.x - bullet_pos.x < ZOMBIE_HITBOX_WIDTH / 2) || (zomb_pos.x - bullet_pos.x > -ZOMBIE_HITBOX_WIDTH / 2))
+		&& ((zomb_pos.y - bullet_pos.y < ZOMBIE_HITBOX_WIDTH / 2) || (zomb_pos.y - bullet_pos.y > -ZOMBIE_HITBOX_WIDTH / 2)))
+		return (
+				printf("ZOMB HIT zomb_pos %f, %f\n", zomb_pos.x, zomb_pos.y),
+				printf("bullet_pos %f, %f\n", bullet_pos.x, bullet_pos.y) ,1);
+	return (0);
+}
+
 int	check_if_bullet_in_zombie_hitbox(t_enemy_storage *zombz, t_point bullet)
 {
 	int i;
 
 	i = 0;
 	while (i < zombz->size)
-		printf("i = %d, size = %d\n", i, zombz->size);
-	exit(1);
-	printf("redundant printf %f\n", bullet.x);
+	{
+		if (check_if_bullet_in_zombie_range(*zombz->enemies[i]->pos, bullet) == 1)
+			return (printf("returning from check, zombie index %d hit\n", i), 1);
+		i++;
+	}
+	return (0);
 }
 
+// ZOMBIE_HITBOX_WIDTH 
 int	zombie_hit_interaction(t_game *game, t_point bullet_iter)
 {
 	t_enemy_storage *zombz;
-	// t_point sprite_position;
-	// t_point player_pos;
-	// t_point sprite_display_pos;
-	// float	cos_value; 
-	// float	sin_value;
-	// float	z_height_value;
 
-	// z_height_value = 100;
 	zombz = game->scene->enemies;
-	if (check_if_bullet_in_zombie_hitbox(zombz, bullet_iter))
-		printf("zombie hit?\n");
-	return (1);
+	if (check_if_bullet_in_zombie_hitbox(zombz, bullet_iter) == 1)
+		printf("zombie hit!!!\n");
+	return (0);
 }
 
 //NEW MODIFICATION
@@ -74,12 +81,14 @@ t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees)
 		&& ray->end.x > 0
 		&& ray->end.y > 0
 		&& zombie_hit_interaction(game, ray->end) != 1
-		&& iterations < BULLET_MAX_ITERATIONS)
+		&& iterations < BULLET_MAX_ITERATIONS
+		)
 	{
+		printf("cur_bullet_pos = %f, %f\n", ray->end.x, ray->end.y);
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
-			ray->end.x + x_iteration, \
-			ray->end.y + y_iteration);
+			ray->end.x - x_iteration, \
+			ray->end.y - y_iteration);
 		iterations++;
 	}
 	return (ray);
