@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/05 21:48:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/10 19:26:18 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -645,15 +645,12 @@ void render_window_scene(t_game *game)
 			float texture_y_pos = y_offsett * vert_iter;
             while (display_coordinates.start.y < display_coordinates.end.y)
             {
-// problem in the get_wall_side, which is returning a wrong value at certain angles at edges
-				
                 img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[wall_select], texture_x_pos, texture_y_pos),
                     SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
                     display_coordinates.start.x, display_coordinates.start.y);				
                 display_coordinates.start.y++;
                 texture_y_pos += vert_iter;
             }
-			// printf("end of loop\n");
             while (display_coordinates.start.y < game->height)
             {
                 img_put_pixel(game->scene->image, floor_color, display_coordinates.start.x, display_coordinates.start.y);
