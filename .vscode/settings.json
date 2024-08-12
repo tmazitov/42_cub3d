@@ -26,7 +26,8 @@
 	"inventory.h": "c",
 	"xlib.h": "c",
 	"enemy.h": "c",
-	"limits": "c"
+	"limits": "c",
+	"render.h": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

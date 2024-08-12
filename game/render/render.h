@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/10 18:54:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:51:50 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@
 
 # define BULLET_HIT_CHECK_ITERATION	4.0
 # define BULLET_MAX_ITERATIONS		160
-# define ZOMBIE_HITBOX_WIDTH		32
 //		Total bullet distance travel is (B_M_I * Z_H_W)
+
+# define ZOMBIE_HITBOX_WIDTH		15
+// BODY HITBOX = 10 (not including hands)
+// BODY + HANDS HITBOX = 15
+
 
 int		render_hook(t_game *game);
 void	render_minimap(t_game *game);

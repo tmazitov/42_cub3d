@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 21:51:41 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:42:58 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ int	render_hook(t_game *game)
 	render_minimap(game);
 	
 	render_player(game);
+
+	// ATTEMPTING to draw bullet trajectory--------
+	t_line bul_line;
+
+	bul_line = *bullet_shoot_func(game, game->scene->minimap->player_rotation);
+	// printf("coordinates BEF shorten = %f %f, %f %f\n", bul_line.start.x, bul_line.start.y, bul_line.end.x, bul_line.end.y);
+	line_shortener_for_minimap(&bul_line, game);
+	bul_line.start.x += 20;
+	bul_line.start.y += 10;
+	bul_line.end.x += 20;
+	bul_line.end.y += 10;
+	// printf("coordinates AFTER shorten = %f %f, %f %f\n", bul_line.start.x, bul_line.start.y, bul_line.end.x, bul_line.end.y);
+	
+	img_put_line(game->scene->image, 0xff0303, bul_line.start, bul_line.end);
+
 
 	// render_test_animation(game);
 

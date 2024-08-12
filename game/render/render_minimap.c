@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/05 18:04:51 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:27:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void	render_minimap(t_game *game)
 			game->scene->treasures);
 	}
 	render_minimap_rays(game);
+
 	minimap_draw_border(game->scene->minimap);
 
 	t_point p;
