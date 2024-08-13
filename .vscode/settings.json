@@ -30,7 +30,15 @@
 	"render.h": "c",
 	"miniaudio.h": "c",
 	"scene.h": "c",
-	"player.h": "c"
+	"player.h": "c",
+	"__hash_table": "c",
+	"__split_buffer": "c",
+	"bitset": "c",
+	"initializer_list": "c",
+	"string": "c",
+	"string_view": "c",
+	"unordered_map": "c",
+	"vector": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

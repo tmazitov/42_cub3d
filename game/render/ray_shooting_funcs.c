@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/13 17:49:17 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:19:29 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,17 @@ int	check_if_bullet_in_zombie_hitbox(t_enemy_storage *zombz, t_point bullet)
 	i = 0;
 	while (i < zombz->size)
 	{
-		if (check_if_bullet_in_zombie_range(*zombz->enemies[i]->pos, bullet) == 1)
+		if (zombz->enemies[i]->hb->current >= 0
+		&& check_if_bullet_in_zombie_range(*zombz->enemies[i]->pos, bullet) == 1)
 		{
-			// zombz->enemies[i]->health -= 	
-
-
-			return (/*printf("returning from check, zombie index %d hit\n", i),*/ 1);
+			printf("ENEMY FIRST HEALTH = %d\n",zombz->enemies[i]->hb->current);
+			printf("shot_DAMAGE = %d\n", SHOT_DAMAGE);
+			zombz->enemies[i]->hb->current -= SHOT_DAMAGE;
+			if (zombz->enemies[i]->hb->current <= 0)
+			{
+				zombz->enemies[i]->alive = 0;
+				return (/*printf("returning from check, zombie index %d hit\n", i),*/ 1);
+			}
 		}
 		i++;
 	}
@@ -96,7 +101,7 @@ t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees)
 			ray->end.y - y_iteration);
 		iterations++;
 	}
-	if (zombie_hit_interaction(game, ray->end) == 1)
+	// if (zombie_hit_interaction(game, ray->end) == 1)
 
 	return (ray);
 }

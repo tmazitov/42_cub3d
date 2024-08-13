@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_walls.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 23:15:11 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/04 21:52:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:50:24 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int add_wall(int x, int y, t_wall_type type, \
 	node->wall = make_wall(x, y, type, direction);
 	if (!node->wall)
 		return (0);
-	printf("\t# add wall %d from %f %f to %f %f\n", direction, node->wall->start->x, node->wall->start->y, node->wall->end->x, node->wall->end->y);
+	printf("\r# add wall %d from %f %f to %f %f\n", direction, node->wall->start->x, node->wall->start->y, node->wall->end->x, node->wall->end->y);
 	if (storage->start == NULL)
 		storage->start = node;
 	else

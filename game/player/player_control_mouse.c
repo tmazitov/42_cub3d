@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 17:48:14 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:25:24 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	player_mouse_scroll(int button, int x, int y, t_game *game)
 	t_player *player;
 
 	player = game->scene->player;
-	if (button == LEFT_CLICK)
+	if (button == LEFT_CLICK && game->scene->player->inventory->bullets > 0)
 	{
         pthread_t sound_thread;
         pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
         pthread_detach(sound_thread);
+		
 		game->scene->player->inventory->bullets--;
 		printf("(right click detected) shot fired\n");
 		// shoot_sound_func();

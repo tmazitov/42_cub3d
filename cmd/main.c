@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/12 22:14:22 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:51:07 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	main(int argc, char **argv)
 	// game = make_game(argv[1], 1024, 600, "Hello world!");
 	// game = make_game(argv[1], 720, 480, "Hello world!");
 	// game = make_game(argv[1], 960, 640, "Hello world!");
-	game = make_game(argv[1], 1440, 900, "Hello world!");
-	// game = make_game(argv[1], 1920, 1080, "Hello world!");
+	// game = make_game(argv[1], 1440, 900, "Hello world!");
+	game = make_game(argv[1], 1920, 1080, "Hello world!");
 
 	if (!game)
 		return (1);
