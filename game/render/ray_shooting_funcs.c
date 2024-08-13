@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/12 22:56:06 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:49:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static int check_if_bullet_in_zombie_range(t_point zomb_pos, t_point bullet_pos)
 {
 	if (fabsf((zomb_pos.x + 32) - bullet_pos.x) < ZOMBIE_HITBOX_WIDTH / 2
     	&& fabsf((zomb_pos.y + 32) - bullet_pos.y) < ZOMBIE_HITBOX_WIDTH / 2)
-    	return ( 1);
+    {
+		return (1);
+	}
 
 	return (0);
 }
@@ -40,7 +42,7 @@ int	check_if_bullet_in_zombie_hitbox(t_enemy_storage *zombz, t_point bullet)
 	{
 		if (check_if_bullet_in_zombie_range(*zombz->enemies[i]->pos, bullet) == 1)
 		{
-			zombz->enemies[i]->health		
+			// zombz->enemies[i]->health -= 	
 
 
 			return (/*printf("returning from check, zombie index %d hit\n", i),*/ 1);
@@ -94,8 +96,8 @@ t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees)
 			ray->end.y - y_iteration);
 		iterations++;
 	}
-	// if (zombie_hit_interaction(game, ray->end) == 1)
-	// 	printf("HHITTBOXX ACTIVATION\n");
+	if (zombie_hit_interaction(game, ray->end) == 1)
+
 	return (ray);
 }
 	// if (angle_in_degrees > 0 && angle_in_degrees < 180)

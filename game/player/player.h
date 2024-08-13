@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/09 16:20:57 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:20:19 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ float		player_speed(t_player *player);
 
 int			player_mouse_scroll(int button, int x, int y, t_game *player);
 int			player_mouse_move(int x, int y, t_player *player);
+void		*shoot_sound_func(void *arg);
 
 
 // INVENTORY

@@ -6,11 +6,51 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/12 18:05:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:48:14 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
+
+#define MINIAUDIO_IMPLEMENTATION
+// #include "./miniaudio/miniaudio.h"
+
+#include "../../miniaudio/miniaudio.h"
+#include <stdio.h>
+
+// int main(void)
+void	*shoot_sound_func(void *arg)
+{
+
+	char *sound_path;
+
+	sound_path = (char *)arg;
+    ma_result result;
+    ma_engine engine;
+
+    // Initialize the engine
+    result = ma_engine_init(NULL, &engine);
+    if (result != MA_SUCCESS) {
+        printf("Failed to initialize audio engine.\n");
+		return (NULL);
+    }
+
+    // Play the sound
+    result = ma_engine_play_sound(&engine, sound_path, NULL);
+    if (result != MA_SUCCESS) {
+        printf("Failed to play sound.\n");
+        ma_engine_uninit(&engine);
+		return (NULL);
+    }
+
+    // Wait until the sound finishes playing
+	usleep(1000000);
+
+    ma_engine_uninit(&engine);
+    // Clean up
+	return (NULL);
+}
+
 
 int	player_mouse_scroll(int button, int x, int y, t_game *game)
 {
@@ -21,7 +61,12 @@ int	player_mouse_scroll(int button, int x, int y, t_game *game)
 	player = game->scene->player;
 	if (button == LEFT_CLICK)
 	{
-		printf("KABOOM12\n");
+        pthread_t sound_thread;
+        pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
+        pthread_detach(sound_thread);
+		game->scene->player->inventory->bullets--;
+		printf("(right click detected) shot fired\n");
+		// shoot_sound_func();
 		bullet_shoot_func(game, game->scene->minimap->player_rotation);
 	}
 	if (button == SCROLL_DOWN)

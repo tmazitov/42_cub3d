@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 21:38:03 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:40:39 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ENEMY_SPEED 4
 # define ENEMY_FRAME_DURATION 4
 
+# define SHOT_DAMAGE 1
 typedef	struct s_enemy_health_bar
 {
 	int 	current;

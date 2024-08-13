@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   scene_treasures_collect.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:34:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 00:10:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:21:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
+#include <pthread.h>
 
 int	treasure_collect(t_treasure_storage *storage, t_treasure *box, t_player *player)
 {
@@ -52,5 +53,9 @@ int	treasure_collect(t_treasure_storage *storage, t_treasure *box, t_player *pla
 	}
 	if (added_count == counter)
 		storage->items[treasure_index] = free_item_collection(treasure_items);
+	//call GEAR COLLECT FUNCTION
+	pthread_t sound_thread;
+    pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gear_pickup_sound.wav");
+    pthread_detach(sound_thread);
 	return (1);
 }

@@ -6,12 +6,12 @@
 #    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/05 21:54:23 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/08/13 13:52:46 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g 
 
 SRCS =  cmd/main.c \
         game/game.c \
@@ -127,7 +127,7 @@ ifeq ($(OS), Linux)
 
 else ifeq ($(OS), Darwin)
     CFLAGS += -Imlx -I./mlx_mac
-    LDFLAGS += -L./mlx_mac -lmlx -framework OpenGL -framework AppKit
+    LDFLAGS += -L./mlx_mac -lmlx -framework OpenGL -framework AppKit -ldl -lpthread
 	
     # Modify B_BUTTON for macOS
     CFLAGS += -DW_BUTTON=1  # Assuming B_BUTTON should be 1 on macOS
