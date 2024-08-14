@@ -1,11 +1,10 @@
 NO textures/42_wall_texture.xpm
-SO textures/wolfenstein_textures/wall_2.xpm
-WE textures/wolfenstein_textures/wall_3.xpm
-EA textures/wolfenstein_textures/wall_4.xpm
+SO textures/42_wall_texture.xpm
+WE textures/42_wall_texture.xpm
+EA textures/42_wall_texture.xpm
 
 TB       textures/treasure_box_3.xpm
 TB_EMPTY textures/treasure_box_empty.xpm
-
 
 CH_0     textures/font/0.xpm
 CH_1     textures/font/1.xpm
@@ -73,7 +72,7 @@ C 0,0,0
 10B10B011111000000000Z0001
 10010001101100000000000001
 10000000101101111111111111
-100000Z0000001
+1000000Z00001
 10010000000001
 10011010W001111
 100110100001111

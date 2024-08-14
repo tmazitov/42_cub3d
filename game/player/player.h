@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 18:17:32 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:03:49 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define PLAYER_ACCELERATION_ITERS 10
 # define PLAYER_ROTATION_SPEED 0.3
 
-# define PLAYER_DEFAULT_BULLETS_COUNT 42
+# define PLAYER_DEFAULT_BULLETS_COUNT 5
 # define PLAYER_INV_CELL_AMOUNT 6
 
 # define PLAYER_ICON_SIZE 48

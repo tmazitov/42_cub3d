@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_line_funcs.c                                   :+:      :+:    :+:   */
+/*   ray_line_.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/23 18:57:16 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:23:32 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 
 
 #include <sys/time.h>
-void	print_time_since_last_call()
-{
-	// static struct	timeval last_time;
-	// struct timeval			current_time;
-	// long int				elapsed_time;
-
-	// gettimeofday(&current_time, NULL);
-	// elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
-	// printf("Elapsed time: %ld ms\n", elapsed_time);
-	// last_time = current_time;
-}
 
 float	distance_between_points(t_point start, t_point end)
 {

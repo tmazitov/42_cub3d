@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 18:06:56 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/14 19:24:30 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,24 @@
 // 	img_put_img(game->scene->image, anime_image, pos, 0);
 // }
 
+#include <sys/time.h>
+
+void	print_time_since_last_call()
+{
+	static struct	timeval last_time;
+	struct timeval			current_time;
+	long int				elapsed_time;
+
+	gettimeofday(&current_time, NULL);
+	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
+	printf("Elapsed time: %ld ms\n", elapsed_time);
+	last_time = current_time;
+}
+
 int	render_hook(t_game *game)
 {
 	// printf("FRAME BEING MADE-----------------------------------------------\n");
+	print_time_since_last_call();
 	mlx_clear_window(game->mlx, game->window);
 	render_window_scene(game);
 	render_minimap(game);
@@ -64,6 +79,6 @@ int	render_hook(t_game *game)
 	// render_player_money(game);
 	// render_player_score(game);
 	img_draw(game->window, game->scene->image, 0, 0);
-	mlx_do_sync(game->mlx);
+	// mlx_do_sync(game->mlx);
 	return (0);
 }

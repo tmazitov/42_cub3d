@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 18:16:58 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:09:01 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "../../utils/path/path.h"
 
 # define TREASURE_COLLECT_DISTANCE 80
-# define ENEMY_DEFAULT_HEALTH 75
+# define ENEMY_DEFAULT_HEALTH 10
 
 typedef struct  s_enemy_storage
 {

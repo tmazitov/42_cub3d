@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/11 16:14:41 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:15:33 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,7 +382,7 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
 	angle_to_sprite = dist_to_wall_vert_line[0];
 }
 
-float	calc_dis_zomb_to_pl(t_point zombie_pos, t_point player_pos)
+float	calc_dis_for_two_points(t_point zombie_pos, t_point player_pos)
 {
 	float	dx;
 	float	dy;
@@ -517,11 +517,11 @@ void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 		temp_multiplier.y *= 8;
 		t_anime *anime = zombz->enemies[zombie_iter]->move_anime;
 		t_image *anime_image = anime_current_frame(anime);
-		render_sprite(game, sprite_position, anime_image, calc_dis_zomb_to_pl(sprite_position, player_pos), dist_to_wall_vert_line);
+		render_sprite(game, sprite_position, anime_image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
 		zombie_iter++;
 	}
-	
 }
+//ADDING
 
 //func to convert given params in CUB file to color.
 uint32_t rgb_to_color(t_rgb color)
@@ -664,6 +664,7 @@ void render_window_scene(t_game *game)
             break;
     }
 	draw_sprite(game, dist_to_wall_vert_line);
+	// draw_sprite()
     draw__middle_aim(game);
 }
 
@@ -689,7 +690,7 @@ void render_window_scene(t_game *game)
 	// 	zombie_pos.x = (zombz->enemies[iter_zombies]->pos->x - game->scene->minimap->player_pos.x) * cos(game->scene->minimap->player_rotation * M_PI / 180);
 	// 	zombie_pos.y = (zombz->enemies[iter_zombies]->pos->y - game->scene->minimap->player_pos.y) * sin(game->scene->minimap->player_rotation * M_PI / 180) ;
 	// 	printf("ZOMBIE POS = %f, %f\n", zombie_pos.x, zombie_pos.y);
-	// 	render_sprite(game, zombie_pos, temp_zombie_image, calc_dis_zomb_to_pl(zombie_pos, game->scene->minimap->player_pos));
+	// 	render_sprite(game, zombie_pos, temp_zombie_image, calc_dis_for_two_points(zombie_pos, game->scene->minimap->player_pos));
 	// 	//temp zombie image is supposed to be changing later
 	// 	iter_zombies++;
 	// }

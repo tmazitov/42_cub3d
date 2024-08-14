@@ -6,12 +6,12 @@
 #    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/13 13:52:46 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/08/14 19:42:43 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g 
+CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS =  cmd/main.c \
         game/game.c \
