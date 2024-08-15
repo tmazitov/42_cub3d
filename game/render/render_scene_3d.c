@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/14 13:15:33 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/15 23:01:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,7 +378,6 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
 				
 			}
     }
-
 	angle_to_sprite = dist_to_wall_vert_line[0];
 }
 
@@ -481,7 +480,7 @@ float calculate_angle(t_point player_pos, t_point zombie_pos) {
 /*
 	EXPERIMENT FUNC THAT CASTS ON CORRECT POSITION// CORRECT MATRIX
 */
-void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
+void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
 {
 	t_enemy_storage *zombz;
 	t_point sprite_position;
@@ -494,33 +493,50 @@ void	draw_sprite(t_game *game, float *dist_to_wall_vert_line)
 	z_height_value = 100;
 	zombz = game->scene->enemies;
 	int zombie_iter = 0;	
-
-	// float dist_to_sprite[zombz->size];
+	float temp_dist_to_sprite;
 	
+	// temp_dist_to_sprite = INT_MAX;
 
-	zombie_iter = 0;
-	while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1)
-	{
-		sprite_position = *zombz->enemies[zombie_iter]->pos;
-		player_pos = game->scene->minimap->player_pos;
-		sprite_position.x += 32;
-		sprite_position.y += 32;
-		cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
-		sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
-		sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
-		sprite_display_pos.y = (sprite_position.x - player_pos.x) * cos_value + (sprite_position.y - player_pos.y) * sin_value;
-		sprite_display_pos.x = sprite_display_pos.x*(108)/sprite_display_pos.y + 120 / 2;
-		sprite_display_pos.y = z_height_value*(108)/sprite_display_pos.y + 80 / 2;
-		t_point temp_multiplier;
-		temp_multiplier = sprite_display_pos;
-		temp_multiplier.x *= 8;
-		temp_multiplier.y *= 8;
-		t_anime *anime = zombz->enemies[zombie_iter]->move_anime;
-		t_image *anime_image = anime_current_frame(anime);
-		render_sprite(game, sprite_position, anime_image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
-		zombie_iter++;
-	}
+
+	// while (zombie_iter < zombz->size)
+	// {
+	// 	zombie_iter = 0;
+	// 	sprite_position = *zombz->enemies[zombie_iter]->pos;
+	// 	player_pos = game->scene->minimap->player_pos;
+	// 	sprite_position.x += 32;
+	// 	sprite_position.y += 32;
+	// 	temp_dist_to_sprite = calc_dis_for_two_points(sprite_position, player_pos)
+	// 	if (temp_dist_to_sprite)
+
+		
+		while (zombie_iter < zombz->size && zombz->enemies[zombie_iter]->alive == 1)
+		{
+			sprite_position = *zombz->enemies[zombie_iter]->pos;
+			player_pos = game->scene->minimap->player_pos;
+			sprite_position.x += 32;
+			sprite_position.y += 32;
+			temp_dist_to_sprite = calc_dis_for_two_points(sprite_position, player_pos);
+			// while ()
+			if (zombz->enemies[zombie_iter]->alive == 1)
+			cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
+			sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
+			sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
+			sprite_display_pos.y = (sprite_position.x - player_pos.x) * cos_value + (sprite_position.y - player_pos.y) * sin_value;
+			sprite_display_pos.x = sprite_display_pos.x*(108)/sprite_display_pos.y + 120 / 2;
+			sprite_display_pos.y = z_height_value*(108)/sprite_display_pos.y + 80 / 2;
+			// t_point temp_multiplier;
+			// temp_multiplier = sprite_display_pos;
+			// temp_multiplier.x *= 8;
+			// temp_multiplier.y *= 8;
+			t_anime *anime = zombz->enemies[zombie_iter]->move_anime;
+			t_image *anime_image = anime_current_frame(anime);
+			render_sprite(game, sprite_position, anime_image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
+			zombie_iter++;
+		}
+
+
 }
+
 //ADDING
 
 //func to convert given params in CUB file to color.
@@ -663,8 +679,8 @@ void render_window_scene(t_game *game)
         if (screen_render.x == game->width || screen_render.y == 0)
             break;
     }
-	draw_sprite(game, dist_to_wall_vert_line);
-	// draw_sprite()
+	draw_zombie(game, dist_to_wall_vert_line);
+	// draw_boxes()
     draw__middle_aim(game);
 }
 
