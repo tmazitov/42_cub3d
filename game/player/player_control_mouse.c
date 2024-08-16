@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 18:25:24 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 16:00:24 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,26 @@ void	*shoot_sound_func(void *arg)
 	return (NULL);
 }
 
+void	left_click_shoot_func(t_game *game)
+{
+	pthread_t sound_thread;
+	t_inventory		*inv;
+	t_item			*active_item;
+
+	inv = game->scene->player->inventory;
+	if (!inv)
+		return ;
+	active_item = inv->slots->items[inv->active_item];
+	if (active_item && active_item->type == PISTOL)
+	{
+		pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
+		pthread_detach(sound_thread);
+		game->scene->player->inventory->bullets--;
+		printf("(right click detected) shot fired\n");
+		bullet_shoot_func(game, game->scene->minimap->player_rotation);
+	}
+	return ;
+}
 
 int	player_mouse_scroll(int button, int x, int y, t_game *game)
 {
@@ -61,6 +81,7 @@ int	player_mouse_scroll(int button, int x, int y, t_game *game)
 	player = game->scene->player;
 	if (button == LEFT_CLICK && game->scene->player->inventory->bullets > 0)
 	{
+		// left_click_shoot_func(game);
         pthread_t sound_thread;
         pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
         pthread_detach(sound_thread);

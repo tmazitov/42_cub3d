@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/15 23:01:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:45:37 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,9 +348,6 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
     // If the sprite is within the player's field of view
     if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
 	{
-        // float perpendicular_distance = sprite_distance / cos(angle_to_sprite * M_PI / 180);
-		// printf("perpendicular_distance  = %f \n", perpendicular_distance);
-		// printf("sprite_distance        =  %f \n", sprite_distance);
         // Calculate sprite screen size
         float sprite_screen_size = (game->height * 64) / sprite_distance;
         
@@ -365,6 +362,61 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
 				{
 					int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
 					int screen_y = sprite_screen_y + y;
+					if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
+					{
+						if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
+						{
+							uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
+							if (color != (uint32_t)(-16777216))
+								img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
+						}
+					}
+				}
+				
+			}
+    }
+	angle_to_sprite = dist_to_wall_vert_line[0];
+}
+
+void render_chest(t_game *game, t_point sprite_pos, t_image *sprite_image, float sprite_distance, float *dist_to_wall_vert_line)
+{
+    // Player and sprite position in the game world
+    t_point player_pos = game->scene->minimap->player_pos;
+	
+	// printf("ZOMBIE POS = %f, %f\n", sprite_pos.x, sprite_pos.y);
+	// printf("PLAYER POS = %f, %f\n", player_pos.x, player_pos.y);
+    // Calculate the angle to the sprite
+
+	float angle_to_sprite = 0;
+    angle_to_sprite = atan2(sprite_pos.y - player_pos.y, sprite_pos.x - player_pos.x) * 180 / M_PI;
+    angle_to_sprite -= game->scene->minimap->player_rotation;
+	angle_to_sprite += 180;
+
+    // printf("angle_to_sprite = %f\n", angle_to_sprite);
+
+    // Normalize the angle
+    if (angle_to_sprite < -180)
+		angle_to_sprite += 360;
+    if (angle_to_sprite > 180)
+		angle_to_sprite -= 360;
+
+    // If the sprite is within the player's field of view
+    if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
+	{
+        // Calculate sprite screen size
+        float sprite_screen_size = (game->height * 16) / sprite_distance;
+
+        // Calculate sprite screen position
+        int sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
+        int sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
+
+			// Render the sprite (small square for simplicity)
+			for (int x = 0; x < sprite_screen_size; x++)
+			{
+				for (int y = 0; y < sprite_screen_size; y++)
+				{
+					int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
+					int screen_y = sprite_screen_y + y + 50;
 					if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
 					{
 						if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
@@ -480,6 +532,56 @@ float calculate_angle(t_point player_pos, t_point zombie_pos) {
 /*
 	EXPERIMENT FUNC THAT CASTS ON CORRECT POSITION// CORRECT MATRIX
 */
+
+
+void	draw_chests(t_game *game, float *dist_to_wall_vert_line)
+{
+	t_treasure_storage *chestz;
+	t_point sprite_position;
+	t_point player_pos;
+	t_point sprite_display_pos;
+	float	cos_value; 
+	float	sin_value;
+	float	z_height_value;
+
+	z_height_value = 100;
+	chestz = game->scene->treasures;
+	int chestie_iter = 0;	
+
+	printf("in draw chest\n");
+	printf("chestie iter = %d", chestie_iter);
+	printf("chestz->items[0]->size = %d", chestz->items[0]->size);
+	
+	// problem chestz(s_treasure_storage -> size == 0 and chestz ->items[0]->size gives 1(maybe this means how many different kind of things are inside))
+	while (chestie_iter < chestz->items[0]->size)
+	{
+		printf("inside chest loop index[%d]\n", chestie_iter);
+		fflush(stdout);
+		sprite_position = *chestz->boxes[chestie_iter]->pos;
+		player_pos = game->scene->minimap->player_pos;
+		sprite_position.x += 32;
+		sprite_position.y += 32;
+
+		cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
+		sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
+		sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
+		sprite_display_pos.y = (sprite_position.x - player_pos.x) * cos_value + (sprite_position.y - player_pos.y) * sin_value;
+		sprite_display_pos.x = sprite_display_pos.x*(108)/sprite_display_pos.y + 120 / 2;
+		sprite_display_pos.y = z_height_value*(108)/sprite_display_pos.y + 80 / 2;
+
+		t_image chest_image;
+		if (chestz->items[chestie_iter] == NULL || chestz->items[chestie_iter]->items[0]->amount == 0)
+			chest_image = *get_sprite_by_name(game->scene->map->sprites, "TB_EMPTY")->image;
+		else
+			chest_image = *get_sprite_by_name(game->scene->map->sprites, "TB")->image;
+		// t_image *anime_image = anime_current_frame(anime);
+		render_chest(game, sprite_position, &chest_image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
+		chestie_iter++;
+	}
+}
+    // t_image temp_image[4];
+    // temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+
 void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
 {
 	t_enemy_storage *zombz;
@@ -517,7 +619,7 @@ void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
 			sprite_position.y += 32;
 			temp_dist_to_sprite = calc_dis_for_two_points(sprite_position, player_pos);
 			// while ()
-			if (zombz->enemies[zombie_iter]->alive == 1)
+			// if (zombz->enemies[zombie_iter]->alive == 1)
 			cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
 			sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
 			sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
@@ -620,10 +722,8 @@ void render_window_scene(t_game *game)
 	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
 	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
 
-	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+		
+
 
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
@@ -679,7 +779,17 @@ void render_window_scene(t_game *game)
         if (screen_render.x == game->width || screen_render.y == 0)
             break;
     }
+	
+		// t_image chest_image;
+		// // if (chestz->items[chestie_iter] == NULL || chestz->items[chestie_iter]->items[0]->amount == 0)
+		// // 	chest_image = *get_sprite_by_name(game->scene->map->sprites, "TB_EMPTY")->image;
+		// // else
+		// chest_image = *get_sprite_by_name(game->scene->map->sprites, "TB")->image;
+		// render_sprite(game, 
+
+	
 	draw_zombie(game, dist_to_wall_vert_line);
+	draw_chests(game, dist_to_wall_vert_line);
 	// draw_boxes()
     draw__middle_aim(game);
 }
