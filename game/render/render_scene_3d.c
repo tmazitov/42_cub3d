@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/16 18:45:37 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:57:29 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,9 +391,7 @@ void render_chest(t_game *game, t_point sprite_pos, t_image *sprite_image, float
     angle_to_sprite = atan2(sprite_pos.y - player_pos.y, sprite_pos.x - player_pos.x) * 180 / M_PI;
     angle_to_sprite -= game->scene->minimap->player_rotation;
 	angle_to_sprite += 180;
-
-    // printf("angle_to_sprite = %f\n", angle_to_sprite);
-
+	
     // Normalize the angle
     if (angle_to_sprite < -180)
 		angle_to_sprite += 360;
@@ -408,15 +406,15 @@ void render_chest(t_game *game, t_point sprite_pos, t_image *sprite_image, float
 
         // Calculate sprite screen position
         int sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
-        int sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
-
+        int sprite_screen_y = (game->height / 2) - (sprite_screen_size / 2)  + ((64 / sprite_distance) * game->height / 2);
+		// sprite_screen_y += 100;
 			// Render the sprite (small square for simplicity)
 			for (int x = 0; x < sprite_screen_size; x++)
 			{
 				for (int y = 0; y < sprite_screen_size; y++)
 				{
 					int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-					int screen_y = sprite_screen_y + y + 50;
+					int screen_y = sprite_screen_y + y;
 					if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
 					{
 						if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
@@ -548,15 +546,8 @@ void	draw_chests(t_game *game, float *dist_to_wall_vert_line)
 	chestz = game->scene->treasures;
 	int chestie_iter = 0;	
 
-	printf("in draw chest\n");
-	printf("chestie iter = %d", chestie_iter);
-	printf("chestz->items[0]->size = %d", chestz->items[0]->size);
-	
-	// problem chestz(s_treasure_storage -> size == 0 and chestz ->items[0]->size gives 1(maybe this means how many different kind of things are inside))
-	while (chestie_iter < chestz->items[0]->size)
+	while (chestie_iter < chestz->size)
 	{
-		printf("inside chest loop index[%d]\n", chestie_iter);
-		fflush(stdout);
 		sprite_position = *chestz->boxes[chestie_iter]->pos;
 		player_pos = game->scene->minimap->player_pos;
 		sprite_position.x += 32;

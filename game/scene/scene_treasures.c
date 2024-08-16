@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_treasures.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 15:10:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:54:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 			if (raw_map->value[x] == 'B')
 			{
 				storage->boxes[treasure_created] = make_treasure(x*64, y*64);
+				storage->size++;
 				bullets_count = random_int(7, 19);
 				total_items_count = !!bullets_count;
 				storage->items[treasure_created] = make_item_collection(total_items_count);
