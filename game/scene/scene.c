@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 03:05:25 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:13:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ static int	setup_scene_objs(void *mlx, t_scene *scene)
 	return (1);
 }
 
+static int	setup_player_inventory(t_player *player)
+{
+	if (!player || !player_add_weapon(player, PISTOL))
+		return (0);
+	return (1);
+}
+
 
 t_scene	*make_scene(void *mlx, char *path)
 {
@@ -57,7 +64,7 @@ t_scene	*make_scene(void *mlx, char *path)
 		return (print_error("undefined player position"), free_scene(scene));
 	scene->player = make_player(mlx, *scene->map->player_start, scene->map->player_direction);
 	scene->map->player_start = free_point(scene->map->player_start);
-	if (!scene->player)
+	if (!scene->player || !setup_player_inventory(scene->player))
 		return (free_scene(scene));
 	scene->image = make_image(mlx);
 	if (!scene->image)
