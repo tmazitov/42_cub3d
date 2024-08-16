@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/14 19:03:49 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:55:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_player
 	float		move_speed;
 	t_inventory	*inventory;
 	int			update_count;
+	t_anime		*pistol_anime;
+	int			anime_activated;
 }		t_player;
 
 typedef struct s_scene t_scene;
@@ -75,7 +77,7 @@ float		player_speed(t_player *player);
 
 // CONTROL (MOUSE)
 
-int			player_mouse_scroll(int button, int x, int y, t_game *player);
+int			player_mouse_control(int button, int x, int y, t_game *player);
 int			player_mouse_move(int x, int y, t_player *player);
 void		*shoot_sound_func(void *arg);
 

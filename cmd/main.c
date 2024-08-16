@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 15:14:34 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:48:44 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void setup_game_hooks(t_game *game)
 	// mlx_loop_hook(game->mlx, update_hook, game);
 	// mlx_key_hook(game->window, key_hook, game);	
 	// mlx_key_hook(game->window, player_control_hook, game);
-	mlx_mouse_hook(game->window, player_mouse_scroll, game);
+	mlx_mouse_hook(game->window, player_mouse_control, game);
 	mlx_hook(game->window, MouseMove, MouseMoveMask, player_mouse_move,  game->scene->player);
 	mlx_hook(game->window, KeyPress, KeyPressMask, player_control_set, game->scene->player);
 	mlx_hook(game->window, KeyRelease, KeyReleaseMask, player_control_unset, game->scene->player);	

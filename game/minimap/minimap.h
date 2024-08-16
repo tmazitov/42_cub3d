@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:35:26 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:54:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_minimap
 t_minimap	*make_minimap(void *mlx, int width, int height);
 void		*free_minimap(t_minimap *map);
 
-void		minimap_update(t_minimap *minimap, double player_rotation, t_point player_position, t_vector *player_move);
-void		minimap_camera_move(t_minimap *map, t_point player_pos, t_vector player_move);
+void		minimap_update(t_minimap *minimap, double player_rotation, t_point player_position);
+void		minimap_camera_move(t_minimap *map);
 
 void		minimap_draw_border(t_minimap *minimap);
 void		minimap_draw_background(t_minimap *minimap);

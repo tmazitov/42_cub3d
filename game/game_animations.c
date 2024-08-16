@@ -6,18 +6,60 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 06:38:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 07:47:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:21:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-static t_anime	*make_enemy_move_anime(t_game *game)
+static char	*get_frame_name(char *template, int number)
 {
-	t_sprite_node	*sprite;
+	char	*frame_name;
+	char	*index_str;
+
+	index_str = ft_itoa(number);
+	if (!index_str)
+		return (NULL);
+	frame_name = ft_strjoin(template, index_str);
+	free(index_str);
+	if (!frame_name)
+		return (NULL);
+	return (frame_name);
+}
+
+t_anime	*make_pistol_shot_anime(t_game *game)
+{
 	int				counter;
 	t_anime			*anime;
-	char			*index_str;
+	t_sprite_node	*sprite;
+	char			*sprite_name;
+
+	anime = make_anime();
+	if (!anime)
+		return (NULL);
+	counter = 0;
+	while (counter < 4)
+	{
+		sprite_name = get_frame_name("PISTOL_SHOT_", counter + 1);
+		if (!sprite_name)
+			return (free_anime(anime));
+		sprite = get_sprite_by_name(game->scene->map->sprites, sprite_name);
+		if (!sprite || !sprite->image \
+			|| !img_scale(&sprite->image, 10) \
+			|| !anime_add_frame(anime, sprite->image, 1))
+			return (free_anime(anime));
+		free(sprite_name);
+		counter++;
+	}
+	printf("\t|\\/\\/\\| Pistol shot animation created!\n");
+	return (anime);
+}
+
+static t_anime	*make_enemy_move_anime(t_game *game)
+{
+	int				counter;
+	t_anime			*anime;
+	t_sprite_node	*sprite;
 	char			*sprite_name;
 
 	anime = make_anime();
@@ -26,22 +68,15 @@ static t_anime	*make_enemy_move_anime(t_game *game)
 	counter = 0;
 	while (counter < 8)
 	{
-		index_str = ft_itoa(counter);
-		if (!index_str)
-			return (free_anime(anime));
-		sprite_name = ft_strjoin("ENEMY_MOVE_", index_str);
-		free(index_str);
+		sprite_name = get_frame_name("ENEMY_MOVE_", counter);
 		if (!sprite_name)
 			return (free_anime(anime));
 		sprite = get_sprite_by_name(game->scene->map->sprites, sprite_name);
+		if (!sprite || !sprite->image \
+			|| !img_scale(&sprite->image, 10) \
+			|| !anime_add_frame(anime, sprite->image, ENEMY_FRAME_DURATION))
+			return (free_anime(anime));
 		free(sprite_name);
-		if (sprite && sprite->image)
-		{
-			if (!img_scale(&sprite->image, 5))
-				return (free_anime(anime));
-			if (!anime_add_frame(anime, sprite->image, ENEMY_FRAME_DURATION))
-				return (free_anime(anime));
-		} 
 		counter++;
 	}
 	printf("\t|\\/\\/\\| Enemy move animation created!\n");

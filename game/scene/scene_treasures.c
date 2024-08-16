@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 16:35:41 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:10:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 	int	y;
 	int treasure_count;
 	int treasure_created;
-	int	pistol_count;
 	int	bullets_count;
 	int	total_items_count;
 	
@@ -42,8 +41,7 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 	while(counter <= treasure_count)
 	{
 		storage->items[counter] = NULL;
-		storage->boxes[counter] = NULL;
-		counter++;
+		storage->boxes[counter++] = NULL;
 	}
 	y = 0;
 	treasure_created = 0;
@@ -55,13 +53,10 @@ int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map)
 			if (raw_map->value[x] == 'B')
 			{
 				storage->boxes[treasure_created] = make_treasure(x*64, y*64);
-				pistol_count = random_int(-5, 1);
 				bullets_count = random_int(7, 19);
-				total_items_count = !!pistol_count + !!bullets_count;
+				total_items_count = !!bullets_count;
 				storage->items[treasure_created] = make_item_collection(total_items_count);
 				if (!storage->boxes[treasure_created] || !storage->items[treasure_created])
-					return (0);
-				if (pistol_count > 0 && !item_collection_add_item(storage->items[treasure_created], PISTOL, 1))
 					return (0);
 				if (!item_collection_add_item(storage->items[treasure_created], BULLET, random_int(7, 19)))
 					return (0);
