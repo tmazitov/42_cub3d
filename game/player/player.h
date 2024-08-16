@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 15:15:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:55:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_player
 	float		move_speed;
 	t_inventory	*inventory;
 	int			update_count;
+	t_anime		*pistol_anime;
+	int			anime_activated;
 }		t_player;
 
 typedef struct s_scene t_scene;

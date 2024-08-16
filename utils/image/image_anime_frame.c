@@ -6,11 +6,26 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 05:51:17 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 07:35:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:04:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "image.h"
+
+static t_anime_frame	*get_last_frame(t_anime *anime)
+{
+	t_anime_frame	*last_frame;
+	int				counter;
+
+	counter = 0;
+	last_frame = anime->frames;
+	while (counter < anime->frame_count - 1)
+	{
+		last_frame = last_frame->next;
+		counter++;
+	}
+	return (last_frame);
+}
 
 /// @brief Provide the ability to add a frame to the animation.
 /// @param anime animation instance
@@ -20,8 +35,6 @@
 int	anime_add_frame(t_anime *anime, t_image *image, int duration)
 {
 	t_anime_frame	*frame;
-	t_anime_frame	*last_frame;
-	int				counter;
 
 	frame = malloc(sizeof(t_anime_frame));
 	if (!frame)
@@ -37,11 +50,7 @@ int	anime_add_frame(t_anime *anime, t_image *image, int duration)
 	}
 	else
 	{
-		counter = 0;
-		last_frame = anime->frames;
-		while (counter++ < anime->frame_count - 1)
-			last_frame = last_frame->next;
-		last_frame->next = frame;
+		get_last_frame(anime)->next = frame;
 		frame->next = anime->frames;
 	}
 	anime->frame_count++;

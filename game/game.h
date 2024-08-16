@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:17:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 07:09:45 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:41:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			*free_game(t_game *game);
 t_game			*make_game(char *scene_path, int width, int height, char *title);
 int				setup_writer(t_writer *writer, t_sprite_storage *storage, char from, char to);
 int				feel_game_animations(t_game *game);
+t_anime			*make_pistol_shot_anime(t_game *game);
 
 
 // HOOKS

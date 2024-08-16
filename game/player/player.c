@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/30 22:57:52 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:55:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void init_player(t_player *player, t_direction direction)
 	player->move_speed = 0;
 	player->inventory = NULL;
 	player->update_count = 0;
+	player->anime_activated = 0;
+	player->pistol_anime = NULL;
 	if (direction == NORTH)
 		player->rotation = 90;
 	else if (direction == SOUTH)
@@ -93,6 +95,8 @@ void *free_player(t_player *player)
 		free_vector(player->move_vector);
 	if (player->inventory)
 		free_inventory(player->inventory);
+	if (player->pistol_anime)
+		free_anime(player->pistol_anime);
 	free(player);
 	return (NULL);
 }

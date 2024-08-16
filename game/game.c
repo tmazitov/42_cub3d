@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 07:10:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 17:48:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	set_inv_position(t_game *game, t_player *player)
 static int	set_images_scale(t_game *game)
 {
 	t_sprite_node	*sprite;
-
+	
 	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
 	if (!sprite || !sprite->image)
 		return (1);
@@ -54,27 +54,10 @@ static int	set_images_scale(t_game *game)
 		return (1);
 	if (!img_scale(&sprite->image, 2))
 		return (0);
-	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_1");
-	if (!sprite || !sprite->image)
-		return (1);
-	if (!img_scale(&sprite->image, 10))
+	game->scene->player->pistol_anime = make_pistol_shot_anime(game);
+	if (!game->scene->player->pistol_anime)
 		return (0);
-	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_2");
-	if (!sprite || !sprite->image)
-		return (1);
-	if (!img_scale(&sprite->image, 10))
-		return (0);
-	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_3");
-	if (!sprite || !sprite->image)
-		return (1);
-	if (!img_scale(&sprite->image, 10))
-		return (0);
-	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_SHOT_4");
-	if (!sprite || !sprite->image)
-		return (1);
-	if (!img_scale(&sprite->image, 10))
-		return (0);
-	return (1); 
+	return (1);
 }
 
 t_game	*make_game(char *scene_path, int width, int height, char *title)

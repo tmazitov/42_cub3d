@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 15:37:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 18:10:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void	player_mouse_click_handler(int button, t_player *player, t_game *gam
 			pthread_detach(sound_thread);
 			
 			player->inventory->bullets--;
+			player->anime_activated = 1;
 			bullet_shoot_func(game, player->rotation);
 			player->update_count += 1;
 		}
