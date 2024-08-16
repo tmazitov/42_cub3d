@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_mouse.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 18:25:24 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:37:00 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,8 @@ void	*shoot_sound_func(void *arg)
 }
 
 
-int	player_mouse_scroll(int button, int x, int y, t_game *game)
+static void	player_mouse_scroll_handler(int button, t_player *player)
 {
-	(void)x;
-    (void)y;
-	t_player *player;
-
-	player = game->scene->player;
-	if (button == LEFT_CLICK && game->scene->player->inventory->bullets > 0)
-	{
-        pthread_t sound_thread;
-        pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
-        pthread_detach(sound_thread);
-		
-		game->scene->player->inventory->bullets--;
-		printf("(right click detected) shot fired\n");
-		// shoot_sound_func();
-		bullet_shoot_func(game, game->scene->minimap->player_rotation);
-	}
 	if (button == SCROLL_DOWN)
 		player->inventory->active_item += 1;
 	else if (button == SCROLL_UP)
@@ -78,7 +62,43 @@ int	player_mouse_scroll(int button, int x, int y, t_game *game)
 		player->inventory->active_item = player->inventory->size - 1;
 	if (player->inventory->active_item >= player->inventory->size)
 		player->inventory->active_item = 0;
-	player->update_count += 1;
+	if (button == SCROLL_DOWN || button == SCROLL_UP)
+		player->update_count += 1;
+}
+
+static void	player_mouse_click_handler(int button, t_player *player, t_game *game)
+{
+	t_item	*player_active_item;
+
+	if (button != LEFT_CLICK)
+		return ;
+	player_active_item = player->inventory->slots->items[player->inventory->active_item];
+	if (button == LEFT_CLICK)
+	{
+		if (player_active_item && \
+			player_active_item->type == PISTOL && \
+			player->inventory->bullets > 0)
+		{
+			pthread_t sound_thread;
+			pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
+			pthread_detach(sound_thread);
+			
+			player->inventory->bullets--;
+			bullet_shoot_func(game, player->rotation);
+			player->update_count += 1;
+		}
+	}
+}
+
+int	player_mouse_control(int button, int x, int y, t_game *game)
+{
+	(void)x;
+    (void)y;
+	t_player *player;
+
+	player = game->scene->player;
+	player_mouse_click_handler(button, player, game);
+	player_mouse_scroll_handler(button, player);
 	return (0);
 }
 
@@ -105,6 +125,8 @@ int	player_mouse_scroll(int button, int x, int y, t_game *game)
 // 	player->update_count += 1;
 // 	return (0);
 // }
+
+
 
 int			player_mouse_move(int x, int y, t_player *player)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/14 19:03:49 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:15:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ float		player_speed(t_player *player);
 
 // CONTROL (MOUSE)
 
-int			player_mouse_scroll(int button, int x, int y, t_game *player);
+int			player_mouse_control(int button, int x, int y, t_game *player);
 int			player_mouse_move(int x, int y, t_player *player);
 void		*shoot_sound_func(void *arg);
 
