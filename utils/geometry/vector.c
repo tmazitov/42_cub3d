@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 20:34:48 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/08 13:29:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:17:57 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "geometry.h"
 
-t_vector	*make_vector(int x, int y)
+t_vector	*make_vector(float x, float y)
 {
 	t_vector	*vector;
 

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:29:16 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/15 22:02:45 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:51:06 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**map_double_array_create(t_map *map)
 	i = 0;
 	while (temp)
 	{
-		ft_strlcpy_map(map->map_double_array[i], temp->value, map->width);
+		ft_strlcpy_map(map->map_double_array[i], temp->value, map->width + 1);
 		replace_nulls_with_1(map->map_double_array[i], map->width);
 		temp = temp->next;
 		i++;
