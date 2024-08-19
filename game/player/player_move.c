@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 19:37:36 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:47:58 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_vector	*player_move_vector(t_player *player, t_game *game)
 	if ((speed == 0 && game->scene->prev_speed != 0))
 		game->scene->moves_made++;
 	game->scene->prev_speed = speed;
-	
 	if (speed == 0)
 		return (NULL);
 	modificator = 1;

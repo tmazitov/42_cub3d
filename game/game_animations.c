@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_animations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 06:38:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 18:21:03 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:04:07 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ static int	feel_enemies_animations(t_game *game)
 		return (0);
 	storage = game->scene->enemies; 
 	counter = 0;
-	while (storage->enemies[counter])
+	while (storage->enemies[counter]
+		&& game->scene->map->zombie_count)
 	{
 		storage->enemies[counter]->move_anime = anime_copy(move_anime);
 		if (!storage->enemies[counter]->move_anime)
@@ -107,7 +108,8 @@ static int	feel_enemies_animations(t_game *game)
 
 int	feel_game_animations(t_game *game)
 {
-	if (!feel_enemies_animations(game))
+	if (game->scene->map->zombie_count
+		&& !feel_enemies_animations(game))
 		return (0);
 	return (1);
 }

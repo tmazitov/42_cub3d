@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/16 19:57:29 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:44:09 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -688,8 +688,8 @@ void render_window_scene(t_game *game)
 
 	float	dist_to_wall_vert_line[game->width];
 	int		vert_wall_iter = 0;
-	
     img_clear(game->scene->image);
+
     player_fov = PLAYER_FOV;
     screen_render.x = 0;
     screen_render.y = 0;

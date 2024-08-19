@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/12 22:27:17 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:12:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,8 +175,11 @@ void	render_minimap(t_game *game)
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
-	minimap_draw_enemies(game);
-	render_enemy_path(game);
+	if (game->scene->map->zombie_count != 0)
+	{
+		minimap_draw_enemies(game);
+		render_enemy_path(game);
+	}
 
 	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB");
 	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites, "TB_EMPTY");
