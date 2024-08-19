@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 15:54:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:20:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define ENEMY_HEALTH_BAR_BORDER_COLOR 2
 # define ENEMY_HEALTH_BAR_FILL_COLOR 2
 # define ENEMY_HEALTH_BAR_EMPTY_COLOR 2
-# define ENEMY_ATTACK_COOLDOWN 24
+
+# define ENEMY_ATTACK_COOLDOWN 32
 # define ENEMY_ATTACK_DISTANCE 76
 
 # define ENEMY_SPEED 4
