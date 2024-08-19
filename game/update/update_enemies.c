@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_enemies.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 21:14:32 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:50:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,24 @@ static void	update_enemy_pos(t_enemy *enemy)
 
 static void	update_enemy(t_enemy *enemy, t_game *game)
 {
-	update_enemy_path(enemy, game);
-	update_enemy_pos(enemy);
+	int			is_player_attacked;
+	t_player	*player;
+	
+	player = game->scene->player;
+	is_player_attacked = enemy_attack_handler(enemy, *player->pos);
+	if (is_player_attacked == 2) // enemy attack cooldown
+		return ;
+	else if (is_player_attacked == 0) // player is not near
+	{
+		update_enemy_path(enemy, game);
+		update_enemy_pos(enemy);
+	}
+	else if (is_player_attacked == 1) // enemy attacked
+	{
+		printf("enemy attack!\n");
+		hb_add_damage(player->inventory->health_bar, 15); 
+		player->inventory->update_count += 1;
+	}
 }
 
 void	update_enemies(t_game *game)

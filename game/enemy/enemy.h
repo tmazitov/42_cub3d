@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 12:40:39 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:54:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define ENEMY_HEALTH_BAR_BORDER_COLOR 2
 # define ENEMY_HEALTH_BAR_FILL_COLOR 2
 # define ENEMY_HEALTH_BAR_EMPTY_COLOR 2
+# define ENEMY_ATTACK_COOLDOWN 24
+# define ENEMY_ATTACK_DISTANCE 76
 
 # define ENEMY_SPEED 4
 # define ENEMY_FRAME_DURATION 4
@@ -52,6 +54,7 @@ typedef struct s_enemy
 	t_enemy_health_bar	*hb;
 	t_point				*move_target;
 	t_anime				*move_anime;
+	int					attack_cooldown;
 t_point				*player_pos;
 }		t_enemy;
 
@@ -67,5 +70,7 @@ void				enemy_calc_path(t_enemy *enemy, t_point player_pos, t_point_list *objs_p
 
 t_enemy_health_bar	*make_enemy_hb(void *mlx, int health);
 void				*free_enemy_hb(t_enemy_health_bar *hb);
+
+int					enemy_attack_handler(t_enemy *enemy, t_point player_pos);
 
 #endif

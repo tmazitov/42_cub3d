@@ -39,7 +39,8 @@
     "string_view": "c",
     "unordered_map": "c",
     "vector": "c",
-    "game.h": "c"
+    "game.h": "c",
+    "path.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

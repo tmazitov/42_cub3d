@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inventory.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 22:03:13 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:41:49 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int				bullets_message_size(t_inventory *inventory);
 
 t_health_bar	*make_health_bar(int max);
 int				hb_new_image(void *mlx, t_health_bar *bar, int width, int height);
+int				hb_add_damage(t_health_bar *bar, int damage);
 void			*free_health_bar(t_health_bar *bar);
 
 #endif

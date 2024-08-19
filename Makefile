@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
+#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/14 19:42:43 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/08/19 15:46:54 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS =  cmd/main.c \
 		game/enemy/enemy.c \
 		game/enemy/enemy_move.c \
 		game/enemy/enemy_anime.c \
+		game/enemy/enemy_attack.c \
 		game/enemy/enemy_image_update.c \
 		game/enemy/enemy_health_bar.c \
         game/player/player.c \
