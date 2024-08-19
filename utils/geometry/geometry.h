@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 17:18:02 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:30:25 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_line				*line_perpendicular(t_line *line, t_point point);
 /*VECTOR*/
 
 
-t_vector	*make_vector(float x, float y);
+t_vector	*make_vector(int x, int y);
 void		*free_vector(t_vector *vector);
 void		vector_add(t_vector *vector, float x, float y);
 

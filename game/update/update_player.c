@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 17:26:33 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:36:54 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,31 +116,31 @@ t_line offset_line(t_line player_path, int offset_pos_or_neg, float offset_amoun
 
 
 // Check if player can move in the direction of move_vector
-static int	player_intersect_handler_move(t_game *game, t_vector *move_vector)
-{
-	t_line			*player_path;
-	t_line			*inter_wall;
-	float			posX;
-	float			posY;
-	// int 			fork_result;
+// static int	player_intersect_handler_move(t_game *game, t_vector *move_vector)
+// {
+// 	t_line			*player_path;
+// 	t_line			*inter_wall;
+// 	float			posX;
+// 	float			posY;
+// 	// int 			fork_result;
 
-	if (!move_vector)
-		return (1);
-	posX = game->scene->player->pos->x;
-	posY = game->scene->player->pos->y;
-	// printf("vector x = %f, y = %f\n", move_vector->x, move_vector->y);
-	player_path = make_line(posX, posY, posX + move_vector->x, posY + move_vector->y);
-	if (!player_path)
-		return (1);
-	inter_wall = check_wall_intersection(player_path, game);
-	if (!inter_wall)
-		return (free_line(player_path) ,1);
-	// fork_result = player_intersect_forked(game, move_vector);
-	// if (fork_result)
-	// 	return (free_line(player_path), free_line(inter_wall), 1);
-	update_player_vector(move_vector, player_path, inter_wall);
-	return (free_line(player_path), free_line(inter_wall), 0);
-}
+// 	if (!move_vector)
+// 		return (1);
+// 	posX = game->scene->player->pos->x;
+// 	posY = game->scene->player->pos->y;
+// 	// printf("vector x = %f, y = %f\n", move_vector->x, move_vector->y);
+// 	player_path = make_line(posX, posY, posX + move_vector->x, posY + move_vector->y);
+// 	if (!player_path)
+// 		return (1);
+// 	inter_wall = check_wall_intersection(player_path, game);
+// 	if (!inter_wall)
+// 		return (free_line(player_path) ,1);
+// 	// fork_result = player_intersect_forked(game, move_vector);
+// 	// if (fork_result)
+// 	// 	return (free_line(player_path), free_line(inter_wall), 1);
+// 	update_player_vector(move_vector, player_path, inter_wall);
+// 	return (free_line(player_path), free_line(inter_wall), 0);
+// }
 
 // static int	player_intersect_handler_check(t_game *game, t_vector *move_vector)
 // {
@@ -401,12 +401,39 @@ t_vector offset_vector(t_vector move_vector, float offset_amount)
 // 	free_vector(move_vector);
 // }
 
+static void	player_intersect_handler(t_game *game, t_vector *move_vector)
+{
+	t_line			*player_path;
+	t_line			*inter_wall;
+	float			posX;
+	float			posY;
+
+	if (!move_vector)
+		return ;
+	posX = game->scene->player->pos->x;
+	posY = game->scene->player->pos->y;
+	player_path = make_line(posX, posY, posX + move_vector->x, posY + move_vector->y);
+	if (!player_path)
+		return ;
+	inter_wall = check_wall_intersection(player_path, game);
+	if (!inter_wall)
+	{
+		free_line(player_path);
+		return ;
+	}
+	update_player_vector(move_vector, player_path, inter_wall);
+	free_line(player_path);
+	free_line(inter_wall);
+}
+
+
+
 void	update_player(t_game *game)
 {
 	t_vector	*move_vector;
 	t_player	*player;
-	// t_vector	*move_vector_x;
-	// t_vector	*move_vector_y;
+	t_line		*move_vector_x;
+	t_line		*move_vector_y;
 	// float		player_angle;
 
 
@@ -424,7 +451,7 @@ void	update_player(t_game *game)
 	if (!move_vector)
 		return ;
 
-	// move_vector_x = make_vector(move_vector->x, 0);
+	move_vector_x = make_line(player->pos->x, player->pos->y, player->pos->x + move_vector->x, player->pos->y);
 	// if (!move_vector_x)
 	// 	return ;
 	// if (player_angle > 0
@@ -432,7 +459,7 @@ void	update_player(t_game *game)
 	// 	move_vector_x->y = -2;
 	// else
 	// 	move_vector_x->y = 2;
-	// move_vector_y = make_vector(0, move_vector->y);
+	move_vector_y = make_line(player->pos->x, player->pos->y, player->pos->x, player->pos->y + move_vector->y);
 	// if (!move_vector_y)
 	// 	return ;
 	// if (player_angle < 90
@@ -447,15 +474,18 @@ void	update_player(t_game *game)
 	// printf("move_vector_x x = %f, y = %f\n", move_vector_x->x, move_vector_x->y);
 	// printf("move_vector_y x = %f, y = %f\n", move_vector_y->x, move_vector_y->y);
 	
-	player_intersect_handler_move(game, move_vector);
-	// if (player_intersect_handler_move(game, move_vector) == 0)
-	// 	// || player_intersect_handler_move(game, move_vector_y) == 1)
-	// {
-	// 	free_vector(move_vector);
-	// 	free_vector(move_vector_x);
-	// 	free_vector(move_vector_y);
-	// 	return ;
-	// }
+	player_intersect_handler(game, move_vector);
+
+	// player_intersect_handler_move(game, move_vector);
+	
+	if (get_array_map_value(*move_vector_x, game) == '1'
+		|| get_array_map_value(*move_vector_y, game) == '1')
+	{
+		free_vector(move_vector);
+		free_line(move_vector_x);
+		free_line(move_vector_y);
+		return ;
+	}
 	player_move_update(player, move_vector);
 	// player_intersect_wrapper(game, move_vector);
 	// player_intersect_handler(game, offset_vector(*move_vector, 0.5));

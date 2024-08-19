@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/13 18:19:29 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 18:40:36 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	zombie_hit_interaction(t_game *game, t_point bullet_iter)
 }
 
 //NEW MODIFICATION
-t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees)
+void	bullet_shoot_func(t_game *game, float angle_in_degrees)
 {
 	float	y_iteration;	//y_iteration in while loop
 	float	x_iteration;	//x_iteration in while loop
@@ -85,7 +85,7 @@ t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees)
 	set_iterations(game->scene->minimap->player_rotation, &y_iteration, &x_iteration);
 	ray = make_line_by_points(game->scene->minimap->player_pos, game->scene->minimap->player_pos);
 	if (!ray)
-		return (NULL);
+		return ;
 	iterations = 0;
 	while (
 		get_array_map_value(*ray, game) != '1'
@@ -102,8 +102,7 @@ t_line	*bullet_shoot_func(t_game *game, float angle_in_degrees)
 		iterations++;
 	}
 	// if (zombie_hit_interaction(game, ray->end) == 1)
-
-	return (ray);
+	free_line(ray);
 }
 	// if (angle_in_degrees > 0 && angle_in_degrees < 180)
 	// {
