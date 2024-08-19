@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 20:34:38 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:37:36 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_player_move(t_player *player)
 			player->pressed_buttons[2] || player->pressed_buttons[3]);
 }
 
-t_vector	*player_move_vector(t_player *player)
+t_vector	*player_move_vector(t_player *player, t_game *game)
 {
 	float		modificator;
 	t_vector	*move_vector;
@@ -54,14 +54,15 @@ t_vector	*player_move_vector(t_player *player)
 	int			counter;
 	float		speed;
 
-
 	// print_state(player);
-
 	speed = player_speed(player);
+	if ((speed == 0 && game->scene->prev_speed != 0))
+		game->scene->moves_made++;
+	game->scene->prev_speed = speed;
+	
 	if (speed == 0)
 		return (NULL);
 	modificator = 1;
-
 	move_vector = make_vector(0, 0);
 	if (!move_vector)
 		return (NULL);

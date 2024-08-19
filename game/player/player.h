@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 17:55:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:30:42 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_image		*load_icon(void *mlx);
 
 int			player_control_set(int keycode, t_player *player);
 int			player_control_unset(int keycode, t_player *player);
-t_vector	*player_move_vector(t_player *player);
+t_vector	*player_move_vector(t_player *player, t_game *game);
 void		player_move_update(t_player *player, t_vector *move_vector);
 void		player_rotate(t_player *player);
 int			is_player_move(t_player *player);

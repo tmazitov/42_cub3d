@@ -6,16 +6,40 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 18:48:44 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:10:57 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h" 
 
-int merge_hook(void *game)
+int merge_hook(void *arg)
 {
+	t_game *game;
+
+	game = (t_game *)arg;
 	update_hook(game);
 	render_hook(game);
+
+	
+    // int win_width = game->width;
+    // int win_height = game->height;
+
+    // // Center the cursor
+	// //FOR MACOS
+    // mlx_mouse_move(game->window, (win_width / 2), (win_height / 2));
+	
+	// //FOR LINUX 
+    // // mlx_mouse_move(game->mlx, game->window, (win_width / 2), (win_height / 2));
+
+
+	return (0);
+}
+
+int	close_game(void *param)
+{
+	t_game *game = (t_game *)param;
+	free_game(game);
+	exit(0);
 	return (0);
 }
 
@@ -53,9 +77,27 @@ int merge_hook(void *game)
 // }
 
 
+// static int recenter_cursor(t_game *game)
+// {
+//     int win_width = game->width;
+//     int win_height = game->height;
+
+//     // Center the cursor
+// 	//FOR MACOS
+//     mlx_mouse_move(game->window, (win_width / 2), (win_height / 2));
+	
+// 	//FOR LINUX 
+//     // mlx_mouse_move(game->mlx, game->window, (win_width / 2), (win_height / 2));
+
+//     return 0;
+// }
+
+
 static void setup_game_hooks(t_game *game)
 {
 	mlx_loop_hook(game->mlx, merge_hook, game);
+
+	// mlx_hook(game->mlx, recenter_cursor, game);
 
 	
 	//      trying to recenter mouse but UNSUCCESSFUL, due to error.
@@ -71,7 +113,7 @@ static void setup_game_hooks(t_game *game)
 	mlx_hook(game->window, MouseMove, MouseMoveMask, player_mouse_move,  game->scene->player);
 	mlx_hook(game->window, KeyPress, KeyPressMask, player_control_set, game->scene->player);
 	mlx_hook(game->window, KeyRelease, KeyReleaseMask, player_control_unset, game->scene->player);	
-	// mlx_hook(game->window, 17, 1L << 17, close_game, game);
+	mlx_hook(game->window, 17, 1L << 17, close_game, game);
 }
 
 static void run(t_game *game)
