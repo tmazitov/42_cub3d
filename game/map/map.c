@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 21:03:24 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:37:19 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,37 @@ static	void count_zombies(t_map *map)
 	map->zombie_count = zombie_counter;
 }
 
+//checks 2d array map, for N S W E
+// if more than 1 exists, return 0(error case)
+static int	check_for_multiple_p_chars(t_map *map)
+{
+	char **temp_array;
+	int	iter;
+	int p_counter;
+
+	
+	temp_array = map->map_double_array;
+	p_counter = 0;
+	while (*temp_array)
+	{
+		iter = 0;
+		while ((*temp_array)[iter] != '\0')
+		{
+			if ((*temp_array)[iter] == 'N'
+				|| (*temp_array)[iter] == 'S'
+				|| (*temp_array)[iter] == 'W'
+				|| (*temp_array)[iter] == 'E')
+				p_counter++;
+			iter++;
+		}
+		temp_array++;
+	}
+	printf("p_counter = [%d]\n", p_counter);
+	if (p_counter > 1)
+		return (0);
+	return (1);
+}
+
 t_map	*make_map(void *mlx,char *path)
 {
 	t_map	*map;
@@ -62,6 +93,9 @@ t_map	*make_map(void *mlx,char *path)
 		return (free_map(map));
 	if (!map_double_array_create(map))
 		return (free_map(map));
+	if (!check_for_multiple_p_chars(map))
+		return (print_error("Multiple N,S,W,Es found in map"),
+			free_map(map));
 	count_zombies(map);
 	// // temporatu prints to make a map with 2d array and save it.
 	printf("---START PRINTS FROM [map.c]-----------\n\n");

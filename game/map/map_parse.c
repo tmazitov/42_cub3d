@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 22:34:00 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/19 21:32:05 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	parse_walls_raw(t_map *map, int fd)
 	}
 	return (1);
 }
-
 
 int	parse_map(void *mlx, t_map *map, char *path)
 {
