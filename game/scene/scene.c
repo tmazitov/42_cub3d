@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 15:13:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:29:01 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	init_scene(t_scene *scene)
 	scene->treasures = NULL;
 	scene->image = NULL;
 	scene->objs_points = NULL;
+	scene->moves_made = 0;
+	scene->prev_speed = 0;
 }
 
 static int	setup_scene_objs(void *mlx, t_scene *scene)

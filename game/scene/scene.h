@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 15:43:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:51:36 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ typedef struct s_scene
 	t_enemy_storage 	*enemies;
 	t_point_list		*objs_points;
 	t_image				*image;
+	int					moves_made;
+	float				prev_speed;
 }			t_scene;
-
 
 t_scene	*make_scene(void *mlx, char *path);
 void	*free_scene(t_scene *scene);

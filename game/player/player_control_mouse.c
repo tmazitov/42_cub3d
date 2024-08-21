@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_mouse.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 18:10:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/16 19:31:25 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,46 @@ void	*shoot_sound_func(void *arg)
 	return (NULL);
 }
 
+void	left_click_shoot_func(t_game *game)
+{
+	pthread_t sound_thread;
+	t_inventory		*inv;
+	t_item			*active_item;
+
+	inv = game->scene->player->inventory;
+	if (!inv)
+		return ;
+	active_item = inv->slots->items[inv->active_item];
+	if (active_item && active_item->type == PISTOL)
+	{
+		pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
+		pthread_detach(sound_thread);
+		game->scene->player->inventory->bullets--;
+		printf("(right click detected) shot fired\n");
+		bullet_shoot_func(game, game->scene->minimap->player_rotation);
+	}
+	return ;
+}
 
 static void	player_mouse_scroll_handler(int button, t_player *player)
 {
+	// (void)x;
+    // (void)y;
+	// t_player *player;
+
+	// player = game->scene->player;
+	// if (button == LEFT_CLICK && game->scene->player->inventory->bullets > 0)
+	// {
+	// 	// left_click_shoot_func(game);
+    //     pthread_t sound_thread;
+    //     pthread_create(&sound_thread, NULL, shoot_sound_func, "cub3d_gun_shot_sound.wav");
+    //     pthread_detach(sound_thread);
+		
+	// 	game->scene->player->inventory->bullets--;
+	// 	printf("(right click detected) shot fired\n");
+	// 	// shoot_sound_func();
+	// 	bullet_shoot_func(game, game->scene->minimap->player_rotation);
+	// }
 	if (button == SCROLL_DOWN)
 		player->inventory->active_item += 1;
 	else if (button == SCROLL_UP)
