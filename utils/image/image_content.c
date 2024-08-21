@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 04:43:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:57:35 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	img_load(t_image *img, char *path)
 	w = &img->width; // mlx bug
 	h = &img->height;
 	img->content = mlx_xpm_file_to_image(img->mlx, path, w, h);
-	printf("\t\twidth : %d height : %d \n", *w, *h);
 	if (!img->content)
 		return (print_error("invalid xpm structure"), 0);
 	img->buffer = img_buffer(img);

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 15:50:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:19:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,25 @@ static void	update_enemy(t_enemy *enemy, t_game *game)
 	t_player	*player;
 	
 	player = game->scene->player;
+	if (enemy->hb->current <= 0 && enemy->alive)
+	{
+		enemy->alive = 0;
+		game->scene->enemies->alive -= 1;
+	}
+	if (!enemy->alive)
+		return ;
 	is_player_attacked = enemy_attack_handler(enemy, *player->pos);
 	if (is_player_attacked == 2) // enemy attack cooldown
 		return ;
 	else if (is_player_attacked == 0) // player is not near
 	{
+		enemy->is_attack = 0;
 		update_enemy_path(enemy, game);
 		update_enemy_pos(enemy);
 	}
 	else if (is_player_attacked == 1) // enemy attacked
 	{
-		printf("enemy attack!\n");
+		enemy->is_attack = 1;
 		hb_add_damage(player->inventory->health_bar, 15); 
 		player->inventory->update_count += 1;
 	}

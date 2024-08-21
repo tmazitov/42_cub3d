@@ -62,6 +62,12 @@ ENEMY_MOVE_4  textures/enemy/zombie_walk4.xpm
 ENEMY_MOVE_5  textures/enemy/zombie_walk5.xpm
 ENEMY_MOVE_6  textures/enemy/zombie_walk6.xpm
 ENEMY_MOVE_7  textures/enemy/zombie_walk7.xpm
+ENEMY_ATTACK_0  textures/enemy/zombie_attack_0.xpm
+ENEMY_ATTACK_1  textures/enemy/zombie_attack_1.xpm
+ENEMY_ATTACK_2  textures/enemy/zombie_attack_2.xpm
+ENEMY_ATTACK_3  textures/enemy/zombie_attack_3.xpm
+ENEMY_ATTACK_4  textures/enemy/zombie_attack_4.xpm
+ENEMY_ATTACK_5  textures/enemy/zombie_attack_5.xpm
 
 F 133,118,91
 C 89,80,63
@@ -75,15 +81,15 @@ C 89,80,63
 1000000000001
 10010000000001
 10011010W001111
-100110100001111
+1Z0110100001111
 100110011001111
 100110111001111
 100110111001111
 1001101110001111
 10000000000B1111
-1000000000001111
+1000000000Z01111
 100110111001111
-1B0110111001111
+1B011Z111001111
 100110111001111
 100110111001111
 100110111001111

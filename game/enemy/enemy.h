@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 16:20:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:23:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define ENEMY_HEALTH_BAR_FILL_COLOR 2
 # define ENEMY_HEALTH_BAR_EMPTY_COLOR 2
 
-# define ENEMY_ATTACK_COOLDOWN 32
-# define ENEMY_ATTACK_DISTANCE 76
+# define ENEMY_ATTACK_COOLDOWN 12
+# define ENEMY_ATTACK_DISTANCE 64
 
 # define ENEMY_SPEED 4
 # define ENEMY_FRAME_DURATION 4
@@ -55,7 +55,9 @@ typedef struct s_enemy
 	t_enemy_health_bar	*hb;
 	t_point				*move_target;
 	t_anime				*move_anime;
+	t_anime				*attack_anime;
 	int					attack_cooldown;
+	int					is_attack;
 t_point				*player_pos;
 }		t_enemy;
 

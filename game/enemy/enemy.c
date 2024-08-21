@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:12:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 15:10:48 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:02:35 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	init_enemy(t_enemy *enemy)
 	enemy->player_pos = NULL;
 	enemy->move_target = NULL;
 	enemy->move_anime = NULL;
+	enemy->attack_anime = NULL;
 	enemy->attack_cooldown = 0;
+	enemy->is_attack = 0;
 }
 
 t_enemy	*make_enemy(void *mlx, t_point pos, int health)

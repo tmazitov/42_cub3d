@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/15 23:01:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:09:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -528,9 +528,15 @@ void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
 			// temp_multiplier = sprite_display_pos;
 			// temp_multiplier.x *= 8;
 			// temp_multiplier.y *= 8;
-			t_anime *anime = zombz->enemies[zombie_iter]->move_anime;
-			t_image *anime_image = anime_current_frame(anime);
-			render_sprite(game, sprite_position, anime_image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
+			t_anime *anime;
+			t_image	*image;
+
+			if (zombz->enemies[zombie_iter]->is_attack)
+				anime = zombz->enemies[zombie_iter]->attack_anime;
+			else
+				anime = zombz->enemies[zombie_iter]->move_anime;	
+			image = anime_current_frame(anime);
+			render_sprite(game, sprite_position, image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
 			zombie_iter++;
 		}
 
@@ -729,4 +735,5 @@ char	get_array_map_value(t_line ray, t_game *game)
 		|| ray.end.y >= game->scene->map->height)
 		return (/*printf("ERROR SOETHING RONG"),*/ '1');
 	return (game->scene->map->map_double_array[index_y][index_x]);
+
 }
