@@ -3,8 +3,8 @@ SO textures/wall_2.xpm
 WE textures/wall_3.xpm
 EA textures/wall_4.xpm
 
-TB       textures/treasure_box_3.xpm
-TB_EMPTY textures/treasure_box_empty.xpm
+TB       textures/chest_not_open.xpm
+TB_EMPTY textures/chest_open.xpm
 
 CH_0     textures/font/0.xpm
 CH_1     textures/font/1.xpm
@@ -70,8 +70,8 @@ ENEMY_ATTACK_4  textures/enemy/zombie_attack_4.xpm
 ENEMY_ATTACK_5  textures/enemy/zombie_attack_5.xpm
 ENEMY_DIED      textures/enemy/zombie_died.xpm
 
-F 133,118,91
-C 89,80,63
+F 0,0,0
+C 0,0,0
 
     1111111111
     1100000001111111111111
