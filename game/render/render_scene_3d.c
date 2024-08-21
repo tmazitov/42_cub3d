@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/08/21 17:21:38 by tmazitov         ###   ########.fr       */
-=======
-/*   Updated: 2024/08/20 18:12:26 by kshamsid         ###   ########.fr       */
->>>>>>> hooks_and_features
+/*   Updated: 2024/08/21 18:25:32 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,20 +471,45 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		ray_angle -= 360;
 	ray_end.x = (fmod(ray_end.x, 64));
 	ray_end.y = (fmod(ray_end.y, 64));
-	// if (ray_end.x == 64)
-	// 	ray_end.x = 0;
-	// if (ray_end.y == 64)
-	// 	ray_end.y = 0;
+	if (round(ray_end.x) == 64)
+		ray_end.x = 0;
+	if (round(ray_end.y) == 64)
+		ray_end.y = 0;
 	if (ray_angle >= 0 && ray_angle < 180 && ray_end.y == 0)
 		return (0);
 	else if (ray_angle >= 180 && ray_angle < 360 && ray_end.y == 0)
 		return (1);
-	else if (ray_angle >= 90 && ray_angle < 270 && ray_end.x == 0)
-		return (2);
 	else if ((ray_angle >= 270 || ray_angle < 90) && ray_end.x == 0)
+		return (2);
+	else if (ray_angle >= 90 && ray_angle < 270 && ray_end.x == 0)
 		return (3);
 	return (0);
 }
+
+// int	get_wall_side_debug(float ray_angle, t_point ray_end)
+// {
+// 	if (ray_angle < 0)
+// 		ray_angle += 360;
+// 	if (ray_angle > 360)
+// 		ray_angle -= 360;
+// 	ray_end.x = (fmod(ray_end.x, 64));
+// 	ray_end.y = (fmod(ray_end.y, 64));
+// 	if (round(ray_end.x) == 64)
+// 		ray_end.x = 0;
+// 	if (round(ray_end.y) == 64)
+// 		ray_end.y = 0;
+// 	printf("RAY_X_Y = {{%f, %f}}", ray_end.x, ray_end.y);
+// 	printf("RAY_ANG = {[%f}]", ray_angle);
+// 	if (ray_angle >= 0 && ray_angle < 180 && ray_end.y == 0)
+// 		return (printf("return index 0\n"), 0);
+// 	else if (ray_angle >= 180 && ray_angle < 360 && ray_end.y == 0)
+// 		return (printf("return index 1\n"), 1);
+// 	else if ((ray_angle >= 270 || ray_angle < 90) && ray_end.x == 0)
+// 		return (printf("return index 2\n"), 2);
+// 	else if (ray_angle >= 90 && ray_angle < 270 && ray_end.x == 0)
+// 		return (printf("return index 3\n"), 3);
+// 	return (printf("ERROR return index 4444444\n"), 0);
+// }
 
 
 //ZOMBIE ADD TRYING, zombie func above.
@@ -537,6 +558,8 @@ void render_window_scene(t_game *game)
 	{
 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		wall_select = get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
+		// if (temp_to_rotate == (player_fov / 2) - 1)
+		// 	printf("wall_select = %d\n", wall_select);
 		dist_to_wall_vert_line[vert_wall_iter] = distance_between_points(ray->start, ray->end);
 		if (ray)
 		{
@@ -582,6 +605,8 @@ void render_window_scene(t_game *game)
 		if (screen_render.x == game->width || screen_render.y == 0)
 			break;
 	}
+	printf("wall_select = ((%d))", wall_select);
+	// get_wall_side_debug(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
 	draw_zombie(game, dist_to_wall_vert_line);
 	draw_chests(game, dist_to_wall_vert_line);
 	// draw_boxes()
