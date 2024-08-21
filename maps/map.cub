@@ -63,8 +63,8 @@ ENEMY_MOVE_5  textures/enemy/zombie_walk5.xpm
 ENEMY_MOVE_6  textures/enemy/zombie_walk6.xpm
 ENEMY_MOVE_7  textures/enemy/zombie_walk7.xpm
 
-F 0,0,0
 C 0,0,0
+F 0,0,0
 
     1111111111
     1100000001111111111111
