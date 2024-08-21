@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:46:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 04:47:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:32:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,10 @@ void	img_put_rectangle(t_image* img, t_rectangle rect, int color)
 	int	y;
 
 	y = rect.start.y;
-	while (y != rect.start.y + rect.height)
+	while (y <= rect.start.y + rect.height)
 	{
 		x = rect.start.x;
-		while (x != rect.start.x + rect.width)
+		while (x <= rect.start.x + rect.width)
 		{
 			img_put_pixel(img, color, x, y);
 			x++;

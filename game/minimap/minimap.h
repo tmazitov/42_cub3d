@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 14:54:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:31:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "../../utils/geometry/geometry.h"
 # include "../objs/wall/wall.h"
 
-# define MINIMAP_BORDER_RADIUS 20
-# define MINIMAP_BORDER_SIZE 16
+# define MINIMAP_BORDER_RADIUS 4
+# define MINIMAP_BORDER_SIZE 4
 # define MINIMAP_POS_X 20
 # define MINIMAP_POS_Y 10
 # define MINIMAP_MOVE_AREA_SIZE 32
@@ -28,7 +28,7 @@
 # define MINIMAP_SCALE 4
 
 // # define MINIMAP_WALLS_COLOR 0x003d3d3d
-# define MINIMAP_WALLS_COLOR 0x0042c79a
+# define MINIMAP_WALLS_COLOR 0x003e403e
 # define MINIMAP_PLAYER_COLOR 0x003eb58c
 # define MINIMAP_BORDER_COLOR 0x0042c79a
 # define MINIMAP_BACKGROUND_COLOR 0x00555955
