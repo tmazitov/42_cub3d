@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/21 15:39:41 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:02:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "../../utils/gnl/get_next_line.h"
 # include "../objs/wall/wall.h"
 
-# define SPRITES_COUNT 67
+# define SPRITES_COUNT 68
 typedef struct s_map_raw_list
 {
 	char				*value;

@@ -68,6 +68,7 @@ ENEMY_ATTACK_2  textures/enemy/zombie_attack_2.xpm
 ENEMY_ATTACK_3  textures/enemy/zombie_attack_3.xpm
 ENEMY_ATTACK_4  textures/enemy/zombie_attack_4.xpm
 ENEMY_ATTACK_5  textures/enemy/zombie_attack_5.xpm
+ENEMY_DIED      textures/enemy/zombie_died.xpm
 
 F 133,118,91
 C 89,80,63

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/21 16:23:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:19:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ENEMY_HEALTH_BAR_EMPTY_COLOR 2
 
 # define ENEMY_ATTACK_COOLDOWN 12
-# define ENEMY_ATTACK_DISTANCE 64
+# define ENEMY_ATTACK_DISTANCE 80
 
 # define ENEMY_SPEED 4
 # define ENEMY_FRAME_DURATION 4
@@ -75,5 +75,5 @@ t_enemy_health_bar	*make_enemy_hb(void *mlx, int health);
 void				*free_enemy_hb(t_enemy_health_bar *hb);
 
 int					enemy_attack_handler(t_enemy *enemy, t_point player_pos);
-
+t_image				*enemy_get_image(t_enemy *enemy);
 #endif

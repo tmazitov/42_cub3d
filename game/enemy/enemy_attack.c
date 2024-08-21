@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:04:04 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 16:57:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:17:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	enemy_attack_handler(t_enemy *enemy, t_point player_pos)
 {
 	int	is_player_near;
 	
-	is_player_near = distance(player_pos.x, player_pos.y, enemy->pos->x, enemy->pos->y) <= ENEMY_ATTACK_DISTANCE;
+	printf("alive : %f\n", distance(player_pos.x, player_pos.y, enemy->pos->x + 32, enemy->pos->y + 32));
+	is_player_near = distance(player_pos.x, player_pos.y, enemy->pos->x + 32, enemy->pos->y + 32) <= ENEMY_ATTACK_DISTANCE;
 	if (!is_player_near && !enemy->attack_cooldown)
 		return (0);
 	if (enemy->attack_cooldown < ENEMY_ATTACK_COOLDOWN)
