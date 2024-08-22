@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/22 23:20:14 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/22 23:23:57 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,45 +123,6 @@ static int get_vert_of_texture(t_point ray_end, float angle_ray)
 	}
 	return (0);
 }
-
-static int get_vert_of_texture_debug(t_point ray_end, float angle_ray)
-{
-	angle_ray = fmod(angle_ray, 360.0);
-	if (angle_ray < 0)
-		angle_ray += 360;
-	if (angle_ray >= 360)
-		angle_ray -= 360;
-	ray_end.x = round(fmod(ray_end.x, 64));
-	ray_end.y = round(fmod(ray_end.y, 64));
-	if (ray_end.x == 64)
-		ray_end.x = 0;
-	if (ray_end.y == 64)
-		ray_end.y = 0;
-	if (ray_end.x == 0 && ray_end.y == 0)
-		return (0);
-	if (ray_end.x == 0)
-	{
-		if ((angle_ray > 270 && angle_ray <= 360)
-			|| (angle_ray >= 0 && angle_ray < 90))
-			return (63 - ray_end.y);
-		else
-			return (ray_end.y);
-	}
-	else if (ray_end.y == 0)
-	{
-		if (angle_ray > 180 && angle_ray < 360)
-			return (63 - ray_end.x);
-		return (ray_end.x);
-	}
-	return (0);
-}
-
-typedef struct s_window_walls
-{
-	t_line	*ray;
-	float	distance_from_wall;
-	int		width_of_screen;
-}	t_window_walls;
 
 #define NONE_COLOR 0xFFFFFFFF  // Assuming 0xFFFFFFFF represents the 'None' color
 
@@ -492,66 +453,6 @@ void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
 	free(processed);
 }
 
-// //ORIG?
-// int find_farthest_zombie(t_game *game, t_enemy_storage *zombz, float cur_far)
-// {
-// 	float farthest_zombie;
-// 	int   i;
-// 	int   farthest_zombie_index;
-	
-// 	i = 0;
-// 	farthest_zombie = 0;
-// 	farthest_zombie_index = 0;
-// 	while (i < zombz->size)
-// 	{
-// 		if (calc_dis_for_two_points(game->scene->minimap->player_pos, *zombz->enemies[i]->pos) > farthest_zombie
-// 			&& calc_dis_for_two_points(game->scene->minimap->player_pos, *zombz->enemies[i]->pos) < cur_far)
-// 		{
-// 			farthest_zombie = calc_dis_for_two_points(game->scene->minimap->player_pos, *zombz->enemies[i]->pos);
-// 			farthest_zombie_index = i;
-// 		}
-// 		i++;
-// 	}
-// 	return (farthest_zombie_index);
-// }
-
-// void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
-// {
-// 	t_enemy_storage *zombz;
-// 	t_point sprite_position;
-// 	t_point player_pos;
-// 	t_image	*image;
-// 	int far_zomb;
-
-// 	int zombie_iter = 0;	
-// 	float temp_dist_to_sprite;
-// 	zombz = game->scene->enemies;
-// 	player_pos = game->scene->minimap->player_pos;
-// 	far_zomb = 0;
-	
-// 	sprite_position = *zombz->enemies[0]->pos;
-// 	temp_dist_to_sprite = calc_dis_for_two_points(sprite_position, player_pos);
-// 	while (zombie_iter < zombz->size)
-// 	{
-// 		far_zomb = find_farthest_zombie(game, zombz, temp_dist_to_sprite);
-// 		temp_dist_to_sprite = calc_dis_for_two_points(*zombz->enemies[far_zomb]->pos, player_pos);
-
-// 		sprite_position = *zombz->enemies[far_zomb]->pos;
-// 		sprite_position.x += 32;
-// 		sprite_position.y += 32;
-// 		if (!zombz->enemies[far_zomb]->alive)
-// 			image = get_sprite_by_name(game->scene->map->sprites, "ENEMY_DIED")->image;
-// 		else
-// 			image = enemy_get_image(zombz->enemies[far_zomb]);
-// 		render_sprite(game, sprite_position, image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
-
-// 		printf("far_zomb = %d\n", far_zomb);
-// 		zombie_iter++;
-// 	}
-// }
-
-//ADDING
-
 //func to convert given params in CUB file to color.
 uint32_t rgb_to_color(t_rgb color)
 {
@@ -600,7 +501,7 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 //ZOMBIE ADD TRYING, zombie func above.
 void render_window_scene(t_game *game)
 {
-	float player_fov = 90;
+	float player_fov = PLAYER_FOV;
 	float temp_to_rotate;
 	float distance_from_wall;
 	t_point screen_render;
@@ -697,7 +598,6 @@ char	get_array_map_value(t_line ray, t_game *game)
 	if (ray.end.x < 0 || ray.end.y < 0
 		|| ray.end.x >= game->scene->map->width
 		|| ray.end.y >= game->scene->map->height)
-		return (/*printf("ERROR SOETHING RONG"),*/ '1');
+		return ('1');
 	return (game->scene->map->map_double_array[index_y][index_x]);
-
 }
