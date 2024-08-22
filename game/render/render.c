@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/21 22:03:42 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:38:30 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ void	print_time_since_last_call()
 	last_time = current_time;
 }
 
+void	render_move_string(t_game *game)
+{
+	char *string_put;
+
+	string_put = ft_strjoin("Player Moves Made: ", ft_itoa(game->scene->moves_made));	
+	mlx_string_put(game->mlx, game->window, game->width - 160 , 15, 0xFF014d47, string_put);
+	free(string_put);
+}
+
 int	render_hook(t_game *game)
 {
 	// printf("FRAME BEING MADE-----------------------------------------------\n");
@@ -54,6 +63,12 @@ int	render_hook(t_game *game)
 	render_window_scene(game);
 	render_minimap(game);
 	render_player(game);
+	// render_move_string(game);
+
+
+	img_draw(game->window, game->scene->image, 0, 0);
+	
+	render_move_string(game);
 
 	// // ATTEMPTING to draw bullet trajectory--------
 	// t_line bul_line;
@@ -78,7 +93,13 @@ int	render_hook(t_game *game)
 	// render_player_health_bar(game);
 	// render_player_money(game);
 	// render_player_score(game);
-	img_draw(game->window, game->scene->image, 0, 0);
+
+	// img_draw(game->window, game->scene->image, 0, 0);
+	
+	// mlx_pixel_put(game->mlx, game->window, game->width/2, 500, 0x00FFFFFF);
+	// render_move_string(game);
+
+	
 	// mlx_do_sync(game->mlx);
 	return (0);
 }

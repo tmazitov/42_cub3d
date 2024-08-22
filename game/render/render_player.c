@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 19:48:00 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:21:29 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,19 @@ void	render_player_weapon(t_game *game)
 	}
 }
 
-void	render_move_string(t_game *game)
-{
-	char *string_put;
+// void	render_move_string(t_game *game)
+// {
+// 	char *string_put;
 
-	string_put = ft_strjoin("Player Moves Made: ", ft_itoa(game->scene->moves_made));	
-	mlx_string_put(game->mlx, game->window, 500, 500, 0x00FF0000, string_put);
-	free(string_put);
-}
+// 	string_put = ft_strjoin("Player Moves Made: ", ft_itoa(game->scene->moves_made));	
+// 	mlx_string_put(game->mlx, game->window, 500, 500, 0x00FF0000, string_put);
+// 	free(string_put);
+// }
 
 void	render_player(t_game *game)
 {
 	// render_player_bullets(game);
 	render_player_weapon(game);
 	render_player_inventory(game);
-	render_move_string(game);
+	// render_move_string(game);
 }

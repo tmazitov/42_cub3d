@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/21 22:32:26 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:16:19 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ static void adjust_disp_coords(t_line *disp_coords, t_game *game, int rend_x, in
 
 static int get_vert_of_texture(t_point ray_end, float angle_ray)
 {
+	angle_ray = fmod(angle_ray, 360.0);
 	if (angle_ray <= 0)
 		angle_ray += 360;
 	if (angle_ray >= 360)
@@ -150,6 +151,40 @@ static int get_vert_of_texture(t_point ray_end, float angle_ray)
 		if ((angle_ray > 270 && angle_ray <= 360)
 			|| (angle_ray >= 0 && angle_ray < 90))
 			return (63 - ray_end.y);
+		else
+			return (ray_end.y);
+	}
+	else if (ray_end.y == 0)
+	{
+		if (angle_ray > 180 && angle_ray < 360)
+			return (63 - ray_end.x);
+		return (ray_end.x);
+	}
+	return (printf("get_vert_error occured"), 0);
+}
+
+static int get_vert_of_texture_debug(t_point ray_end, float angle_ray)
+{
+	angle_ray = fmod(angle_ray, 360.0);
+	if (angle_ray < 0)
+		angle_ray += 360;
+	if (angle_ray >= 360)
+		angle_ray -= 360;
+	ray_end.x = round(fmod(ray_end.x, 64));
+	ray_end.y = round(fmod(ray_end.y, 64));
+
+	printf("((angle = %f))", angle_ray);
+
+	if (ray_end.x == 64)
+		ray_end.x = 0;
+	if (ray_end.y == 64)
+		ray_end.y = 0;
+	if (ray_end.x == 0)
+	{
+		// if (angle_ray > 270 || angle_ray < 90)
+		if ((angle_ray > 270 && angle_ray <= 360)
+			|| (angle_ray >= 0 && angle_ray < 90))
+			return (printf("exit 63 - y"), 63 - ray_end.y);
 		else
 			return (ray_end.y);
 	}
@@ -630,7 +665,9 @@ void render_window_scene(t_game *game)
 	draw_zombie(game, dist_to_wall_vert_line);
 	draw_chests(game, dist_to_wall_vert_line);
 	draw__middle_aim(game);
+	printf("get_vert_of_texture = %d\n", get_vert_of_texture_debug(ray->end, game->scene->minimap->player_rotation + temp_to_rotate));	
 }
+
 
 //Find end of line equivalent of CHAR in 2d array map
 char	get_array_map_value(t_line ray, t_game *game)
