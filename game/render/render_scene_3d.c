@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/23 22:01:49 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/23 22:39:39 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,52 +147,73 @@ void	helper_render_sprite(float *angle_to_sprite, t_point sprite_pos,
 		(*angle_to_sprite) -= 360;
 }
 
-void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image,
-	float sprite_distance, float *dist_to_wall_vert_line)
+typedef struct render_sprite_params
 {
-	t_point player_pos;
-	float angle_to_sprite;
+	t_image *sprite_image;
+	float sprite_distance;
+	float *dist_to_wall_vert_line;
+}		t_render_sprite_params;
 
-	player_pos = game->scene->minimap->player_pos;
-	angle_to_sprite = 0;
-	// angle_to_sprite = atan2(sprite_pos.y - player_pos.y, sprite_pos.x - player_pos.x) * 180 / M_PI;
-	// angle_to_sprite -= game->scene->minimap->player_rotation;
-	// angle_to_sprite += 180;
-	// if (angle_to_sprite < -180)
-	// 	angle_to_sprite += 360;
-	// if (angle_to_sprite > 180)
-	// 	angle_to_sprite -= 360;
-	helper_render_sprite(&angle_to_sprite, sprite_pos, player_pos, game);
-	if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
+
+//sprite distance, image and dist_to_wall_vert_line are coming from params
+void	helper_rnd_sprt_display(t_game *game, t_render_sprite_params *prm,
+	float sprite_screen_size, float angle_to_sprite)
+{
+	int screen_x;
+	int screen_y;
+	uint32_t color;
+	int						sprite_screen_x;
+	int						sprite_screen_y;
+
+	sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
+	sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
+
+	for (int x = 0; x < sprite_screen_size; x++)
 	{
-		// Calculate sprite screen size
-		float sprite_screen_size = (game->height * 64) / sprite_distance;
-		
-		// Calculate sprite screen position
-		int sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
-		int sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
-
-			// Render the sprite (small square for simplicity)
-		for (int x = 0; x < sprite_screen_size; x++)
+		for (int y = 0; y < sprite_screen_size; y++)
 		{
-			for (int y = 0; y < sprite_screen_size; y++)
+			screen_x = sprite_screen_x + x - sprite_screen_size / 2;
+			screen_y = sprite_screen_y + y;
+			if (screen_x >= 0 && screen_x < game->width - 1 && prm->sprite_distance < prm->dist_to_wall_vert_line[screen_x] )
 			{
-				int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-				int screen_y = sprite_screen_y + y;
-				if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
+				if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
 				{
-					if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
-					{
-						uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
-						if (color != (uint32_t)(-16777216))
-							img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE,
-								SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
-					}
+					color = img_get_pixel(prm->sprite_image, (int)((float)x / sprite_screen_size * prm->sprite_image->width),
+						(int)((float)y / sprite_screen_size * prm->sprite_image->height));
+					if (color != (uint32_t)(-16777216))
+						img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE,
+								SHADE_MAX_DISTANCE, prm->sprite_distance) , screen_x, screen_y);
 				}
 			}
 		}
 	}
-	angle_to_sprite = dist_to_wall_vert_line[0];
+}
+
+void	init_t_render_sprite_params(t_render_sprite_params *params, t_image *sprite_image, float sprite_distance,
+	float *dist_to_wall_vert_line)
+{
+	params->sprite_image = sprite_image;
+	params->sprite_distance = sprite_distance;
+	params->dist_to_wall_vert_line = dist_to_wall_vert_line;
+}
+
+void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image,
+	float sprite_distance, float *dist_to_wall_vert_line)
+{
+	t_point					player_pos;
+	float					angle_to_sprite;
+	t_render_sprite_params	params;
+	float					sprite_screen_size;
+
+	player_pos = game->scene->minimap->player_pos;
+	helper_render_sprite(&angle_to_sprite, sprite_pos, player_pos, game);
+	init_t_render_sprite_params(&params, sprite_image,
+		sprite_distance, dist_to_wall_vert_line);
+	if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
+	{
+		sprite_screen_size = (game->height * 64) / sprite_distance;
+		helper_rnd_sprt_display(game, &params, sprite_screen_size, angle_to_sprite);
+	}
 }
 
 void render_chest(t_game *game, t_point sprite_pos, t_image *sprite_image, float sprite_distance, float *dist_to_wall_vert_line)
