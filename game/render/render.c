@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/22 17:38:30 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:27:24 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,26 @@ int	render_hook(t_game *game)
 	// printf("FRAME BEING MADE-----------------------------------------------\n");
 	print_time_since_last_call();
 
+	if (game->blocker == 1 || 
+		game->scene->player->inventory->health_bar->current <= 0)
+	{
+		game->blocker = 1;
+		mlx_clear_window(game->mlx, game->window);
+		//PUT IMAGE OF GAMEOVER
+
+		t_image game_over_image;
+		printf("GAME OVER\n");
+		game_over_image = *get_sprite_by_name(game->scene->map->sprites, "GAME_OVER_SCREEN")->image;
+		img_draw(game->window, &game_over_image, 200, 150);
+
+		// mlx_put_image_to_window(game->mlx, game->window, game->scene->game_over->image->img, 0, 0);
+		return (0);
+	}
 	mlx_clear_window(game->mlx, game->window);
 	render_window_scene(game);
 	render_minimap(game);
 	render_player(game);
-	// render_move_string(game);
+	render_move_string(game);
 
 
 	img_draw(game->window, game->scene->image, 0, 0);
