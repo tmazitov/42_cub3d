@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/23 21:38:15 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/23 21:40:51 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +73,30 @@ int	all_enemies_dead(t_game *game)
 
 void	game_finish_func(t_game *game)
 {
-	t_image game_finish_image;
+	t_image	game_finish_image;
 
 	game->blocker = 1;
 	mlx_clear_window(game->mlx, game->window);
 	if (game->scene->player->inventory->health_bar->current <= 0)
 	{
-		game_finish_image = *get_sprite_by_name(game->scene->map->sprites, "GAME_OVER_SCREEN")->image;
+		game_finish_image = *get_sprite_by_name(game->scene->map->sprites,
+				"GAME_OVER_SCREEN")->image;
 		img_draw(game->window, &game_finish_image, 200, 150);
 	}
 	else if (all_enemies_dead(game) == 0)
 	{
-		game_finish_image = *get_sprite_by_name(game->scene->map->sprites, "GAME_WIN_SCREEN")->image;
-		img_draw(game->window, &game_finish_image, 0, 0);	
+		game_finish_image = *get_sprite_by_name(game->scene->map->sprites,
+				"GAME_WIN_SCREEN")->image;
+		img_draw(game->window, &game_finish_image, 0, 0);
 	}
 }
+
 int	render_hook(t_game *game)
 {
-	// printf("FRAME BEING MADE-----------------------------------------------\n");
 	print_time_since_last_call();
-
-	// printf("func all_enemies_dead = %d\n", all_enemies_dead(game));
-	// printf("game->scene->enemies->size %d\n",  game->scene->enemies->size);
-	if (game->blocker == 1 || 
-		game->scene->player->inventory->health_bar->current <= 0 ||
-		all_enemies_dead(game) == 0)
+	if (game->blocker == 1
+		|| game->scene->player->inventory->health_bar->current <= 0
+		|| all_enemies_dead(game) == 0)
 		return (game_finish_func(game), 0);
 	mlx_clear_window(game->mlx, game->window);
 	render_window_scene(game);
@@ -106,10 +105,11 @@ int	render_hook(t_game *game)
 	render_move_string(game);
 	img_draw(game->window, game->scene->image, 0, 0);
 	render_move_string(game);
-	// mlx_do_sync(game->mlx);
-	//DO SYNC reduces performance from 86(ms/frame)(good) to 100(ms/frame)(bad)
 	return (0);
 }
+	// mlx_do_sync(game->mlx);
+	//DO SYNC reduces performance from 86(ms/frame)(good) to 100(ms/frame)(bad)
+
 // render_test_animation(game);
 
 // render_player_road(game);

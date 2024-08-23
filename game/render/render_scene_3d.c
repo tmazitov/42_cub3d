@@ -6,42 +6,40 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/22 23:23:57 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/23 22:01:49 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-double clamp_double(double value, double min, double max) {
-    if (value < min) return min;
-    if (value > max) return max;
-    return value;
+double	clamp_double(double value, double min, double max)
+{
+	if (value < min)
+		return (min);
+	if (value > max)
+		return (max);
+	return (value);
 }
 
 // Function to darken a color based on distance
-uint32_t darken_color(uint32_t color, double min_distance, double max_distance, double current_distance) {
-    // Extract RGB components from hex color
-    uint8_t red = (color >> 16) & 0xFF;
-    uint8_t green = (color >> 8) & 0xFF;
-    uint8_t blue = color & 0xFF;
+uint32_t	darken_color(uint32_t clr, double min_d, double max_d, double cur_d)
+{
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+	double	factor;
 
-    // Handle case when min_distance equals max_distance
-    if (min_distance == max_distance)
-	{
-        min_distance -= 1.0;  // Set a very small range to avoid division by zero
-    }
-
-    // Calculate the darkening factor based on the distance
-    double factor = 1.0 - (current_distance - min_distance) / (max_distance - min_distance);
-    factor = clamp_double(factor, 0.0, 1.0);
-
-    // Apply the darkening factor to each color component
-    red = (uint8_t)(red * factor);
-    green = (uint8_t)(green * factor);
-    blue = (uint8_t)(blue * factor);
-
-    // Combine the components back into a single hex color
-    return (red << 16) | (green << 8) | blue;
+	red = (clr >> 16) & 0xFF;
+	green = (clr >> 8) & 0xFF;
+	blue = clr & 0xFF;
+	if (min_d == max_d)
+		min_d -= 1.0;
+	factor = 1.0 - (cur_d - min_d) / (max_d - min_d);
+	factor = clamp_double(factor, 0.0, 1.0);
+	red = (uint8_t)(red * factor);
+	green = (uint8_t)(green * factor);
+	blue = (uint8_t)(blue * factor);
+	return ((red << 16) | (green << 8) | blue);
 }
 
 // Basic checks for < 0 && > window dimensions
@@ -78,29 +76,38 @@ void	draw__middle_aim(t_game *game)
 	draw_aim = -draw_aim;
 	while (draw_aim < aim_size / 2)
 	{
-		img_put_pixel(game->scene->image, AIM_COLOR, screen_center.x + draw_aim, screen_center.y);
-		img_put_pixel(game->scene->image, AIM_COLOR, screen_center.x, screen_center.y + draw_aim);
+		img_put_pixel(game->scene->image, AIM_COLOR,
+			screen_center.x + draw_aim, screen_center.y);
+		img_put_pixel(game->scene->image, AIM_COLOR,
+			screen_center.x, screen_center.y + draw_aim);
 		draw_aim++;
 	}
 }
 
-static void adjust_disp_coords(t_line *disp_coords, t_game *game, int rend_x, int rend_y)
+static void	adjust_disp_coords(t_line *d_crd, t_game *game,
+	int rend_x, int rend_y)
 {
-	disp_coords->start.x = rend_x;
-	disp_coords->start.y = (game->height / 2.0) - (rend_y / 2);
-	disp_coords->end.x = rend_x;
-	disp_coords->end.y = (game->height / 2) + (rend_y / 2);
+	d_crd->start.x = rend_x;
+	d_crd->start.y = (game->height / 2.0) - (rend_y / 2);
+	d_crd->end.x = rend_x;
+	d_crd->end.y = (game->height / 2) + (rend_y / 2);
 }
 
-static int get_vert_of_texture(t_point ray_end, float angle_ray)
+static void	helper_get_vert(t_point *ray_end)
+{
+	ray_end->x = round(fmod(ray_end->x, 64));
+	ray_end->y = round(fmod(ray_end->y, 64));
+	if (ray_end->x == 64)
+		ray_end->x = 0;
+	if (ray_end->y == 64)
+		ray_end->y = 0;
+}
+
+static int	get_vert_of_texture(t_point ray_end,
+	float angle_ray)
 {
 	angle_ray = fmod(angle_ray, 360.0);
-	if (angle_ray <= 0)
-		angle_ray += 360;
-	if (angle_ray >= 360)
-		angle_ray -= 360;
-	ray_end.x = round(fmod(ray_end.x, 64));
-	ray_end.y = round(fmod(ray_end.y, 64));
+	helper_get_vert(&ray_end);
 	if (ray_end.x == 64)
 		ray_end.x = 0;
 	if (ray_end.y == 64)
@@ -124,26 +131,38 @@ static int get_vert_of_texture(t_point ray_end, float angle_ray)
 	return (0);
 }
 
-#define NONE_COLOR 0xFFFFFFFF  // Assuming 0xFFFFFFFF represents the 'None' color
-
 // //zombie render_scene is below.
 /*
 	RENDER FUNC that had ISSUE with LOCATION and Angle_to_Sprite
 */
-void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, float sprite_distance, float *dist_to_wall_vert_line)
+void	helper_render_sprite(float *angle_to_sprite, t_point sprite_pos,
+	t_point player_pos, t_game *game)
 {
-	t_point player_pos = game->scene->minimap->player_pos;
+	(*angle_to_sprite) = atan2(sprite_pos.y - player_pos.y, sprite_pos.x - player_pos.x) * 180 / M_PI;
+	(*angle_to_sprite) -= game->scene->minimap->player_rotation;
+	(*angle_to_sprite) += 180;
+	if ((*angle_to_sprite) < -180)
+		(*angle_to_sprite) += 360;
+	if ((*angle_to_sprite) > 180)
+		(*angle_to_sprite) -= 360;
+}
 
-	float angle_to_sprite = 0;
-	angle_to_sprite = atan2(sprite_pos.y - player_pos.y, sprite_pos.x - player_pos.x) * 180 / M_PI;
-	angle_to_sprite -= game->scene->minimap->player_rotation;
-	angle_to_sprite += 180;
+void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image,
+	float sprite_distance, float *dist_to_wall_vert_line)
+{
+	t_point player_pos;
+	float angle_to_sprite;
 
-	// printf("angle_to_sprite = %f\n", angle_to_sprite);
-	if (angle_to_sprite < -180)
-		angle_to_sprite += 360;
-	if (angle_to_sprite > 180)
-		angle_to_sprite -= 360;
+	player_pos = game->scene->minimap->player_pos;
+	angle_to_sprite = 0;
+	// angle_to_sprite = atan2(sprite_pos.y - player_pos.y, sprite_pos.x - player_pos.x) * 180 / M_PI;
+	// angle_to_sprite -= game->scene->minimap->player_rotation;
+	// angle_to_sprite += 180;
+	// if (angle_to_sprite < -180)
+	// 	angle_to_sprite += 360;
+	// if (angle_to_sprite > 180)
+	// 	angle_to_sprite -= 360;
+	helper_render_sprite(&angle_to_sprite, sprite_pos, player_pos, game);
 	if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
 	{
 		// Calculate sprite screen size
@@ -166,7 +185,8 @@ void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image, floa
 					{
 						uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
 						if (color != (uint32_t)(-16777216))
-							img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
+							img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE,
+								SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
 					}
 				}
 			}
@@ -198,24 +218,23 @@ void render_chest(t_game *game, t_point sprite_pos, t_image *sprite_image, float
 		int sprite_screen_y = (game->height / 2) - (sprite_screen_size / 2)  + ((64 / sprite_distance) * game->height / 2);
 		// sprite_screen_y += 100;
 			// Render the sprite (small square for simplicity)
-			for (int x = 0; x < sprite_screen_size; x++)
+		for (int x = 0; x < sprite_screen_size; x++)
+		{
+			for (int y = 0; y < sprite_screen_size; y++)
 			{
-				for (int y = 0; y < sprite_screen_size; y++)
+				int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
+				int screen_y = sprite_screen_y + y;
+				if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
 				{
-					int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-					int screen_y = sprite_screen_y + y;
-					if (screen_x >= 0 && screen_x < game->width - 1 && sprite_distance < dist_to_wall_vert_line[screen_x] )
+					if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
 					{
-						if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
-						{
-							uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
-							if (color != (uint32_t)(-16777216))
-								img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
-						}
+						uint32_t color = img_get_pixel(sprite_image, (int)((float)x / sprite_screen_size * sprite_image->width), (int)((float)y / sprite_screen_size * sprite_image->height));
+						if (color != (uint32_t)(-16777216))
+							img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, sprite_distance) , screen_x, screen_y);
 					}
 				}
-				
 			}
+		}
 	}
 	angle_to_sprite = dist_to_wall_vert_line[0];
 }
@@ -231,73 +250,8 @@ float	calc_dis_for_two_points(t_point zombie_pos, t_point player_pos)
 }
 
 /*
-	Adjust RENDER_TEST_ANIMATION with added vars
-*/
-// static void	render_test_animation(t_game *game, t_point render_pos, int zombie_number, float dist_to_sprite)
-// {
-// 	t_enemy	*enemy;
-// 	t_image	*anime_image;
-// 	// t_point	pos;
-
-// 	if (!game->scene->enemies)
-// 		return ;
-// 	enemy = game->scene->enemies->enemies[zombie_number];
-// 	if (!enemy)
-// 		return ;
-// 	anime_image = anime_current_frame(enemy->move_anime);
-// 	if (!anime_image)
-// 		return ;
-
-
-// 	// pos.x = game->width - anime_image->width;
-// 	// pos.y = 0;
-
-// 	render_pos.x = render_pos.x - anime_image->width / 2;
-// 	render_pos.y = render_pos.y - anime_image->height / 2;
-	
-//     // printf("angle_to_sprite = %f\n", angle_to_sprite);
-
-// 	// printf("calculate angle = %f\n", calculate_angle(player_pos, sprite_pos));
-// 	// exit(1);
-
-//     // if (fabs(angle_to_sprite) < PLAYER_FOV / 2)
-// 	// {
-	
-// 	// float perpendicular_distance = sprite_distance / cos(angle_to_sprite * M_PI / 180);
-//     // Calculate sprite screen size
-//     float sprite_screen_size = (game->height * 64) / dist_to_sprite;
-
-//     // Calculate sprite screen position
-//     int sprite_screen_x = (int)((game->width / 2) * (1 + tan(0 * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
-//     int sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
-// 	for (int y = 0; y < anime_image->height; y++)
-// 	{
-// 		for (int x = 0; x < anime_image->width; x++)
-// 		{
-// 			int screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-// 			int screen_y = sprite_screen_y + y;
-// 			uint32_t color = img_get_pixel(anime_image, x, y);
-			
-// 			if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
-// 			{
-// 				if (color != (uint32_t)(-16777216))
-// 					img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, dist_to_sprite) , render_pos.x + x, render_pos.y + y);
-// 			}
-// 			// if ()
-// 			// img_put_pixel(game->scene->image, img_get_pixel(anime_image, x, y), render_pos.x + x, render_pos.y + y);
-// 		}
-// 	}
-	
-// 	// }
-	
-	
-// 	// img_put_img(game->scene->image, anime_image, render_pos, 0);
-// }
-
-/*
 	EXPERIMENT FUNC THAT CASTS ON CORRECT POSITION// CORRECT MATRIX
 */
-
 void	draw_chests(t_game *game, float *dist_to_wall_vert_line)
 {
 	t_treasure_storage *chestz;
@@ -335,76 +289,13 @@ void	draw_chests(t_game *game, float *dist_to_wall_vert_line)
 	}
 }
 
-//TRYING TO DRAW FARTHEST TO CLOSEST ZOMBIE
-// void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
-// {
-// 	t_enemy_storage *zombz;
-// 	t_point sprite_position;
-// 	t_point player_pos;
-// 	t_point sprite_display_pos;
-// 	float	cos_value; 
-// 	float	sin_value;
-// 	float	z_height_value;
-// 	t_image	*image;
-
-// 	z_height_value = 100;
-// 	zombz = game->scene->enemies;
-// 	int zombie_iter = 0;	
-	
-// 	float temp_dist_to_sprite = 0;
-// 	int loop_iter;
-// 	int far_zomb = 0;
-// 	// temp_dist_to_sprite = INT_MAX;
-
-
-// 	// while (zombie_iter < zombz->size)
-// 	// {
-// 	// 	zombie_iter = 0;
-// 	// 	sprite_position = *zombz->enemies[zombie_iter]->pos;
-// 	// 	player_pos = game->scene->minimap->player_pos;
-// 	// 	sprite_position.x += 32;
-// 	// 	sprite_position.y += 32;
-// 	// 	temp_dist_to_sprite = calc_dis_for_two_points(sprite_position, player_pos)
-// 	// 	if (temp_dist_to_sprite)
-
-		
-// 	while (zombie_iter < zombz->size)
-// 	{
-// 		loop_iter = 0;
-// 		temp_dist_to_sprite = 0;
-// 		while (loop_iter < zombz->size)
-// 		{
-// 			sprite_position = *zombz->enemies[loop_iter]->pos;
-// 			player_pos = game->scene->minimap->player_pos;
-// 			sprite_position.x += 32;
-// 			sprite_position.y += 32;
-// 			// temp_dist_to_sprite = calc_dis_for_two_points(sprite_position, player_pos);
-// 			if (temp_dist_to_sprite < calc_dis_for_two_points(*zombz->enemies[loop_iter]->pos, player_pos))
-// 				far_zomb = loop_iter;
-// 			loop_iter++;
-// 		}
-// 		sprite_position = *zombz->enemies[far_zomb]->pos;
-// 		cos_value = cos(game->scene->minimap->player_rotation * M_PI / 180);
-// 		sin_value = sin(game->scene->minimap->player_rotation * M_PI / 180);
-// 		sprite_display_pos.x = (sprite_position.y - player_pos.y) * cos_value - (sprite_position.x - player_pos.x) * sin_value;
-// 		sprite_display_pos.y = (sprite_position.x - player_pos.x) * cos_value + (sprite_position.y - player_pos.y) * sin_value;
-// 		sprite_display_pos.x = sprite_display_pos.x*(108)/sprite_display_pos.y + 120 / 2;
-// 		sprite_display_pos.y = z_height_value*(108)/sprite_display_pos.y + 80 / 2;
-// 		if (!zombz->enemies[far_zomb]->alive)
-// 			image = get_sprite_by_name(game->scene->map->sprites, "ENEMY_DIED")->image;
-// 		else
-// 			image = enemy_get_image(zombz->enemies[far_zomb]);
-// 		render_sprite(game, sprite_position, image, calc_dis_for_two_points(sprite_position, player_pos), dist_to_wall_vert_line);
-// 		zombie_iter++;
-// 	}
-// }
 int find_farthest_zombie(t_game *game, t_enemy_storage *zombz, int *processed)
 {
 	float	farthest_zombie;
 	int		farthest_zombie_index;
 	int		i;
 	float	distance;
-	
+
 	farthest_zombie = 0;
 	i = 0;
 	farthest_zombie_index = -1;
@@ -412,7 +303,8 @@ int find_farthest_zombie(t_game *game, t_enemy_storage *zombz, int *processed)
 	{
 		if (processed[i] == 0)
 		{
-			distance = calc_dis_for_two_points(game->scene->minimap->player_pos, *zombz->enemies[i]->pos);
+			distance = calc_dis_for_two_points(game->scene->minimap->player_pos,
+					*zombz->enemies[i]->pos);
 			if (distance > farthest_zombie)
 			{
 				farthest_zombie = distance;
@@ -454,23 +346,24 @@ void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
 }
 
 //func to convert given params in CUB file to color.
-uint32_t rgb_to_color(t_rgb color)
+uint32_t	rgb_to_color(t_rgb color)
 {
-	uint32_t result;
-    // Ensure the RGB values are within the valid range
-    if (color.r < 0) color.r = 0;
-    if (color.r > 255) color.r = 255;
+	uint32_t	result;
 
-    if (color.g < 0) color.g = 0;
-    if (color.g > 255) color.g = 255;
-
-    if (color.b < 0) color.b = 0;
-    if (color.b > 255) color.b = 255;
-
-    // Combine the RGB values into a single 0xRRGGBB format
-    result = (color.r << 16) | (color.g << 8) | color.b;
-
-    return (result);
+	if (color.r < 0)
+		color.r = 0;
+	if (color.r > 255)
+		color.r = 255;
+	if (color.g < 0)
+		color.g = 0;
+	if (color.g > 255)
+		color.g = 255;
+	if (color.b < 0)
+		color.b = 0;
+	if (color.b > 255)
+		color.b = 255;
+	result = (color.r << 16) | (color.g << 8) | color.b;
+	return (result);
 }
 
 int	get_wall_side(float ray_angle, t_point ray_end)
@@ -582,12 +475,11 @@ void render_window_scene(t_game *game)
 	draw__middle_aim(game);
 }
 
-
 //Find end of line equivalent of CHAR in 2d array map
 char	get_array_map_value(t_line ray, t_game *game)
 {
-	int index_y;
-	int index_x;
+	int	index_y;
+	int	index_x;
 
 	ray.start.x /= 64;
 	ray.start.y /= 64;
