@@ -6,14 +6,14 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 17:55:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:04:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 
 static int	*make_pressed_buttons(int count)
-{	
+{
 	int	*result;
 	int	counter;
 
@@ -29,12 +29,12 @@ static int	*make_pressed_buttons(int count)
 	return (result);
 }
 
-static t_inventory	*init_inventory()
+static t_inventory	*init_inventory(void)
 {
 	return (make_inventory(PLAYER_INV_CELL_AMOUNT));
 }
 
-static void init_player(t_player *player, t_direction direction)
+static void	init_player(t_player *player, t_direction direction)
 {
 	player->icon = NULL;
 	player->pressed_buttons = NULL;
@@ -54,15 +54,15 @@ static void init_player(t_player *player, t_direction direction)
 		player->rotation = 180;
 }
 
-t_player *make_player(void *mlx, t_point start_pos, t_direction direction)
+t_player	*make_player(void *mlx, t_point start_pos, t_direction direction)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
-	init_player(player, direction);	
-	player->pos = make_point(start_pos.x+32, start_pos.y+32);
+	init_player(player, direction);
+	player->pos = make_point(start_pos.x + 32, start_pos.y + 32);
 	if (!player->pos)
 		return (free_player(player));
 	player->move_vector = make_vector(0, 0);
@@ -81,7 +81,7 @@ t_player *make_player(void *mlx, t_point start_pos, t_direction direction)
 	return (player);
 }
 
-void *free_player(t_player *player)
+void	*free_player(t_player *player)
 {
 	if (!player)
 		return (NULL);

@@ -6,21 +6,18 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:01:38 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 01:16:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:14:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inventory.h"
 
-void	init_inventory(t_inventory *inventory)
+t_item	*inv_get_active_item(t_inventory *inventory)
 {
-	inventory->bullets = 0;
-	inventory->size = 0;
-	inventory->slots = NULL;
-	inventory->health_bar = NULL;
-	inventory->image = NULL;
-	inventory->update_count = 1;
-	inventory->active_item = 0;
+	int	index;
+
+	index = inventory->active_item;
+	return (inventory->slots->items[index]);
 }
 
 t_inventory	*make_inventory(int size)
@@ -30,7 +27,13 @@ t_inventory	*make_inventory(int size)
 	inventory = malloc(sizeof(t_inventory));
 	if (!inventory)
 		return (NULL);
-	init_inventory(inventory);
+	inventory->bullets = 0;
+	inventory->size = 0;
+	inventory->slots = NULL;
+	inventory->health_bar = NULL;
+	inventory->image = NULL;
+	inventory->update_count = 1;
+	inventory->active_item = 0;
 	inventory->pos = make_point(0, 0);
 	if (!inventory->pos)
 		return (free_inventory(inventory));
@@ -46,9 +49,9 @@ t_inventory	*make_inventory(int size)
 
 int	bullets_message_size(t_inventory *inventory)
 {
-	int		bullets;
-	int		count;
-	int		delimeter;
+	int	bullets;
+	int	count;
+	int	delimeter;
 
 	count = 1;
 	delimeter = 1;
@@ -63,7 +66,7 @@ int	bullets_message_size(t_inventory *inventory)
 
 int	inv_set_sizes(void *mlx, t_inventory *inventory, t_rectangle rect)
 {
-	int		health_bar_width;
+	int	health_bar_width;
 
 	inventory->pos->x = rect.start.x;
 	inventory->pos->y = rect.start.y;
@@ -72,7 +75,8 @@ int	inv_set_sizes(void *mlx, t_inventory *inventory, t_rectangle rect)
 		return (0);
 	if (!img_create(inventory->image, rect.width, rect.height))
 		return (0);
-	health_bar_width = inventory->image->width - (INV_PADDING + INV_BORDER_SIZE) * 2 - bullets_message_size(inventory);
+	health_bar_width = inventory->image->width - (INV_PADDING + INV_BORDER_SIZE)
+		* 2 - bullets_message_size(inventory);
 	if (!hb_new_image(mlx, inventory->health_bar, health_bar_width, 24))
 		return (0);
 	return (1);

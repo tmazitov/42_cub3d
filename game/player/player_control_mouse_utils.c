@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_icon.c                                      :+:      :+:    :+:   */
+/*   player_control_mouse_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 23:35:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 20:17:41 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/08/24 20:22:16 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/08/24 20:22:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 
-t_image	*load_icon(void *mlx)
+int	player_mouse_move(int x, int y, t_player *player)
 {
-	t_image	*icon;
+	static int	last_x;
+	int			dx;
 
-	if (access("textures/player_icon.xpm", R_OK) == -1)
-		return (NULL);
-	icon = make_image(mlx);
-	if (!icon)
-		return (NULL);
-	if (!img_load(icon, "textures/player_icon.xpm"))
-		return (free_image(icon));
-	return (icon);
+	(void)y;
+	if (last_x == 0)
+	{
+		last_x = x;
+		return (0);
+	}
+	dx = x - last_x;
+	player->rotation += dx * PLAYER_ROTATION_SPEED;
+	if (player->rotation >= 360.0)
+		player->rotation -= 360.0;
+	else if (player->rotation < 0.0)
+		player->rotation += 360.0;
+	last_x = x;
+	return (0);
 }

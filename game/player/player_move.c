@@ -3,44 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 19:47:58 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:01:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 #include <stdio.h>
 
-// static void	print_state(t_player *player)
-// {
-// 	int counter; 
-	
-// 	counter = 0;
-// 	while (counter < 6)
-// 	{
-// 		printf("%d ", player->pressed_buttons[counter]);
-// 		counter++;
-// 	}
-// 	printf("\n");
-// }
-
 static int	is_diagonal_move(t_player *player)
 {
-	return (player->pressed_buttons[0] \
-			&& player->pressed_buttons[1] && !player->pressed_buttons[3]) || \
-			(player->pressed_buttons[0] \
-			&& player->pressed_buttons[3] && !player->pressed_buttons[1]) || \
-			(player->pressed_buttons[2] \
-			&& player->pressed_buttons[1] && !player->pressed_buttons[3]) || \
-			(player->pressed_buttons[2] \
-			&& player->pressed_buttons[3] && !player->pressed_buttons[1]);
+	return (player->pressed_buttons[0] && player->pressed_buttons[1]
+		&& !player->pressed_buttons[3]) ||
+		(player->pressed_buttons[0] && player->pressed_buttons[3]
+				&& !player->pressed_buttons[1]) ||
+		(player->pressed_buttons[2] && player->pressed_buttons[1]
+				&& !player->pressed_buttons[3]) ||
+		(player->pressed_buttons[2] && player->pressed_buttons[3]
+				&& !player->pressed_buttons[1]);
 }
 
 int	is_player_move(t_player *player)
 {
-	return (player->pressed_buttons[0] || player->pressed_buttons[1] || \
+	return (player->pressed_buttons[0] || player->pressed_buttons[1] ||
 			player->pressed_buttons[2] || player->pressed_buttons[3]);
 }
 
@@ -54,7 +41,6 @@ t_vector	*player_move_vector(t_player *player, t_game *game)
 	int			counter;
 	float		speed;
 
-	// print_state(player);
 	speed = player_speed(player);
 	if ((speed == 0 && game->scene->prev_speed != 0))
 		game->scene->moves_made++;
@@ -76,20 +62,20 @@ t_vector	*player_move_vector(t_player *player, t_game *game)
 		modificator = sqrt(2) / 2;
 	counter = 0;
 	while (counter < 4)
-	{	
+	{
 		angle = player->rotation * PI / 180.0;
 		if (player->pressed_buttons[counter] && counter == 0)
 			angle += 0;
 		else if (player->pressed_buttons[counter] && counter == 1)
-			angle += PI/2;
+			angle += PI / 2;
 		else if (player->pressed_buttons[counter] && counter == 2)
 			angle += PI;
 		else if (player->pressed_buttons[counter] && counter == 3)
-			angle += 3*PI/2;
+			angle += 3 * PI / 2;
 		if (player->pressed_buttons[counter])
 		{
-			x = modificator * (speed) * cos(angle);
-			y = modificator * (speed) * sin(angle);	
+			x = modificator * (speed)*cos(angle);
+			y = modificator * (speed)*sin(angle);
 			vector_add(move_vector, x, y);
 		}
 		counter++;
@@ -98,7 +84,7 @@ t_vector	*player_move_vector(t_player *player, t_game *game)
 	return (move_vector);
 }
 
-void		player_move_update(t_player *player, t_vector *move_vector)
+void	player_move_update(t_player *player, t_vector *move_vector)
 {
 	if (!move_vector)
 		return ;

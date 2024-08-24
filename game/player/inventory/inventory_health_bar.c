@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:24:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 15:42:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:18:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ t_health_bar	*make_health_bar(int max)
 	bar->current = max;
 	bar->max = max;
 	return (bar);
+}
+
+static t_point	rect_point(float x, float y)
+{
+	t_point	pos;
+
+	pos.x = x;
+	pos.y = y;
+	return (pos);
 }
 
 int	hb_new_image(void *mlx, t_health_bar *bar, int width, int height)
@@ -43,26 +52,24 @@ int	hb_new_image(void *mlx, t_health_bar *bar, int width, int height)
 		return (0);
 	if (!img_create(bar->image, width, height))
 		return (0);
-	fill.start.x = 0;
-	fill.start.y = 0;
+	fill.start = rect_point(0, 0);
 	fill.width = width;
 	fill.height = height;
-	rect.start.x = 0;
-	rect.start.y = 0;
+	rect.start = rect_point(0, 0);
 	rect.width = (int)(bar->current * width / bar->max);
 	rect.height = height;
 	img_put_rectangle(bar->image, fill, 0x4a4a4a);
 	img_put_rectangle(bar->image, rect, 0xd14755);
-	img_paint_border(bar->image, border);
-	return (1);
+	return (img_paint_border(bar->image, border), 1);
 }
 
-int		hb_add_damage(t_health_bar *bar, int damage)
+int	hb_add_damage(t_health_bar *bar, int damage)
 {
 	if (!bar)
 		return (0);
 	bar->current = max(0, bar->current - damage);
-	if (!hb_new_image(bar->image->mlx, bar, bar->image->width, bar->image->height))
+	if (!hb_new_image(bar->image->mlx, bar, bar->image->width,
+			bar->image->height))
 		return (0);
 	return (1);
 }

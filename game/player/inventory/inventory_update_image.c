@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 16:07:41 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 15:20:39 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:57:52 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	inv_draw_border(t_inventory *inv)
 	img_paint_border(inv->image, border);
 }
 
-void	inv_draw_background(t_inventory	*inv)
+void	inv_draw_background(t_inventory *inv)
 {
 	t_rectangle	rect;
 
@@ -33,7 +33,8 @@ void	inv_draw_background(t_inventory	*inv)
 	img_put_rectangle(inv->image, rect, INV_BACKGROUND_COLOR);
 }
 
-void	inv_draw_bullets(t_inventory *inv, t_image	*bullet_image, t_writer *writer)
+void	inv_draw_bullets(t_inventory *inv, t_image *bullet_image,
+		t_writer *writer)
 {
 	char	*str_value;
 	t_point	pos;
@@ -50,10 +51,11 @@ void	inv_draw_bullets(t_inventory *inv, t_image	*bullet_image, t_writer *writer)
 		pos.y += 20;
 		img_put_img(inv->image, inv->health_bar->image, pos, 0);
 		pos.y -= 20;
-		pos.x += inv->health_bar->image->width + INV_CELL_PADDING;	
+		pos.x += inv->health_bar->image->width + INV_CELL_PADDING;
 	}
 	pos.y += 8;
-	pos.x += mlx_print_to_image(writer, inv->image, str_value, pos) + INV_CELL_PADDING;
+	pos.x += mlx_print_to_image(writer, inv->image, str_value, pos)
+		+ INV_CELL_PADDING;
 	pos.y -= 8;
 	img_put_img(inv->image, bullet_image, pos, 0);
 	free(str_value);
@@ -75,14 +77,15 @@ void	inv_draw_slots(t_inventory *inv, t_inv_images images)
 			img_put_img(inv->image, images.active_slot_image, pos, 0);
 		else
 			img_put_img(inv->image, images.slot_image, pos, 0);
-		if (inv->slots->items[counter] && inv->slots->items[counter]->type == PISTOL)
+		if (inv->slots->items[counter]
+			&& inv->slots->items[counter]->type == PISTOL)
 			img_put_img(inv->image, images.pistol_image, pos, 0);
 		pos.x += INV_CELL_SIZE + INV_CELL_PADDING;
 		counter++;
 	}
 }
 
-void	inv_update_image(t_inventory *inv, int player_update_count, \
+void	inv_update_image(t_inventory *inv, int player_update_count,
 		t_inv_images images, t_writer *writer)
 {
 	if (player_update_count == inv->update_count)
