@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:25:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 18:59:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ void					*free_enemy_storage(t_enemy_storage *storage);
 
 int	feel_objs_points(t_point_list *point,
 						t_map_raw_list *raw_map);
+int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map);
+
 
 #endif // SCENE_H

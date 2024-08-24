@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/tmazitov/Desktop/study/cub/cmd",
-      "program": "/Users/tmazitov/Desktop/study/cub/cmd/build/Debug/outDebug"
+      "cwd": "/Users/tmazitov/Desktop/study/cub",
+      "program": "/Users/tmazitov/Desktop/study/cub/build/Debug/outDebug"
     }
   ]
 }

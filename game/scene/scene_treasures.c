@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:50:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 18:58:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_treasure_storage	*make_treasure_storage(t_map_raw_list *raw_map)
 	storage->boxes = NULL;
 	storage->items = NULL;
 	storage->size = 0;
-	init_treasure_storage(storage);
 	if (!feel_treasure_storage(storage, raw_map))
 		return (free_treasure_storage(storage));
 	return (storage);

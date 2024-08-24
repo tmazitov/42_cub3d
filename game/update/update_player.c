@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:25:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 18:57:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ static void	player_intersect_handler(t_game *game, t_vector *move_vector)
 
 void	update_player(t_game *game)
 {
-	t_vector	*move;
 	float		x;
 	float		y;
+	t_vector	*move;
 	t_line		*move_x;
 	t_line		*move_y;
 
@@ -119,7 +119,7 @@ void	update_player(t_game *game)
 	move_x = make_line(x, y, x + move->x, y);
 	move_y = make_line(x, y, x, y + move->y);
 	if (!move_x || !move_y)
-		return (free_vector(move_x), free_vector(move_y), (void)0);
+		return (free_vector(move), free_line(move_y), free_line(move_x), (void)0);
 	player_intersect_handler(game, move);
 	if (!(get_array_map_value(*move_x, game) == '1'
 			|| get_array_map_value(*move_y, game) == '1'))

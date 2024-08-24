@@ -6,12 +6,12 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/24 14:50:32 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/24 19:35:55 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS =  cmd/main.c \
         game/game.c \
@@ -23,6 +23,7 @@ SRCS =  cmd/main.c \
         game/minimap/minimap_update_image.c \
         game/update/update.c \
         game/update/update_player.c \
+        game/update/update_player_utils.c \
         game/update/update_enemies.c \
         game/update/update_minimap.c \
         game/render/render.c \
@@ -43,7 +44,7 @@ SRCS =  cmd/main.c \
 		game/items/item_collection.c \
 		game/enemy/enemy.c \
 		game/enemy/enemy_move.c \
-		game/enemy/enemy_anime.c \
+		game/enemy/enemy_anime.c \w
 		game/enemy/enemy_attack.c \
 		game/enemy/enemy_image_update.c \
 		game/enemy/enemy_health_bar.c \
@@ -60,6 +61,7 @@ SRCS =  cmd/main.c \
         game/player/inventory/inventory_update_image.c \
         game/map/map.c \
         game/map/map_raw.c \
+        game/map/map_raw_walls.c \
         game/map/map_raw_utils.c \
         game/map/map_parse.c \
         game/map/map_textures.c \

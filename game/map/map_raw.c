@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:57:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:29:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,7 @@ static int	check_neighbors(t_map *map, int x, int y)
 	return (top != ' ' && bot != ' ' && left != ' ' && right != ' ');
 }
 
-int	add_direction_wall(t_map *map, int x, int y, t_map_raw_list *node)
-{
-	int		status;
-	t_point	pos;
 
-	if (node->value[x] != '1')
-		return (1);
-	status = 1;
-	pos.x = x * 64;
-	pos.y = y * 64;
-	if (node->value[x] == '1' && is_moveable_area(map, x, y + 1))
-		status = add_wall(pos, WALL, NORTH, map->walls);
-	else if (node->value[x] == '1' && is_moveable_area(map, x, y - 1))
-		status = add_wall(pos, WALL, SOUTH, map->walls);
-	else if (node->value[x] == '1' && is_moveable_area(map, x + 1, y))
-		status = add_wall(pos, WALL, WEST, map->walls);
-	else if (node->value[x] == '1' && is_moveable_area(map, x - 1, y))
-		status = add_wall(pos, WALL, EAST, map->walls);
-	return (status);
-}
 
 int	convert_raw_to_objs(t_map *map)
 {
@@ -68,7 +49,7 @@ int	convert_raw_to_objs(t_map *map)
 				&& !check_neighbors(map, x, y))
 				return (print_error("invalid map"), 0);
 			if (!add_direction_wall(map, x, y, node))
-				return (print_error("invalid map aa"), 0);
+				return (print_error("invalid map"), 0);
 			x++;
 		}
 		y++;

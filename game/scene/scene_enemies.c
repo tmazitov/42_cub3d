@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:29:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:44:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:04:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_enemy_storage	*make_enemy_storage(void *mlx, t_map_raw_list *raw_map)
 	return (storage);
 }
 
-static t_enemy	*make_zombie(t_enemy_storage *storage, void *mlx, int x, int y)
+static t_enemy	*make_zombie(void *mlx, int x, int y)
 {
 	t_point	pos;
 	t_enemy	*enemy;
@@ -66,11 +66,10 @@ int	feel_enemy_storage(void *mlx, t_enemy_storage *storage,
 		x = 0;
 		while (raw_map->value[x])
 		{
-			if (raw_map->value[x] == 'Z' && !make_zombie(storage, mlx, x, y))
-				return (0);
 			if (raw_map->value[x] == 'Z')
-				created++;
-			x++;
+				storage->enemies[created] = make_zombie(mlx, x, y);
+			if (raw_map->value[x++] == 'Z' && !storage->enemies[created++])
+				return (0);
 		}
 		y++;
 		raw_map = raw_map->next;

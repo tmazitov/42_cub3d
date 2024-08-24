@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:04:50 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 19:01:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	update_enemies(t_game *game)
 	int				counter;
 	t_enemy			*enemy;
 
+	if (!game->scene->enemies)
+		return ;
 	storage = game->scene->enemies;
 	counter = 0;
 	while (counter < storage->size)
