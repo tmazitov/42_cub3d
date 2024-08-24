@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/23 22:39:39 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:45:20 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,8 +415,8 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 //ZOMBIE ADD TRYING, zombie func above.
 void render_window_scene(t_game *game)
 {
-	float player_fov = PLAYER_FOV;
-	float temp_to_rotate;
+	float		player_fov = PLAYER_FOV;
+	float		temp_to_rotate;
 	float distance_from_wall;
 	t_point screen_render;
 	t_line *ray;
@@ -431,12 +431,12 @@ void render_window_scene(t_game *game)
 	screen_render.y = 0;
 	temp_to_rotate = -player_fov / 2;
 
-	t_image temp_image[4];
+	t_image temp_image[5];
 	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
 	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
 	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
 	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
-
+	temp_image[4] = *get_sprite_by_name(game->scene->map->sprites, "DOOR")->image;
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
 
@@ -473,9 +473,20 @@ void render_window_scene(t_game *game)
 			float texture_y_pos = y_offsett * vert_iter;
 			while (display_coordinates.start.y < display_coordinates.end.y)
 			{
+				if (get_array_map_value(*ray, game) == '1')
+				{
 				img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[wall_select], texture_x_pos, texture_y_pos),
 					SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
-					display_coordinates.start.x, display_coordinates.start.y);				
+					display_coordinates.start.x, display_coordinates.start.y);
+				}
+				else
+				{
+					img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[4], texture_x_pos, texture_y_pos),
+					SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
+					display_coordinates.start.x, display_coordinates.start.y);
+				}
+
+				
 				display_coordinates.start.y++;
 				texture_y_pos += vert_iter;
 			}
@@ -489,11 +500,12 @@ void render_window_scene(t_game *game)
 		screen_render.x += 1;
 		vert_wall_iter++;
 		if (screen_render.x == game->width || screen_render.y == 0)
-			break;
+			break ;
 	}
 	draw_chests(game, dist_to_wall_vert_line);
 	draw_zombie(game, dist_to_wall_vert_line);
 	draw__middle_aim(game);
+	printf("get_vert = %d\n", get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate));
 }
 
 //Find end of line equivalent of CHAR in 2d array map

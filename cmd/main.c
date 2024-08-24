@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:51:28 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:39:22 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,8 @@ int	main(int argc, char **argv)
 	// game = make_game(argv[1], 720, 480, "Hello world!");
 	// game = make_game(argv[1], 960, 640, "Hello world!");
 	game = make_game(argv[1], 1440, 900, "Hello world!");
-	printf("9899\n");
 	ambient_sound(game, "cub3d_ambient_game_sound.wav");
 	// game = make_game(argv[1], 1920, 1080, "Hello world!");
-	printf("9999\n");
 	if (!game)
 		return (1);
 	run(game);

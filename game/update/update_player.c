@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 19:32:27 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:47:07 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,33 +150,69 @@ static void	player_intersect_handler(t_game *game, t_vector *move_vector)
 	free_line(inter_wall);
 }
 
+
+
+void	player_door_update(t_game *game)
+{
+	t_player	*player;
+	t_line		door_check_pos;
+	float		player_angle;
+	float		dx;
+	float		dy;
+
+	player_angle = game->scene->minimap->player_rotation;
+	dx = 50 * cosf(player_angle * M_PI / 180.0f);
+	dy = 50 * sinf(player_angle * M_PI / 180.0f);
+    player = game->scene->player;
+	door_check_pos.start = *player->pos;
+	door_check_pos.end = *player->pos;
+	door_check_pos.end.x -= dx;
+	door_check_pos.end.y -= dy;
+	if (!player->pressed_buttons[6])
+        return ;
+	if (get_array_map_value(door_check_pos, game) == 'D')
+	{
+		door_check_pos.end.x /= 64;
+		door_check_pos.end.y /= 64;
+		door_check_pos.end.x = (int)((door_check_pos.end.x
+					- fmod(door_check_pos.end.x, 1)));
+		door_check_pos.end.y = (int)((door_check_pos.end.y
+					- fmod(door_check_pos.end.y, 1)));
+		game->scene->map->map_double_array[(int)door_check_pos.end.y][(int)door_check_pos.end.x] = '0';
+	}
+}
+
 void	update_player(t_game *game)
 {
 	t_vector	*move_vector;
 	t_player	*player;
 	t_line		*move_vector_x;
 	t_line		*move_vector_y;
-	
+	t_line		*player_path;
+
 	player = game->scene->player;
 	player_collect(game, player);
 	player_rotate(player);
 	player_inventory_update(game);
-	
+	player_door_update(game);
 	move_vector = player_move_vector(player, game);
 	if (!move_vector)
 		return ;
 	move_vector_x = make_line(player->pos->x, player->pos->y, player->pos->x + move_vector->x, player->pos->y);
 	move_vector_y = make_line(player->pos->x, player->pos->y, player->pos->x, player->pos->y + move_vector->y);
+	player_path = make_line(player->pos->x, player->pos->y, player->pos->x + move_vector->x, player->pos->y + move_vector->y);
 	player_intersect_handler(game, move_vector);
 	if (get_array_map_value(*move_vector_x, game) == '1'
-		|| get_array_map_value(*move_vector_y, game) == '1')
+		|| get_array_map_value(*move_vector_y, game) == '1'
+		|| get_array_map_value(*player_path, game) == 'D')
 	{
 		free_vector(move_vector);
 		free_line(move_vector_x);
 		free_line(move_vector_y);
+		free_line(player_path);
 		return ;
 	}
 	player_move_update(player, move_vector);
 	return (free_vector(move_vector), free_line(move_vector_x),
-		free_line(move_vector_y), (void)0);
+		free_line(move_vector_y), free_line(player_path), (void)0);
 }

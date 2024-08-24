@@ -6,24 +6,13 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/07/30 23:13:57 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:59:22 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
 #include <sys/time.h>
-void	print_time_since_last_call();
-// {
-// 	// static struct	timeval last_time;
-// 	// struct timeval			current_time;
-// 	// long int				elapsed_time;
 
-// 	gettimeofday(&current_time, NULL);
-// 	elapsed_time = (current_time.tv_sec - last_time.tv_sec) * 1000 + (current_time.tv_usec - last_time.tv_usec) / 1000;
-// 	printf("Elapsed time: %ld ms\n", elapsed_time);
-// 	last_time = current_time;
-// }
 
 float	distance_between_points(t_point start, t_point end)
 {
@@ -76,7 +65,7 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 		return (free_line(ray));
 	iterations = 0;
 	while (
-		get_array_map_value(*ray, game) != '1' &&
+		(get_array_map_value(*ray, game) != '1' && get_array_map_value(*ray, game) != 'D') &&
 		ray->end.x > 0
 		&& ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
 	{
@@ -92,11 +81,11 @@ t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
 //WORKING MALLOCING VERSION
 t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 {
-	float	y_iteration;	//y_iteration in while loop
-	float	x_iteration;	//x_iteration in while loop
-	int		iterations;	//Like a Counter for block iterations to find the wall.
-	float	angle_in_pie;	//angle in radians.
-	t_line	*ray;	//final struct to return.
+	float	y_iteration;
+	float	x_iteration;
+	int		iterations;
+	float	angle_in_pie;
+	t_line	*ray;
 
 	if (angle_in_degrees < 0)
 		angle_in_degrees += 360;
@@ -105,15 +94,13 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	angle_in_pie = angle_in_degrees * PI / 180.0;
 	y_iteration = 0;
 	x_iteration = 0;
-	ray = make_line_by_points(game->scene->minimap->player_pos, game->scene->minimap->player_pos);
+	ray = make_line_by_points(game->scene->minimap->player_pos,
+			game->scene->minimap->player_pos);
 	if (!ray)
 		return (NULL);
-	// if ((angle_in_degrees > 270 && angle_in_degrees <= 360)
-	// 	|| (angle_in_degrees >= 0 && angle_in_degrees < 90))
 	if ((angle_in_degrees > 270 || angle_in_degrees < 90))
 	{
-		line_update(ray, \
-			ray->start.x, ray->start.y, \
+		line_update(ray, ray->start.x, ray->start.y, \
 			ray->start.x - fmod(ray->end.x, 64.0) - 0.001, \
 			ray->start.y - (fmod(ray->start.x, 64.0) * tan(angle_in_pie)));
 		x_iteration = -64;
@@ -121,25 +108,20 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	}
 	else if (angle_in_degrees > 90 && angle_in_degrees < 270)
 	{
-		line_update(ray, \
-			ray->start.x, ray->start.y, \
-			ray->start.x - fmod(ray->end.x, 64.0) + 64, \
-			ray->start.y + ((64 - fmod(ray->start.x, 64.0)) * tan(angle_in_pie)));
+		line_update(ray, ray->start.x, ray->start.y, ray->start.x
+			- fmod(ray->end.x, 64.0) + 64, ray->start.y
+			+ ((64 - fmod(ray->start.x, 64.0)) * tan(angle_in_pie)));
 		x_iteration = 64;
 		y_iteration = x_iteration * tan(angle_in_pie);
 	}
 	else if (angle_in_degrees == 90 || angle_in_degrees == 270)
 		return (free_line(ray));
 	iterations = 0;
-	while (
-		get_array_map_value(*ray, game) != '1' &&
-		ray->end.x > 0
+	while (get_array_map_value(*ray, game) != '1' && ray->end.x > 0
 		&& ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
 	{
-		line_update(ray, \
-			ray->start.x, ray->start.y, \
-			ray->end.x + x_iteration, \
-			ray->end.y + y_iteration);
+		line_update(ray, ray->start.x, ray->start.y,
+			ray->end.x + x_iteration, ray->end.y + y_iteration);
 		iterations++;
 	}
 	return (ray);

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/07 17:48:40 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 18:22:23 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int player_inv_active_item(t_player *player, int keycode)
 	{
 		player->update_count += 1;
 		player->inventory->active_item = new_active;
-	}	
+	}
 	return (0);
 }
 

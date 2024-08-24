@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 21:37:19 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:39:12 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,6 @@ t_map	*make_map(void *mlx,char *path)
 		return (print_error("Multiple N,S,W,Es found in map"),
 			free_map(map));
 	count_zombies(map);
-	// // temporatu prints to make a map with 2d array and save it.
-	printf("---START PRINTS FROM [map.c]-----------\n\n");
-	// char **temp_array = map->map_double_array;
-	// int	zombie_counter = 0;
-	// int iter;
-	// while (*temp_array)
-	// {
-	// 	while (*temp_array[iter] != '\0')
-	// 	{
-	// 		if (*temp_array[iter] == 'Z')
-	// 			zombie_counter++;
-	// 		iter++;
-	// 	}
-	// 	temp_array++;
-	// }
-	// printf("end of while loop\n");
-	// printf("---height = [%d]\n", map->height);
-	// printf("---width = [%d]\n", map->width);
-	printf("\n\nEND PRINTS FROM [map.c]-----------");
-	// exit(1);
 	return (map);
 }
 
