@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 19:31:25 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:24:51 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,29 @@ void	*shoot_sound_func(void *arg)
 	char *sound_path;
 
 	sound_path = (char *)arg;
-    ma_result result;
-    ma_engine engine;
+	ma_result result;
+	ma_engine engine;
 
-    // Initialize the engine
-    result = ma_engine_init(NULL, &engine);
-    if (result != MA_SUCCESS) {
-        printf("Failed to initialize audio engine.\n");
+	// Initialize the engine
+	result = ma_engine_init(NULL, &engine);
+	if (result != MA_SUCCESS) {
+		printf("Failed to initialize audio engine.\n");
 		return (NULL);
-    }
+	}
 
-    // Play the sound
-    result = ma_engine_play_sound(&engine, sound_path, NULL);
-    if (result != MA_SUCCESS) {
-        printf("Failed to play sound.\n");
-        ma_engine_uninit(&engine);
+	// Play the sound
+	result = ma_engine_play_sound(&engine, sound_path, NULL);
+	if (result != MA_SUCCESS) {
+		printf("Failed to play sound.\n");
+		ma_engine_uninit(&engine);
 		return (NULL);
-    }
+	}
 
-    // Wait until the sound finishes playing
+	// Wait until the sound finishes playing
 	usleep(1000000);
 
-    ma_engine_uninit(&engine);
-    // Clean up
+	ma_engine_uninit(&engine);
+	// Clean up
 	return (NULL);
 }
 
