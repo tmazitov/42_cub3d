@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:03:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:39:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@
 # define ZOMBIE_HITBOX_WIDTH 15
 // BODY HITBOX = 10 (not including hands)
 // BODY + HANDS HITBOX = 15
+
+typedef struct s_scene	t_scene;
+
+typedef struct s_game	t_game;
 
 int		render_hook(t_game *game);
 void	render_minimap(t_game *game);

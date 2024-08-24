@@ -6,11 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 20:21:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:58:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
+
+#include "../../miniaudio/miniaudio.h"
 
 void	*shoot_sound_func(void *arg)
 {

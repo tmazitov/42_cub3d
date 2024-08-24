@@ -6,14 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 20:15:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:58:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 
-# include "../../miniaudio/miniaudio.h"
 # include "../../utils/geometry/geometry.h"
 # include "../../utils/image/image.h"
 # include "../../utils/keyboard.h"
@@ -23,11 +22,14 @@
 # include "inventory/inventory.h"
 # include <math.h>
 # include <stdlib.h>
+# include <pthread.h>
+
+# define MINIAUDIO_IMPLEMENTATION
 
 # define PLAYER_SIZE 24
 
 # ifndef PLAYER_MAX_SPEED
-#  define PLAYER_MAX_SPEED 4 
+#  define PLAYER_MAX_SPEED 4
 # endif
 
 # define PLAYER_ACCELERATION_ITERS 10
@@ -37,8 +39,6 @@
 # define PLAYER_INV_CELL_AMOUNT 6
 
 # define PLAYER_ICON_SIZE 48
-
-# define MINIAUDIO_IMPLEMENTATION
 
 typedef struct s_player
 {
@@ -67,8 +67,8 @@ t_image					*load_icon(void *mlx);
 
 int						player_control_set(int keycode, t_player *player);
 int						player_control_unset(int keycode, t_player *player);
-t_vector				*player_move_vector(t_player *player, t_game *game);
-void					player_move_update(t_player *player,
+t_vector				*player_move_vector(t_player *player, t_scene *game);
+void					player_move_update(t_player *player, 
 							t_vector *move_vector);
 void					player_rotate(t_player *player);
 int						is_player_move(t_player *player);

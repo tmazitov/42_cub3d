@@ -6,12 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:34:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:09:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:53:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
-#include <pthread.h>
+
+# define MINIAUDIO_IMPLEMENTATION
 
 static int	get_treasure_box_index(t_treasure_storage *storage, t_treasure *box)
 {

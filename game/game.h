@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:17:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/16 17:41:31 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:39:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include "scene/scene.h"
 # include "../utils/mlx_font_print/mlx_font_print.h"
 
-struct s_scene;
+typedef struct s_scene	t_scene;
+
 
 typedef struct s_game
 {

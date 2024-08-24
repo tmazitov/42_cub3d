@@ -5,18 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 20:18:10 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 20:19:06 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/08/24 21:06:29 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/08/24 21:41:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_INVENTORY_H
-# define PLAYER_INVENTORY_H
+#ifndef INVENTORY_H
+# define INVENTORY_H
 
 # include "../../../utils/image/image.h"
 # include "../../../utils/libft/libft.h"
 # include "../../../utils/mlx_font_print/mlx_font_print.h"
 # include "../../items/items.h"
+# include "../../../miniaudio/miniaudio.h"
 
 # define INV_CELL_SIZE 64
 # define INV_CELL_PADDING 8

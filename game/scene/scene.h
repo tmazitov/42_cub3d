@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 18:59:27 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:56:34 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@
 # include "../objs/treasure/treasure.h"
 # include "../player/player.h"
 # include <stdlib.h>
+# include <pthread.h>
 
 # define COLLECT_DISTANCE 80
 # define ENEMY_DEFAULT_HEALTH 10
+
+typedef struct s_player	t_player;
+
 
 typedef struct s_enemy_storage
 {

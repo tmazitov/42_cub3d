@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/24 19:35:55 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/24 20:23:10 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS =  cmd/main.c \
 		game/items/item_collection.c \
 		game/enemy/enemy.c \
 		game/enemy/enemy_move.c \
-		game/enemy/enemy_anime.c \w
+		game/enemy/enemy_anime.c \
 		game/enemy/enemy_attack.c \
 		game/enemy/enemy_image_update.c \
 		game/enemy/enemy_health_bar.c \
@@ -54,6 +54,7 @@ SRCS =  cmd/main.c \
         game/player/player_icon.c \
         game/player/player_control_keyboard.c \
         game/player/player_control_mouse.c \
+        game/player/player_control_mouse_utils.c \
         game/player/player_bullets.c \
         game/player/player_acceleration.c \
         game/player/inventory/inventory.c \
