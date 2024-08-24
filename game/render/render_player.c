@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/22 17:21:29 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:41:45 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	render_player_weapon(t_game *game)
 			image = player->pistol_anime->frames->image;
 		else
 			image = get_pistol_image(player);
-
 		pos.x = (game->width - image->width) / 2 + 300 ;
 		pos.y = game->height - image->height;
 		img_put_img(game->scene->image, image, pos, 0);

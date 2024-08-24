@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/22 23:32:31 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:43:09 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ static void	minimap_draw_enemies(t_game *game)
 	t_enemy_storage	*storage;
 	t_sprite_node	*enemy_icon;
 	int				counter;
-	t_point	pos;
-
-
+	t_point			pos;
 
 	storage = game->scene->enemies;
 	enemy_icon = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
@@ -190,7 +188,7 @@ void	render_minimap(t_game *game)
 			treasure_sprite_empty->image,
 			game->scene->treasures);
 	}
-	render_minimap_rays(game);
+	// render_minimap_rays(game);
 
 	minimap_draw_border(game->scene->minimap);
 

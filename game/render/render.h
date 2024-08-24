@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/22 23:24:11 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:39:02 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 // By setting SHADE_MIN to negative,
 // we start to shade blocks that are even
 // INFRONT of uf (MAKE EVERYTHING DARKER)
-
-
 # define BULLET_HIT_CHECK_ITERATION	4.0
 # define BULLET_MAX_ITERATIONS		160
 //		Total bullet distance travel is (B_M_I * Z_H_W)
@@ -38,6 +36,16 @@
 // BODY HITBOX = 10 (not including hands)
 // BODY + HANDS HITBOX = 15
 
+typedef struct s_ray_struct
+{
+	float	y_iteration;
+	float	x_iteration;
+	int		iterations;
+	float	angle_in_pie;
+}	t_ray_struct;
+
+float	distance_between_points(t_point start, t_point end);
+void	init_ray_struct(t_ray_struct *ray_struct, float *angle_in_degrees);
 
 int		render_hook(t_game *game);
 void	render_minimap(t_game *game);
@@ -53,8 +61,6 @@ t_line	*ray_line_shortest_xy(t_game *game, float angle_in_degrees);
 float	distance_between_points(t_point start, t_point end);
 char	get_array_map_value(t_line ray, t_game *game);
 void	line_shortener_for_minimap(t_line *ray, t_game *game);
-
-
 void	bullet_shoot_func(t_game *game, float angle_in_degrees);
 
 #endif // RENDER_H
