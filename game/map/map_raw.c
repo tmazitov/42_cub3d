@@ -6,42 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 14:40:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 15:45:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
-static t_map_raw_list	*get_last_raw_item(t_map_raw_list *item)
-{
-	if (item->next)
-		return (get_last_raw_item(item->next));
-	return (item);
-}
-
-int	add_map_raw_item(t_map *map, char *value)
-{
-	t_map_raw_list	*new_item;
-
-	new_item = malloc(sizeof(t_map_raw_list));
-	if (!new_item)
-		return (0);
-	new_item->value = ft_strdup(value);
-	if (!new_item->value)
-		return (free(new_item), 0);
-	new_item->next = NULL;
-	new_item->prev = NULL;
-	if (!map->raw)
-		map->raw = new_item;
-	else
-	{
-		new_item->prev = get_last_raw_item(map->raw);
-		get_last_raw_item(map->raw)->next = new_item;
-	}
-	return (1);
-}
-
-static char	get_raw_value(t_map *map, int x, int y)
+char	get_raw_value(t_map *map, int x, int y)
 {
 	t_map_raw_list	*node;
 	int				i;
@@ -83,85 +54,44 @@ static int	check_neighbors(t_map *map, int x, int y)
 			&& right != ' ');
 }
 
-static int	save_player_position(t_map *map, char ch, int x, int y)
-{	
-	if (ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
-		return (1);
-	if (map->player_start)
-		return (print_error("dup player position"), 1);
-	map->player_start = make_point(x*64, y*64);	
-	if (!map->player_start)
-		return (1);
-	if (ch == 'N')
-		map->player_direction = NORTH;
-	else if (ch == 'S')
-		map->player_direction = SOUTH;
-	else if (ch == 'W')
-		map->player_direction = WEST;
-	else
-	 	map->player_direction = EAST;
-	return (1);
-}
-
-int	is_moveable_area(t_map *map, int x, int y)
+int	add_direction_wall(t_map *map, int x, int y, t_map_raw_list *node)
 {
-	char	symbol;
-	char	*moveable_symbols;
-	int		counter;
-
-	moveable_symbols = "0BZNEWS";
-	symbol = get_raw_value(map, x, y);
-	counter = 0;
-	while (moveable_symbols[counter])
-	{
-		if (symbol == moveable_symbols[counter])
-			return (1);
-		counter++;
-	}
-	return (0);
+	int	status;
+	
+	if (node->value[x] != '1')
+		return (1);
+	status = 1;
+	if (node->value[x] == '1' && is_moveable_area(map, x, y + 1))
+		status = add_wall((x)*64, (y + 1)*64, WALL, NORTH, map->walls);
+	else if (node->value[x] == '1' && is_moveable_area(map, x, y - 1))
+		status = add_wall((x)*64, (y)*64, WALL, SOUTH, map->walls);
+	else if (node->value[x] == '1' && is_moveable_area(map, x + 1, y))
+		status = add_wall((x + 1)*64, (y)*64, WALL, WEST, map->walls);
+	else if (node->value[x] == '1' && is_moveable_area(map, x - 1, y))
+		status = add_wall((x)*64 , (y)*64, WALL, EAST, map->walls);
+	return (status);
 }
 
 int convert_raw_to_objs(t_map *map)
 {
-	int		y;
-	int 	status;
-	int		x;
+	int				y;
+	int				x;
 	t_map_raw_list	*node;
 
 	y = 0;
 	node = map->raw;
-	status = 1;
-	node = map->raw;
 	while(node && y != map->height)
 	{
 		x = 0;
-		while (node->value[x] && node->value[x] == ' ')
-			x++;
-		if (!node->value[x])
-			return (0);
 		while (node->value[x])
 		{
-			if (!save_player_position(map, node->value[x], x, y))
+			if (!setup_player_position(map, node->value[x], x, y))
 				return (0);	
 			if (node->value[x] != '1' && node->value[x] != ' ' 
 				&& !check_neighbors(map, x, y))
 				return (print_error("invalid map"), 0);
-			if (node->value[x] == '1' && is_moveable_area(map, x, y + 1))
-				status = add_wall((x)*64, (y + 1)*64, WALL, NORTH, map->walls);
-			if (!status)
-				return (0);
-			if (node->value[x] == '1' && is_moveable_area(map, x, y - 1))
-				status = add_wall((x)*64, (y)*64, WALL, SOUTH, map->walls);
-			if (!status)
-				return (0);
-			if (node->value[x] == '1' && is_moveable_area(map, x + 1, y))
-				status = add_wall((x + 1)*64, (y)*64, WALL, WEST, map->walls);
-			if (!status)
-				return (0);
-			if (node->value[x] == '1' && is_moveable_area(map, x - 1, y))
-				status = add_wall((x)*64 , (y)*64, WALL, EAST, map->walls);
-			if (!status)
-				return (0);
+			if (!add_direction_wall(map, x, y, node))
+				return (print_error("invalid map aa"), 0);
 			x++;
 		}
 		y++;
@@ -169,8 +99,6 @@ int convert_raw_to_objs(t_map *map)
 	}
 	return (1);
 }
-
-
 
 void *free_map_raw_item(t_map_raw_list *item)
 {

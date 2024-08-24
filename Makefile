@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/24 13:49:20 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/24 14:50:32 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS =  cmd/main.c \
         game/player/inventory/inventory_update_image.c \
         game/map/map.c \
         game/map/map_raw.c \
+        game/map/map_raw_utils.c \
         game/map/map_parse.c \
         game/map/map_textures.c \
         game/map/map_textures_utils.c \

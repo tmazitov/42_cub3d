@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/21 17:52:16 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:51:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,9 @@ int					count_of_objs(t_map_raw_list *item, char obj_char);
 char				**map_double_array_create(t_map *map);
 char				**allocate_2d_array(int width, int height);
 void				free_2d_array(char **array, int height);
+int					setup_player_position(t_map *map, char ch, int x, int y);
+int					is_moveable_area(t_map *map, int x, int y);
+char	get_raw_value(t_map *map, int x, int y);
 
 
 #endif
