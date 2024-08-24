@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 19:29:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:27:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static int	check_neighbors(t_map *map, int x, int y)
 		return (0);
 	return (top != ' ' && bot != ' ' && left != ' ' && right != ' ');
 }
-
-
 
 int	convert_raw_to_objs(t_map *map)
 {

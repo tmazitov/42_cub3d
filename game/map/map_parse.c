@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:59:55 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:26:43 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ int	parse_sprites(void *mlx, t_map *map, int fd)
 		if (!sprite_line_parts_is_valid(parts, map))
 			return (free_split(parts), print_error("invalid sprite line"), 0);
 		if (ft_strchr(parts[1], ','))
-			stat = add_color_sprite(parts[0],
-									make_rgb_by_string(parts[1]),
-									map->sprites);
+			stat = add_color_sprite(parts[0], make_rgb_by_string(parts[1]),
+					map->sprites);
 		else
 			stat = add_texture_sprite(mlx, parts[0], parts[1], map->sprites);
 		free_split(parts);
