@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_raw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/30 22:57:38 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:40:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	check_neighbors(t_map *map, int x, int y)
 	bot = get_raw_value(map, x, y + 1);
 	left = get_raw_value(map, x - 1, y); 
 	right = get_raw_value(map, x + 1, y);
-	if (!top && !bot && !right && !left)
+	if (top == 0 || bot == 0 || right == 0 || left == 0)
 		return (0);
 	return (top != ' ' \
 			&& bot != ' ' \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 21:12:17 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:21:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void	minimap_draw_treasure_boxes(t_minimap *minimap, \
 	t_treasure	*treasure;
 
 	counter = 0;
+	if (!storage || !storage->boxes)
+		return ;
 	while (storage->boxes[counter])
 	{
 		treasure = storage->boxes[counter];
