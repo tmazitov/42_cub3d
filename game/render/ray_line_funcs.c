@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/24 20:59:22 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:28:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,56 +24,74 @@ float	distance_between_points(t_point start, t_point end)
 	return (sqrt(dx * dx + dy * dy));
 }
 
-//NEW MODIFICATION
-t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
+typedef struct s_ray_struct
 {
-	float	y_iteration;	//y_iteration in while loop
-	float	x_iteration;	//x_iteration in while loop
-	int		iterations;	//Like a Counter for block iterations to find the wall.
-	float	angle_in_pie;	//angle in radians.
-	t_line	*ray;	//final struct to return.
+	float	y_iteration;
+	float	x_iteration;
+	int		iterations;
+	float	angle_in_pie;
+}	t_ray_struct;
 
-	if (angle_in_degrees < 0)
-		angle_in_degrees += 360;
-	if (angle_in_degrees > 360)
-		angle_in_degrees -= 360;
-	angle_in_pie = angle_in_degrees * PI / 180.0;
-	y_iteration = 0;
-	x_iteration = 0;
-	ray = make_line_by_points(game->scene->minimap->player_pos, game->scene->minimap->player_pos);
-	if (!ray)
-		return (NULL);
+void	init_ray_struct(t_ray_struct *ray_struct,
+	float *angle_in_degrees)
+{
+	if ((*angle_in_degrees) < 0)
+		(*angle_in_degrees) += 360;
+	if ((*angle_in_degrees) > 360)
+		(*angle_in_degrees) -= 360;
+	ray_struct->y_iteration = 0;
+	ray_struct->x_iteration = 0;
+	ray_struct->iterations = 0;
+	ray_struct->angle_in_pie = (*angle_in_degrees) * PI / 180.0;
+}
+
+void	r_l_getter_utils_1(t_ray_struct *r_s, t_line *ray,
+	float angle_in_degrees)
+{
 	if (angle_in_degrees > 0 && angle_in_degrees < 180)
 	{
-		line_update(ray, \
-			ray->start.x, ray->start.y, \
-			ray->start.x - (fmod(ray->start.y, 64.0) / tan(angle_in_pie)), \
+		line_update(ray, ray->start.x, ray->start.y, \
+			ray->start.x - (fmod(ray->start.y, 64.0) / tan(r_s->angle_in_pie)),
 			(ray->start.y - fmod(ray->end.y, 64.0) - 0.001));
-		y_iteration = -64;
-		x_iteration = y_iteration / tan(angle_in_pie);
+		r_s->y_iteration = -64;
+		r_s->x_iteration = r_s->y_iteration / tan(r_s->angle_in_pie);
 	}
 	else if (angle_in_degrees > 180 && angle_in_degrees < 360)
 	{
-		line_update(ray, \
-			ray->start.x, ray->start.y, \
-			ray->start.x + ((64 - fmod(ray->start.y, 64.0)) / tan(angle_in_pie)), \
-			ray->start.y - fmod(ray->end.y, 64.0) + 64);
-		y_iteration = 64;
-		x_iteration = y_iteration / tan(angle_in_pie);
+		line_update(ray, ray->start.x, ray->start.y, \
+			ray->start.x + ((64 - fmod(ray->start.y, 64.0))
+				/ tan(r_s->angle_in_pie)), ray->start.y
+			- fmod(ray->end.y, 64.0) + 64);
+		r_s->y_iteration = 64;
+		r_s->x_iteration = r_s->y_iteration / tan(r_s->angle_in_pie);
 	}
-	if (angle_in_degrees == 0 || angle_in_degrees == 180 || angle_in_degrees == 360)
+}
+
+//NEW MODIFICATION
+t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees)
+{
+	t_ray_struct	r_s;
+	t_line			*ray;
+
+	init_ray_struct(&r_s, &angle_in_degrees);
+	ray = make_line_by_points(game->scene->minimap->player_pos,
+			game->scene->minimap->player_pos);
+	if (!ray)
+		return (NULL);
+	r_l_getter_utils_1(&r_s, ray, angle_in_degrees);
+	if (angle_in_degrees == 0 || angle_in_degrees == 180
+		|| angle_in_degrees == 360)
 		return (free_line(ray));
-	iterations = 0;
-	while (
-		(get_array_map_value(*ray, game) != '1' && get_array_map_value(*ray, game) != 'D') &&
-		ray->end.x > 0
-		&& ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
+	r_s.iterations = 0;
+	while ((get_array_map_value(*ray, game) != '1'
+			&& get_array_map_value(*ray, game) != 'D') && ray->end.x > 0
+		&& ray->end.y > 0 && (r_s.iterations) < PLAYER_VIEW_DEPTH)
 	{
 		line_update(ray, \
 			ray->start.x, ray->start.y, \
-			ray->end.x + x_iteration, \
-			ray->end.y + y_iteration);
-		iterations++;
+			ray->end.x + r_s.x_iteration, \
+			ray->end.y + r_s.y_iteration);
+		(r_s.iterations)++;
 	}
 	return (ray);
 }
@@ -117,8 +135,9 @@ t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees)
 	else if (angle_in_degrees == 90 || angle_in_degrees == 270)
 		return (free_line(ray));
 	iterations = 0;
-	while (get_array_map_value(*ray, game) != '1' && ray->end.x > 0
-		&& ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
+	while (get_array_map_value(*ray, game) != '1'
+		&& get_array_map_value(*ray, game) != 'D'
+		&& ray->end.x > 0 && ray->end.y > 0 && iterations < PLAYER_VIEW_DEPTH)
 	{
 		line_update(ray, ray->start.x, ray->start.y,
 			ray->end.x + x_iteration, ray->end.y + y_iteration);
