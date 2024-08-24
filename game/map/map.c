@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 21:37:19 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 13:58:50 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_map(t_map *map)
 	map->width = 0;
 	map->player_start = 0;
 	map->zombie_count = 0;
+	map->map_double_array = NULL;
 }
 
 static	void count_zombies(t_map *map)

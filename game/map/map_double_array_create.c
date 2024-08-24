@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_double_array_create.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:29:16 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/19 16:51:06 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 13:59:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ char	**allocate_2d_array(int width, int height)
 	char	**array;
 	int		i;
 
-	array = (char **)calloc((height * sizeof(char *) + 1), sizeof(char *));
+	array = (char **)calloc((height + 1), sizeof(char *));
 	if (array == NULL)
 		return (NULL);
 	i = 0;
 	while (i < height)
 	{
-		array[i] = (char *)calloc((width * sizeof(char) + 1), sizeof(char));
+		array[i] = (char *)calloc((width + 1), sizeof(char));
 		if (array[i] == NULL)
 		{
 			free_2d_array(array, i);
@@ -104,6 +104,8 @@ void	free_2d_array(char **array, int height)
 {
 	int	i;
 
+	if (!array)
+		return ;
 	i = 0;
 	while (i < height)
 	{

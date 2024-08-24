@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 21:32:05 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:12:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
-int	check_sprite_line(char	**line_parts)
+int	sprite_line_parts_is_valid(char	**line_parts, t_map *map)
 {
 	int	count;
 
@@ -21,31 +21,45 @@ int	check_sprite_line(char	**line_parts)
 		count++;
 	if (count != 2)
 		return (0);
+	if (get_sprite_by_name(map->sprites, line_parts[0]))
+		return (0);
 	return (1);
+}
+
+char	**get_line_parts(int fd)
+{
+	char	*line;
+	char	**result;
+	
+
+	line = get_next_line(fd);
+	if (!line)
+		return (print_error("invalid map file"), NULL);
+	line[ft_strlen(line) - 1] = '\0';
+	while (*line == '\0')
+	{
+		free(line);
+		line = get_next_line(fd);
+		line[ft_strlen(line) - 1] = '\0';
+	}
+	result = ft_split(line, ' ');
+	if (!result)
+		print_error("invalid memory alloc");
+	free(line);
+	return (result);
 }
 
 int	parse_sprites(void *mlx, t_map *map, int fd)
 {
-	char	*line;
 	char	**line_parts;
 	int		is_created;
 	
 	while (sprite_storage_length(map->sprites) < SPRITES_COUNT)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			return (print_error("invalid map file"), 0);
-		if (*line == '\n')
-		{
-			free(line);
-			continue;
-		}
-		line[ft_strlen(line) - 1] = '\0';
-		line_parts = ft_split(line, ' ');
-		free(line);
+		line_parts = get_line_parts(fd);
 		if (!line_parts)
-			return (print_error("invalid memory alloc"), 1);
-		if (!check_sprite_line(line_parts))
+			return (0);
+		if (!sprite_line_parts_is_valid(line_parts, map))
 			return (free_split(line_parts), print_error("invalid sprite line"), 0);
 		if (ft_strchr(line_parts[1], ','))
 			is_created = add_color_sprite(line_parts[0], \
