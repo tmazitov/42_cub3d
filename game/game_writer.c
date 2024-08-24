@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 17:09:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/14 18:01:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:49:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static char	*get_char_image_name(char ch)
 	char	*ch_str;
 	char	*name;
 	char	ch_big;
-
 
 	if (ch >= 'a' && ch <= 'z')
 		ch_big = ch - 32;
@@ -32,11 +31,12 @@ static char	*get_char_image_name(char ch)
 	return (name);
 }
 
-int	setup_writer(t_writer *writer, t_sprite_storage *storage, char from, char to)
+int	setup_writer(t_writer *writer, t_sprite_storage *storage, char from,
+		char to)
 {
-	char	ch;
-	char	*name;
-	t_image	*image;
+	char			ch;
+	char			*name;
+	t_image			*image;
 	t_sprite_node	*node;
 
 	if (!writer || !storage)
@@ -48,7 +48,7 @@ int	setup_writer(t_writer *writer, t_sprite_storage *storage, char from, char to
 		if (!name)
 			return (0);
 		node = get_sprite_by_name(storage, name);
-		free(name); 
+		free(name);
 		if (!node || !node->image || !img_scale(&node->image, 3))
 			return (0);
 		image = node->image;

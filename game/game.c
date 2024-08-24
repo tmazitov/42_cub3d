@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 18:52:10 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:56:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-static void	init_game(t_game *game)
+static void	init_game(t_game *game, int height, int width)
 {
-	game->mlx = NULL;
+	game->mlx = mlx_init();
 	game->window = NULL;
 	game->writer = NULL;
 	game->scene = NULL;
 	game->blocker = 0;
+	game->height = height;
+	game->width = width;
 }
 
 static int	set_inv_position(t_game *game, t_player *player)
 {
-	t_rectangle rect;
+	t_rectangle	rect;
 	t_inventory	*inv;
 
 	inv = player->inventory;
@@ -43,7 +45,7 @@ static int	set_inv_position(t_game *game, t_player *player)
 static int	set_images_scale(t_game *game)
 {
 	t_sprite_node	*sprite;
-	
+
 	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
 	if (!sprite || !sprite->image)
 		return (1);
@@ -67,10 +69,7 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (NULL);
-	init_game(game);
-	game->height = height;
-	game->width = width;
-	game->mlx = mlx_init();
+	init_game(game, height, width);
 	if (!game->mlx)
 		return (free_game(game));
 	game->window = mlx_new_window(game->mlx, width, height, title);
@@ -84,16 +83,12 @@ t_game	*make_game(char *scene_path, int width, int height, char *title)
 		|| !setup_writer(game->writer, game->scene->map->sprites, 'a', 'z') \
 		|| !setup_writer(game->writer, game->scene->map->sprites, '0', '9') \
 		|| !set_inv_position(game, game->scene->player) \
-		|| !set_images_scale(game))
-		return (free_game(game));
-	if (!feel_game_animations(game))
-		return (free_game(game));
-	if (!img_create(game->scene->image, width, height))
+		|| !set_images_scale(game)
+		|| !feel_game_animations(game)
+		|| !img_create(game->scene->image, width, height))
 		return (free_game(game));
 	return (game);
 }
-
-
 
 void	*free_game(t_game *game)
 {
@@ -111,4 +106,3 @@ void	*free_game(t_game *game)
 	free(game);
 	return (NULL);
 }
-
