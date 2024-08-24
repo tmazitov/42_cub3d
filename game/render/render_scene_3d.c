@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/24 20:45:20 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:57:53 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,15 +412,25 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 	return (0);
 }
 
+void	set_temp_image(t_image *temp_image, t_game *game)
+{
+	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+	temp_image[4] = *get_sprite_by_name(game->scene->map->sprites,
+			"DOOR")->image;
+}
+
 //ZOMBIE ADD TRYING, zombie func above.
 void render_window_scene(t_game *game)
 {
 	float		player_fov = PLAYER_FOV;
 	float		temp_to_rotate;
-	float distance_from_wall;
-	t_point screen_render;
-	t_line *ray;
-	t_line display_coordinates;
+	float		distance_from_wall;
+	t_point		screen_render;
+	t_line		*ray;
+	t_line		display_coordinates;
 
 	float	dist_to_wall_vert_line[game->width];
 	int		vert_wall_iter = 0;
@@ -432,11 +442,13 @@ void render_window_scene(t_game *game)
 	temp_to_rotate = -player_fov / 2;
 
 	t_image temp_image[5];
-	temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
-	temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
-	temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
-	temp_image[4] = *get_sprite_by_name(game->scene->map->sprites, "DOOR")->image;
+	set_temp_image(temp_image, game);
+	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
+	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
+	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
+	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
+	// temp_image[4] = *get_sprite_by_name(game->scene->map->sprites, "DOOR")->image;
+
 	//Need a function and a int var to get the value of the sprite that we need to render 0-4
 	int wall_select = 0;
 

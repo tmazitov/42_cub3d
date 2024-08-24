@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 20:39:12 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:48:30 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ t_map	*make_map(void *mlx,char *path)
 	if (!check_for_multiple_p_chars(map))
 		return (print_error("Multiple N,S,W,Es found in map"),
 			free_map(map));
+	if (!check_for_multiple_p_chars(map))
+		return (print_error("Multiple N,S,W,Es found in map"),
+			free_map(map));	
 	count_zombies(map);
 	return (map);
 }
