@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:26:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/19 23:50:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:30:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_item_collection	*make_item_collection(int size)
 	return (collection);
 }
 
-int	item_collection_add_item(t_item_collection *collection, t_item_type type, int amount)
+int	item_collection_add_item(t_item_collection *collection, t_item_type type,
+		int amount)
 {
 	t_item	*item;
 	int		counter;
@@ -55,22 +56,6 @@ int	item_collection_add_item(t_item_collection *collection, t_item_type type, in
 		return (free_item(item), 2);
 	return (1);
 }
-
-void item_collection_print(t_item_collection *collection)
-{
-	int	counter;
-
-	counter = 0;
-	while (collection->items[counter])
-	{
-		if (collection->items[counter]->type == BULLET)
-			printf("\t\t--> bullets, amount = %d\n", collection->items[counter]->amount);
-		else if (collection->items[counter]->type == PISTOL)
-			printf("\t\t--> pistols, amount = %d\n", collection->items[counter]->amount);
-		counter++;
-	}
-}
-	
 
 void	*free_item_collection(t_item_collection *collection)
 {

@@ -6,21 +6,18 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:34:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:53:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:39:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scene.h"
-
-# define MINIAUDIO_IMPLEMENTATION
 
 static int	get_treasure_box_index(t_treasure_storage *storage, t_treasure *box)
 {
 	int	index;
 
 	index = 0;
-	while (storage->boxes[index] && \
-		storage->boxes[index] != box)
+	while (storage->boxes[index] && storage->boxes[index] != box)
 		index++;
 	if (storage->boxes[index] == NULL)
 		return (-1);
@@ -31,19 +28,19 @@ static void	play_collect_sound(void)
 {
 	pthread_t	sound_thread;
 
-	pthread_create(&sound_thread, NULL, shoot_sound_func, \
+	pthread_create(&sound_thread, NULL, shoot_sound_func,
 		"cub3d_gear_pickup_sound.wav");
 	pthread_detach(sound_thread);
 	return ;
 }
 
-static int	collect_treasure_items(t_item_collection *treasure, \
-	t_player *player)
+static int	collect_treasure_items(t_item_collection *treasure,
+									t_player *player)
 {
-	t_item				*item;
-	int					counter;
-	int					is_added;
-	int					collected_count;
+	t_item	*item;
+	int		counter;
+	int		is_added;
+	int		collected_count;
 
 	counter = 0;
 	collected_count = 0;
@@ -66,8 +63,9 @@ static int	collect_treasure_items(t_item_collection *treasure, \
 	return (collected_count);
 }
 
-int	treasure_collect(t_treasure_storage *storage, \
-	t_treasure *box, t_player *player)
+int	treasure_collect(t_treasure_storage *storage,
+						t_treasure *box,
+						t_player *player)
 {
 	int					treasure_index;
 	t_item_collection	*treasure_items;

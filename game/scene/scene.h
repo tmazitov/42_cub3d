@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:56:34 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:39:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 # include "../minimap/minimap.h"
 # include "../objs/treasure/treasure.h"
 # include "../player/player.h"
-# include <stdlib.h>
 # include <pthread.h>
+# include <stdlib.h>
 
 # define COLLECT_DISTANCE 80
 # define ENEMY_DEFAULT_HEALTH 10
 
 typedef struct s_player	t_player;
-
 
 typedef struct s_enemy_storage
 {
@@ -56,23 +55,21 @@ typedef struct s_scene
 	float				prev_speed;
 }						t_scene;
 
+int						treasure_collect(t_treasure_storage *storage,
+							t_treasure *box, t_player *player);
+int						feel_objs_points(t_point_list *point,
+							t_map_raw_list *raw_map);
+int						feel_treasure_storage(t_treasure_storage *storage,
+							t_map_raw_list *raw_map);
 t_scene					*make_scene(void *mlx, char *path);
 void					*free_scene(t_scene *scene);
 
 t_treasure_storage		*make_treasure_storage(t_map_raw_list *raw_map);
 void					*free_treasure_storage(t_treasure_storage *storage);
-int	treasure_collect(t_treasure_storage *storage,
-						t_treasure *box,
-						t_player *player);
 
 t_enemy_storage			*make_enemy_storage(void *mlx, t_map_raw_list *raw_map);
 int						feel_enemy_storage(void *mlx, t_enemy_storage *storage,
 							t_map_raw_list *raw_map);
 void					*free_enemy_storage(t_enemy_storage *storage);
-
-int	feel_objs_points(t_point_list *point,
-						t_map_raw_list *raw_map);
-int	feel_treasure_storage(t_treasure_storage *storage, t_map_raw_list *raw_map);
-
 
 #endif // SCENE_H
