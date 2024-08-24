@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 14:21:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:03:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ static void	minimap_draw_enemies(t_game *game)
 	t_enemy_storage	*storage;
 	t_sprite_node	*enemy_icon;
 	int				counter;
-	t_point	pos;
-
-
+	t_point			pos;
 
 	storage = game->scene->enemies;
 	enemy_icon = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
@@ -66,11 +64,12 @@ static void	minimap_draw_free_space(t_game *game)
 		x = 0;
 		while (raw_item->value[x])
 		{
-			rect.start.x = (x) * 64;
-			rect.start.y = (y) * 64;
+			rect.start.x = (x)*64;
+			rect.start.y = (y)*64;
 			if (raw_item->value[x] != '1' && raw_item->value[x] != ' ')
 			{
-				minimap_draw_rect(game->scene->minimap, rect, MINIMAP_FREE_SPACE_COLOR);
+				minimap_draw_rect(game->scene->minimap, rect,
+						MINIMAP_FREE_SPACE_COLOR);
 			}
 			x++;
 		}
@@ -81,10 +80,10 @@ static void	minimap_draw_free_space(t_game *game)
 
 static void	ray_move_to_middle(t_point *start, t_point *end)
 {
-	start->x += (32/4);
-	start->y += (32/4);
-	end->x += (32/4);
-	end->y += (32/4);
+	start->x += (32 / 4);
+	start->y += (32 / 4);
+	end->x += (32 / 4);
+	end->y += (32 / 4);
 }
 
 static void	render_enemy_path(t_game *game)
@@ -111,7 +110,6 @@ static void	render_enemy_path(t_game *game)
 				node = node->next;
 				p2.x = node->point->x;
 				p2.y = node->point->y;
-
 				p1.x /= 4;
 				p1.y /= 4;
 				p1.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
@@ -128,24 +126,25 @@ static void	render_enemy_path(t_game *game)
 	}
 }
 
-static void minimap_draw_player(t_minimap *minimap, t_image *player_icon)
+static void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 {
 	t_point	pos;
 	double	angle;
 
-	pos.x = minimap->player_pos.x - (64)/2;
-	pos.y = minimap->player_pos.y - (64)/2;
+	pos.x = minimap->player_pos.x - (64) / 2;
+	pos.y = minimap->player_pos.y - (64) / 2;
 	angle = minimap->player_rotation;
 	minimap_draw_image(minimap, player_icon, pos, angle - 90);
-	img_put_pixel(minimap->image, 0xe7f218, \
-		minimap->player_pos.x / MINIMAP_SCALE + MINIMAP_BORDER_SIZE - minimap->camera->x, \
-		minimap->player_pos.y / MINIMAP_SCALE + MINIMAP_BORDER_SIZE - minimap->camera->y);
+	img_put_pixel(minimap->image, 0xe7f218, minimap->player_pos.x
+			/ MINIMAP_SCALE + MINIMAP_BORDER_SIZE - minimap->camera->x,
+			minimap->player_pos.y / MINIMAP_SCALE + MINIMAP_BORDER_SIZE
+			- minimap->camera->y);
 }
 
-void	minimap_draw_treasure_boxes(t_minimap *minimap, \
-	t_image *treasure_icon, \
-	t_image *treasure_empty_icon, \
-	t_treasure_storage *storage)
+void	minimap_draw_treasure_boxes(t_minimap *minimap,
+									t_image *treasure_icon,
+									t_image *treasure_empty_icon,
+									t_treasure_storage *storage)
 {
 	int			counter;
 	t_treasure	*treasure;
@@ -166,11 +165,12 @@ void	minimap_draw_treasure_boxes(t_minimap *minimap, \
 
 void	render_minimap(t_game *game)
 {
-	// void			*win;
 	void			*img;
 	t_sprite_node	*treasure_sprite;
 	t_sprite_node	*treasure_sprite_empty;
+	t_point			p;
 
+	// void			*win;
 	// win = game->window;
 	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
@@ -182,22 +182,19 @@ void	render_minimap(t_game *game)
 		minimap_draw_enemies(game);
 		render_enemy_path(game);
 	}
-
 	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB");
-	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites, "TB_EMPTY");
-	if (treasure_sprite && treasure_sprite->image && treasure_sprite_empty && treasure_sprite_empty->image)
+	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites,
+			"TB_EMPTY");
+	if (treasure_sprite && treasure_sprite->image && treasure_sprite_empty
+		&& treasure_sprite_empty->image)
 	{
-		minimap_draw_treasure_boxes(game->scene->minimap, \
-			treasure_sprite->image,
-			treasure_sprite_empty->image,
-			game->scene->treasures);
+		minimap_draw_treasure_boxes(game->scene->minimap,
+									treasure_sprite->image,
+									treasure_sprite_empty->image,
+									game->scene->treasures);
 	}
 	render_minimap_rays(game);
-
 	minimap_draw_border(game->scene->minimap);
-
-	t_point p;
-
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;
 	img_put_img(game->scene->image, img, p, 0);

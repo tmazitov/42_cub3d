@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_walls.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 23:15:11 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/13 19:50:24 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:54:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ t_wall_storage	*make_wall_storage(void)
 	return (storage);
 }
 
-int add_wall(int x, int y, t_wall_type type, \
-					t_direction direction, \
-					t_wall_storage *storage)
+int	add_wall(t_point pos, t_wall_type type, t_direction direction,
+		t_wall_storage *storage)
 {
 	t_wall_node	*node;
 
@@ -43,10 +42,9 @@ int add_wall(int x, int y, t_wall_type type, \
 	if (!node)
 		return (0);
 	node->next = NULL;
-	node->wall = make_wall(x, y, type, direction);
+	node->wall = make_wall(pos.x, pos.y, type, direction);
 	if (!node->wall)
 		return (0);
-	printf("\r# add wall %d from %f %f to %f %f\n", direction, node->wall->start->x, node->wall->start->y, node->wall->end->x, node->wall->end->y);
 	if (storage->start == NULL)
 		storage->start = node;
 	else

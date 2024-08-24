@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:29:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 07:49:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:44:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_enemy_storage(t_enemy_storage *storage)
 	storage->size = 0;
 	storage->alive = 0;
 }
-
 
 t_enemy_storage	*make_enemy_storage(void *mlx, t_map_raw_list *raw_map)
 {
@@ -36,14 +35,28 @@ t_enemy_storage	*make_enemy_storage(void *mlx, t_map_raw_list *raw_map)
 	return (storage);
 }
 
-int	feel_enemy_storage(void *mlx, t_enemy_storage *storage, t_map_raw_list *raw_map)
+static t_enemy	*make_zombie(t_enemy_storage *storage, void *mlx, int x, int y)
 {
 	t_point	pos;
-	int		x;
-	int		y;
-	int		created;
+	t_enemy	*enemy;
 
-	storage->enemies = ft_calloc(storage->size+1, sizeof(t_enemy *));
+	pos.x = x * 64;
+	pos.y = y * 64;
+	enemy = make_enemy(mlx, pos, ENEMY_DEFAULT_HEALTH);
+	if (!enemy)
+		return (NULL);
+	printf("\t|'-'| ZOMBIE added at (%f, %f)\n", pos.x, pos.y);
+	return (enemy);
+}
+
+int	feel_enemy_storage(void *mlx, t_enemy_storage *storage,
+		t_map_raw_list *raw_map)
+{
+	int	x;
+	int	y;
+	int	created;
+
+	storage->enemies = ft_calloc(storage->size + 1, sizeof(t_enemy *));
 	if (!storage->enemies)
 		return (0);
 	y = 0;
@@ -53,16 +66,10 @@ int	feel_enemy_storage(void *mlx, t_enemy_storage *storage, t_map_raw_list *raw_
 		x = 0;
 		while (raw_map->value[x])
 		{
+			if (raw_map->value[x] == 'Z' && !make_zombie(storage, mlx, x, y))
+				return (0);
 			if (raw_map->value[x] == 'Z')
-			{
-				pos.x = x * 64;
-				pos.y = y * 64;
-				storage->enemies[created] = make_enemy(mlx, pos, ENEMY_DEFAULT_HEALTH);
-				if (!storage->enemies[created])
-					return (0);
-				printf("\t|'-'| ZOMBIE added at (%f, %f)\n", pos.x, pos.y);
 				created++;
-			}
 			x++;
 		}
 		y++;
@@ -91,4 +98,3 @@ void	*free_enemy_storage(t_enemy_storage *storage)
 	free(storage);
 	return (NULL);
 }
-

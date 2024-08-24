@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:29:16 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/24 13:59:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:52:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //this func replaces extra NULLS with 1s.
 void	replace_nulls_with_1(char *str, size_t length)
 {
-	size_t i;
+	size_t	i;
 
 	if (length == 0 || str == NULL)
 		return ;
@@ -32,7 +32,7 @@ void	replace_nulls_with_1(char *str, size_t length)
 }
 
 //ft_strlcpy just replace space with 1
-static size_t ft_strlcpy_map(char *dst, const char *src, size_t dstsize)
+static size_t	ft_strlcpy_map(char *dst, const char *src, size_t dstsize)
 {
 	size_t	counter;
 	size_t	result;
@@ -49,7 +49,6 @@ static size_t ft_strlcpy_map(char *dst, const char *src, size_t dstsize)
 			dst[counter] = src[counter];
 		counter++;
 	}
-
 	dst[counter] = '\0';
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:43:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 14:45:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:56:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,30 @@ int	add_map_raw_item(t_map *map, char *value)
 	}
 	return (1);
 }
+
+char	get_raw_value(t_map *map, int x, int y)
+{
+	t_map_raw_list	*node;
+	int				i;
+
+	node = map->raw;
+	i = 0;
+	if (y >= map->height)
+		return ('\0');
+	while (i < y && y < map->height)
+	{
+		if (!node)
+			return (0);
+		node = node->next;
+		i++;
+	}
+	if (node && x >= (int)ft_strlen(node->value))
+		return ('\0');
+	if (!node || i != y || y < 0 || x < 0)
+		return ('\0');
+	return (node->value[x]);
+}
+
 int	is_moveable_area(t_map *map, int x, int y)
 {
 	char	symbol;
@@ -57,13 +81,14 @@ int	is_moveable_area(t_map *map, int x, int y)
 	}
 	return (0);
 }
+
 int	setup_player_position(t_map *map, char ch, int x, int y)
-{	
+{
 	if (ch != 'N' && ch != 'S' && ch != 'E' && ch != 'W')
 		return (1);
 	if (map->player_start)
 		return (print_error("dup player position"), 1);
-	map->player_start = make_point(x*64, y*64);	
+	map->player_start = make_point(x * 64, y * 64);
 	if (!map->player_start)
 		return (1);
 	if (ch == 'N')
@@ -73,6 +98,6 @@ int	setup_player_position(t_map *map, char ch, int x, int y)
 	else if (ch == 'W')
 		map->player_direction = WEST;
 	else
-	 	map->player_direction = EAST;
+		map->player_direction = EAST;
 	return (1);
 }

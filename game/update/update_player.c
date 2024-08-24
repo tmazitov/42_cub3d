@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 14:38:31 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:25:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,129 +14,79 @@
 
 static t_line	*check_wall_intersection(t_line *player_path, t_game *game)
 {
-	t_line			*wall_line;
-	t_wall_node		*node;
-	t_point			intersect_point;
-	int				is_intersect;
+	t_line		*wall_line;
+	t_wall_node	*node;
+	t_point		inter;
+	int			is_intersect;
 
 	node = game->scene->map->walls->start;
-	while(node)
+	while (node)
 	{
 		wall_line = wall_to_line(node->wall);
 		if (!wall_line)
 			return (NULL);
-		is_intersect = check_intersection(player_path, wall_line, &intersect_point);
+		is_intersect = check_intersection(player_path, wall_line, &inter);
 		if (is_intersect)
 		{
-			line_update_by_points(player_path, player_path->start, intersect_point);
+			line_update_by_points(player_path, player_path->start, inter);
 			return (wall_line);
 		}
-	 	free_line(wall_line);
+		free_line(wall_line);
 		node = node->next;
 	}
 	return (NULL);
 }
 
-static void	update_player_vector(t_vector *move_vector, t_line *player_path, t_line *wall_line)
+static void	update_player_vector(t_vector *move_vector, t_line *player_path,
+		t_line *wall_line)
 {
 	t_line	*wall_perpendicular;
 
 	wall_perpendicular = line_perpendicular(wall_line, player_path->start);
 	if (!wall_perpendicular)
 		return ;
-	move_vector->x = - (wall_perpendicular->B + player_path->B) * -1;
+	move_vector->x = -(wall_perpendicular->B + player_path->B) * -1;
 	move_vector->y = (wall_perpendicular->A + player_path->A) * -1;
 }
 
-t_line offset_line(t_line player_path, int offset_pos_or_neg, float offset_amount)
+t_line	offset_line(t_line pl_path, int offset_pn, float offset_a)
 {
-	t_line offset_path;
+	t_line	offset_path;
+	float	dx;
+	float	dy;
+	float	normal_x;
+	float	normal_y;
 
-	float dx = player_path.end.x - player_path.start.x;
-	float dy = player_path.end.y - player_path.start.y;
-
-	float length = sqrt(dx * dx + dy * dy);
-	dx /= length;
-	dy /= length;
-
-	float normal_x = -dy;
-	float normal_y = dx;
-
-	offset_path.start.x = player_path.start.x + offset_pos_or_neg * normal_x * offset_amount;
-	offset_path.start.y = player_path.start.y + offset_pos_or_neg * normal_y * offset_amount;
-	offset_path.end.x = player_path.end.x + offset_pos_or_neg * normal_x * offset_amount;
-	offset_path.end.y = player_path.end.y + offset_pos_or_neg * normal_y * offset_amount;
-
-	offset_path.A = player_path.A;
-	offset_path.B = player_path.B;
-	offset_path.D = player_path.D;
-	offset_path.length = player_path.length;
-
+	dx = pl_path.end.x - pl_path.start.x;
+	dy = pl_path.end.y - pl_path.start.y;
+	dx /= sqrt(dx * dx + dy * dy);
+	dy /= sqrt(dx * dx + dy * dy);
+	normal_x = -dy;
+	normal_y = dx;
+	offset_path.start.x = pl_path.start.x + offset_pn * normal_x * offset_a;
+	offset_path.start.y = pl_path.start.y + offset_pn * normal_y * offset_a;
+	offset_path.end.x = pl_path.end.x + offset_pn * normal_x * offset_a;
+	offset_path.end.y = pl_path.end.y + offset_pn * normal_y * offset_a;
+	offset_path.A = pl_path.A;
+	offset_path.B = pl_path.B;
+	offset_path.D = pl_path.D;
+	offset_path.length = pl_path.length;
 	return (offset_path);
-}
-
-static void	player_collect(t_game *game, t_player *player)
-{
-	t_treasure_storage	*storage;
-	int					counter;
-	t_point				*player_pos;
-	t_point				*treasure_center;
-
-	if (!player->pressed_buttons[6])
-		return ;
-	player_pos = player->pos;
-	storage = game->scene->treasures;
-	counter = 0;
-	while(storage->boxes[counter])
-	{
-		treasure_center = storage->boxes[counter]->center;
-		if (point_distance(*player_pos, *treasure_center) <= TREASURE_COLLECT_DISTANCE \
-			&& treasure_collect(storage, storage->boxes[counter], player))
-			break ;
-		counter++;
-	}
-}
-
-static void	player_inventory_update(t_game *game)
-{
-	t_inv_images	images;
-	t_sprite_node	*sprite;
-	t_player		*player;
-
-	images.bullet_image = NULL;
-	images.slot_image = NULL;
-	images.active_slot_image = NULL;
-	images.pistol_image = NULL;
-	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT");
-	if (sprite && sprite->image)
-		images.slot_image = sprite->image;
-	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_SLOT_ACTIVE");
-	if (sprite && sprite->image)
-		images.active_slot_image = sprite->image;
-	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
-	if (sprite && sprite->image)
-		images.bullet_image = sprite->image;
-	sprite = get_sprite_by_name(game->scene->map->sprites, "PISTOL_ICON");
-	if (sprite && sprite->image)
-		images.pistol_image = sprite->image;
-	player = game->scene->player;
-	if (images.pistol_image && images.bullet_image && images.slot_image && images.active_slot_image)
-		inv_update_image(player->inventory, player->update_count, \
-						images, game->writer);
 }
 
 static void	player_intersect_handler(t_game *game, t_vector *move_vector)
 {
-	t_line			*player_path;
-	t_line			*inter_wall;
-	float			posX;
-	float			posY;
+	t_line	*player_path;
+	t_line	*inter_wall;
+	float	pos_x;
+	float	pos_y;
 
 	if (!move_vector)
 		return ;
-	posX = game->scene->player->pos->x;
-	posY = game->scene->player->pos->y;
-	player_path = make_line(posX, posY, posX + move_vector->x, posY + move_vector->y);
+	pos_x = game->scene->player->pos->x;
+	pos_y = game->scene->player->pos->y;
+	player_path = make_line(pos_x, pos_y, pos_x + move_vector->x, pos_y
+			+ move_vector->y);
 	if (!player_path)
 		return ;
 	inter_wall = check_wall_intersection(player_path, game);
@@ -152,31 +102,27 @@ static void	player_intersect_handler(t_game *game, t_vector *move_vector)
 
 void	update_player(t_game *game)
 {
-	t_vector	*move_vector;
-	t_player	*player;
-	t_line		*move_vector_x;
-	t_line		*move_vector_y;
-	
-	player = game->scene->player;
-	player_collect(game, player);
-	player_rotate(player);
+	t_vector	*move;
+	float		x;
+	float		y;
+	t_line		*move_x;
+	t_line		*move_y;
+
+	x = game->scene->player->pos->x;
+	y = game->scene->player->pos->y;
+	player_collect(game, game->scene->player);
+	player_rotate(game->scene->player);
 	player_inventory_update(game);
-	
-	move_vector = player_move_vector(player, game);
-	if (!move_vector)
+	move = player_move_vector(game->scene->player, game);
+	if (!move)
 		return ;
-	move_vector_x = make_line(player->pos->x, player->pos->y, player->pos->x + move_vector->x, player->pos->y);
-	move_vector_y = make_line(player->pos->x, player->pos->y, player->pos->x, player->pos->y + move_vector->y);
-	player_intersect_handler(game, move_vector);
-	if (get_array_map_value(*move_vector_x, game) == '1'
-		|| get_array_map_value(*move_vector_y, game) == '1')
-	{
-		free_vector(move_vector);
-		free_line(move_vector_x);
-		free_line(move_vector_y);
-		return ;
-	}
-	player_move_update(player, move_vector);
-	return (free_vector(move_vector), free_line(move_vector_x),
-		free_line(move_vector_y), (void)0);
+	move_x = make_line(x, y, x + move->x, y);
+	move_y = make_line(x, y, x, y + move->y);
+	if (!move_x || !move_y)
+		return (free_vector(move_x), free_vector(move_y), (void)0);
+	player_intersect_handler(game, move);
+	if (!(get_array_map_value(*move_x, game) == '1'
+			|| get_array_map_value(*move_y, game) == '1'))
+		player_move_update(game->scene->player, move);
+	return (free_vector(move), free_line(move_y), free_line(move_x), (void)0);
 }

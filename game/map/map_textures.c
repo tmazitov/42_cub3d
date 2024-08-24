@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:14:15 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/03 14:15:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:55:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_sprite_storage	*make_sprite_storage(void)
 	return (storage);
 }
 
-int add_texture_sprite(void *mlx, char *name, char *path, \
-				t_sprite_storage *storage)
+int	add_texture_sprite(void *mlx, char *name, char *path,
+		t_sprite_storage *storage)
 {
 	t_sprite_node	*node;
 
@@ -35,7 +35,7 @@ int add_texture_sprite(void *mlx, char *name, char *path, \
 		return (0);
 	node->next = NULL;
 	node->image = NULL;
-	node->color	= NULL;
+	node->color = NULL;
 	node->name = ft_strdup(name);
 	if (!node->name)
 		return (free_sprite_node(node), 0);
@@ -51,8 +51,7 @@ int add_texture_sprite(void *mlx, char *name, char *path, \
 	return (1);
 }
 
-int add_color_sprite(char *name, t_rgb *color, \
-				t_sprite_storage *storage)
+int	add_color_sprite(char *name, t_rgb *color, t_sprite_storage *storage)
 {
 	t_sprite_node	*node;
 

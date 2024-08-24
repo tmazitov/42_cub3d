@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:16:07 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 18:47:21 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 17:23:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,8 @@ int		update_hook(t_game *game);
 void	update_player(t_game *game);
 void	update_minimap(t_game *game);
 void	update_enemies(t_game *game);
+
+void	player_collect(t_game *game, t_player *player);
+void	player_inventory_update(t_game *game);
+
 #endif

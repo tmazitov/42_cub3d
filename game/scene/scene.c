@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/19 19:29:01 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/24 15:53:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static int	setup_player_inventory(t_player *player)
 	return (1);
 }
 
-
 t_scene	*make_scene(void *mlx, char *path)
 {
 	t_scene	*scene;
@@ -64,7 +63,8 @@ t_scene	*make_scene(void *mlx, char *path)
 		return (free_scene(scene));
 	if (!scene->map->player_start)
 		return (print_error("undefined player position"), free_scene(scene));
-	scene->player = make_player(mlx, *scene->map->player_start, scene->map->player_direction);
+	scene->player = make_player(mlx, *scene->map->player_start, \
+		scene->map->player_direction);
 	scene->map->player_start = free_point(scene->map->player_start);
 	if (!scene->player || !setup_player_inventory(scene->player))
 		return (free_scene(scene));
@@ -75,7 +75,6 @@ t_scene	*make_scene(void *mlx, char *path)
 		return (free_scene(scene));
 	return (scene);
 }
-
 
 void	*free_scene(t_scene *scene)
 {

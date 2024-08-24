@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 14:15:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:59:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
-int	sprite_line_parts_is_valid(char	**line_parts, t_map *map)
+int	sprite_line_parts_is_valid(char **line_parts, t_map *map)
 {
 	int	count;
 
@@ -30,7 +30,6 @@ char	**get_line_parts(int fd)
 {
 	char	*line;
 	char	**result;
-	
 
 	line = get_next_line(fd);
 	if (!line)
@@ -51,35 +50,33 @@ char	**get_line_parts(int fd)
 
 int	parse_sprites(void *mlx, t_map *map, int fd)
 {
-	char	**line_parts;
-	int		is_created;
-	
+	char	**parts;
+	int		stat;
+
 	while (sprite_storage_length(map->sprites) < SPRITES_COUNT)
 	{
-		line_parts = get_line_parts(fd);
-		if (!line_parts)
+		parts = get_line_parts(fd);
+		if (!parts)
 			return (0);
-		if (!sprite_line_parts_is_valid(line_parts, map))
-			return (free_split(line_parts), print_error("invalid sprite line"), 0);
-		if (ft_strchr(line_parts[1], ','))
-			is_created = add_color_sprite(line_parts[0], \
-				make_rgb_by_string(line_parts[1]), map->sprites);
+		if (!sprite_line_parts_is_valid(parts, map))
+			return (free_split(parts), print_error("invalid sprite line"), 0);
+		if (ft_strchr(parts[1], ','))
+			stat = add_color_sprite(parts[0],
+									make_rgb_by_string(parts[1]),
+									map->sprites);
 		else
-			is_created = add_texture_sprite(mlx, line_parts[0], line_parts[1], \
-				map->sprites);
-		free_split(line_parts);
-		if (!is_created)
+			stat = add_texture_sprite(mlx, parts[0], parts[1], map->sprites);
+		free_split(parts);
+		if (!stat)
 			return (0);
 		printf("\t-- %s sprite added\n", get_last_sprite(map->sprites)->name);
 	}
 	return (1);
 }
 
-
 int	parse_walls_raw(t_map *map, int fd)
 {
 	char	*line;
-
 
 	line = get_next_line(fd);
 	while (!ft_strchr(line, '1'))
@@ -106,7 +103,7 @@ int	parse_walls_raw(t_map *map, int fd)
 
 int	parse_map(void *mlx, t_map *map, char *path)
 {
-	int		fd;
+	int	fd;
 
 	if (access(path, R_OK) == -1)
 		return (print_error("file does not exist"), 1);
