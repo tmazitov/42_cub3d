@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_image.c                                      :+:      :+:    :+:   */
+/*   enemy_image_update.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:27:48 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/24 15:33:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:15:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	enemy_hb_image_update(t_enemy_health_bar *hb)
 	float			full_percent;
 	t_rectangle		rect;
 	t_image_border	border;
-	
+
 	img_clear(hb->image);
 	full_percent = hb->current / (float)hb->max;
 	rect.start.x = 0;
