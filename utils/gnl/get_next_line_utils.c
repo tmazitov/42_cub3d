@@ -6,12 +6,11 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:05:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/02 19:45:25 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:09:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 int	calc_next_line_length(t_text_part *line_start)
 {

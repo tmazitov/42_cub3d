@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:01:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/22 15:07:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:17:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	line_update(t_line *line, float x1, float y1, float x2, float y2)
 	line->end.y = y2;
 	dir.x = x2 - x1;
 	dir.y = y2 - y1;
-
 	line->length = sqrt(dir.x * dir.x + dir.y * dir.y);
-	line->A = -dir.y;
-	line->B = dir.x;
-	line->D = -line->A * x1 - line->B * y1;
+	line->a = -dir.y;
+	line->b = dir.x;
+	line->d = -line->a * x1 - line->b * y1;
 }
+
 void	line_update_by_points(t_line *line, t_point p1, t_point p2)
 {
 	t_point	dir;
@@ -60,31 +60,10 @@ void	line_update_by_points(t_line *line, t_point p1, t_point p2)
 	line->end.y = p2.y;
 	dir.x = p2.x - p1.x;
 	dir.y = p2.y - p1.y;
-
 	line->length = sqrt(dir.x * dir.x + dir.y * dir.y);
-	line->A = -dir.y;
-	line->B = dir.x;
-	line->D = -line->A * p1.x - line->B * p1.y;
-}
-
-
-t_line	*line_perpendicular(t_line *line, t_point point)
-{
-	t_point	perpPoint;
-
-    float	d;
-    float	denominator;
-
-	if (!line)
-		return (NULL);
-	
-	d = line->A * point.x + line->B * point.y + line->D;
-	denominator = pow(line->A, 2) + pow(line->B, 2);
-
-    perpPoint.x = point.x - line->A * d / denominator;
-    perpPoint.y = point.y - line->B * d / denominator;
-
-    return (make_line_by_points(perpPoint, point));
+	line->a = -dir.y;
+	line->b = dir.x;
+	line->d = -line->a * p1.x - line->b * p1.y;
 }
 
 void	*free_line(t_line *line)

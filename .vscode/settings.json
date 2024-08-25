@@ -1,3 +1,9 @@
 {
-	"C_Cpp_Runner.msvcBatchPath" : "",
+  "C_Cpp_Runner.msvcBatchPath": "",
+  "emeraldwalk.runonsave": {
+    "commands": [{
+        "match": ".[ch]",
+        "cmd": "python3 -m c_formatter_42 < ${file} | tee _cfdump && cat _cfdump | tee ${file} && rm -f _cfdump"
+    }]
+}
 }

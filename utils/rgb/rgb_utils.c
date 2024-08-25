@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_draw.c                                       :+:      :+:    :+:   */
+/*   rgb_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 14:42:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 23:07:35 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/08/25 19:37:07 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/08/25 19:41:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "image.h"
+#include "rgb.h"
 
-void	img_draw(void *win, t_image *img, int x, int y)
+int	rgb_to_int(t_rgb color)
 {
-	if (!img)
-		return ;
-	mlx_put_image_to_window(img->mlx, win, img->content, x, y);
+	return (((color.r << 16) | (color.g << 8) | color.b));
+}
+
+t_rgb	int_to_rgb(int color)
+{
+	t_rgb	result;
+
+	result.r = (color >> 16) & 0xFF;
+	result.g = (color >> 8) & 0xFF;
+	result.b = color & 0xFF;
+	return (result);
 }

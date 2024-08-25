@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 17:01:43 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/15 01:17:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:11:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	max(int a, int b)
 	return (b);
 }
 
-int random_int(int min, int max)
+int	random_int(int min, int max)
 {
-   return min + rand() % (max+1 - min);
+	return (min + (rand() % (max + 1 - min)));
 }
 
 float	distance(float x1, float y1, float x2, float y2)
@@ -31,7 +31,7 @@ float	distance(float x1, float y1, float x2, float y2)
 
 int	max_delimeter(int value)
 {
-	int delim;
+	int	delim;
 
 	delim = 10;
 	while (value / delim > 0)

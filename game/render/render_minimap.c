@@ -6,23 +6,12 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:03:01 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:13:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static void	minimap_draw_walls(t_game *game)
-{
-	t_wall_node	*wall_node;
-
-	wall_node = game->scene->map->walls->start;
-	while (wall_node)
-	{
-		minimap_draw_wall(game->scene->minimap, wall_node->wall);
-		wall_node = wall_node->next;
-	}
-}
 
 static void	minimap_draw_enemies(t_game *game)
 {
@@ -78,54 +67,6 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
-static void	ray_move_to_middle(t_point *start, t_point *end)
-{
-	start->x += (32 / 4);
-	start->y += (32 / 4);
-	end->x += (32 / 4);
-	end->y += (32 / 4);
-}
-
-static void	render_enemy_path(t_game *game)
-{
-	t_point_node	*node;
-	t_point			p1;
-	t_point			p2;
-	t_path			*path;
-	t_enemy_storage	*storage;
-	int				counter;
-
-	counter = 0;
-	storage = game->scene->enemies;
-	while (storage->enemies[counter])
-	{
-		path = storage->enemies[counter]->path;
-		if (path)
-		{
-			node = path->point_list->points;
-			while (node && node->next)
-			{
-				p1.x = node->point->x;
-				p1.y = node->point->y;
-				node = node->next;
-				p2.x = node->point->x;
-				p2.y = node->point->y;
-				p1.x /= 4;
-				p1.y /= 4;
-				p1.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
-				p1.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-				p2.x /= 4;
-				p2.y /= 4;
-				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
-				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-				ray_move_to_middle(&p1, &p2);
-				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
-			}
-		}
-		counter++;
-	}
-}
-
 static void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 {
 	t_point	pos;
@@ -170,21 +111,15 @@ void	render_minimap(t_game *game)
 	t_sprite_node	*treasure_sprite_empty;
 	t_point			p;
 
-	// void			*win;
-	// win = game->window;
 	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
-	minimap_draw_walls(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	if (game->scene->map->zombie_count != 0)
-	{
 		minimap_draw_enemies(game);
-		render_enemy_path(game);
-	}
 	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB");
 	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites,
-			"TB_EMPTY");
+												"TB_EMPTY");
 	if (treasure_sprite && treasure_sprite->image && treasure_sprite_empty
 		&& treasure_sprite_empty->image)
 	{
@@ -193,7 +128,6 @@ void	render_minimap(t_game *game)
 									treasure_sprite_empty->image,
 									game->scene->treasures);
 	}
-	render_minimap_rays(game);
 	minimap_draw_border(game->scene->minimap);
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 05:45:04 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/28 06:52:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:09:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_anime(t_anime *anime)
 	anime->duration = 0;
 }
 
-t_anime	*make_anime()
+t_anime	*make_anime(void)
 {
 	t_anime	*anime;
 
@@ -37,8 +37,8 @@ t_anime	*make_anime()
 /// @return Copied animation
 t_anime	*anime_copy(t_anime *anime)
 {
-	int		counter;
-	t_anime	*copy;
+	int				counter;
+	t_anime			*copy;
 	t_anime_frame	*frame;
 
 	if (!anime)
@@ -52,7 +52,7 @@ t_anime	*anime_copy(t_anime *anime)
 	{
 		if (!anime_add_frame(copy, frame->image, frame->duration))
 			return (free_anime(copy));
-		frame = frame->next;	
+		frame = frame->next;
 		counter++;
 	}
 	return (copy);
@@ -62,7 +62,7 @@ void	*free_anime(t_anime *anime)
 {
 	t_anime_frame	*frame;
 	t_anime_frame	*next;
-	int	counter;
+	int				counter;
 
 	if (!anime)
 		return (NULL);

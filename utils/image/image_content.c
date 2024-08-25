@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/21 15:57:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:07:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	img_load(t_image *img, char *path)
 
 	if (!img || access(path, R_OK) == -1)
 		return (print_error("invalid texture file"), 0);
-	w = &img->width; // mlx bug
+	w = &img->width;
 	h = &img->height;
 	img->content = mlx_xpm_file_to_image(img->mlx, path, w, h);
 	if (!img->content)
@@ -46,7 +46,7 @@ int	img_create(t_image *img, int width, int height)
 	return (1);
 }
 
-int img_scale(t_image **img, int scale)
+int	img_scale(t_image **img, int scale)
 {
 	t_image	*new_img;
 	int		x;
@@ -63,7 +63,8 @@ int img_scale(t_image **img, int scale)
 		x = 0;
 		while (x < new_img->width)
 		{
-			img_put_pixel(new_img, img_get_pixel(*img, x / scale, y / scale), x, y);
+			img_put_pixel(new_img, 
+				img_get_pixel(*img, x / scale, y / scale), x, y);
 			x++;
 		}
 		y++;
@@ -75,18 +76,18 @@ int img_scale(t_image **img, int scale)
 
 void	img_clear(t_image *img)
 {
-	int	x;	
-	int	y;	
-	
+	int	x;
+	int	y;
+
 	if (!img || !img->buffer)
 		return ;
 	y = 0;
 	while (y < img->height)
 	{
 		x = 0;
-		while(x < img->width)
+		while (x < img->width)
 		{
-			img_put_pixel(img, 0x00000000, x, y);			
+			img_put_pixel(img, 0x00000000, x, y);
 			x++;
 		}
 		y++;

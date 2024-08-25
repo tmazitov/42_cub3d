@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:39:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:12:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	render_minimap(t_game *game);
 void	render_player(t_game *game);
 void	render_window_scene(t_game *game);
 
-void	render_minimap_rays(t_game *game);
 
 t_line	*ray_line_getter_x(t_game *game, float angle_in_degrees);
 t_line	*ray_line_getter_y(t_game *game, float angle_in_degrees);

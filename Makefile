@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/24 22:53:06 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/25 23:06:25 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS =  cmd/main.c \
         game/render/render.c \
         game/render/render_player.c \
         game/render/render_minimap.c \
-		game/render/render_minimap_rays.c \
 		game/render/ray_line_funcs.c \
 		game/render/ray_shooting_funcs.c \
 		game/render/render_scene_3d.c \
@@ -92,9 +91,11 @@ SRCS =  cmd/main.c \
         utils/geometry/point.c \
         utils/geometry/vector.c \
         utils/geometry/line.c \
+        utils/geometry/line_utils.c \
         utils/geometry/line_intersection.c \
         utils/geometry/utils.c \
         utils/rgb/rgb.c \
+        utils/rgb/rgb_utils.c \
 		utils/mlx_font_print/writer.c \
 		utils/mlx_font_print/writer_symbol.c \
 		utils/mlx_font_print/writer_handler.c \

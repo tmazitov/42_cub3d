@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point.c                                            :+:      :+:    :+:   */
+/*   line_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 20:12:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 23:12:00 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/08/25 23:04:20 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/08/25 23:17:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "geometry.h"
 
-t_point	*make_point(float x, float y)
+t_line	*line_perpendicular(t_line *line, t_point point)
 {
-	t_point	*point;
+	t_point	perp_point;
+	float	d;
+	float	denominator;
 
-	point = malloc(sizeof(t_point));
-	if (!point)
+	if (!line)
 		return (NULL);
-	point->x = x;
-	point->y = y;
-	return (point);
-}
-
-float	point_distance(t_point p1, t_point p2)
-{
-	return (sqrt(pow(p1.x - p2.x, 2) + (pow(p1.y - p2.y, 2))));
-}
-
-int	point_is_equal(t_point p1, t_point p2)
-{
-	return (p1.x == p2.x && p1.y == p2.y);
-}
-
-void	*free_point(t_point	*point)
-{
-	free(point);
-	return (NULL);
+	d = line->a * point.x + line->b * point.y + line->d;
+	denominator = pow(line->a, 2) + pow(line->b, 2);
+	perp_point.x = point.x - line->a * d / denominator;
+	perp_point.y = point.y - line->b * d / denominator;
+	return (make_line_by_points(perp_point, point));
 }

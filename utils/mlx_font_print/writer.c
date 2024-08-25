@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 20:44:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/12 21:11:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:34:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	writer_add_symbol(t_writer *writer, char ch, t_image *image)
 		last = last->next;
 	}
 	if (last)
-	{	
+	{
 		last->next = make_symbol(ch, image);
 		if (!last->next)
 			return (0);
