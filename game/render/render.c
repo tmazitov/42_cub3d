@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:43:32 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:22:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	all_enemies_dead(t_game *game)
 	int	i;
 
 	i = 0;
+	if (game->scene->enemies->size == 0)
+		return (1);
 	while (i < game->scene->enemies->size)
 	{
 		if (game->scene->enemies->enemies[i]->hb->current > 0)
@@ -93,7 +95,7 @@ void	game_finish_func(t_game *game)
 
 int	render_hook(t_game *game)
 {
-	print_time_since_last_call();
+	// print_time_since_last_call();
 	if (game->blocker == 1
 		|| game->scene->player->inventory->health_bar->current <= 0
 		|| all_enemies_dead(game) == 0)
@@ -101,7 +103,7 @@ int	render_hook(t_game *game)
 	mlx_clear_window(game->mlx, game->window);
 	render_window_scene(game);
 	render_minimap(game);
-	render_player(game);
+	// render_player(game);
 	render_move_string(game);
 	img_draw(game->window, game->scene->image, 0, 0);
 	render_move_string(game);

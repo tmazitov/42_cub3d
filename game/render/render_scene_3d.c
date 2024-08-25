@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/24 21:57:53 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:35:49 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,21 +93,53 @@ static void	adjust_disp_coords(t_line *d_crd, t_game *game,
 	d_crd->end.y = (game->height / 2) + (rend_y / 2);
 }
 
-static void	helper_get_vert(t_point *ray_end)
-{
-	ray_end->x = round(fmod(ray_end->x, 64));
-	ray_end->y = round(fmod(ray_end->y, 64));
-	if (ray_end->x == 64)
-		ray_end->x = 0;
-	if (ray_end->y == 64)
-		ray_end->y = 0;
-}
+// static void	helper_get_vert(t_point *ray_end)
+// {
+// 	ray_end->x = round(fmod(ray_end->x, 64));
+// 	ray_end->y = round(fmod(ray_end->y, 64));
+// 	if (ray_end->x == 64)
+// 		ray_end->x = 0;
+// 	if (ray_end->y == 64)
+// 		ray_end->y = 0;
+// }
 
-static int	get_vert_of_texture(t_point ray_end,
-	float angle_ray)
+// static int	get_vert_of_texture(t_point ray_end,
+// 	float angle_ray)
+// {
+// 	if (angle_ray < -180)
+// 		angle_ray += 360;
+// 	if (angle_ray > 180)
+// 		angle_ray -= 360;
+// 	angle_ray = fmod(angle_ray, 360.0);
+// 	helper_get_vert(&ray_end);
+// 	if (ray_end.x == 0 && ray_end.y == 0)
+// 		return (0);
+// 	if (ray_end.x == 0)
+// 	{
+// 		if ((angle_ray > 270 && angle_ray < 90))
+// 			return (63 - ray_end.y);
+// 		else
+// 			return (63 - ray_end.y);
+// 	}
+// 	else if (ray_end.y == 0)
+// 	{
+// 		if (angle_ray > 180 && angle_ray < 360)
+// 			return (ray_end.x);
+// 		else
+// 			return (63 - ray_end.x);
+// 	}
+// 	return (0);
+// }
+
+static int get_vert_of_texture(t_point ray_end, float angle_ray)
 {
 	angle_ray = fmod(angle_ray, 360.0);
-	helper_get_vert(&ray_end);
+	if (angle_ray <= 0)
+		angle_ray += 360;
+	if (angle_ray >= 360)
+		angle_ray -= 360;
+	ray_end.x = round(fmod(ray_end.x, 64));
+	ray_end.y = round(fmod(ray_end.y, 64));
 	if (ray_end.x == 64)
 		ray_end.x = 0;
 	if (ray_end.y == 64)
@@ -116,8 +148,9 @@ static int	get_vert_of_texture(t_point ray_end,
 		return (0);
 	if (ray_end.x == 0)
 	{
-		if ((angle_ray > 270 && angle_ray <= 360)
-			|| (angle_ray >= 0 && angle_ray < 90))
+		// if ((angle_ray > 270 && angle_ray <= 360)
+		// 	|| (angle_ray >= 0 && angle_ray < 90))
+		if (angle_ray > 270 || angle_ray < 90)
 			return (63 - ray_end.y);
 		else
 			return (ray_end.y);
@@ -130,6 +163,48 @@ static int	get_vert_of_texture(t_point ray_end,
 	}
 	return (0);
 }
+
+// static int get_vert_of_texture_debug(t_point ray_end, float angle_ray)
+// {
+// 	angle_ray = fmod(angle_ray, 360.0);
+// 	if (angle_ray <= 0)
+// 		angle_ray += 360;
+// 	if (angle_ray >= 360)
+// 		angle_ray -= 360;
+// 	printf("ORIG ray_end.x = %f, ray_end.y = %f\n", ray_end.x, ray_end.y);
+// 	ray_end.x = round(fmod(ray_end.x, 64));
+// 	ray_end.y = round(fmod(ray_end.y, 64));
+// 	if (ray_end.x == 64)
+// 		ray_end.x = 0;
+// 	if (ray_end.y == 64)
+// 		ray_end.y = 0;
+// 	printf("AFTER ray_end.x = %f, ray_end.y = %f\n", ray_end.x, ray_end.y);
+// 	if (ray_end.x == 0 && ray_end.y == 0)
+// 		return (0);
+// 	if (ray_end.x == 0)
+// 	{
+// 		// if ((angle_ray > 270 && angle_ray <= 360)
+// 		// 	|| (angle_ray >= 0 && angle_ray < 90))
+// 		if (angle_ray > 270 || angle_ray < 90)
+// 			return (63 - ray_end.y);
+// 		else
+// 			return (ray_end.y);
+// 	}
+// 	else if (ray_end.y == 0)
+// 	{
+// 		if (angle_ray > 180 && angle_ray < 360)
+// 			return (63 - ray_end.x);
+// 		return (ray_end.x);
+// 	}
+// 	return (0);
+// }
+
+
+
+		// if ((angle_ray > 270 && angle_ray < 90))
+
+		// if ((angle_ray > 270 && angle_ray <= 360)
+			// || (angle_ray >= 0 && angle_ray < 90))
 
 // //zombie render_scene is below.
 /*
@@ -159,11 +234,11 @@ typedef struct render_sprite_params
 void	helper_rnd_sprt_display(t_game *game, t_render_sprite_params *prm,
 	float sprite_screen_size, float angle_to_sprite)
 {
-	int screen_x;
-	int screen_y;
-	uint32_t color;
-	int						sprite_screen_x;
-	int						sprite_screen_y;
+	int				screen_x;
+	int				screen_y;
+	uint32_t		color;
+	int				sprite_screen_x;
+	int				sprite_screen_y;
 
 	sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
 	sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
@@ -399,16 +474,19 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		ray_end.x = 0;
 	if (round(ray_end.y) == 64)
 		ray_end.y = 0;
-	if (ray_end.x == 0 && ray_end.y == 0)
+	if (ray_end.x == 0)
+	{
+		if (ray_angle > 270 || ray_angle < 90)
+			return (2);
+		else
+			return (3);
+	}
+	else if (ray_end.y == 0)
+	{
+		if (ray_angle > 180 && ray_angle < 360)
+			return (1);
 		return (0);
-	if (ray_angle >= 0 && ray_angle < 180 && ray_end.y == 0)
-		return (0);
-	else if (ray_angle >= 180 && ray_angle < 360 && ray_end.y == 0)
-		return (1);
-	else if ((ray_angle >= 270 || ray_angle < 90) && ray_end.x == 0)
-		return (2);
-	else if (ray_angle >= 90 && ray_angle < 270 && ray_end.x == 0)
-		return (3);
+	}
 	return (0);
 }
 
@@ -425,7 +503,7 @@ void	set_temp_image(t_image *temp_image, t_game *game)
 //ZOMBIE ADD TRYING, zombie func above.
 void render_window_scene(t_game *game)
 {
-	float		player_fov = PLAYER_FOV;
+	float		player_fov;
 	float		temp_to_rotate;
 	float		distance_from_wall;
 	t_point		screen_render;
@@ -439,38 +517,42 @@ void render_window_scene(t_game *game)
 	player_fov = PLAYER_FOV;
 	screen_render.x = 0;
 	screen_render.y = 0;
-	temp_to_rotate = -player_fov / 2;
+	temp_to_rotate = -(PLAYER_FOV) / 2;
 
 	t_image temp_image[5];
 	set_temp_image(temp_image, game);
-	// temp_image[0] = *get_sprite_by_name(game->scene->map->sprites, "NO")->image;
-	// temp_image[1] = *get_sprite_by_name(game->scene->map->sprites, "SO")->image;
-	// temp_image[2] = *get_sprite_by_name(game->scene->map->sprites, "WE")->image;
-	// temp_image[3] = *get_sprite_by_name(game->scene->map->sprites, "EA")->image;
-	// temp_image[4] = *get_sprite_by_name(game->scene->map->sprites, "DOOR")->image;
 
-	//Need a function and a int var to get the value of the sprite that we need to render 0-4
-	int wall_select = 0;
+	int wall_select;
+	uint32_t ceiling_color;
+	uint32_t floor_color;
 
-	uint32_t ceiling_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites, "C")->color);
-	uint32_t floor_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites, "F")->color);
+	ceiling_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites,
+				"C")->color);
+	floor_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites,
+				"F")->color);
 	while (temp_to_rotate < player_fov / 2)
 	{
+		//RAY CASTING---====----=====----====-----====----=====----====----====----====----=====----
 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
 		wall_select = get_wall_side(game->scene->minimap->player_rotation + temp_to_rotate, ray->end);
 		dist_to_wall_vert_line[vert_wall_iter] = distance_between_points(ray->start, ray->end);
 		if (ray)
 		{
+			//DISTANCE_VALUES_SET---====----=====----====-----====----=====----====----====----====----=====----
 			distance_from_wall = distance_between_points(ray->start, ray->end);
 			distance_from_wall *= cos(temp_to_rotate * M_PI / 180);
 			screen_render.y = (game->height * 64) / distance_from_wall;
 			adjust_disp_coords(&display_coordinates, game, screen_render.x, screen_render.y);
+
+			//CEILING RENDERING---====----=====----====-----====----=====----====----====----====----=====----
 			int ceiling_iter = 0;
 			while (ceiling_iter < display_coordinates.start.y)
 			{
 				img_put_pixel(game->scene->image, ceiling_color, display_coordinates.start.x, ceiling_iter);
 				ceiling_iter++;
 			}
+
+			//VALUES PREP---====----=====----====-----====----=====----====----====----====----=====----
 			float vert_height = display_coordinates.end.y - display_coordinates.start.y;
 			float vert_iter = 64 / vert_height;
 			float y_offsett = 0;
@@ -481,27 +563,36 @@ void render_window_scene(t_game *game)
 			}
 			line_value_adjust(game, &display_coordinates);
 			
+			//MAIN JUICY PART OF SCENERY RENDERING ---====----=====----====-----====----=====----====----====----====----=====----
 			int texture_x_pos = get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate);
 			float texture_y_pos = y_offsett * vert_iter;
 			while (display_coordinates.start.y < display_coordinates.end.y)
 			{
 				if (get_array_map_value(*ray, game) == '1')
 				{
-				img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[wall_select], texture_x_pos, texture_y_pos),
-					SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
-					display_coordinates.start.x, display_coordinates.start.y);
+				img_put_pixel(game->scene->image,
+						darken_color(img_get_pixel(&temp_image[wall_select],
+								texture_x_pos, texture_y_pos),
+							SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE,
+							distance_from_wall),
+						display_coordinates.start.x,
+						display_coordinates.start.y);
 				}
 				else
 				{
-					img_put_pixel(game->scene->image, darken_color(img_get_pixel(&temp_image[4], texture_x_pos, texture_y_pos),
-					SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE, distance_from_wall),
-					display_coordinates.start.x, display_coordinates.start.y);
+					img_put_pixel(game->scene->image,
+						darken_color(img_get_pixel(&temp_image[4],
+								texture_x_pos, texture_y_pos),
+							SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE,
+							distance_from_wall),
+						display_coordinates.start.x,
+						display_coordinates.start.y);
 				}
-
-				
 				display_coordinates.start.y++;
 				texture_y_pos += vert_iter;
 			}
+
+			//FLOOR RENDERING---====----=====----====-----====----=====----====----====----====----=====----
 			while (display_coordinates.start.y < game->height)
 			{
 				img_put_pixel(game->scene->image, floor_color, display_coordinates.start.x, display_coordinates.start.y);
@@ -517,7 +608,6 @@ void render_window_scene(t_game *game)
 	draw_chests(game, dist_to_wall_vert_line);
 	draw_zombie(game, dist_to_wall_vert_line);
 	draw__middle_aim(game);
-	printf("get_vert = %d\n", get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate));
 }
 
 //Find end of line equivalent of CHAR in 2d array map
