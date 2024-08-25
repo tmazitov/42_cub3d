@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/25 23:22:59 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:42:19 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -571,17 +571,27 @@ typedef struct s_render_window
 	int			ceiling_iter;
 }		t_render_window;
 
-void	render_window_init(t_render_window *r_w, t_game *game)
+float	*render_window_init(t_render_window *r_w,
+	t_game *game)
 {
+	float	*temp;
+
 	r_w->player_fov = PLAYER_FOV;
 	r_w->screen_render.x = 0;
 	r_w->screen_render.y = 0;
 	r_w->temp_to_rotate = -(PLAYER_FOV) / 2;
 	r_w->vert_wall_iter = 0;
-	r_w->ceiling_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites,
-			"C")->color);
-	r_w->floor_color = rgb_to_color(*get_sprite_by_name(game->scene->map->sprites,
-			"F")->color);
+	r_w->ceiling_color = rgb_to_color(*get_sprite_by_name(game->scen
+				->map->sprites, "C")->color);
+	r_w->floor_color = rgb_to_color(*get_sprite_by_name(game->scene
+				->map->sprites, "F")->color);
+	temp = malloc(sizeof(float) * game->width);
+	if (!temp)
+	{
+		free_game(game);
+		exit(1);
+	}
+	return (temp);
 }
 
 void	helper_render_window_1(t_render_window *r_w, t_game *game,
@@ -590,16 +600,18 @@ void	helper_render_window_1(t_render_window *r_w, t_game *game,
 	r_w->distance_from_wall = distance_between_points(ray->start, ray->end);
 	r_w->distance_from_wall *= cos(r_w->temp_to_rotate * M_PI / 180);
 	r_w->screen_render.y = (game->height * 64) / r_w->distance_from_wall;
-	adjust_disp_coords(&(r_w->display_coordinates), game, r_w->screen_render.x, r_w->screen_render.y);
+	adjust_disp_coords(&(r_w->display_coordinates),
+		game, r_w->screen_render.x, r_w->screen_render.y);
 
 	r_w->ceiling_iter = 0;
 	while (r_w->ceiling_iter < r_w->display_coordinates.start.y)
 	{
-		img_put_pixel(game->scene->image, r_w->ceiling_color, r_w->display_coordinates.start.x, r_w->ceiling_iter);
+		img_put_pixel(game->scene->image, r_w->ceiling_color,
+			r_w->display_coordinates.start.x, r_w->ceiling_iter);
 		r_w->ceiling_iter++;
 	}
-
-	r_w->vert_height = r_w->display_coordinates.end.y - r_w->display_coordinates.start.y;
+	r_w->vert_height = r_w->display_coordinates.end.y
+		- r_w->display_coordinates.start.y;
 	r_w->vert_iter = 64 / r_w->vert_height;
 	r_w->y_offsett = 0;
 	if (r_w->vert_height > game->height)
@@ -679,6 +691,15 @@ void	update_screen_values(t_render_window *r_w, t_game *game)
 	r_w->vert_wall_iter++;
 }
 
+void	update_w_slct_and_d_t_wll(t_render_window *r_w, t_game *game,
+	t_line *ray, float *d_t_wall)
+{
+	r_w->wall_select = get_wall_side(game->scene
+			->minimap->player_rotation + r_w->temp_to_rotate, ray->end);
+	d_t_wall[r_w->vert_wall_iter]
+		= distance_between_points(ray->start, ray->end);
+}
+
 //NEW NORMINETTE NORMINETTE NORMINETTE NORMINETTE NORMINETTE NORMINETTE
 //ZOMBIE ADD TRYING, zombie func above.
 void		render_window_scene(t_game *game)
@@ -688,18 +709,14 @@ void		render_window_scene(t_game *game)
 	t_line			*ray;
 	t_image			temp_image[5];
 
-	d_t_wall = malloc(sizeof(float) * game->width);
 	img_clear(game->scene->image);
 	set_temp_image(temp_image, game);
-	render_window_init(&r_w, game);
+	d_t_wall = render_window_init(&r_w, game);
 	while (r_w.temp_to_rotate < r_w.player_fov / 2)
 	{
 		ray = ray_line_shortest_xy(game,
 				game->scene->minimap->player_rotation + r_w.temp_to_rotate);
-		r_w.wall_select = get_wall_side(game->scene
-				->minimap->player_rotation + r_w.temp_to_rotate, ray->end);
-		d_t_wall[r_w.vert_wall_iter]
-			= distance_between_points(ray->start, ray->end);
+		update_w_slct_and_d_t_wll(&r_w, game, ray, d_t_wall);
 		if (ray)
 			helper_render_window_3(&r_w, game, ray, temp_image);
 		update_screen_values(&r_w, game);
