@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/25 15:35:49 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:43:50 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,30 +412,56 @@ int find_farthest_zombie(t_game *game, t_enemy_storage *zombz, int *processed)
 	return (farthest_zombie_index);
 }
 
-void	draw_zombie(t_game *game, float *dist_to_wall_vert_line)
-{
-	t_enemy_storage *zombz = game->scene->enemies;
-	t_point sprite_position;
-	t_image	*image;
-	int far_zomb;
-	int *processed;  // Track processed zombies
-	int zombie_iter = 0;
+//CORRECT because of dereferencing the value itself ?
+//HOW was it affecting the original value
+//understandble that i am takinga * and then doing "." instead of "->"
+//but how did it get to the original value ?
+// void	draw_zombie_helper_sp_pos_setup(t_point *sp_pos,
 
+// seems to be that that using the local * and the "." affects it just for the poitner copy ?
+void	draw_zombie_helper_sp_pos_setup(t_point *sp_pos,
+	t_enemy_storage *zombz, int far_zomb)
+{
+	(*sp_pos) = *zombz->enemies[far_zomb]->pos;
+	(*sp_pos).x += 32;
+	(*sp_pos).y += 32;
+}
+
+//WRONG and affecting core values ? 
+// void	draw_zombie_helper_sp_pos_setup(t_point *sp_pos,
+// 	t_enemy_storage *zombz, int far_zomb)
+// {
+// 	sp_pos = zombz->enemies[far_zomb]->pos;
+// 	sp_pos->x += 32;
+// 	sp_pos->y += 32;
+// }
+
+void	draw_zombie(t_game *game, float *ds_t_wall)
+{
+	t_enemy_storage *zombz;
+	t_point sp_pos;
+	t_image	*img;
+	int far_zomb;
+	int *processed;
+	int zombie_iter;
+
+	zombz = game->scene->enemies;
+	zombie_iter = 0;
 	processed = calloc(zombz->size, sizeof(int));
 	while (zombie_iter < zombz->size)
 	{
 		far_zomb = find_farthest_zombie(game, zombz, processed);
-		if (far_zomb == -1)  // All zombies processed
-			break;
+		if (far_zomb == -1)
+			break ;
 		processed[far_zomb] = 1;
-		sprite_position = *zombz->enemies[far_zomb]->pos;
-		sprite_position.x += 32;
-		sprite_position.y += 32;
+		draw_zombie_helper_sp_pos_setup(&sp_pos, zombz, far_zomb);
 		if (!zombz->enemies[far_zomb]->alive)
-			image = get_sprite_by_name(game->scene->map->sprites, "ENEMY_DIED")->image;
+			img = get_sprite_by_name(game->scene->map->sprites,
+					"ENEMY_DIED")->image;
 		else
-			image = enemy_get_image(zombz->enemies[far_zomb]);
-		render_sprite(game, sprite_position, image, calc_dis_for_two_points(sprite_position, game->scene->minimap->player_pos), dist_to_wall_vert_line);
+			img = enemy_get_image(zombz->enemies[far_zomb]);
+		render_sprite(game, sp_pos, img, calc_dis_for_two_points(sp_pos,
+				game->scene->minimap->player_pos), ds_t_wall);
 		zombie_iter++;
 	}
 	free(processed);
@@ -470,10 +496,10 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		ray_angle -= 360;
 	ray_end.x = (fmod(ray_end.x, 64));
 	ray_end.y = (fmod(ray_end.y, 64));
-	if (round(ray_end.x) == 64)
-		ray_end.x = 0;
-	if (round(ray_end.y) == 64)
-		ray_end.y = 0;
+	// if (round(ray_end.x) == 64)
+	// 	ray_end.x = 0;
+	// if (round(ray_end.y) == 64)
+	// 	ray_end.y = 0;
 	if (ray_end.x == 0)
 	{
 		if (ray_angle > 270 || ray_angle < 90)
@@ -562,7 +588,7 @@ void render_window_scene(t_game *game)
 				vert_height = game->height;
 			}
 			line_value_adjust(game, &display_coordinates);
-			
+
 			//MAIN JUICY PART OF SCENERY RENDERING ---====----=====----====-----====----=====----====----====----====----=====----
 			int texture_x_pos = get_vert_of_texture(ray->end, game->scene->minimap->player_rotation + temp_to_rotate);
 			float texture_y_pos = y_offsett * vert_iter;
@@ -570,7 +596,7 @@ void render_window_scene(t_game *game)
 			{
 				if (get_array_map_value(*ray, game) == '1')
 				{
-				img_put_pixel(game->scene->image,
+					img_put_pixel(game->scene->image,
 						darken_color(img_get_pixel(&temp_image[wall_select],
 								texture_x_pos, texture_y_pos),
 							SHADE_MIN_DISTANCE, SHADE_MAX_DISTANCE,
@@ -591,7 +617,6 @@ void render_window_scene(t_game *game)
 				display_coordinates.start.y++;
 				texture_y_pos += vert_iter;
 			}
-
 			//FLOOR RENDERING---====----=====----====-----====----=====----====----====----====----=====----
 			while (display_coordinates.start.y < game->height)
 			{
