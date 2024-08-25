@@ -41,7 +41,8 @@
 	"vector": "c",
 	"game.h": "c",
 	"path.h": "c",
-	"complex": "c"
+	"complex": "c",
+	"__bit_reference": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",
