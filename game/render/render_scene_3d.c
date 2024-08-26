@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/26 23:15:52 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/26 23:43:57 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,39 +220,94 @@ void	helper_render_sprite(float *angle_to_sprite, t_point sprite_pos,
 		(*angle_to_sprite) -= 360;
 }
 
-
-// int sprite_screen_y = (game->height / 2) - (sprite_screen_size / 2)  + ((64 / sprite_distance) * game->height / 2);
-//sprite distance, image and dist_to_wall_vert_line are coming from params
-void	helper_rnd_chest_offset_display(t_game *game,
-	t_render_sprite_params *prm, float sprite_screen_size, float angle_to_sprite)
+typedef struct s_render_disp_params
 {
-	int				screen_x;
-	int				screen_y;
-	uint32_t		color;
-	int				sprite_screen_x;
-	int				sprite_screen_y;
+	int			screen_x;
+	int			screen_y;
+	uint32_t	color;
+	int			sprite_screen_x;
+	int			sprite_screen_y;
+	int			loop_x;
+	int			loop_y;
+}		t_render_disp_params;
 
-	sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
-	sprite_screen_y = (game->height / 2) - (sprite_screen_size / 2)  + (64 / prm->sprite_distance * game->height / 2);
-
-	for (int x = 0; x < sprite_screen_size; x++)
+void	helper_render_chest_utils(t_render_sprite_params *prm,
+	t_render_disp_params *pr_disp,
+	t_game *game, float sprite_screen_size)
+{
+	if (pr_disp->screen_x >= 0 && pr_disp->screen_x < game->width
+		&& pr_disp->screen_y >= 0 && pr_disp->screen_y < game->height)
 	{
-		for (int y = 0; y < sprite_screen_size; y++)
+		pr_disp->color = img_get_pixel(prm->sprite_image, (int)((float)pr_disp->loop_x
+			/ sprite_screen_size * prm->sprite_image->width),
+				(int)((float)pr_disp->loop_y
+					/ sprite_screen_size * prm->sprite_image->height));
+		if (pr_disp->color != (uint32_t)(-16777216))
+			img_put_pixel(game->scene->image,
+				darken_color(pr_disp->color, SHADE_MIN_DISTANCE,
+					SHADE_MAX_DISTANCE, prm->sprite_distance) ,
+						pr_disp->screen_x, pr_disp->screen_y);
+	}
+}
+void	helper_render_chest(t_render_sprite_params *prm,
+	t_render_disp_params *pr_disp,
+	t_game *game, float sprite_screen_size)
+{
+	while (pr_disp->loop_x < sprite_screen_size)
+	{
+		pr_disp->loop_y = 0;
+		while (pr_disp->loop_y < sprite_screen_size)
 		{
-			screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-			screen_y = sprite_screen_y + y;
-			if (screen_x >= 0 && screen_x < game->width - 1 && prm->sprite_distance < prm->dist_to_wall_vert_line[screen_x] )
+			pr_disp->screen_x = pr_disp->sprite_screen_x
+				+ pr_disp->loop_x - sprite_screen_size / 2;
+			pr_disp->screen_y = pr_disp->sprite_screen_y + pr_disp->loop_y;
+			if (pr_disp->screen_x >= 0 && pr_disp->screen_x < game->width - 1
+				&& prm->sprite_distance
+				< prm->dist_to_wall_vert_line[pr_disp->screen_x])
+				helper_render_chest(prm, pr_disp,
+					game, sprite_screen_size);
+			pr_disp->loop_y++;
+		}
+		pr_disp->loop_x++;
+	}
+}
+
+void	helper_rnd_chest_offset_display(t_game *game,
+	t_render_sprite_params *prm, float sprite_screen_size,
+	float angle_to_sprite)
+{
+	t_render_disp_params	pr_disp;
+
+
+	pr_disp.sprite_screen_x = (int)((game->width / 2)
+			* (1 + tan(angle_to_sprite * M_PI
+					/ 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
+	pr_disp.sprite_screen_y = (game->height / 2)
+		- (sprite_screen_size / 2)
+		+ (64 / prm->sprite_distance * game->height / 2);
+
+	pr_disp.loop_x = 0;
+	while (pr_disp.loop_x < sprite_screen_size)
+	{
+		pr_disp.loop_y = 0;
+		while (pr_disp.loop_y < sprite_screen_size)
+		{
+			pr_disp.screen_x = pr_disp.sprite_screen_x + pr_disp.loop_x - sprite_screen_size / 2;
+			pr_disp.screen_y = pr_disp.sprite_screen_y + pr_disp.loop_y;
+			if (pr_disp.screen_x >= 0 && pr_disp.screen_x < game->width - 1 && prm->sprite_distance < prm->dist_to_wall_vert_line[pr_disp.screen_x] )
 			{
-				if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
+				if (pr_disp.screen_x >= 0 && pr_disp.screen_x < game->width && pr_disp.screen_y >= 0 && pr_disp.screen_y < game->height)
 				{
-					color = img_get_pixel(prm->sprite_image, (int)((float)x / sprite_screen_size * prm->sprite_image->width),
-						(int)((float)y / sprite_screen_size * prm->sprite_image->height));
-					if (color != (uint32_t)(-16777216))
-						img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE,
-								SHADE_MAX_DISTANCE, prm->sprite_distance) , screen_x, screen_y);
+					pr_disp.color = img_get_pixel(prm->sprite_image, (int)((float)pr_disp.loop_x / sprite_screen_size * prm->sprite_image->width),
+							(int)((float)pr_disp.loop_y / sprite_screen_size * prm->sprite_image->height));
+					if (pr_disp.color != (uint32_t)(-16777216))
+						img_put_pixel(game->scene->image, darken_color(pr_disp.color, SHADE_MIN_DISTANCE,
+								SHADE_MAX_DISTANCE, prm->sprite_distance) , pr_disp.screen_x, pr_disp.screen_y);
 				}
 			}
+			pr_disp.loop_y++;
 		}
+		pr_disp.loop_x++;
 	}
 }
 
