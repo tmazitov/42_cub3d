@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:36:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:39:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	update_player_vector(t_vector *move_vector, t_line *player_path,
 	wall_perpendicular = line_perpendicular(wall_line, player_path->start);
 	if (!wall_perpendicular)
 		return ;
-	move_vector->x = -(wall_perpendicular->B + player_path->B) * -1;
-	move_vector->y = (wall_perpendicular->A + player_path->A) * -1;
+	move_vector->x = -(wall_perpendicular->b + player_path->b) * -1;
+	move_vector->y = (wall_perpendicular->a + player_path->a) * -1;
 }
 
 t_line	offset_line(t_line pl_path, int offset_pn, float offset_a)
@@ -67,9 +67,9 @@ t_line	offset_line(t_line pl_path, int offset_pn, float offset_a)
 	offset_path.start.y = pl_path.start.y + offset_pn * normal_y * offset_a;
 	offset_path.end.x = pl_path.end.x + offset_pn * normal_x * offset_a;
 	offset_path.end.y = pl_path.end.y + offset_pn * normal_y * offset_a;
-	offset_path.A = pl_path.A;
-	offset_path.B = pl_path.B;
-	offset_path.D = pl_path.D;
+	offset_path.a = pl_path.a;
+	offset_path.b = pl_path.b;
+	offset_path.d = pl_path.d;
 	offset_path.length = pl_path.length;
 	return (offset_path);
 }
