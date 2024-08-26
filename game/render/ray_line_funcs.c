@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/24 21:39:50 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:44:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,3 @@ t_line	*ray_line_shortest_xy(t_game *game, float angle_in_degrees)
 	else
 		return (free_line(intersect_horizontal), intersect_vertical);
 }
-

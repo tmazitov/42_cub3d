@@ -6,13 +6,12 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:19:08 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/24 21:36:52 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:44:32 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 #include <sys/time.h>
-
 
 float	distance_between_points(t_point start, t_point end)
 {

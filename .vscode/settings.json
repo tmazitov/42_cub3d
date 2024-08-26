@@ -42,7 +42,9 @@
 	"game.h": "c",
 	"path.h": "c",
 	"complex": "c",
-	"__bit_reference": "c"
+	"__bit_reference": "c",
+	"__locale": "c",
+	"__string": "c"
 },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

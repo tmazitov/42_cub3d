@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:41:45 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:37:01 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	render_player_inventory(t_game *game)
 	inv = game->scene->player->inventory;
 	if (!inv || !inv->image)
 		return ;
-	img_put_img(game->scene->image, inv->image, *inv->pos, 0);	
+	img_put_img(game->scene->image, inv->image, *inv->pos, 0);
 }
 
 t_image	*get_pistol_image(t_player *player)
@@ -31,7 +31,7 @@ t_image	*get_pistol_image(t_player *player)
 	{
 		player->anime_activated = 0;
 		player->pistol_anime->current_frame = player->pistol_anime->frames;
-	} 
+	}
 	else
 		player->anime_activated++;
 	return (image);
@@ -47,7 +47,8 @@ void	render_player_weapon(t_game *game)
 	player = game->scene->player;
 	if (!player->inventory || !player->inventory->image)
 		return ;
-	active_item = player->inventory->slots->items[player->inventory->active_item];
+	active_item = player->inventory->slots
+		->items[player->inventory->active_item];
 	if (active_item && active_item->type == PISTOL)
 	{
 		if (!game->scene->player->anime_activated)
@@ -60,19 +61,8 @@ void	render_player_weapon(t_game *game)
 	}
 }
 
-// void	render_move_string(t_game *game)
-// {
-// 	char *string_put;
-
-// 	string_put = ft_strjoin("Player Moves Made: ", ft_itoa(game->scene->moves_made));	
-// 	mlx_string_put(game->mlx, game->window, 500, 500, 0x00FF0000, string_put);
-// 	free(string_put);
-// }
-
 void	render_player(t_game *game)
 {
-	// render_player_bullets(game);
 	render_player_weapon(game);
 	render_player_inventory(game);
-	// render_move_string(game);
 }

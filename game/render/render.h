@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:39:02 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:20:05 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,50 @@ typedef struct s_ray_struct
 	int		iterations;
 	float	angle_in_pie;
 }	t_ray_struct;
+
+typedef struct s_hue_to_hex
+{
+	float		s;
+	float		l;
+	float		q;
+	float		p;
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+}	t_hue_to_hex;
+
+typedef struct s_render_mini
+{
+	void			*img;
+	t_sprite_node	*treasure_sprite;
+	t_sprite_node	*treasure_sprite_empty;
+}		t_render_mini;
+
+typedef struct s_render_window
+{
+	float		player_fov;
+	t_point		screen_render;
+	float		temp_to_rotate;
+	float		distance_from_wall;
+	t_line		display_coordinates;
+	int			vert_wall_iter;
+	int			wall_select;
+	uint32_t	ceiling_color;
+	uint32_t	floor_color;
+	float		vert_height;
+	float		vert_iter;
+	float		y_offsett;
+	int			texture_x_pos;
+	float		texture_y_pos;
+	int			ceiling_iter;
+}		t_render_window;
+
+typedef struct render_sprite_params
+{
+	t_image	*sprite_image;
+	float	sprite_distance;
+	float	*dist_to_wall_vert_line;
+}		t_render_sprite_params;
 
 float	distance_between_points(t_point start, t_point end);
 void	init_ray_struct(t_ray_struct *ray_struct, float *angle_in_degrees);

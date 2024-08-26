@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:43:09 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/26 20:42:01 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ static void	minimap_draw_free_space(t_game *game)
 			rect.start.x = (x) * 64;
 			rect.start.y = (y) * 64;
 			if (raw_item->value[x] != '1' && raw_item->value[x] != ' ')
-			{
-				minimap_draw_rect(game->scene->minimap, rect, MINIMAP_FREE_SPACE_COLOR);
-			}
+				minimap_draw_rect(game->scene->minimap,
+					rect, MINIMAP_FREE_SPACE_COLOR);
 			x++;
 		}
 		y++;
@@ -77,67 +76,69 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
-static void	ray_move_to_middle(t_point *start, t_point *end)
-{
-	start->x += (32/4);
-	start->y += (32/4);
-	end->x += (32/4);
-	end->y += (32/4);
-}
+// static void	ray_move_to_middle(t_point *start, t_point *end)
+// {
+// 	start->x += (32 / 4);
+// 	start->y += (32 / 4);
+// 	end->x += (32 / 4);
+// 	end->y += (32 / 4);
+// }
 
-static void	render_enemy_path(t_game *game)
-{
-	t_point_node	*node;
-	t_point			p1;
-	t_point			p2;
-	t_path			*path;
-	t_enemy_storage	*storage;
-	int				counter;
+// static void	render_enemy_path(t_game *game)
+// {
+// 	t_point_node	*node;
+// 	t_point			p1;
+// 	t_point			p2;
+// 	t_path			*path;
+// 	t_enemy_storage	*storage;
+// 	int				counter;
 
-	counter = 0;
-	storage = game->scene->enemies;
-	while (storage->enemies[counter])
-	{
-		path = storage->enemies[counter]->path;
-		if (path)
-		{
-			node = path->point_list->points;
-			while (node && node->next)
-			{
-				p1.x = node->point->x;
-				p1.y = node->point->y;
-				node = node->next;
-				p2.x = node->point->x;
-				p2.y = node->point->y;
+// 	counter = 0;
+// 	storage = game->scene->enemies;
+// 	while (storage->enemies[counter])
+// 	{
+// 		path = storage->enemies[counter]->path;
+// 		if (path)
+// 		{
+// 			node = path->point_list->points;
+// 			while (node && node->next)
+// 			{
+// 				p1.x = node->point->x;
+// 				p1.y = node->point->y;
+// 				node = node->next;
+// 				p2.x = node->point->x;
+// 				p2.y = node->point->y;
 
-				p1.x /= 4;
-				p1.y /= 4;
-				p1.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
-				p1.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-				p2.x /= 4;
-				p2.y /= 4;
-				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
-				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-				ray_move_to_middle(&p1, &p2);
-				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
-			}
-		}
-		counter++;
-	}
-}
+// 				p1.x /= 4;
+// 				p1.y /= 4;
+// 				p1.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
+// 				p1.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
+// 				p2.x /= 4;
+// 				p2.y /= 4;
+// 				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
+// 				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
+// 				ray_move_to_middle(&p1, &p2);
+// 				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
+// 			}
+// 		}
+// 		counter++;
+// 	}
+// }
 
-static void minimap_draw_player(t_minimap *minimap, t_image *player_icon)
+static void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 {
 	t_point	pos;
 	double	angle;
 
-	pos.x = minimap->player_pos.x - (64)/2;
-	pos.y = minimap->player_pos.y - (64)/2;
+	pos.x = minimap->player_pos.x - (64) / 2;
+	pos.y = minimap->player_pos.y - (64) / 2;
 	angle = minimap->player_rotation;
 	minimap_draw_image(minimap, player_icon, pos, angle - 90);
 	img_put_pixel(minimap->image, 0xe7f218, \
-		minimap->player_pos.x / MINIMAP_SCALE + MINIMAP_BORDER_SIZE - minimap->camera->x, \
-		minimap->player_pos.y / MINIMAP_SCALE + MINIMAP_BORDER_SIZE - minimap->camera->y);
+		minimap->player_pos.x / MINIMAP_SCALE
+		+ MINIMAP_BORDER_SIZE - minimap->camera->x, \
+		minimap->player_pos.y / MINIMAP_SCALE
+		+ MINIMAP_BORDER_SIZE - minimap->camera->y);
 }
 
 void	minimap_draw_treasure_boxes(t_minimap *minimap, \
@@ -160,15 +161,9 @@ void	minimap_draw_treasure_boxes(t_minimap *minimap, \
 	}
 }
 
-void	render_minimap(t_game *game)
+void	helper_render_mini(t_game *game,
+	t_render_mini *r_m)
 {
-	// void			*win;
-	void			*img;
-	t_sprite_node	*treasure_sprite;
-	t_sprite_node	*treasure_sprite_empty;
-
-	// win = game->window;
-	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_walls(game);
@@ -176,25 +171,35 @@ void	render_minimap(t_game *game)
 	if (game->scene->map->zombie_count != 0)
 	{
 		minimap_draw_enemies(game);
-		render_enemy_path(game);
 	}
+	r_m->treasure_sprite = get_sprite_by_name(game
+			->scene->map->sprites, "TB_MINI");
+	r_m->treasure_sprite_empty = get_sprite_by_name(game
+			->scene->map->sprites, "TB_MINI_EMPTY");
+}
+		// render_enemy_path(game);
 
-	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB_MINI");
-	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites, "TB_MINI_EMPTY");
-	if (treasure_sprite && treasure_sprite->image && treasure_sprite_empty && treasure_sprite_empty->image)
+void	render_minimap(t_game *game)
+{
+	t_render_mini	*r_m;
+	t_point			p;
+
+	r_m = malloc(sizeof(t_render_mini));
+	if (!r_m)
+		return ;
+	r_m->img = game->scene->minimap->image;
+	helper_render_mini(game, r_m);
+	if (r_m->treasure_sprite && r_m->treasure_sprite->image
+		&& r_m->treasure_sprite_empty && r_m->treasure_sprite_empty->image)
 	{
 		minimap_draw_treasure_boxes(game->scene->minimap, \
-			treasure_sprite->image,
-			treasure_sprite_empty->image,
+			r_m->treasure_sprite->image,
+			r_m->treasure_sprite_empty->image,
 			game->scene->treasures);
 	}
-	// render_minimap_rays(game);
-
 	minimap_draw_border(game->scene->minimap);
-
-	t_point p;
-
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;
-	img_put_img(game->scene->image, img, p, 0);
+	img_put_img(game->scene->image, r_m->img, p, 0);
+	free(r_m);
 }
