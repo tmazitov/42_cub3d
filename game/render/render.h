@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/26 19:20:05 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:23:17 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,32 @@ typedef struct render_sprite_params
 	float	sprite_distance;
 	float	*dist_to_wall_vert_line;
 }		t_render_sprite_params;
+
+typedef struct s_render_disp_params
+{
+	int			screen_x;
+	int			screen_y;
+	uint32_t	color;
+	int			sprite_screen_x;
+	int			sprite_screen_y;
+	int			loop_x;
+	int			loop_y;
+}		t_render_disp_params;
+
+typedef struct s_sprite_pos_info
+{
+	t_point		s_p;
+	float		sprite_distance;
+	int			sprite_iter;
+}			t_sprite_pos_info;
+
+typedef struct s_sprite_pos_info_zm
+{
+	t_point		sp_pos;
+	float		sprite_distance;
+	int			zombie_iter;
+	int			far_zomb;
+}			t_sprite_pos_info_zm;
 
 float	distance_between_points(t_point start, t_point end);
 void	init_ray_struct(t_ray_struct *ray_struct, float *angle_in_degrees);
