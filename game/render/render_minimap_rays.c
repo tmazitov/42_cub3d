@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 17:04:01 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/26 19:13:06 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:03:59 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ uint32_t	hue_to_rgb(float p, float q, float t)
 	return (p * 255.0f);
 }
 
-uint32_t hue_to_hex(float hue)
+uint32_t	hue_to_hex(float hue)
 {
 	t_hue_to_hex	h_s;
 
@@ -42,11 +42,9 @@ uint32_t hue_to_hex(float hue)
 	else
 		h_s.q = h_s.l + h_s.s - h_s.l * h_s.s;
 	h_s.p = 2.0f * h_s.l - h_s.q;
-
 	h_s.r = hue_to_rgb(h_s.p, h_s.q, hue + 1.0f / 3.0f);
 	h_s.g = hue_to_rgb(h_s.p, h_s.q, hue);
 	h_s.b = hue_to_rgb(h_s.p, h_s.q, hue - 1.0f / 3.0f);
-
 	return ((h_s.r << 16) | (h_s.g << 8) | h_s.b);
 }
 
@@ -80,11 +78,13 @@ void	line_shortener_for_minimap(t_line *ray, t_game *game)
 // 	temp_to_rotate = -PLAYER_FOV / 2;
 // 	while (ray_count < 2)
 // 	{
-// 		ray = ray_line_shortest_xy(game, game->scene->minimap->player_rotation + temp_to_rotate);
+// 		ray = ray_line_shortest_xy(game,
+// game->scene->minimap->player_rotation + temp_to_rotate);
 // 		if (ray)
 // 		{
 // 			line_shortener_for_minimap(ray, game);
-// 			img_put_line(game->scene->minimap->image, MINIMAP_BORDER_COLOR, ray->start, ray->end);
+// 			img_put_line(game->scene->minimap->image
+//  MINIMAP_BORDER_COLOR, ray->start, ray->end);
 // 			free_line(ray);
 // 		}
 // 		temp_to_rotate += PLAYER_FOV;
@@ -94,7 +94,8 @@ void	line_shortener_for_minimap(t_line *ray, t_game *game)
 // 	if (ray)
 // 	{
 // 		line_shortener_for_minimap(ray, game);
-// 		img_put_line(game->scene->minimap->image, MINIMAP_BORDER_COLOR, ray->start, ray->end);
+// 		img_put_line(game->scene->minimap->image,
+	// MINIMAP_BORDER_COLOR, ray->start, ray->end);
 // 		free_line(ray);
 // 	}
 // }

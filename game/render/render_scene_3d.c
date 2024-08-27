@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/26 23:43:57 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:40:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,17 +220,6 @@ void	helper_render_sprite(float *angle_to_sprite, t_point sprite_pos,
 		(*angle_to_sprite) -= 360;
 }
 
-typedef struct s_render_disp_params
-{
-	int			screen_x;
-	int			screen_y;
-	uint32_t	color;
-	int			sprite_screen_x;
-	int			sprite_screen_y;
-	int			loop_x;
-	int			loop_y;
-}		t_render_disp_params;
-
 void	helper_render_chest_utils(t_render_sprite_params *prm,
 	t_render_disp_params *pr_disp,
 	t_game *game, float sprite_screen_size)
@@ -238,21 +227,24 @@ void	helper_render_chest_utils(t_render_sprite_params *prm,
 	if (pr_disp->screen_x >= 0 && pr_disp->screen_x < game->width
 		&& pr_disp->screen_y >= 0 && pr_disp->screen_y < game->height)
 	{
-		pr_disp->color = img_get_pixel(prm->sprite_image, (int)((float)pr_disp->loop_x
-			/ sprite_screen_size * prm->sprite_image->width),
+		pr_disp->color = img_get_pixel(prm->sprite_image,
+				(int)((float)pr_disp->loop_x
+					/ sprite_screen_size * prm->sprite_image->width),
 				(int)((float)pr_disp->loop_y
 					/ sprite_screen_size * prm->sprite_image->height));
 		if (pr_disp->color != (uint32_t)(-16777216))
 			img_put_pixel(game->scene->image,
 				darken_color(pr_disp->color, SHADE_MIN_DISTANCE,
-					SHADE_MAX_DISTANCE, prm->sprite_distance) ,
-						pr_disp->screen_x, pr_disp->screen_y);
+					SHADE_MAX_DISTANCE, prm->sprite_distance),
+				pr_disp->screen_x, pr_disp->screen_y);
 	}
 }
+
 void	helper_render_chest(t_render_sprite_params *prm,
 	t_render_disp_params *pr_disp,
 	t_game *game, float sprite_screen_size)
 {
+	pr_disp->loop_x = 0;
 	while (pr_disp->loop_x < sprite_screen_size)
 	{
 		pr_disp->loop_y = 0;
@@ -264,7 +256,7 @@ void	helper_render_chest(t_render_sprite_params *prm,
 			if (pr_disp->screen_x >= 0 && pr_disp->screen_x < game->width - 1
 				&& prm->sprite_distance
 				< prm->dist_to_wall_vert_line[pr_disp->screen_x])
-				helper_render_chest(prm, pr_disp,
+				helper_render_chest_utils(prm, pr_disp,
 					game, sprite_screen_size);
 			pr_disp->loop_y++;
 		}
@@ -277,7 +269,6 @@ void	helper_rnd_chest_offset_display(t_game *game,
 	float angle_to_sprite)
 {
 	t_render_disp_params	pr_disp;
-
 
 	pr_disp.sprite_screen_x = (int)((game->width / 2)
 			* (1 + tan(angle_to_sprite * M_PI
@@ -311,38 +302,87 @@ void	helper_rnd_chest_offset_display(t_game *game,
 	}
 }
 
-void	helper_rnd_sprt_display(t_game *game, t_render_sprite_params *prm,
-	float sprite_screen_size, float angle_to_sprite)
+//CHEST RENDER COPY, MODIFYING TO CHANFGE to ZOMBIE RENDER BELOW BELOW //--------
+
+void	helper_rnd_sprt_display_utils(t_render_sprite_params *prm,
+	t_render_disp_params *pr_disp,
+	t_game *game, float sprite_screen_size)
 {
-	int				screen_x;
-	int				screen_y;
-	uint32_t		color;
-	int				sprite_screen_x;
-	int				sprite_screen_y;
-
-	sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
-	sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
-
-	for (int x = 0; x < sprite_screen_size; x++)
+	if (pr_disp->screen_x >= 0 && pr_disp->screen_x < game->width
+		&& pr_disp->screen_y >= 0 && pr_disp->screen_y < game->height)
 	{
-		for (int y = 0; y < sprite_screen_size; y++)
-		{
-			screen_x = sprite_screen_x + x - sprite_screen_size / 2;
-			screen_y = sprite_screen_y + y;
-			if (screen_x >= 0 && screen_x < game->width - 1 && prm->sprite_distance < prm->dist_to_wall_vert_line[screen_x] )
-			{
-				if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
-				{
-					color = img_get_pixel(prm->sprite_image, (int)((float)x / sprite_screen_size * prm->sprite_image->width),
-						(int)((float)y / sprite_screen_size * prm->sprite_image->height));
-					if (color != (uint32_t)(-16777216))
-						img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE,
-								SHADE_MAX_DISTANCE, prm->sprite_distance) , screen_x, screen_y);
-				}
-			}
-		}
+		pr_disp->color = img_get_pixel(prm->sprite_image,
+				(int)((float)pr_disp->loop_x
+					/ sprite_screen_size * prm->sprite_image->width),
+				(int)((float)pr_disp->loop_y
+					/ sprite_screen_size * prm->sprite_image->height));
+		if (pr_disp->color != (uint32_t)(-16777216))
+			img_put_pixel(game->scene->image,
+				darken_color(pr_disp->color, SHADE_MIN_DISTANCE,
+					SHADE_MAX_DISTANCE, prm->sprite_distance),
+				pr_disp->screen_x, pr_disp->screen_y);
 	}
 }
+
+void	helper_rnd_sprt_display(t_render_sprite_params *prm,
+	t_render_disp_params *pr_disp,
+	t_game *game, float sprite_screen_size)
+{
+	pr_disp->loop_x = 0;
+	while (pr_disp->loop_x < sprite_screen_size)
+	{
+		pr_disp->loop_y = 0;
+		while (pr_disp->loop_y < sprite_screen_size)
+		{
+			pr_disp->screen_x = pr_disp->sprite_screen_x
+				+ pr_disp->loop_x - sprite_screen_size / 2;
+			pr_disp->screen_y = pr_disp->sprite_screen_y + pr_disp->loop_y;
+			if (pr_disp->screen_x >= 0 && pr_disp->screen_x < game->width - 1
+				&& prm->sprite_distance
+				< prm->dist_to_wall_vert_line[pr_disp->screen_x])
+				helper_rnd_sprt_display_utils(prm, pr_disp,
+					game, sprite_screen_size);
+			pr_disp->loop_y++;
+		}
+		pr_disp->loop_x++;
+	}
+}
+//--------------------------------------------------------------
+//ABOVE IS SPRITE RENDERING RECTREATION UP UP UP
+
+// void	helper_rnd_sprt_display(t_render_sprite_params *prm,
+// 	t_render_disp_params *pr_disp,
+// 	t_game *game, float sprite_screen_size)
+// {
+// 	int				screen_x;
+// 	int				screen_y;
+// 	uint32_t		color;
+// 	int				sprite_screen_x;
+// 	int				sprite_screen_y;
+
+// 	sprite_screen_x = (int)((game->width / 2) * (1 + tan(angle_to_sprite * M_PI / 180) / tan((PLAYER_FOV / 2) * M_PI / 180)));
+// 	sprite_screen_y = game->height / 2 - sprite_screen_size / 2;
+
+// 	for (int x = 0; x < sprite_screen_size; x++)
+// 	{
+// 		for (int y = 0; y < sprite_screen_size; y++)
+// 		{
+// 			screen_x = sprite_screen_x + x - sprite_screen_size / 2;
+// 			screen_y = sprite_screen_y + y;
+// 			if (screen_x >= 0 && screen_x < game->width - 1 && prm->sprite_distance < prm->dist_to_wall_vert_line[screen_x] )
+// 			{
+// 				if (screen_x >= 0 && screen_x < game->width && screen_y >= 0 && screen_y < game->height)
+// 				{
+// 					color = img_get_pixel(prm->sprite_image, (int)((float)x / sprite_screen_size * prm->sprite_image->width),
+// 						(int)((float)y / sprite_screen_size * prm->sprite_image->height));
+// 					if (color != (uint32_t)(-16777216))
+// 						img_put_pixel(game->scene->image, darken_color(color, SHADE_MIN_DISTANCE,
+// 								SHADE_MAX_DISTANCE, prm->sprite_distance) , screen_x, screen_y);
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 void	init_t_render_sprite_params(t_render_sprite_params *params,
 	t_image *sprite_image, float sprite_distance,
@@ -397,23 +437,24 @@ typedef struct s_sprite_pos_info_zm
 // }
 
 //OLD GIT VERSION making
-void render_sprite(t_game *game, t_point sprite_pos, t_image *sprite_image,
-	float sprite_distance, float *dist_to_wall_vert_line)
+void render_sprite(t_game *game, t_image *sprite_image,
+	float *dist_to_wall_vert_line , t_sprite_pos_info_zm zmb)
 {
 	t_point					player_pos;
 	float					angle_to_sprite;
 	t_render_sprite_params	params;
 	float					sprite_screen_size;
+	t_render_disp_params	pr_disp;
 
 	player_pos = game->scene->minimap->player_pos;
-	helper_render_sprite(&angle_to_sprite, sprite_pos, player_pos, game);
+	helper_render_sprite(&angle_to_sprite, zmb.sp_pos, player_pos, game);
 	init_t_render_sprite_params(&params, sprite_image,
-		sprite_distance, dist_to_wall_vert_line);
+		zmb.sprite_distance, dist_to_wall_vert_line);
 	if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
 	{
-		sprite_screen_size = (game->height * 64) / sprite_distance;
-		helper_rnd_sprt_display(game, &params,
-			sprite_screen_size, angle_to_sprite);
+		sprite_screen_size = (game->height * 64) / zmb.sprite_distance;
+		helper_rnd_sprt_display(&params, &pr_disp,
+			game, sprite_screen_size);
 	}
 }
 
@@ -433,6 +474,7 @@ void render_chest(t_game *game, t_image *sprite_image,
 	float					angle_to_sprite;
 	t_render_sprite_params	params;
 	float					sprite_screen_size;
+	t_render_disp_params	pr_disp;
 
 	player_pos = game->scene->minimap->player_pos;
 	helper_render_sprite(&angle_to_sprite, sp->s_p, player_pos, game);
@@ -441,8 +483,8 @@ void render_chest(t_game *game, t_image *sprite_image,
 	if (fabs(angle_to_sprite) < PLAYER_FOV + 10 / 2)
 	{
 		sprite_screen_size = (game->height * 16) / sp->sprite_distance;
-		helper_rnd_chest_offset_display(game, &params,
-			sprite_screen_size, angle_to_sprite);
+		helper_render_chest(&params, &pr_disp,
+			game, sprite_screen_size);
 	}
 }
 
@@ -466,7 +508,6 @@ void render_chest(t_game *game, t_image *sprite_image,
 // 			sprite_screen_size, angle_to_sprite);
 // 	}
 // }
-
 
 float	calc_dis_for_two_points(t_point zombie_pos, t_point player_pos)
 {
@@ -613,7 +654,7 @@ void	draw_zombie(t_game *game, float *ds_t_wall)
 		zombie_image_setter(&img, zombz, zmb.far_zomb, game);
 		zmb.sprite_distance = calc_dis_for_two_points(zmb.sp_pos,
 				game->scene->minimap->player_pos);
-		render_sprite(game, (zmb.sp_pos), img, zmb.sprite_distance, ds_t_wall);
+		render_sprite(game, img, ds_t_wall, zmb);
 		zmb.zombie_iter++;
 	}
 	free(processed);
@@ -735,7 +776,6 @@ void	helper_render_window_1(t_render_window *r_w, t_game *game,
 	r_w->screen_render.y = (game->height * 64) / r_w->distance_from_wall;
 	adjust_disp_coords(&(r_w->display_coordinates),
 		game, r_w->screen_render.x, r_w->screen_render.y);
-
 	r_w->ceiling_iter = 0;
 	while (r_w->ceiling_iter < r_w->display_coordinates.start.y)
 	{
