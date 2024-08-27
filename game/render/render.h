@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 20:06:29 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:22:18 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_enemy_storage		t_enemy_storage;
 
 typedef struct s_treasure_storage	t_treasure_storage;
 
-typedef struct s_game t_game;
+typedef struct s_game				t_game;
 
 float		distance_between_points(t_point start, t_point end);
 void		init_ray_struct(t_ray_struct *ray_struct, float *angle_in_degrees);

@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/27 20:05:22 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:20:01 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	bullet_shoot_func(t_game *game, float angle_in_degrees)
 		&& ray->end.y > 0 && zombie_hit_interaction(game, ray->end) != 1
 		&& iterations < BULLET_MAX_ITERATIONS)
 	{
+		line_update_start(ray, ray->start.x, ray->start.y);
 		line_update_end(ray,
 			ray->end.x - x_i, ray->end.y - y_i);
 		iterations++;

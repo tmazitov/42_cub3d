@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_raw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:27:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:14:33 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,26 @@
 
 static int	check_neighbors(t_map *map, int x, int y)
 {
-	char	top;
-	char	bot;
-	char	left;
-	char	right;
-
-	top = get_raw_value(map, x, y - 1);
-	bot = get_raw_value(map, x, y + 1);
-	left = get_raw_value(map, x - 1, y);
-	right = get_raw_value(map, x + 1, y);
-	if (top == 0 || bot == 0 || right == 0 || left == 0)
+	char	neighbor[4];
+	char	corner[4];
+	
+	corner[0] = get_raw_value(map, x - 1, y - 1);
+	corner[1] = get_raw_value(map, x + 1, y - 1);
+	corner[2] = get_raw_value(map, x + 1, y + 1);
+	corner[3] = get_raw_value(map, x - 1, y + 1);
+	neighbor[0] = get_raw_value(map, x, y - 1);
+	neighbor[1] = get_raw_value(map, x, y + 1);
+	neighbor[2] = get_raw_value(map, x - 1, y);
+	neighbor[3] = get_raw_value(map, x + 1, y);
+	if (neighbor[0] == 0 || neighbor[1] == 0 
+		|| neighbor[2]  == 0 || neighbor[3] == 0
+		|| corner[0] == 0 || corner[1] == 0
+		|| corner[2] == 0 || corner[3] == 0)
 		return (0);
-	return (top != ' ' && bot != ' ' && left != ' ' && right != ' ');
+	return (neighbor[0] != ' ' && neighbor[1] != ' '
+		&& neighbor[2] != ' ' && neighbor[3] != ' '
+		&& corner[0] != ' ' && corner[1] != ' '
+		&& corner[2] != ' ' && corner[3] != ' ');
 }
 
 int	convert_raw_to_objs(t_map *map)

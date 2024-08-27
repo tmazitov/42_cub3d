@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:26:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:17:21 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ char	**get_line_parts(int fd)
 	line = get_next_line(fd);
 	if (!line)
 		return (print_error("invalid map file"), NULL);
-	line[ft_strlen(line) - 1] = '\0';
+	if (line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = '\0';
 	while (*line == '\0')
 	{
 		free(line);
 		line = get_next_line(fd);
-		line[ft_strlen(line) - 1] = '\0';
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 	}
 	result = ft_split(line, ' ');
 	if (!result)
@@ -85,12 +87,11 @@ int	parse_walls_raw(t_map *map, int fd)
 	}
 	if (!line)
 		return (print_error("invalid map file"), 0);
-	while (line)
+	while (line && ft_strchr(line, '1'))
 	{
-		if (!ft_strchr(line, '1'))
-			return (free(line), print_error("invalid map file"), 0);
 		map->height += 1;
-		line[ft_strlen(line) - 1] = '\0';
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 		map->width = max(map->width, ft_strlen(line));
 		if (!add_map_raw_item(map, line))
 			return (free(line), 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_raw_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:43:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:56:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:13:56 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	get_raw_value(t_map *map, int x, int y)
 		node = node->next;
 		i++;
 	}
-	if (node && x >= (int)ft_strlen(node->value))
+	if (node && x == (int)ft_strlen(node->value))
 		return ('\0');
 	if (!node || i != y || y < 0 || x < 0)
 		return ('\0');
