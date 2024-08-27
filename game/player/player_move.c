@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:15:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:36:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:31:06 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_player_move(t_player *player)
 		|| player->pressed_buttons[2] || player->pressed_buttons[3]);
 }
 
-static void	update_move_vector(int modification, float speed, t_player *pl,
+static void	update_move_vector(float modification, float speed, t_player *pl,
 		t_vector *move_vector)
 {
 	float	x;

@@ -3,8 +3,10 @@ SO textures/wall_2.xpm
 WE textures/wall_3.xpm
 EA textures/wall_4.xpm
 
-TB       textures/chest_not_open.xpm
-TB_EMPTY textures/chest_open.xpm
+TB             textures/chest_not_open.xpm
+TB_EMPTY       textures/chest_open.xpm
+TB_MINI        textures/treasure_box_3.xpm
+TB_MINI_EMPTY  textures/treasure_box_empty.xpm
 
 CH_0     textures/font/0.xpm
 CH_1     textures/font/1.xpm
@@ -69,6 +71,10 @@ ENEMY_ATTACK_3  textures/enemy/zombie_attack_3.xpm
 ENEMY_ATTACK_4  textures/enemy/zombie_attack_4.xpm
 ENEMY_ATTACK_5  textures/enemy/zombie_attack_5.xpm
 ENEMY_DIED      textures/enemy/zombie_died.xpm
+
+GAME_OVER_SCREEN textures/cub3d_LOSS_bg.xpm
+GAME_WIN_SCREEN  textures/cub3d_WIN_bg.xpm
+DOOR             textures/door.xpm
 
 F 0,0,0
 C 0,0,0
