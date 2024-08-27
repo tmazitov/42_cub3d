@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 17:43:56 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:16:36 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	game_finish_func(t_game *game)
 
 int	render_hook(t_game *game)
 {
-	if (game->blocker == 1
+	if ((game->scene->enemies->size != 0 && game->blocker == 1)
 		|| game->scene->player->inventory->health_bar->current <= 0
 		|| all_enemies_dead(game) == 0)
 		return (game_finish_func(game), 0);

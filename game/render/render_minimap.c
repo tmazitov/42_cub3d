@@ -6,49 +6,13 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/26 20:42:01 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:34:05 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static void	minimap_draw_walls(t_game *game)
-{
-	t_wall_node	*wall_node;
-
-	wall_node = game->scene->map->walls->start;
-	while (wall_node)
-	{
-		minimap_draw_wall(game->scene->minimap, wall_node->wall);
-		wall_node = wall_node->next;
-	}
-}
-
-static void	minimap_draw_enemies(t_game *game)
-{
-	t_enemy			*enemy;
-	t_enemy_storage	*storage;
-	t_sprite_node	*enemy_icon;
-	int				counter;
-	t_point			pos;
-
-	storage = game->scene->enemies;
-	enemy_icon = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
-	if (!enemy_icon || !enemy_icon->image)
-		return ;
-	counter = 0;
-	while (counter < storage->size)
-	{
-		enemy = storage->enemies[counter];
-		pos.x = enemy->pos->x;
-		pos.y = enemy->pos->y;
-		if (enemy->alive)
-			minimap_draw_image(game->scene->minimap, enemy_icon->image, pos, 0);
-		counter++;
-	}
-}
-
-static void	minimap_draw_free_space(t_game *game)
+void	minimap_draw_free_space(t_game *game)
 {
 	int				x;
 	int				y;
@@ -76,56 +40,7 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
-// static void	ray_move_to_middle(t_point *start, t_point *end)
-// {
-// 	start->x += (32 / 4);
-// 	start->y += (32 / 4);
-// 	end->x += (32 / 4);
-// 	end->y += (32 / 4);
-// }
-
-// static void	render_enemy_path(t_game *game)
-// {
-// 	t_point_node	*node;
-// 	t_point			p1;
-// 	t_point			p2;
-// 	t_path			*path;
-// 	t_enemy_storage	*storage;
-// 	int				counter;
-
-// 	counter = 0;
-// 	storage = game->scene->enemies;
-// 	while (storage->enemies[counter])
-// 	{
-// 		path = storage->enemies[counter]->path;
-// 		if (path)
-// 		{
-// 			node = path->point_list->points;
-// 			while (node && node->next)
-// 			{
-// 				p1.x = node->point->x;
-// 				p1.y = node->point->y;
-// 				node = node->next;
-// 				p2.x = node->point->x;
-// 				p2.y = node->point->y;
-
-// 				p1.x /= 4;
-// 				p1.y /= 4;
-// 				p1.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
-// 				p1.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-// 				p2.x /= 4;
-// 				p2.y /= 4;
-// 				p2.x += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->x;
-// 				p2.y += MINIMAP_BORDER_SIZE - game->scene->minimap->camera->y;
-// 				ray_move_to_middle(&p1, &p2);
-// 				img_put_line(game->scene->minimap->image, 0xa83264, p1, p2);
-// 			}
-// 		}
-// 		counter++;
-// 	}
-// }
-
-static void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
+void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 {
 	t_point	pos;
 	double	angle;
