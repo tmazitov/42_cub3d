@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:28:39 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:30:28 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define SPRITES_COUNT 68
+# define SPRITES_COUNT 73
 
 typedef struct s_map_raw_list
 {

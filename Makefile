@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/25 23:06:25 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/27 20:08:44 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,32 +14,41 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS =  cmd/main.c \
-        game/game.c \
-        game/game_writer.c \
-        game/game_animations.c \
-        game/game_animations_utils.c \
-        game/minimap/minimap.c \
-        game/minimap/minimap_camera.c \
-        game/minimap/minimap_update.c \
-        game/minimap/minimap_update_image.c \
-        game/update/update.c \
-        game/update/update_player.c \
-        game/update/update_player_utils.c \
-        game/update/update_enemies.c \
-        game/update/update_minimap.c \
-        game/render/render.c \
-        game/render/render_player.c \
-        game/render/render_minimap.c \
+		game/game.c \
+		game/game_writer.c \
+		game/game_animations.c \
+		game/game_animations_utils.c \
+		game/minimap/minimap.c \
+		game/minimap/minimap_camera.c \
+		game/minimap/minimap_update.c \
+		game/minimap/minimap_update_image.c \
+		game/update/update.c \
+		game/update/update_player.c \
+		game/update/update_player_utils.c \
+		game/update/update_enemies.c \
+		game/update/update_minimap.c \
+		game/render/render.c \
+		game/render/render_player.c \
+		game/render/render_minimap.c \
+		game/render/render_minimap_utils.c \
+		game/render/render_minimap_rays.c \
 		game/render/ray_line_funcs.c \
+		game/render/ray_line_funcs_utils.c \
 		game/render/ray_shooting_funcs.c \
+		game/render/render_scene_3d_sprite.c \
+		game/render/render_scene_3d_sprite_utils.c \
+		game/render/render_scene_3d_val_adjust.c \
+		game/render/render_scene_3d_zombie_utils.c \
+		game/render/render_scene_3d_zombie_texture.c \
+		game/render/render_scene_3d_utils.c \
 		game/render/render_scene_3d.c \
-        game/scene/scene.c \
-        game/scene/scene_objs_points.c \
+		game/scene/scene.c \
+		game/scene/scene_objs_points.c \
 		game/scene/scene_enemies.c \
-        game/scene/scene_treasures.c \
-        game/scene/scene_treasures_collect.c \
-        game/objs/wall/wall.c \
-        game/objs/treasure/treasure.c \
+		game/scene/scene_treasures.c \
+		game/scene/scene_treasures_collect.c \
+		game/objs/wall/wall.c \
+		game/objs/treasure/treasure.c \
 		game/items/item.c \
 		game/items/item_collection.c \
 		game/enemy/enemy.c \
@@ -78,12 +87,12 @@ SRCS =  cmd/main.c \
 		utils/path/point_list.c \
 		utils/path/point_list_check.c \
 		utils/path/point_list_utils.c \
-        utils/image/image.c \
-        utils/image/image_buffer.c \
-        utils/image/image_content.c \
-        utils/image/image_draw.c \
-        utils/image/image_get.c \
-        utils/image/image_put.c \
+		utils/image/image.c \
+		utils/image/image_buffer.c \
+		utils/image/image_content.c \
+		utils/image/image_draw.c \
+		utils/image/image_get.c \
+		utils/image/image_put.c \
 		utils/image/image_paint_border.c \
 		utils/image/image_anime.c \
 		utils/image/image_anime_frame.c \
@@ -99,26 +108,26 @@ SRCS =  cmd/main.c \
 		utils/mlx_font_print/writer.c \
 		utils/mlx_font_print/writer_symbol.c \
 		utils/mlx_font_print/writer_handler.c \
-        utils/gnl/get_next_line.c \
-        utils/gnl/get_next_line_utils.c \
-        utils/libft/ft_memcpy.c \
-        utils/libft/ft_isdigit.c \
-        utils/libft/ft_strlen.c \
-        utils/libft/ft_strlcpy.c \
-        utils/libft/ft_strlcat.c \
-        utils/libft/ft_strchr.c \
-        utils/libft/ft_strrchr.c \
-        utils/libft/ft_strdup.c \
-        utils/libft/ft_strncmp.c \
-        utils/libft/ft_strnstr.c \
-        utils/libft/ft_atoi.c \
-        utils/libft/ft_substr.c \
-        utils/libft/ft_strjoin.c \
-        utils/libft/ft_memset.c \
-        utils/libft/ft_bzero.c \
-        utils/libft/ft_calloc.c \
-        utils/libft/ft_split.c \
-        utils/libft/ft_itoa.c \
+		utils/gnl/get_next_line.c \
+		utils/gnl/get_next_line_utils.c \
+		utils/libft/ft_memcpy.c \
+		utils/libft/ft_isdigit.c \
+		utils/libft/ft_strlen.c \
+		utils/libft/ft_strlcpy.c \
+		utils/libft/ft_strlcat.c \
+		utils/libft/ft_strchr.c \
+		utils/libft/ft_strrchr.c \
+		utils/libft/ft_strdup.c \
+		utils/libft/ft_strncmp.c \
+		utils/libft/ft_strnstr.c \
+		utils/libft/ft_atoi.c \
+		utils/libft/ft_substr.c \
+		utils/libft/ft_strjoin.c \
+		utils/libft/ft_memset.c \
+		utils/libft/ft_bzero.c \
+		utils/libft/ft_calloc.c \
+		utils/libft/ft_split.c \
+		utils/libft/ft_itoa.c \
 		
 
 OBJS = $(SRCS:.c=.o)

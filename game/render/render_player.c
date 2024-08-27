@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:23:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:03:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:26:49 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	render_player_weapon(t_game *game)
 	player = game->scene->player;
 	if (!player->inventory || !player->inventory->image)
 		return ;
-	active_item = player->inventory->slots->items[player->inventory->active_item];
+	active_item = player->inventory->slots
+		->items[player->inventory->active_item];
 	if (active_item && active_item->type == PISTOL)
 	{
 		if (!game->scene->player->anime_activated)
@@ -62,8 +63,6 @@ void	render_player_weapon(t_game *game)
 
 void	render_player(t_game *game)
 {
-	// render_player_bullets(game);
 	render_player_weapon(game);
 	render_player_inventory(game);
-	// render_move_string(game);
 }

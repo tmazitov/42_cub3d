@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometry.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 20:11:32 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 23:24:27 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:01:24 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ int			point_is_equal(t_point p1, t_point p2);
 t_line		*make_line(float x1, float y1, float x2, float y2);
 t_line		*make_line_by_points(t_point p1, t_point p2);
 void		*free_line(t_line *line);
-void		line_update(t_line *line, float x1, float y1, float x2, float y2);
 void		line_update_by_points(t_line *line, t_point p1, t_point p2);
 t_line		*line_perpendicular(t_line *line, t_point point);
+void		line_update_start(t_line *line, float x, float y);
+void		line_update_end(t_line *line, float x, float y);
 
 /*VECTOR*/
 

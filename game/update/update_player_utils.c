@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:08:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:25:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 20:09:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,41 @@ void	player_inventory_update(t_game *game)
 		images.pistol_image = sprite->image;
 	pl = game->scene->player;
 	inv_update_image(pl->inventory, pl->update_count, images, game->writer);
+}
+
+void	player_door_update_utils(t_line *door_check_pos,
+	t_player *player, float dx, float dy)
+{
+	door_check_pos->start = *player->pos;
+	door_check_pos->end = *player->pos;
+	door_check_pos->end.x -= dx;
+	door_check_pos->end.y -= dy;
+}
+
+void	player_door_update(t_game *game)
+{
+	t_player	*player;
+	t_line		door_check_pos;
+	float		player_angle;
+	float		dx;
+	float		dy;
+
+	player_angle = game->scene->minimap->player_rotation;
+	dx = 50 * cosf(player_angle * M_PI / 180.0f);
+	dy = 50 * sinf(player_angle * M_PI / 180.0f);
+	player = game->scene->player;
+	player_door_update_utils(&door_check_pos, player, dx, dy);
+	if (!player->pressed_buttons[6])
+		return ;
+	if (get_array_map_value(door_check_pos, game) == 'D')
+	{
+		door_check_pos.end.x /= 64;
+		door_check_pos.end.y /= 64;
+		door_check_pos.end.x = (int)((door_check_pos.end.x
+					- fmod(door_check_pos.end.x, 1)));
+		door_check_pos.end.y = (int)((door_check_pos.end.y
+					- fmod(door_check_pos.end.y, 1)));
+		game->scene->map->map_double_array[(int)door_check_pos
+			.end.y][(int)door_check_pos.end.x] = '0';
+	}
 }

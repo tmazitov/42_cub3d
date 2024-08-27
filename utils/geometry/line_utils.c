@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 23:04:20 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 23:17:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:58:43 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,16 @@ t_line	*line_perpendicular(t_line *line, t_point point)
 	perp_point.x = point.x - line->a * d / denominator;
 	perp_point.y = point.y - line->b * d / denominator;
 	return (make_line_by_points(perp_point, point));
+}
+
+void	line_update_start(t_line *line, float x, float y)
+{
+	line->start.x = x;
+	line->start.y = y;
+}
+
+void	line_update_end(t_line *line, float x, float y)
+{
+	line->end.x = x;
+	line->end.y = y;
 }

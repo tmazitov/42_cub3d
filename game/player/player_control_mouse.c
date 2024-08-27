@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_mouse.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:58:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:45:50 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*shoot_sound_func(void *arg)
 	}
 	usleep(1000000);
 	ma_engine_uninit(&engine);
-	return (NULL); 
+	return (NULL);
 }
 
 void	left_click_shoot_func(t_game *game)
@@ -84,7 +84,7 @@ static void	player_mouse_click_handler(int button, t_player *player,
 			&& player_active_item->type == PISTOL
 			&& player->inventory->bullets > 0)
 		{
-			pthread_create(&sound_thread, NULL, shoot_sound_func, 
+			pthread_create(&sound_thread, NULL, shoot_sound_func,
 				"cub3d_gun_shot_sound.wav");
 			pthread_detach(sound_thread);
 			player->inventory->bullets--;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:23:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 16:51:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:38:25 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,11 @@ t_map	*make_map(void *mlx, char *path)
 	if (!map_double_array_create(map))
 		return (free_map(map));
 	if (!check_for_multiple_p_chars(map))
-		return (print_error("Multiple N,S,W,Es found in map"), free_map(map));
+		return (print_error("Multiple N,S,W,Es found in map"),
+			free_map(map));
+	if (!check_for_multiple_p_chars(map))
+		return (print_error("Multiple N,S,W,Es found in map"),
+			free_map(map));
 	count_zombies(map);
 	return (map);
 }

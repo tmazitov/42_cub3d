@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_keyboard.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 20:04:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:30:00 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,41 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 20:13:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:46:13 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-
-static void	minimap_draw_enemies(t_game *game)
-{
-	t_enemy			*enemy;
-	t_enemy_storage	*storage;
-	t_sprite_node	*enemy_icon;
-	int				counter;
-	t_point			pos;
-
-	storage = game->scene->enemies;
-	enemy_icon = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
-	if (!enemy_icon || !enemy_icon->image)
-		return ;
-	counter = 0;
-	while (counter < storage->size)
-	{
-		enemy = storage->enemies[counter];
-		pos.x = enemy->pos->x;
-		pos.y = enemy->pos->y;
-		if (enemy->alive)
-			minimap_draw_image(game->scene->minimap, enemy_icon->image, pos, 0);
-		counter++;
-	}
-}
-
-static void	minimap_draw_free_space(t_game *game)
+void	minimap_draw_free_space(t_game *game)
 {
 	int				x;
 	int				y;
@@ -53,13 +28,11 @@ static void	minimap_draw_free_space(t_game *game)
 		x = 0;
 		while (raw_item->value[x])
 		{
-			rect.start.x = (x)*64;
-			rect.start.y = (y)*64;
+			rect.start.x = (x) * 64;
+			rect.start.y = (y) * 64;
 			if (raw_item->value[x] != '1' && raw_item->value[x] != ' ')
-			{
-				minimap_draw_rect(game->scene->minimap, rect,
-						MINIMAP_FREE_SPACE_COLOR);
-			}
+				minimap_draw_rect(game->scene->minimap,
+					rect, MINIMAP_FREE_SPACE_COLOR);
 			x++;
 		}
 		y++;
@@ -67,7 +40,7 @@ static void	minimap_draw_free_space(t_game *game)
 	}
 }
 
-static void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
+void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 {
 	t_point	pos;
 	double	angle;
@@ -76,10 +49,11 @@ static void	minimap_draw_player(t_minimap *minimap, t_image *player_icon)
 	pos.y = minimap->player_pos.y - (64) / 2;
 	angle = minimap->player_rotation;
 	minimap_draw_image(minimap, player_icon, pos, angle - 90);
-	img_put_pixel(minimap->image, 0xe7f218, minimap->player_pos.x
-			/ MINIMAP_SCALE + MINIMAP_BORDER_SIZE - minimap->camera->x,
-			minimap->player_pos.y / MINIMAP_SCALE + MINIMAP_BORDER_SIZE
-			- minimap->camera->y);
+	img_put_pixel(minimap->image, 0xe7f218, \
+		minimap->player_pos.x / MINIMAP_SCALE
+		+ MINIMAP_BORDER_SIZE - minimap->camera->x, \
+		minimap->player_pos.y / MINIMAP_SCALE
+		+ MINIMAP_BORDER_SIZE - minimap->camera->y);
 }
 
 void	minimap_draw_treasure_boxes(t_minimap *minimap,
@@ -104,32 +78,42 @@ void	minimap_draw_treasure_boxes(t_minimap *minimap,
 	}
 }
 
-void	render_minimap(t_game *game)
+void	helper_render_mini(t_game *game,
+	t_render_mini *r_m)
 {
-	void			*img;
-	t_sprite_node	*treasure_sprite;
-	t_sprite_node	*treasure_sprite_empty;
-	t_point			p;
-
-	img = game->scene->minimap->image;
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
 	if (game->scene->map->zombie_count != 0)
 		minimap_draw_enemies(game);
-	treasure_sprite = get_sprite_by_name(game->scene->map->sprites, "TB");
-	treasure_sprite_empty = get_sprite_by_name(game->scene->map->sprites,
-												"TB_EMPTY");
-	if (treasure_sprite && treasure_sprite->image && treasure_sprite_empty
-		&& treasure_sprite_empty->image)
+	r_m->treasure_sprite = get_sprite_by_name(game
+			->scene->map->sprites, "TB_MINI");
+	r_m->treasure_sprite_empty = get_sprite_by_name(game
+			->scene->map->sprites, "TB_MINI_EMPTY");
+}
+		// render_enemy_path(game);
+
+void	render_minimap(t_game *game)
+{
+	t_render_mini	*r_m;
+	t_point			p;
+
+	r_m = malloc(sizeof(t_render_mini));
+	if (!r_m)
+		return ;
+	r_m->img = game->scene->minimap->image;
+	helper_render_mini(game, r_m);
+	if (r_m->treasure_sprite && r_m->treasure_sprite->image
+		&& r_m->treasure_sprite_empty && r_m->treasure_sprite_empty->image)
 	{
-		minimap_draw_treasure_boxes(game->scene->minimap,
-									treasure_sprite->image,
-									treasure_sprite_empty->image,
-									game->scene->treasures);
+		minimap_draw_treasure_boxes(game->scene->minimap, \
+			r_m->treasure_sprite->image,
+			r_m->treasure_sprite_empty->image,
+			game->scene->treasures);
 	}
 	minimap_draw_border(game->scene->minimap);
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;
-	img_put_img(game->scene->image, img, p, 0);
+	img_put_img(game->scene->image, r_m->img, p, 0);
+	free(r_m);
 }

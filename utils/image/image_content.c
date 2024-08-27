@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_content.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 13:17:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 23:07:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:47:08 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	img_scale(t_image **img, int scale)
 		x = 0;
 		while (x < new_img->width)
 		{
-			img_put_pixel(new_img, 
+			img_put_pixel(new_img,
 				img_get_pixel(*img, x / scale, y / scale), x, y);
 			x++;
 		}

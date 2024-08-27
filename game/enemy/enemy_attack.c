@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_attack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:04:04 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/26 20:57:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:45:10 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	enemy_attack_handler(t_enemy *enemy, t_point player_pos)
 	else if (enemy->attack_cooldown == 0 && is_player_near)
 	{
 		pthread_create(&sound_thread, NULL, shoot_sound_func,
-				"punch-140236.mp3");
+			"punch-140236.mp3");
 		pthread_detach(sound_thread);
 		enemy->attack_cooldown = 1;
 		return (1);

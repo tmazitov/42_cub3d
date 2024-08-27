@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:05:33 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/08/11 15:36:03 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:46:49 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 		if (!p->next)
 			break ;
 		p = p->next;
-		if (p->length != BUFFER_SIZE 
+		if (p->length != BUFFER_SIZE
 			|| (p->content && ft_strchr(p->content, '\n')))
 			break ;
 	}

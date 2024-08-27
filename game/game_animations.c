@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_animations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 06:38:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:51:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/27 19:45:03 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	feel_enemies_animations(t_game *game)
 	attack_anime = make_enemy_attack_anime(game);
 	if (!attack_anime)
 		return (0);
-	storage = game->scene->enemies; 
+	storage = game->scene->enemies;
 	counter = 0;
 	while (storage->enemies[counter]
 		&& game->scene->map->zombie_count)
