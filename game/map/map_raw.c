@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 21:14:33 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/27 21:22:33 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_neighbors(t_map *map, int x, int y)
 {
 	char	neighbor[4];
 	char	corner[4];
-	
+
 	corner[0] = get_raw_value(map, x - 1, y - 1);
 	corner[1] = get_raw_value(map, x + 1, y - 1);
 	corner[2] = get_raw_value(map, x + 1, y + 1);
@@ -25,8 +25,8 @@ static int	check_neighbors(t_map *map, int x, int y)
 	neighbor[1] = get_raw_value(map, x, y + 1);
 	neighbor[2] = get_raw_value(map, x - 1, y);
 	neighbor[3] = get_raw_value(map, x + 1, y);
-	if (neighbor[0] == 0 || neighbor[1] == 0 
-		|| neighbor[2]  == 0 || neighbor[3] == 0
+	if (neighbor[0] == 0 || neighbor[1] == 0
+		|| neighbor[2] == 0 || neighbor[3] == 0
 		|| corner[0] == 0 || corner[1] == 0
 		|| corner[2] == 0 || corner[3] == 0)
 		return (0);
