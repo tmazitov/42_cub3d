@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/28 20:26:29 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/08/28 21:22:03 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -170,6 +170,8 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 all: $(NAME)
+
+bonus: $(NAME)
 
 clean:
 	rm -f $(OBJS)
