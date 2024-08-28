@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 20:12:40 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:32:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ int merge_hook(void *arg)
 
 	game = (t_game *)arg;
 	update_hook(game);
+	if (game->scene->player->finish_game)
+	{
+		free_game(game);
+		exit(0);
+	}
 	render_hook(game);
 
 	

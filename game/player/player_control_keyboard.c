@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_keyboard.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:20:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:30:00 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:30:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	player_control_update(t_player *player, int keycode, int value)
 	else if (keycode == F_BUTTON)
 		player->pressed_buttons[6] = value;
 	else if (keycode == ESC_BUTTON)
-	{
-		exit(1);
-	}
+		player->finish_game = 1;
 }
 
 static int	key_is_active(t_player *player, int keycode)
