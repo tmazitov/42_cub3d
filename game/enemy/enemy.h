@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:10:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:19:49 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:42:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct s_enemy
 
 t_enemy					*make_enemy(void *mlx, t_point pos, int health);
 void					*free_enemy(t_enemy *enemy);
-int						make_enemy_anime(t_enemy *enemy);
 void					*free_enemy_anime(t_enemy *enemy);
 
 int						enemy_calc_move_target(t_enemy *enemy);

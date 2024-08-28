@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:26:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:30:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:57:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	*free_item_collection(t_item_collection *collection)
 		}
 		counter++;
 	}
-	free(collection->items);
+	if (collection->items)
+		free(collection->items);
 	free(collection);
 	return (NULL);
 }

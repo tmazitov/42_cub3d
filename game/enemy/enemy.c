@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:12:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:14:08 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:42:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ t_enemy	*make_enemy(void *mlx, t_point pos, int health)
 		return (free_enemy(enemy));
 	enemy->player_pos = make_point(0, 0);
 	if (!enemy->player_pos)
-		return (free_enemy(enemy));
-	if (!make_enemy_anime(enemy))
 		return (free_enemy(enemy));
 	return (enemy);
 }

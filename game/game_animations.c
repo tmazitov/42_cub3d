@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_animations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 06:38:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:45:03 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:48:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,5 @@ int	feel_enemies_animations(t_game *game)
 		counter++;
 	}
 	free_anime(move_anime);
-	return (1);
+	return (free_anime(attack_anime), 1);
 }

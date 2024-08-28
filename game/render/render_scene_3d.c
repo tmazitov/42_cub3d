@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_scene_3d.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:12:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/27 19:09:40 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:54:50 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	render_window_scene(t_game *game)
 		if (ray)
 			helper_render_window_3(&r_w, game, ray, temp_image);
 		update_screen_values(&r_w, game);
+		if (ray)
+			ray = free_line(ray);
 		if (r_w.screen_render.x == game->width || r_w.screen_render.y == 0)
 			break ;
 	}

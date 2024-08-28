@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:41:19 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:00:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	update_player_vector(t_vector *move_vector, t_line *player_path,
 		return ;
 	move_vector->x = -(wall_perpendicular->b + player_path->b) * -1;
 	move_vector->y = (wall_perpendicular->a + player_path->a) * -1;
+	free_line(wall_perpendicular);
 }
 
 t_line	offset_line(t_line pl_path, int offset_pn, float offset_a)

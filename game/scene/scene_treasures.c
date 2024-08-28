@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 18:58:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:10:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,17 @@ void	*free_treasure_storage(t_treasure_storage *storage)
 	if (!storage)
 		return (NULL);
 	counter = 0;
-	while (storage->boxes && storage->boxes[counter])
+	while (storage->boxes && counter < storage->size)
 	{
-		if (storage->boxes[counter])
-			free_treasure(storage->boxes[counter]);
+		free_treasure(storage->boxes[counter]);
 		counter++;
 	}
 	if (storage->boxes)
 		free(storage->boxes);
 	counter = 0;
-	while (storage->items && storage->items[counter])
+	while (storage->items && counter < storage->size)
 	{
-		if (storage->items[counter])
-			free_item_collection(storage->items[counter]);
+		free_item_collection(storage->items[counter]);
 		counter++;
 	}
 	if (storage->items)

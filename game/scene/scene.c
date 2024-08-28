@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 15:53:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 19:39:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ void	*free_scene(t_scene *scene)
 		free_treasure_storage(scene->treasures);
 	if (scene->objs_points)
 		free_point_list(scene->objs_points);
+	if (scene->enemies)
+		free_enemy_storage(scene->enemies);
+	if (scene->image)
+		free_image(scene->image);
 	free(scene);
 	return (NULL);
 }
