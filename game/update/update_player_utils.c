@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:08:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 20:09:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:45:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,23 @@ void	player_door_update(t_game *game)
 		game->scene->map->map_double_array[(int)door_check_pos
 			.end.y][(int)door_check_pos.end.x] = '0';
 	}
+}
+
+int	is_player_can_move(t_game *game, t_vector move,
+							t_line move_x, t_line move_y)
+{
+	t_line		*move_xy;
+	float		x;
+	float		y;
+
+	x = game->scene->player->pos->x;
+	y = game->scene->player->pos->y;
+	move_xy = make_line(x, y, x + move.x, y + move.y);
+	if (!move_xy)
+		return (0);
+	if (get_array_map_value(*move_xy, game) == 'D')
+		return (free_line(move_xy), 0);
+	free_line(move_xy);
+	return (!(get_array_map_value(move_x, game) == '1'
+			|| get_array_map_value(move_y, game) == '1'));
 }

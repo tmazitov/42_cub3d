@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 20:00:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:41:16 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	update_player(t_game *game)
 	player_collect(game, game->scene->player);
 	player_rotate(game->scene->player);
 	player_inventory_update(game);
+	player_door_update(game);
 	move = player_move_vector(game->scene->player, game->scene);
 	if (!move)
 		return ;
@@ -123,8 +124,7 @@ void	update_player(t_game *game)
 		return (free_vector(move), free_line(move_y), free_line(move_x),
 			(void)0);
 	player_intersect_handler(game, move);
-	if (!(get_array_map_value(*move_x, game) == '1'
-			|| get_array_map_value(*move_y, game) == '1'))
+	if (is_player_can_move(game, *move, *move_x, *move_y))
 		player_move_update(game->scene->player, move);
 	return (free_vector(move), free_line(move_y), free_line(move_x), (void)0);
 }
