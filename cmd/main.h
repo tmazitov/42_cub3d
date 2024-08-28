@@ -6,11 +6,12 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:38:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/20 01:46:03 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:27:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef MAIN_H
+#ifndef MAIN_H
+
 # define MAIN_H
 
 # include <mlx.h>
@@ -21,10 +22,19 @@
 # include "../game/render/render.h"
 # include "../game/update/update.h"
 
-# define KeyPress 2
-# define KeyRelease 3
-# define MouseMove 6
-# define KeyPressMask 1L<<0
-# define KeyReleaseMask 1L<<1
-# define MouseMoveMask 1L<<6
-#endif
+typedef struct s_ambient_sound
+{
+	t_game	*game;
+	char	*sound_path;
+}			t_ambient_sound;
+
+# define KEY_PRESS 2
+
+# define KEY_RELEASE 3
+
+# define MOUSE_MOVE 6
+
+void	ambient_sound(t_game *game, char *sound_path);
+void	*ambient_sound_func(void *arg);
+
+#endif 

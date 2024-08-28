@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
+#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/27 20:08:44 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/08/28 20:26:29 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 SRCS =  cmd/main.c \
+		cmd/main_ambient.c \
 		game/game.c \
 		game/game_writer.c \
 		game/game_animations.c \
