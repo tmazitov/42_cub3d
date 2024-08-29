@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:42:03 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:33:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:29:42 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_color_parts(char **color_parts)
 	while (color_parts[count])
 		count++;
 	if (count != 3)
-		return (print_error("invalid color format"), 0);
+		return (print_error("invalid rgb color format"), 0);
 	count = 0;
 	while (color_parts[count])
 	{
@@ -72,10 +72,11 @@ t_rgb	*make_rgb_by_string(char *rgb_string)
 
 	if (!rgb_string)
 		return (NULL);
+	if (get_comma_count(rgb_string) != 2
+		|| !check_rgb_chars(rgb_string))
+		return (print_error("invalid rgb color format"), NULL);
 	color_parts = ft_split(rgb_string, ',');
-	if (!color_parts)
-		return (NULL);
-	if (!check_color_parts(color_parts))
+	if (!color_parts || !check_color_parts(color_parts))
 		return (free_split(color_parts));
 	r = ft_atoi(color_parts[0]);
 	g = ft_atoi(color_parts[1]);

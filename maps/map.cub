@@ -49,21 +49,25 @@ INV_SLOT        textures/inventory_slot.xpm
 INV_SLOT_ACTIVE textures/inventory_slot_active.xpm
 INV_BULLET      textures/bullet_v2.xpm
 
-PISTOL_ICON   textures/pistol/icon.xpm
-PISTOL_SHOT_1 textures/pistol/pistol_shot_2.xpm
-PISTOL_SHOT_2 textures/pistol/pistol_shot_3.xpm
-PISTOL_SHOT_3 textures/pistol/pistol_shot_4.xpm
-PISTOL_SHOT_4 textures/pistol/pistol_shot_5.xpm
+PISTOL_ICON     textures/pistol/icon.xpm
+PISTOL_SHOT_1   textures/pistol/pistol_shot_2.xpm
+PISTOL_SHOT_2   textures/pistol/pistol_shot_3.xpm
+PISTOL_SHOT_3   textures/pistol/pistol_shot_4.xpm
+PISTOL_SHOT_4   textures/pistol/pistol_shot_5.xpm
 
-ENEMY_ICON    textures/enemy/enemy_icon_v3.xpm
-ENEMY_MOVE_0  textures/enemy/zombie_walk0.xpm
-ENEMY_MOVE_1  textures/enemy/zombie_walk1.xpm
-ENEMY_MOVE_2  textures/enemy/zombie_walk2.xpm
-ENEMY_MOVE_3  textures/enemy/zombie_walk3.xpm
-ENEMY_MOVE_4  textures/enemy/zombie_walk4.xpm
-ENEMY_MOVE_5  textures/enemy/zombie_walk5.xpm
-ENEMY_MOVE_6  textures/enemy/zombie_walk6.xpm
-ENEMY_MOVE_7  textures/enemy/zombie_walk7.xpm
+
+      
+                        
+
+ENEMY_ICON      textures/enemy/enemy_icon_v3.xpm
+ENEMY_MOVE_0    textures/enemy/zombie_walk0.xpm
+ENEMY_MOVE_1    textures/enemy/zombie_walk1.xpm
+ENEMY_MOVE_2    textures/enemy/zombie_walk2.xpm
+ENEMY_MOVE_3    textures/enemy/zombie_walk3.xpm
+ENEMY_MOVE_4    textures/enemy/zombie_walk4.xpm
+ENEMY_MOVE_5    textures/enemy/zombie_walk5.xpm
+ENEMY_MOVE_6    textures/enemy/zombie_walk6.xpm
+ENEMY_MOVE_7    textures/enemy/zombie_walk7.xpm
 ENEMY_ATTACK_0  textures/enemy/zombie_attack_0.xpm
 ENEMY_ATTACK_1  textures/enemy/zombie_attack_1.xpm
 ENEMY_ATTACK_2  textures/enemy/zombie_attack_2.xpm

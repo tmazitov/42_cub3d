@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 13:40:38 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:10:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**get_line_parts(int fd)
 		return (print_error("invalid map file"), NULL);
 	if (line[ft_strlen(line) - 1] == '\n')
 		line[ft_strlen(line) - 1] = '\0';
-	while (*line == '\0')
+	while (*line == '\0' || is_whitespace_line(line))
 	{
 		free(line);
 		line = get_next_line(fd);

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 19:37:07 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/25 19:41:01 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:28:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,37 @@ t_rgb	int_to_rgb(int color)
 	result.g = (color >> 8) & 0xFF;
 	result.b = color & 0xFF;
 	return (result);
+}
+
+int	get_comma_count(char *rgb_string)
+{
+	int		counter;
+	int		comma_count;
+
+	comma_count = 0;
+	counter = 0;
+	while (rgb_string[counter])
+	{
+		if (rgb_string[counter] == ',')
+			comma_count++;
+		counter++;
+	}
+	
+	return (comma_count);
+}
+
+int check_rgb_chars(char *rgb_string)
+{
+	int		counter;
+	char	ch;
+
+	counter = 0;
+	while (rgb_string[counter])
+	{
+		ch = rgb_string[counter]; 
+		if ((ch < '0' || ch > '9') && (ch != ','))
+			return (0);
+		counter++;
+	}
+	return (1);
 }

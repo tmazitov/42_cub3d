@@ -36,6 +36,7 @@ CH_G     textures/font/g.xpm
 
 
 
+				
 
 
 CH_H     textures/font/h.xpm
@@ -64,7 +65,7 @@ INV_BULLET      textures/bullet_v2.xpm
 PISTOL_ICON   textures/pistol/icon.xpm
 PISTOL_SHOT_1 textures/pistol/pistol_shot_2.xpm
 PISTOL_SHOT_2 textures/pistol/pistol_shot_3.xpm
-
+			
          
 PISTOL_SHOT_3 textures/pistol/pistol_shot_4.xpm
 PISTOL_SHOT_4 textures/pistol/pistol_shot_5.xpm
@@ -95,12 +96,12 @@ GAME_WIN_SCREEN  textures/cub3d_WIN_bg.xpm
 DOOR             textures/door.xpm
 
 F 0,0,0
-C 0,0,0 
+C 0,0,0  
 
 111
 1W11111
 1000001
 1000001
-1000Z01
+1000Z01 
 1000001
 1111111
