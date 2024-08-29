@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:29:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 19:04:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:59:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_enemy	*make_zombie(void *mlx, int x, int y)
 	enemy = make_enemy(mlx, pos, ENEMY_DEFAULT_HEALTH);
 	if (!enemy)
 		return (NULL);
-	printf("\t|'-'| ZOMBIE added at (%f, %f)\n", pos.x, pos.y);
+	printf("|'-'| ZOMBIE added at (%f, %f)\n", pos.x, pos.y);
 	return (enemy);
 }
 
@@ -61,6 +61,7 @@ int	feel_enemy_storage(void *mlx, t_enemy_storage *storage,
 		return (0);
 	y = 0;
 	created = 0;
+	printf("\nZOMBIE INIT\n\n");
 	while (raw_map && created < storage->size)
 	{
 		x = 0;

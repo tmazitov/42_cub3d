@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 23:15:11 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 19:07:18 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:55:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	add_wall(t_point pos, t_wall_type type, t_direction direction,
 		storage->start = node;
 	else
 		get_last_wall(storage)->next = node;
-	printf("add wall %f %f\n", pos.x, pos.y);
 	return (1);
 }
 

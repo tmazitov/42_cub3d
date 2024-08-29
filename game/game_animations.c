@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 06:38:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:48:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:00:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_anime	*make_pistol_shot_anime(t_game *game)
 		free(sprite_name);
 		counter++;
 	}
-	printf("\t|\\/\\/\\| Pistol shot animation created!\n");
+	printf("\n|\\/\\/\\| Pistol shot animation created!\n");
 	return (anime);
 }
 
@@ -79,7 +79,7 @@ static t_anime	*make_enemy_move_anime(t_game *game)
 		free(sprite_name);
 		counter++;
 	}
-	printf("\t|\\/\\/\\| Enemy move animation created!\n");
+	printf("\n|\\/\\/\\| Enemy move animation created!\n");
 	return (anime);
 }
 
@@ -107,7 +107,7 @@ static t_anime	*make_enemy_attack_anime(t_game *game)
 		free(sprite_name);
 		counter++;
 	}
-	printf("\t|\\/\\/\\| Enemy attack animation created!\n");
+	printf("\n|\\/\\/\\| Enemy attack animation created!\n");
 	return (anime);
 }
 

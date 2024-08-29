@@ -1,16 +1,24 @@
+
 NO textures/wall_1.xpm
 SO textures/wall_2.xpm
 WE textures/wall_3.xpm
 EA textures/wall_4.xpm
-
 TB             textures/chest_not_open.xpm
 TB_EMPTY       textures/chest_open.xpm
 TB_MINI        textures/treasure_box_3.xpm
 TB_MINI_EMPTY  textures/treasure_box_empty.xpm
-
 CH_0     textures/font/0.xpm
 CH_1     textures/font/1.xpm
 CH_2     textures/font/2.xpm
+
+
+
+
+
+
+
+
+
 CH_3     textures/font/3.xpm
 CH_4     textures/font/4.xpm
 CH_5     textures/font/5.xpm
@@ -25,6 +33,11 @@ CH_D     textures/font/d.xpm
 CH_E     textures/font/e.xpm
 CH_F     textures/font/f.xpm
 CH_G     textures/font/g.xpm
+
+
+
+
+
 CH_H     textures/font/h.xpm
 CH_I     textures/font/i.xpm
 CH_J     textures/font/j.xpm
@@ -48,13 +61,13 @@ CH_Z     textures/font/z.xpm
 INV_SLOT        textures/inventory_slot.xpm
 INV_SLOT_ACTIVE textures/inventory_slot_active.xpm
 INV_BULLET      textures/bullet_v2.xpm
-
 PISTOL_ICON   textures/pistol/icon.xpm
 PISTOL_SHOT_1 textures/pistol/pistol_shot_2.xpm
 PISTOL_SHOT_2 textures/pistol/pistol_shot_3.xpm
+
+         
 PISTOL_SHOT_3 textures/pistol/pistol_shot_4.xpm
 PISTOL_SHOT_4 textures/pistol/pistol_shot_5.xpm
-
 ENEMY_ICON    textures/enemy/enemy_icon_v3.xpm
 ENEMY_MOVE_0  textures/enemy/zombie_walk0.xpm
 ENEMY_MOVE_1  textures/enemy/zombie_walk1.xpm
@@ -62,27 +75,32 @@ ENEMY_MOVE_2  textures/enemy/zombie_walk2.xpm
 ENEMY_MOVE_3  textures/enemy/zombie_walk3.xpm
 ENEMY_MOVE_4  textures/enemy/zombie_walk4.xpm
 ENEMY_MOVE_5  textures/enemy/zombie_walk5.xpm
+
+
+
 ENEMY_MOVE_6  textures/enemy/zombie_walk6.xpm
 ENEMY_MOVE_7  textures/enemy/zombie_walk7.xpm
 ENEMY_ATTACK_0  textures/enemy/zombie_attack_0.xpm
 ENEMY_ATTACK_1  textures/enemy/zombie_attack_1.xpm
 ENEMY_ATTACK_2  textures/enemy/zombie_attack_2.xpm
 ENEMY_ATTACK_3  textures/enemy/zombie_attack_3.xpm
+
+
+
 ENEMY_ATTACK_4  textures/enemy/zombie_attack_4.xpm
 ENEMY_ATTACK_5  textures/enemy/zombie_attack_5.xpm
 ENEMY_DIED      textures/enemy/zombie_died.xpm
-
 GAME_OVER_SCREEN textures/cub3d_LOSS_bg.xpm
 GAME_WIN_SCREEN  textures/cub3d_WIN_bg.xpm
 DOOR             textures/door.xpm
 
-F textures/cub3d_LOSS_bg.xpm
-C 0,0,0
+F 0,0,0
+C 0,0,0 
 
 111
 1W11111
 1000001
 1000001
-1000001
+1000Z01
 1000001
 1111111

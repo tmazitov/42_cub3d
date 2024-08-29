@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:54:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 13:52:49 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 14:00:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,12 @@ static int	check_mandatory_sprites(t_sprite_storage *sprites)
 
 int	is_map_valid(t_map *map) 
 {
+	printf("\nCHECK MAP SPRITES\n\n");
 	if (!map->sprites
 		|| !check_mandatory_sprites(map->sprites)
+		|| !check_font_sprites(map->sprites)
 		|| !check_enemy_sprites(map->sprites)
-		|| !check_player_sprites(map->sprites)
-		|| !check_font_sprites(map->sprites))
+		|| !check_player_sprites(map->sprites))
 		return (print_error("invalid map sprites"), 0);
 	return (1);
 }
