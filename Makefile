@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
+#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/28 21:22:03 by kshamsid         ###   ########.fr        #
+#    Updated: 2024/08/29 13:27:11 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRCS =  cmd/main.c \
 		cmd/main_ambient.c \
@@ -71,6 +71,8 @@ SRCS =  cmd/main.c \
         game/player/inventory/inventory_health_bar.c \
         game/player/inventory/inventory_update_image.c \
         game/map/map.c \
+        game/map/map_valid_check.c \
+        game/map/map_valid_check_utils.c \
         game/map/map_raw.c \
         game/map/map_raw_walls.c \
         game/map/map_raw_utils.c \

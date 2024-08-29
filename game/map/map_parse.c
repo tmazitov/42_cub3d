@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 22:35:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:52:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:40:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	parse_sprites(void *mlx, t_map *map, int fd)
 		free_split(parts);
 		if (!stat)
 			return (0);
-		printf("\t-- %s sprite added\n", get_last_sprite(map->sprites)->name);
 	}
 	return (1);
 }

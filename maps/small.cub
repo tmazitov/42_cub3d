@@ -76,12 +76,13 @@ GAME_OVER_SCREEN textures/cub3d_LOSS_bg.xpm
 GAME_WIN_SCREEN  textures/cub3d_WIN_bg.xpm
 DOOR             textures/door.xpm
 
-F 0,0,0
+F textures/cub3d_LOSS_bg.xpm
 C 0,0,0
 
-1111111
+111
+1W11111
 1000001
 1000001
-100N001
+1000001
 1000001
 1111111

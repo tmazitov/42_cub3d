@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:39:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:25:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	init_scene(t_scene *scene)
 {
+	scene->enemies = NULL;
 	scene->minimap = NULL;
 	scene->player = NULL;
 	scene->map = NULL;
@@ -59,7 +60,7 @@ t_scene	*make_scene(void *mlx, char *path)
 	if (!scene->minimap)
 		return (free_scene(scene));
 	scene->map = make_map(mlx, path);
-	if (!scene->map)
+	if (!scene->map || !is_map_valid(scene->map))
 		return (free_scene(scene));
 	if (!scene->map->player_start)
 		return (print_error("undefined player position"), free_scene(scene));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:30:28 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/29 13:00:49 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,12 @@ int							is_moveable_area(t_map *map, int x, int y);
 char						get_raw_value(t_map *map, int x, int y);
 int							add_direction_wall(t_map *map, int x, int y,
 								t_map_raw_list *node);
+
+/* Map validation check */
+
+int							check_sprite_by_name(char *name, 
+								t_sprite_storage *sprites, int is_color);
+int							is_map_valid(t_map *map);
+
 
 #endif
