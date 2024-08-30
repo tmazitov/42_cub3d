@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:46:13 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:10:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	helper_render_mini(t_game *game,
 	minimap_draw_background(game->scene->minimap);
 	minimap_draw_free_space(game);
 	minimap_draw_player(game->scene->minimap, game->scene->player->icon);
-	if (game->scene->map->zombie_count != 0)
-		minimap_draw_enemies(game);
 	r_m->treasure_sprite = get_sprite_by_name(game
 			->scene->map->sprites, "TB_MINI");
 	r_m->treasure_sprite_empty = get_sprite_by_name(game
