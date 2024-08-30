@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 15:59:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 16:10:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:41:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_a_point
 	int					heuristic_approxim;
 	int					passed_way;
 	struct s_a_point	*origin;
+	int					is_active;
 }						t_a_point;
 
 typedef struct s_point_node

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:15:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 20:41:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:55:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ void	update_player(t_game *game)
 	player_collect(game, game->scene->player);
 	player_rotate(game->scene->player);
 	player_inventory_update(game);
-	player_door_update(game);
+	if (game->scene->player->pressed_buttons[6])
+		player_door_update(game);
 	move = player_move_vector(game->scene->player, game->scene);
 	if (!move)
 		return ;

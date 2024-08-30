@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 16:13:49 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/25 16:14:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:41:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_a_point	*make_a_point(int x, int y, t_a_point *origin)
 	if (origin)
 		point->passed_way = origin->passed_way + NEIGHBOUR_DISTANCE;
 	point->origin = origin;
+	point->is_active = 1;
 	return (point);
 }
 
