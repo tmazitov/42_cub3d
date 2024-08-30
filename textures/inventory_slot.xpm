@@ -3,10 +3,10 @@ static char *_a5ec867bd1640e783879c85fd070f202m9CFiMssymimHUk[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 5 1 ",
 "  c None",
-". c #592E0F",
-"X c #703E1A",
-"o c #9E7155",
-"O c #D4986E",
+". c #3b6355",
+"X c #43695c",
+"o c #37574b",
+"O c #384540",
 /* pixels */
 "          ............................................          ",
 "       ...XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX...       ",

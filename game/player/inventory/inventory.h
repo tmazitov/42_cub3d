@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:06:29 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 21:41:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:29:50 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define INV_CELL_SIZE 64
 # define INV_CELL_PADDING 8
 # define INV_BORDER_SIZE 4
-# define INV_BORDER_COLOR 0x0042c79a
+// # define INV_BORDER_COLOR 0x0042c79a
+# define INV_BORDER_COLOR 0x003d3d3d
 # define INV_BORDER_RADIUS 4
 # define INV_BACKGROUND_COLOR 0x00555955
 # define INV_PADDING 10
