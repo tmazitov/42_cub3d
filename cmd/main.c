@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 21:24:23 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/30 20:16:50 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ static void	setup_game_hooks(t_game *game)
 	mlx_hook(game->window, 17, 1L << 17, close_game, game);
 }
 
+static	int	check_argv_cub(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+		i++;
+	if (i < 5)
+		return (print_error("invalid file name"), 1);
+	if (argv[i - 1] != 'b' || argv[i - 2] != 'u'
+		|| argv[i - 3] != 'c' || argv[i - 4] != '.')
+		return (print_error("invalid file extension"), 1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
@@ -58,6 +73,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (print_error("invalid count of args"), 1);
+	if (check_argv_cub(argv[1]))
+		return (1);
 	srand(time(NULL));
 	width = 1440;
 	height = 900;
