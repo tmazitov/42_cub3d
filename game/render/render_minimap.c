@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 14:10:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:29:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,12 @@ void	helper_render_mini(t_game *game,
 void	render_minimap(t_game *game)
 {
 	t_render_mini	*r_m;
-	t_point			p;
 
+	if (!game->scene->minimap->is_update_image)
+	{
+		draw_minimap(game, game->scene->minimap->image);
+		return ;
+	}
 	r_m = malloc(sizeof(t_render_mini));
 	if (!r_m)
 		return ;
@@ -110,8 +114,7 @@ void	render_minimap(t_game *game)
 			game->scene->treasures);
 	}
 	minimap_draw_border(game->scene->minimap);
-	p.x = MINIMAP_POS_X;
-	p.y = MINIMAP_POS_Y;
-	img_put_img(game->scene->image, r_m->img, p, 0);
+	game->scene->minimap->is_update_image = 0;
+	draw_minimap(game, r_m->img);
 	free(r_m);
 }

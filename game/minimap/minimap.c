@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:20:30 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 17:27:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/30 14:24:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_minimap(t_minimap *map)
 	map->player_pos.x = 0;
 	map->player_pos.y = 0;
 	map->player_rotation = 0;
+	map->is_update_image = 1;
 }
 
 t_minimap	*make_minimap(void *mlx, int width, int height)
