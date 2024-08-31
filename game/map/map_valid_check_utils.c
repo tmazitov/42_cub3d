@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_check_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:57:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/09/01 00:25:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/09/01 01:00:22 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_sprite_by_name(char *name, t_sprite_storage *sprites, int is_color)
 	return (1);
 }
 
-int is_allowed_char(char ch)
+int	is_allowed_char(char ch)
 {
 	return (!!ft_strchr(" 01NEWSZBD", ch));
 }
