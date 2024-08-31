@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:37:00 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 19:54:08 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:06:30 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,17 @@ void	render_player_zombies(t_game *game)
 {
 	t_point			pos;
 	static int		local_alive;
-	static t_image	*image;
+	t_image			*image;
 
+	image = game->scene->enemy_counter;
 	pos.x = MINIMAP_POS_X;
 	pos.y = MINIMAP_POS_Y * 2 + MINIMAP_SIZE;
-	if (local_alive == game->scene->enemies->alive && image)
+	if (local_alive == game->scene->enemies->alive)
 	{
 		img_put_img(game->scene->image, image, pos, 0);
 		return ;
 	}
-	printf("\tenemy count : %d\n", game->scene->enemies->alive);
-	if (!image)
-	{
-		image = make_image(game->mlx);
-		if (!image || !img_create(image, MINIMAP_SIZE, 54))
-			return ;
-	}
-	else
-		img_clear(image);
+	img_clear(image);
 	local_alive = game->scene->enemies->alive;
 	prepare_image(game, image, local_alive);
 	img_put_img(game->scene->image, image, pos, 0);

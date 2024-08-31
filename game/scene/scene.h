@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 13:47:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:01:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_scene
 	t_enemy_storage		*enemies;
 	t_point_list		*objs_points;
 	t_image				*image;
+	t_image				*enemy_counter;
 	int					moves_made;
 	float				prev_speed;
 }						t_scene;
