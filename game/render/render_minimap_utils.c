@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:32:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/31 22:54:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:08:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	minimap_draw_enemies(t_game *game)
 t_rectangle	calc_door_rect(int x, int y)
 {
 	t_rectangle	rect;
-	
+
 	rect.start.x = x * 64;
 	rect.start.y = y * 64;
 	rect.height = 64;
@@ -64,7 +64,7 @@ void	minimap_draw_doors(t_game *game)
 				minimap_draw_rect(game->scene->minimap, 
 					calc_door_rect(pos.x, pos.y), 0x00293331);
 			}
-			pos.x++;	
+			pos.x++;
 		}
 		raw = raw->next;
 		pos.y++;
