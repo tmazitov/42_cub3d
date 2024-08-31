@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 13:25:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:08:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	init_scene(t_scene *scene)
 	scene->objs_points = NULL;
 	scene->moves_made = 0;
 	scene->prev_speed = 0;
+	scene->enemy_counter = NULL;
 }
 
 static int	setup_scene_objs(void *mlx, t_scene *scene)
@@ -37,6 +38,10 @@ static int	setup_scene_objs(void *mlx, t_scene *scene)
 	if (!scene->objs_points)
 		return (0);
 	if (!feel_objs_points(scene->objs_points, scene->map->raw))
+		return (0);
+	scene->enemy_counter = make_image(mlx);
+	if (!scene->enemy_counter 
+		|| !img_create(scene->enemy_counter, 256, 54))
 		return (0);
 	return (1);
 }
@@ -95,6 +100,8 @@ void	*free_scene(t_scene *scene)
 		free_enemy_storage(scene->enemies);
 	if (scene->image)
 		free_image(scene->image);
+	if (scene->enemy_counter)
+		free_image(scene->enemy_counter);
 	free(scene);
 	return (NULL);
 }

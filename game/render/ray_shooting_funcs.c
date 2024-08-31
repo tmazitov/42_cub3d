@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_shooting_funcs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 20:13:43 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/27 20:20:01 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:58:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ int	check_if_bullet_in_zombie_hitbox(t_enemy_storage *zombz, t_point bullet)
 	i = 0;
 	while (i < zombz->size)
 	{
-		if (zombz->enemies[i]->hb->current >= 0
+		if (zombz->enemies[i]->hb->current >= 0 && zombz->enemies[i]->alive
 			&& check_if_bullet_in_zombie_range(*zombz->enemies[i]->pos,
 				bullet) == 1)
 		{
 			printf("ENEMY FIRST HEALTH = %d\n", zombz->enemies[i]->hb->current);
 			printf("shot_DAMAGE = %d\n", SHOT_DAMAGE);
 			zombz->enemies[i]->hb->current -= SHOT_DAMAGE;
-			if (zombz->enemies[i]->hb->current <= 0)
+			if (zombz->enemies[i]->hb->current <= 0
+				&& zombz->enemies[i]->alive)
 			{
 				zombz->enemies[i]->alive = 0;
 				return (1);
@@ -65,7 +66,7 @@ int	zombie_hit_interaction(t_game *game, t_point bullet_iter)
 
 	zombz = game->scene->enemies;
 	if (check_if_bullet_in_zombie_hitbox(zombz, bullet_iter) == 1)
-		return (1);
+		return ((game->scene->enemies->alive--), 1);
 	return (0);
 }
 

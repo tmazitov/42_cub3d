@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 14:28:48 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:30:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void		render_minimap(t_game *game);
 void		render_player(t_game *game);
 void		render_window_scene(t_game *game);
 void		draw_minimap(t_game *game, t_image *image);
+void		minimap_draw_doors(t_game *game);
 
 void		render_minimap_rays(t_game *game);
 
@@ -195,5 +196,6 @@ void		update_screen_values(t_render_window *r_w, t_game *game);
 void		update_w_slct_and_d_t_wll(t_render_window *r_w, t_game *game,
 				t_line *ray, float *d_t_wall);
 char		get_array_map_value(t_line ray, t_game *game);
+void		render_player_zombies(t_game *game);
 
 #endif // RENDER_H

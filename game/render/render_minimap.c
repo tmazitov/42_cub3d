@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:45:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 14:29:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:30:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	render_minimap(t_game *game)
 		return ;
 	r_m->img = game->scene->minimap->image;
 	helper_render_mini(game, r_m);
+	minimap_draw_doors(game);
 	if (r_m->treasure_sprite && r_m->treasure_sprite->image
 		&& r_m->treasure_sprite_empty && r_m->treasure_sprite_empty->image)
 	{

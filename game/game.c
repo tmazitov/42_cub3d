@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:18:19 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:56:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:34:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ static int	set_images_scale(t_game *game)
 {
 	t_sprite_node	*sprite;
 
+	sprite = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
+	if (!sprite || !sprite->image)
+		return (1);
+	if (!img_scale(&sprite->image, 3))
+		return (0);
 	sprite = get_sprite_by_name(game->scene->map->sprites, "INV_BULLET");
 	if (!sprite || !sprite->image)
 		return (1);

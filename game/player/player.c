@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:22:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:30:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:37:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	init_player(t_player *player, t_direction direction)
 	else if (direction == EAST)
 		player->rotation = 180;
 	player->finish_game = 0;
+	player->blocker = 0;
 }
 
 t_player	*make_player(void *mlx, t_point start_pos, t_direction direction)

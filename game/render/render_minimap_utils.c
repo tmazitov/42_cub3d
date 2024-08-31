@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:32:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/30 14:28:27 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:08:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,45 @@ void	minimap_draw_enemies(t_game *game)
 	}
 }
 
+t_rectangle	calc_door_rect(int x, int y)
+{
+	t_rectangle	rect;
+
+	rect.start.x = x * 64;
+	rect.start.y = y * 64;
+	rect.height = 64;
+	rect.width = 64;
+	return (rect);
+}
+
+void	minimap_draw_doors(t_game *game)
+{
+	t_map_raw_list	*raw;
+	t_point			pos;
+
+	pos.y = 0;
+	raw = game->scene->map->raw;
+	while (pos.y < game->scene->map->height)
+	{
+		pos.x = 0;
+		while (pos.x < game->scene->map->width)
+		{
+			if (get_raw_value(game->scene->map, pos.x, pos.y) == 'D')
+			{
+				minimap_draw_rect(game->scene->minimap, 
+					calc_door_rect(pos.x, pos.y), 0x00293331);
+			}
+			pos.x++;
+		}
+		raw = raw->next;
+		pos.y++;
+	}
+}
+
 void	draw_minimap(t_game *game, t_image *image)
 {
 	t_point	p;
-	
+
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;
 	img_put_img(game->scene->image, image, p, 0);

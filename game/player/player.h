@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:19:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 19:26:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:38:32 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define PLAYER_ACCELERATION_ITERS 10
 # define PLAYER_ROTATION_SPEED 0.3
 
-# define PLAYER_DEFAULT_BULLETS_COUNT 5
+# define PLAYER_DEFAULT_BULLETS_COUNT 30
 # define PLAYER_INV_CELL_AMOUNT 6
 
 # define PLAYER_ICON_SIZE 48
@@ -53,6 +53,7 @@ typedef struct s_player
 	t_anime				*pistol_anime;
 	int					anime_activated;
 	int					finish_game;
+	int					blocker;
 }						t_player;
 
 typedef struct s_scene	t_scene;
