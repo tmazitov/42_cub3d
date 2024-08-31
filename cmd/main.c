@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 23:30:24 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 20:16:50 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:38:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv)
 	width = 1440;
 	height = 900;
 	game = make_game(argv[1], width, height, "Call of Coder!");
-	ambient_sound(game, "cub3d_ambient_game_sound.wav");
+	// ambient_sound(game, "cub3d_ambient_game_sound.wav");
 	if (!game)
 		return (1);
 	mlx_loop_hook(game->mlx, merge_hook, game);

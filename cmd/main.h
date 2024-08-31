@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:38:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 20:27:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:37:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_ambient_sound
 
 # define MOUSE_MOVE 6
 
-void	ambient_sound(t_game *game, char *sound_path);
-void	*ambient_sound_func(void *arg);
+// void	ambient_sound(t_game *game, char *sound_path);
+// void	*ambient_sound_func(void *arg);
 
 #endif 

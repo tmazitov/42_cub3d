@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_attack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 15:04:04 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:45:10 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:38:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../miniaudio/miniaudio.h"
+// #include "../../miniaudio/miniaudio.h"
 #include "enemy.h"
 
-static void	*shoot_sound_func(void *arg)
-{
-	char		*sound_path;
-	ma_result	result;
-	ma_engine	engine;
+// static void	*shoot_sound_func(void *arg)
+// {
+// 	char		*sound_path;
+// 	ma_result	result;
+// 	ma_engine	engine;
 
-	sound_path = (char *)arg;
-	result = ma_engine_init(NULL, &engine);
-	if (result != MA_SUCCESS)
-		return (NULL);
-	result = ma_engine_play_sound(&engine, sound_path, NULL);
-	if (result != MA_SUCCESS)
-	{
-		ma_engine_uninit(&engine);
-		return (NULL);
-	}
-	usleep(1000000);
-	ma_engine_uninit(&engine);
-	return (NULL);
-}
+// 	sound_path = (char *)arg;
+// 	result = ma_engine_init(NULL, &engine);
+// 	if (result != MA_SUCCESS)
+// 		return (NULL);
+// 	result = ma_engine_play_sound(&engine, sound_path, NULL);
+// 	if (result != MA_SUCCESS)
+// 	{
+// 		ma_engine_uninit(&engine);
+// 		return (NULL);
+// 	}
+// 	usleep(1000000);
+// 	ma_engine_uninit(&engine);
+// 	return (NULL);
+// }
 
 /// @brief Implement enemy attack with cooldown.
 /// @param enemy - enemy instance that will attack
@@ -43,7 +43,7 @@ static void	*shoot_sound_func(void *arg)
 int	enemy_attack_handler(t_enemy *enemy, t_point player_pos)
 {
 	int			is_player_near;
-	pthread_t	sound_thread;
+	// pthread_t	sound_thread;
 
 	is_player_near = distance(player_pos.x, player_pos.y, enemy->pos->x + 32,
 			enemy->pos->y + 32) <= ENEMY_ATTACK_DISTANCE;
@@ -58,9 +58,9 @@ int	enemy_attack_handler(t_enemy *enemy, t_point player_pos)
 		return (2);
 	else if (enemy->attack_cooldown == 0 && is_player_near)
 	{
-		pthread_create(&sound_thread, NULL, shoot_sound_func,
-			"punch-140236.mp3");
-		pthread_detach(sound_thread);
+		// pthread_create(&sound_thread, NULL, shoot_sound_func,
+		// 	"punch-140236.mp3");
+		// pthread_detach(sound_thread);
 		enemy->attack_cooldown = 1;
 		return (1);
 	}

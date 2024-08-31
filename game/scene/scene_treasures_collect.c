@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:34:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 22:39:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:39:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static int	get_treasure_box_index(t_treasure_storage *storage, t_treasure *box)
 	return (index);
 }
 
-static void	play_collect_sound(void)
-{
-	pthread_t	sound_thread;
+// static void	play_collect_sound(void)
+// {
+// 	pthread_t	sound_thread;
 
-	pthread_create(&sound_thread, NULL, shoot_sound_func,
-		"cub3d_gear_pickup_sound.wav");
-	pthread_detach(sound_thread);
-	return ;
-}
+// 	pthread_create(&sound_thread, NULL, shoot_sound_func,
+// 		"cub3d_gear_pickup_sound.wav");
+// 	pthread_detach(sound_thread);
+// 	return ;
+// }
 
 static int	collect_treasure_items(t_item_collection *treasure,
 									t_player *player)
@@ -58,8 +58,8 @@ static int	collect_treasure_items(t_item_collection *treasure,
 		}
 		counter++;
 	}
-	if (collected_count != 0)
-		play_collect_sound();
+	// if (collected_count != 0)
+	// 	play_collect_sound();
 	return (collected_count);
 }
 

@@ -6,38 +6,38 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 18:37:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:39:18 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
 
-#include "../../miniaudio/miniaudio.h"
+// #include "../../miniaudio/miniaudio.h"
 
-void	*shoot_sound_func(void *arg)
-{
-	char		*sound_path;
-	ma_result	result;
-	ma_engine	engine;
+// void	*shoot_sound_func(void *arg)
+// {
+// 	char		*sound_path;
+// 	ma_result	result;
+// 	ma_engine	engine;
 
-	sound_path = (char *)arg;
-	result = ma_engine_init(NULL, &engine);
-	if (result != MA_SUCCESS)
-		return (NULL);
-	result = ma_engine_play_sound(&engine, sound_path, NULL);
-	if (result != MA_SUCCESS)
-	{
-		ma_engine_uninit(&engine);
-		return (NULL);
-	}
-	usleep(1000000);
-	ma_engine_uninit(&engine);
-	return (NULL);
-}
+// 	sound_path = (char *)arg;
+// 	result = ma_engine_init(NULL, &engine);
+// 	if (result != MA_SUCCESS)
+// 		return (NULL);
+// 	result = ma_engine_play_sound(&engine, sound_path, NULL);
+// 	if (result != MA_SUCCESS)
+// 	{
+// 		ma_engine_uninit(&engine);
+// 		return (NULL);
+// 	}
+// 	usleep(1000000);
+// 	ma_engine_uninit(&engine);
+// 	return (NULL);
+// }
 
 void	left_click_shoot_func(t_game *game)
 {
-	pthread_t	sound_thread;
+	// pthread_t	sound_thread;
 	t_inventory	*inv;
 	t_item		*active_item;
 
@@ -47,9 +47,9 @@ void	left_click_shoot_func(t_game *game)
 	active_item = inv->slots->items[inv->active_item];
 	if (active_item && active_item->type == PISTOL)
 	{
-		pthread_create(&sound_thread, NULL, shoot_sound_func,
-			"cub3d_gun_shot_sound.wav");
-		pthread_detach(sound_thread);
+		// pthread_create(&sound_thread, NULL, shoot_sound_func,
+		// 	"cub3d_gun_shot_sound.wav");
+		// pthread_detach(sound_thread);
 		game->scene->player->inventory->bullets--;
 		bullet_shoot_func(game, game->scene->minimap->player_rotation);
 	}
@@ -73,7 +73,7 @@ static void	player_mouse_click_handler(int button, t_player *player,
 		t_game *game)
 {
 	t_item		*player_active_item;
-	pthread_t	sound_thread;
+	// pthread_t	sound_thread;
 
 	if (button != LEFT_CLICK)
 		return ;
@@ -84,9 +84,9 @@ static void	player_mouse_click_handler(int button, t_player *player,
 			&& player_active_item->type == PISTOL
 			&& player->inventory->bullets > 0)
 		{
-			pthread_create(&sound_thread, NULL, shoot_sound_func,
-				"cub3d_gun_shot_sound.wav");
-			pthread_detach(sound_thread);
+			// pthread_create(&sound_thread, NULL, shoot_sound_func,
+			// 	"cub3d_gun_shot_sound.wav");
+			// pthread_detach(sound_thread);
 			player->inventory->bullets--;
 			player->anime_activated = 1;
 			bullet_shoot_func(game, player->rotation);

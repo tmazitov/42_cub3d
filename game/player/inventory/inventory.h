@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 21:06:29 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 13:29:50 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:37:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../../../utils/libft/libft.h"
 # include "../../../utils/mlx_font_print/mlx_font_print.h"
 # include "../../items/items.h"
-# include "../../../miniaudio/miniaudio.h"
+// # include "../../../miniaudio/miniaudio.h"
 
 # define INV_CELL_SIZE 64
 # define INV_CELL_PADDING 8
