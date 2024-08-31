@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_control_mouse.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 01:47:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:45:50 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:37:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int	player_mouse_control(int button, int x, int y, t_game *game)
 	(void)x;
 	(void)y;
 	player = game->scene->player;
+	if (player->blocker)
+		return (0);
 	player_mouse_click_handler(button, player, game);
 	player_mouse_scroll_handler(button, player);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 19:29:18 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:35:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	game_finish_func(t_game *game)
 	t_image	game_finish_image;
 
 	game->blocker = 1;
+	game->scene->player->blocker = 1;
 	mlx_clear_window(game->mlx, game->window);
 	if (game->scene->player->inventory->health_bar->current <= 0)
 	{
