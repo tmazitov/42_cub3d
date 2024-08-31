@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 19:37:07 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 14:28:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:22:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ int	get_comma_count(char *rgb_string)
 			comma_count++;
 		counter++;
 	}
-	
 	return (comma_count);
 }
 
-int check_rgb_chars(char *rgb_string)
+int	check_rgb_chars(char *rgb_string)
 {
 	int		counter;
 	char	ch;

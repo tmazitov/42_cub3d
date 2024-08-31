@@ -6,19 +6,19 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:37:00 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 20:06:30 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:16:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 
-static void prepare_image(t_game *game, t_image *image, int count)
+static void	prepare_image(t_game *game, t_image *image, int count)
 {
 	t_point			pos;
 	char			*zombie_count;
 	t_sprite_node	*node;
 
-	node = get_sprite_by_name(game->scene->map->sprites,"ENEMY_ICON");
+	node = get_sprite_by_name(game->scene->map->sprites, "ENEMY_ICON");
 	if (!node || !node->image)
 		return ;
 	pos.x = 0;

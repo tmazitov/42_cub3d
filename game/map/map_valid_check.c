@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:54:46 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 14:00:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:22:08 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int	check_mandatory_sprites(t_sprite_storage *sprites)
 	return (1);
 }
 
-int	is_map_valid(t_map *map) 
+int	is_map_valid(t_map *map)
 {
 	printf("\nCHECK MAP SPRITES\n\n");
 	if (!map->sprites

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:32:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/30 14:28:27 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:16:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	minimap_draw_enemies(t_game *game)
 void	draw_minimap(t_game *game, t_image *image)
 {
 	t_point	p;
-	
+
 	p.x = MINIMAP_POS_X;
 	p.y = MINIMAP_POS_Y;
 	img_put_img(game->scene->image, image, p, 0);

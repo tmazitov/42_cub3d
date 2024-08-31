@@ -6,12 +6,11 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:57:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 13:51:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:20:30 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-
 
 int	check_sprite_by_name(char *name, t_sprite_storage *sprites, int is_color)
 {

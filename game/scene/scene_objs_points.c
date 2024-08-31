@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 03:05:52 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 14:01:34 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:15:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	feel_objs_points(t_point_list *point, t_map_raw_list *raw_map)
 		x = 0;
 		while (raw_map->value[x])
 		{
-			if (raw_map->value[x] == 'D')
-				printf("door with coords : %d %d \n", x * 64, y * 64);
 			if (raw_map->value[x] == '1' || \
 				raw_map->value[x] == 'D')
 			{
@@ -42,7 +40,7 @@ int	feel_objs_points(t_point_list *point, t_map_raw_list *raw_map)
 	return (1);
 }
 
-void set_active_objs_points(t_point_list *list, int x, int y, int value)
+void	set_active_objs_points(t_point_list *list, int x, int y, int value)
 {
 	t_point_node	*node;
 
