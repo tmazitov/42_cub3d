@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:51:29 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/27 19:05:08 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:57:42 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	find_farthest_zombie(t_game *game, t_enemy_storage *zombz, int *processed)
 	farthest_zombie = 0;
 	i = 0;
 	farthest_zombie_index = -1;
-	while (i < zombz->size != 0)
+	while (i < zombz->size)
 	{
 		if (processed[i] == 0)
 		{

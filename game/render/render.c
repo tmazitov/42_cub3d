@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:19:23 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 23:52:55 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:55:56 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ void	print_time_since_last_call(void)
 void	render_move_string(t_game *game)
 {
 	char	*string_put;
+	char	*moves;
 
-	string_put = ft_strjoin("Player Moves Made: ",
-			ft_itoa(game->scene->moves_made));
+	moves = ft_itoa(game->scene->moves_made);
+	if (!moves)
+		return ;
+	string_put = ft_strjoin("Player Moves Made: ", moves);
+	free(moves);
+	if (!string_put)
+		return ;
 	mlx_string_put(game->mlx, game->window, game->width - 160,
 		15, 0xFF014d47, string_put);
 	free(string_put);
