@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:32:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/31 20:16:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:54:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,41 @@ void	minimap_draw_enemies(t_game *game)
 		if (enemy->alive)
 			minimap_draw_image(game->scene->minimap, enemy_icon->image, pos, 0);
 		counter++;
+	}
+}
+
+t_rectangle	calc_door_rect(int x, int y)
+{
+	t_rectangle	rect;
+	
+	rect.start.x = x * 64;
+	rect.start.y = y * 64;
+	rect.height = 64;
+	rect.width = 64;
+	return (rect);
+}
+
+void	minimap_draw_doors(t_game *game)
+{
+	t_map_raw_list	*raw;
+	t_point			pos;
+
+	pos.y = 0;
+	raw = game->scene->map->raw;
+	while (pos.y < game->scene->map->height)
+	{
+		pos.x = 0;
+		while (pos.x < game->scene->map->width)
+		{
+			if (get_raw_value(game->scene->map, pos.x, pos.y) == 'D')
+			{
+				minimap_draw_rect(game->scene->minimap, 
+					calc_door_rect(pos.x, pos.y), 0x00293331);
+			}
+			pos.x++;	
+		}
+		raw = raw->next;
+		pos.y++;
 	}
 }
 

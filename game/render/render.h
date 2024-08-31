@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:15:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 19:46:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 22:30:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void		render_minimap(t_game *game);
 void		render_player(t_game *game);
 void		render_window_scene(t_game *game);
 void		draw_minimap(t_game *game, t_image *image);
+void		minimap_draw_doors(t_game *game);
 
 void		render_minimap_rays(t_game *game);
 
