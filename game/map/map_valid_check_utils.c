@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_check_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:57:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 23:53:00 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:25:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ int	check_sprite_by_name(char *name, t_sprite_storage *sprites, int is_color)
 	}
 	printf("\xE2\x9C\x85 - '%s' sprite successfully parsed\n", name);
 	return (1);
+}
+
+int is_allowed_char(char ch)
+{
+	return (!!ft_strchr(" 01NEWSZBD", ch));
 }
