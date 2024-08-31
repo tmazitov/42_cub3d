@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 19:37:07 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 20:22:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:55:48 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_rgb_chars(char *rgb_string)
 	counter = 0;
 	while (rgb_string[counter])
 	{
-		ch = rgb_string[counter]; 
+		ch = rgb_string[counter];
 		if ((ch < '0' || ch > '9') && (ch != ','))
 			return (0);
 		counter++;
