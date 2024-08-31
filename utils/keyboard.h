@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 15:22:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/07/29 21:19:28 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:42:49 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 # endif
 
 # ifndef ESC_BUTTON
-#  define ESC_BUTTON 9
+#  define ESC_BUTTON 65307
 # endif
 
 #endif
