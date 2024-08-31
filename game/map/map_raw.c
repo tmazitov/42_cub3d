@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_raw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:48:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/27 21:22:33 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:28:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ int	convert_raw_to_objs(t_map *map)
 		x = 0;
 		while (node->value[x])
 		{
-			if (!setup_player_position(map, node->value[x], x, y))
-				return (0);
+			if (!is_allowed_char(node->value[x])
+				|| !setup_player_position(map, node->value[x], x, y))
+				return (print_error("invalid map char"), 0);
 			if (node->value[x] != '1' && node->value[x] != ' '
 				&& !check_neighbors(map, x, y))
 				return (print_error("invalid map"), 0);
