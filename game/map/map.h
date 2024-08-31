@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:22:50 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 14:10:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:47:55 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,9 @@ int							add_direction_wall(t_map *map, int x, int y,
 
 /* Map validation check */
 
-int							check_sprite_by_name(char *name, 
+int							check_sprite_by_name(char *name,
 								t_sprite_storage *sprites, int is_color);
 int							is_map_valid(t_map *map);
 int							is_whitespace_line(char *line);
-
 
 #endif

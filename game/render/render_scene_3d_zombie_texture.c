@@ -6,7 +6,7 @@
 /*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:07:09 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/27 19:08:38 by kshamsid         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:46:27 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ int	get_wall_side(float ray_angle, t_point ray_end)
 		ray_angle += 360;
 	if (ray_angle > 360)
 		ray_angle -= 360;
-	ray_end.x = (fmod(ray_end.x, 64));
-	ray_end.y = (fmod(ray_end.y, 64));
+	ray_end.x = fmod(ray_end.x, 64);
+	ray_end.y = fmod(ray_end.y, 64);
+	if ((64 - ray_end.x) < 0.00105)
+		ray_end.x = 0;
+	if ((64 - ray_end.y) < 0.00105)
+		ray_end.y = 0;
 	if (ray_end.x == 0)
 	{
 		if (ray_angle > 270 || ray_angle < 90)
