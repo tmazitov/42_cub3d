@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:29:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/29 13:59:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:16:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_enemy_storage	*make_enemy_storage(void *mlx, t_map_raw_list *raw_map)
 		return (NULL);
 	init_enemy_storage(storage);
 	storage->size = count_of_objs(raw_map, 'Z');
+	storage->alive = storage->size;
 	if (storage->size == 0)
 		return (storage);
 	if (!feel_enemy_storage(mlx, storage, raw_map))

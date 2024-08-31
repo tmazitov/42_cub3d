@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:17:44 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/24 19:01:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 19:27:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	update_enemy(t_enemy *enemy, t_game *game)
 	{
 		enemy->alive = 0;
 		game->scene->enemies->alive -= 1;
+		printf("game enem: %d\n", game->scene->enemies->alive);
 	}
 	if (!enemy->alive)
 		return ;
