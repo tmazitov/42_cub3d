@@ -1,0 +1,110 @@
+NO textures/wall_1.xpm
+SO textures/wall_2.xpm
+WE textures/wall_3.xpm
+EA textures/wall_4.xpm
+
+TB             textures/chest_not_open.xpm
+TB_EMPTY       textures/chest_open.xpm
+TB_MINI        textures/treasure_box_3.xpm
+TB_MINI_EMPTY  textures/treasure_box_empty.xpm
+
+CH_0     textures/font/0.xpm
+CH_1     textures/font/1.xpm
+CH_2     textures/font/2.xpm
+CH_3     textures/font/3.xpm
+CH_4     textures/font/4.xpm
+CH_5     textures/font/5.xpm
+CH_6     textures/font/6.xpm
+CH_7     textures/font/7.xpm
+CH_8     textures/font/8.xpm
+CH_9     textures/font/9.xpm
+CH_A     textures/font/a.xpm
+CH_B     textures/font/b.xpm
+CH_C     textures/font/c.xpm
+CH_D     textures/font/d.xpm
+CH_E     textures/font/e.xpm
+CH_F     textures/font/f.xpm
+CH_G     textures/font/g.xpm
+CH_H     textures/font/h.xpm
+CH_I     textures/font/i.xpm
+CH_J     textures/font/j.xpm
+CH_K     textures/font/k.xpm
+CH_L     textures/font/l.xpm
+CH_M     textures/font/m.xpm
+CH_N     textures/font/n.xpm
+CH_O     textures/font/o.xpm
+CH_P     textures/font/p.xpm
+CH_Q     textures/font/q.xpm
+CH_R     textures/font/r.xpm
+CH_S     textures/font/s.xpm
+CH_T     textures/font/t.xpm
+CH_U     textures/font/u.xpm
+CH_V     textures/font/v.xpm
+CH_W     textures/font/w.xpm
+CH_X     textures/font/x.xpm
+CH_Y     textures/font/y.xpm
+CH_Z     textures/font/z.xpm
+
+INV_SLOT        textures/inventory_slot.xpm
+INV_SLOT_ACTIVE textures/inventory_slot_active.xpm
+INV_BULLET      textures/bullet_v2.xpm
+
+PISTOL_ICON     textures/pistol/icon.xpm
+PISTOL_SHOT_1   textures/pistol/pistol_shot_2.xpm
+PISTOL_SHOT_2   textures/pistol/pistol_shot_3.xpm
+PISTOL_SHOT_3   textures/pistol/pistol_shot_4.xpm
+PISTOL_SHOT_4   textures/pistol/pistol_shot_5.xpm
+
+
+      
+                        
+
+ENEMY_ICON      textures/enemy/enemy_icon_v3.xpm
+ENEMY_MOVE_0    textures/enemy/zombie_walk0.xpm
+ENEMY_MOVE_1    textures/enemy/zombie_walk1.xpm
+ENEMY_MOVE_2    textures/enemy/zombie_walk2.xpm
+ENEMY_MOVE_3    textures/enemy/zombie_walk3.xpm
+ENEMY_MOVE_4    textures/enemy/zombie_walk4.xpm
+ENEMY_MOVE_5    textures/enemy/zombie_walk5.xpm
+ENEMY_MOVE_6    textures/enemy/zombie_walk6.xpm
+ENEMY_MOVE_7    textures/enemy/zombie_walk7.xpm
+ENEMY_ATTACK_0  textures/enemy/zombie_attack_0.xpm
+ENEMY_ATTACK_1  textures/enemy/zombie_attack_1.xpm
+ENEMY_ATTACK_2  textures/enemy/zombie_attack_2.xpm
+ENEMY_ATTACK_3  textures/enemy/zombie_attack_3.xpm
+ENEMY_ATTACK_4  textures/enemy/zombie_attack_4.xpm
+ENEMY_ATTACK_5  textures/enemy/zombie_attack_5.xpm
+ENEMY_DIED      textures/enemy/zombie_died.xpm
+
+GAME_OVER_SCREEN textures/cub3d_LOSS_bg.xpm
+GAME_WIN_SCREEN  textures/cub3d_WIN_bg.xpm
+DOOR             textures/door.xpm
+
+F 0,0,0
+C 0,0,0
+
+1111111111111111111   11111
+10Z01000B0000010001   10001
+1000D0000S00001Z00111110001
+100010000000001000100B00011
+10001000000000D0000000000B1
+111D11111111111111111111D11111111
+1000001              1000B1100001
+1000001              10000110Z001
+1000001              10000D000001
+1000001              100Z01000001
+100Z001111111        100001111111
+100000100Z001        100001
+10000010000Z1        100001
+100000D000001        100001
+1000001000001        100Z01
+10Z0001Z00B01        100001
+1000001111111        100001
+1000001              100001
+1000001              100Z01
+10Z00Z1              1000011
+111D1111111111111111110000B1
+10000Z00000000000000Z1000011
+100000000B000000000Z0D00001
+111111111111111111111100B01
+                     111111
