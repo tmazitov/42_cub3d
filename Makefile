@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/29 23:58:22 by tmazitov          #+#    #+#              #
-#    Updated: 2024/08/31 20:07:39 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/09/01 00:13:23 by kshamsid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -137,7 +137,7 @@ SRCS =  cmd/main.c \
 
 OBJS = $(SRCS:.c=.o)
 
-NAME = cub3d
+NAME = cub3D
 OS = $(shell uname)
 
 .PHONY: all clean fclean re
