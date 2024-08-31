@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_player_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:37:00 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 20:16:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:54:16 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	prepare_image(t_game *game, t_image *image, int count)
 	if (!node || !node->image)
 		return ;
 	pos.x = 0;
-	pos.y = 0; 
+	pos.y = 0;
 	img_put_img(image, node->image, pos, 0);
 	pos.x = node->image->width + 16;
 	zombie_count = ft_itoa(count);

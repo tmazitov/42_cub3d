@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 18:32:11 by kshamsid          #+#    #+#             */
-/*   Updated: 2024/08/31 23:08:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:54:10 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	minimap_draw_doors(t_game *game)
 		{
 			if (get_raw_value(game->scene->map, pos.x, pos.y) == 'D')
 			{
-				minimap_draw_rect(game->scene->minimap, 
+				minimap_draw_rect(game->scene->minimap,
 					calc_door_rect(pos.x, pos.y), 0x00293331);
 			}
 			pos.x++;

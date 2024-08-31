@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:30:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/31 20:08:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:54:33 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	setup_scene_objs(void *mlx, t_scene *scene)
 	if (!feel_objs_points(scene->objs_points, scene->map->raw))
 		return (0);
 	scene->enemy_counter = make_image(mlx);
-	if (!scene->enemy_counter 
+	if (!scene->enemy_counter
 		|| !img_create(scene->enemy_counter, 256, 54))
 		return (0);
 	return (1);

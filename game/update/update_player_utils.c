@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_player_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kshamsid <kshamsid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:08:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/30 14:01:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:54:52 by kshamsid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	player_door_update(t_game *game)
 					- fmod(door_check_pos.end.y, 1)));
 		game->scene->map->map_double_array[(int)door_check_pos
 			.end.y][(int)door_check_pos.end.x] = '0';
-		set_active_objs_points(game->scene->objs_points, 
-			(int)door_check_pos.end.x * 64, 
+		set_active_objs_points(game->scene->objs_points,
+			(int)door_check_pos.end.x * 64,
 			(int)door_check_pos.end.y * 64, 0);
 	}
 }
