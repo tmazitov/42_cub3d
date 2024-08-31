@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 03:16:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/08/28 20:10:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:41:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	create_bullet_box(t_treasure_storage *storage, int x, int y, int index)
 	storage->items[index] = make_item_collection(1);
 	if (!storage->boxes[index] || !storage->items[index])
 		return (0);
-	if (!item_collection_add_item(storage->items[index], BULLET, random_int(7,
-				19)))
+	if (!item_collection_add_item(storage->items[index], BULLET, random_int(5,
+				13)))
 		return (0);
 	return (1);
 }
